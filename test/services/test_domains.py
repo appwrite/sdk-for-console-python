@@ -40,7 +40,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }
@@ -220,7 +219,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }
@@ -258,7 +256,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }
@@ -285,7 +282,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }
@@ -311,7 +307,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }
@@ -1148,7 +1143,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }
@@ -1203,7 +1197,6 @@ class DomainsServiceTest(unittest.TestCase):
     "renewal": "2020-10-15T06:38:00.000+00:00",
     "autoRenewal": True,
     "renewalPrice": 2599.0,
-    "transferStatus": "pending_registry",
     "teamId": "5e5ea5c16897e",
     "dnsRecords": []
 }

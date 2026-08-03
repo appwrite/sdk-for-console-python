@@ -24,6 +24,7 @@ from ..enums.order_by import OrderBy
 from ..enums.documents_db_index_type import DocumentsDBIndexType
 from ..enums.domain_registration_type import DomainRegistrationType
 from ..enums.domain_suggestion_type import DomainSuggestionType
+from ..enums.embedding_model import EmbeddingModel
 from ..enums.runtime import Runtime
 from ..enums.project_key_scopes import ProjectKeyScopes
 from ..enums.function_template_use_case import FunctionTemplateUseCase
@@ -31,11 +32,6 @@ from ..enums.template_reference_type import TemplateReferenceType
 from ..enums.vcs_reference_type import VCSReferenceType
 from ..enums.deployment_download_type import DeploymentDownloadType
 from ..enums.execution_method import ExecutionMethod
-from ..enums.block_resource_type import BlockResourceType
-from ..enums.block_mode import BlockMode
-from ..enums.region import Region
-from ..enums.cache_target import CacheTarget
-from ..enums.cache_database import CacheDatabase
 from ..enums.message_priority import MessagePriority
 from ..enums.smtp_encryption import SmtpEncryption
 from ..enums.appwrite_migration_resource import AppwriteMigrationResource
@@ -44,6 +40,7 @@ from ..enums.firebase_migration_resource import FirebaseMigrationResource
 from ..enums.n_host_migration_resource import NHostMigrationResource
 from ..enums.supabase_migration_resource import SupabaseMigrationResource
 from ..enums.organization_key_scopes import OrganizationKeyScopes
+from ..enums.region import Region
 from ..enums.addon import Addon
 from ..enums.usage_range import UsageRange
 from ..enums.project_auth_method_id import ProjectAuthMethodId
@@ -69,7 +66,6 @@ from ..enums.tables_db_index_type import TablesDBIndexType
 from ..enums.password_hash import PasswordHash
 from ..enums.messaging_provider_type import MessagingProviderType
 from ..enums.vcs_detection_type import VCSDetectionType
-from ..enums.embedding_model import EmbeddingModel
 from ..enums.vectors_db_index_type import VectorsDBIndexType
 from ..enums.database_type import DatabaseType
 from ..enums.database_status import DatabaseStatus
@@ -169,6 +165,9 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, DomainSuggestionType):
             return o.value
 
+        if isinstance(o, EmbeddingModel):
+            return o.value
+
         if isinstance(o, Runtime):
             return o.value
 
@@ -188,21 +187,6 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, ExecutionMethod):
-            return o.value
-
-        if isinstance(o, BlockResourceType):
-            return o.value
-
-        if isinstance(o, BlockMode):
-            return o.value
-
-        if isinstance(o, Region):
-            return o.value
-
-        if isinstance(o, CacheTarget):
-            return o.value
-
-        if isinstance(o, CacheDatabase):
             return o.value
 
         if isinstance(o, MessagePriority):
@@ -227,6 +211,9 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, OrganizationKeyScopes):
+            return o.value
+
+        if isinstance(o, Region):
             return o.value
 
         if isinstance(o, Addon):
@@ -302,9 +289,6 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, VCSDetectionType):
-            return o.value
-
-        if isinstance(o, EmbeddingModel):
             return o.value
 
         if isinstance(o, VectorsDBIndexType):

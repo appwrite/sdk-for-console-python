@@ -13,8 +13,8 @@ class ConsoleRegion(AppwriteModel):
         Region ID
     name : str
         Region name
-    available : bool
-        Does the organization have access to this region.
+    available : Optional[bool]
+        Does the organization have access to this region. Null when access has not been resolved.
     disabled : bool
         Does the backend support this region.
     default : bool
@@ -24,7 +24,7 @@ class ConsoleRegion(AppwriteModel):
     """
     id: str = Field(..., alias='$id')
     name: str = Field(..., alias='name')
-    available: bool = Field(..., alias='available')
+    available: Optional[bool] = Field(default=None, alias='available')
     disabled: bool = Field(..., alias='disabled')
     default: bool = Field(..., alias='default')
     flag: str = Field(..., alias='flag')
