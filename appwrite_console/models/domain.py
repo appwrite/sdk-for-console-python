@@ -31,8 +31,8 @@ class Domain(AppwriteModel):
         If set to true, the domain will automatically renew.
     renewalprice : float
         Renewal price (in cents).
-    transferstatus : DomainTransferStatusEnum
-        Transfer status for domains being transferred in.
+    transferstatus : Optional[DomainTransferStatusEnum]
+        Transfer status for domains being transferred in. Null when the domain is not being transferred.
     teamid : str
         Team ID.
     dnsrecords : List[DnsRecord]
@@ -48,6 +48,6 @@ class Domain(AppwriteModel):
     renewal: str = Field(..., alias='renewal')
     autorenewal: bool = Field(..., alias='autoRenewal')
     renewalprice: float = Field(..., alias='renewalPrice')
-    transferstatus: DomainTransferStatusEnum = Field(..., alias='transferStatus')
+    transferstatus: Optional[DomainTransferStatusEnum] = Field(default=None, alias='transferStatus')
     teamid: str = Field(..., alias='teamId')
     dnsrecords: List[DnsRecord] = Field(..., alias='dnsRecords')

@@ -48,21 +48,6 @@ class VectorsDBServiceTest(unittest.TestCase):
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
-    def test_create_text_embeddings(self, m):
-        data = {
-    "total": 5.0,
-    "embeddings": []
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.vectors_db.create_text_embeddings(
-            [],
-        )
-
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
     def test_list_specifications(self, m):
         data = {
     "specifications": [],

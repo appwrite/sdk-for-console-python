@@ -26,8 +26,8 @@ class Organization(AppwriteModel, Generic[T]):
         Total number of team members.
     prefs : Preferences[T]
         Team preferences as a key-value object
-    billingbudget : float
-        Project budget limit
+    billingbudget : Optional[float]
+        Project budget limit. Null when no budget is set.
     budgetalerts : List[Any]
         Project budget limit
     billingplan : str
@@ -91,7 +91,7 @@ class Organization(AppwriteModel, Generic[T]):
     name: str = Field(..., alias='name')
     total: float = Field(..., alias='total')
     prefs: Preferences[T] = Field(..., alias='prefs')
-    billingbudget: float = Field(..., alias='billingBudget')
+    billingbudget: Optional[float] = Field(default=None, alias='billingBudget')
     budgetalerts: List[Any] = Field(..., alias='budgetAlerts')
     billingplan: str = Field(..., alias='billingPlan')
     billingplanid: str = Field(..., alias='billingPlanId')

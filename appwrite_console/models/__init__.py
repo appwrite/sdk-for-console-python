@@ -278,7 +278,6 @@ from .billing_plan_limits import BillingPlanLimits
 from .billing_plan_dedicated_database_limits import BillingPlanDedicatedDatabaseLimits
 from .billing_plan_supported_addons import BillingPlanSupportedAddons
 from .block import Block
-from .block_delete import BlockDelete
 from .dedicated_database_branch import DedicatedDatabaseBranch
 from .dedicated_database_branch_list import DedicatedDatabaseBranchList
 from .campaign import Campaign
@@ -383,7 +382,6 @@ from .backup_restoration_list import BackupRestorationList
 from .billing_address_list import BillingAddressList
 from .invoice_list import InvoiceList
 from .billing_plan_list import BillingPlanList
-from .block_list import BlockList
 from .database_migration_list import DatabaseMigrationList
 from .dedicated_database_list import DedicatedDatabaseList
 from .dns_records_list import DnsRecordsList
@@ -680,7 +678,6 @@ __all__ = [
     'BillingPlanDedicatedDatabaseLimits',
     'BillingPlanSupportedAddons',
     'Block',
-    'BlockDelete',
     'DedicatedDatabaseBranch',
     'DedicatedDatabaseBranchList',
     'Campaign',
@@ -785,7 +782,6 @@ __all__ = [
     'BillingAddressList',
     'InvoiceList',
     'BillingPlanList',
-    'BlockList',
     'DatabaseMigrationList',
     'DedicatedDatabaseList',
     'DnsRecordsList',
