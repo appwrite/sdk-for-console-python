@@ -93,14 +93,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -110,14 +102,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -156,38 +140,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -220,22 +175,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -547,14 +491,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -564,14 +500,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -610,38 +538,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -674,22 +573,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -804,14 +692,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -821,14 +701,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -867,38 +739,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -931,22 +774,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -1027,14 +859,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -1044,14 +868,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -1090,38 +906,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -1154,22 +941,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -1546,14 +1322,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -1563,14 +1331,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -1609,38 +1369,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -1673,22 +1404,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -1769,14 +1489,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -1786,14 +1498,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -1832,38 +1536,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -1896,22 +1571,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -1991,14 +1655,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -2008,14 +1664,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -2054,38 +1702,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -2118,22 +1737,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -2214,14 +1822,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -2231,14 +1831,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -2277,38 +1869,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -2341,22 +1904,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -2460,14 +2012,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             "value": 25.0,
             "invoiceDesc": ""
         },
-        "member": {
-            "name": "",
-            "unit": "GB",
-            "currency": "USD",
-            "price": 5,
-            "value": 25.0,
-            "invoiceDesc": ""
-        },
         "realtime": {
             "name": "",
             "unit": "GB",
@@ -2477,14 +2021,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             "invoiceDesc": ""
         },
         "realtimeMessages": {
-            "name": "",
-            "unit": "GB",
-            "currency": "USD",
-            "price": 5,
-            "value": 25.0,
-            "invoiceDesc": ""
-        },
-        "realtimeBandwidth": {
             "name": "",
             "unit": "GB",
             "currency": "USD",
@@ -2523,38 +2059,9 @@ class OrganizationsServiceTest(unittest.TestCase):
             "price": 5,
             "value": 25.0,
             "invoiceDesc": ""
-        },
-        "credits": {
-            "name": "",
-            "unit": "GB",
-            "currency": "USD",
-            "price": 5,
-            "value": 25.0,
-            "invoiceDesc": ""
         }
     },
-    "addons": {
-        "seats": {
-            "supported": True,
-            "planIncluded": 1.0,
-            "limit": 5.0,
-            "type": "numeric",
-            "currency": "USD",
-            "price": 5,
-            "value": 25.0,
-            "invoiceDesc": ""
-        },
-        "projects": {
-            "supported": True,
-            "planIncluded": 1.0,
-            "limit": 5.0,
-            "type": "numeric",
-            "currency": "USD",
-            "price": 5,
-            "value": 25.0,
-            "invoiceDesc": ""
-        }
-    },
+    "addons": {},
     "budgetCapEnabled": True,
     "customSmtp": True,
     "emailBranding": True,
@@ -2658,14 +2165,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -2675,14 +2174,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -2721,38 +2212,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -2785,22 +2247,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -2881,14 +2332,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -2898,14 +2341,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -2944,38 +2379,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -3008,22 +2414,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -3168,14 +2563,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -3185,14 +2572,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -3231,38 +2610,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -3295,22 +2645,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []
@@ -3434,14 +2773,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "value": 25.0,
                 "invoiceDesc": ""
             },
-            "member": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
             "realtime": {
                 "name": "",
                 "unit": "GB",
@@ -3451,14 +2782,6 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "invoiceDesc": ""
             },
             "realtimeMessages": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "realtimeBandwidth": {
                 "name": "",
                 "unit": "GB",
                 "currency": "USD",
@@ -3497,38 +2820,9 @@ class OrganizationsServiceTest(unittest.TestCase):
                 "price": 5,
                 "value": 25.0,
                 "invoiceDesc": ""
-            },
-            "credits": {
-                "name": "",
-                "unit": "GB",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
             }
         },
-        "addons": {
-            "seats": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            },
-            "projects": {
-                "supported": True,
-                "planIncluded": 1.0,
-                "limit": 5.0,
-                "type": "numeric",
-                "currency": "USD",
-                "price": 5,
-                "value": 25.0,
-                "invoiceDesc": ""
-            }
-        },
+        "addons": {},
         "budgetCapEnabled": True,
         "customSmtp": True,
         "emailBranding": True,
@@ -3561,22 +2855,11 @@ class OrganizationsServiceTest(unittest.TestCase):
     "billingStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingCurrentInvoiceDate": "2020-10-15T06:38:00.000+00:00",
     "billingNextInvoiceDate": "2020-10-15T06:38:00.000+00:00",
-    "billingTrialStartDate": "2020-10-15T06:38:00.000+00:00",
     "billingTrialDays": 14.0,
     "billingAggregationId": "adbc3de4rddfsd",
     "billingInvoiceId": "adbc3de4rddfsd",
     "paymentMethodId": "adbc3de4rddfsd",
-    "billingAddressId": "adbc3de4rddfsd",
-    "backupPaymentMethodId": "adbc3de4rddfsd",
     "status": "active",
-    "remarks": "Pending initial payment",
-    "agreementBAA": "",
-    "programManagerName": "",
-    "programManagerCalendar": "",
-    "programDiscordChannelName": "",
-    "programDiscordChannelUrl": "",
-    "billingPlanDowngrade": "tier-1",
-    "billingTaxId": "",
     "markedForDeletion": True,
     "platform": "imagine",
     "projects": []

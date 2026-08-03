@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.2.1
+
+* Fixed: `Organization` accepts null for the billing, agreement, and startup program fields the server leaves unset
+* Fixed: `BillingPlan` accepts plans that omit `usage.member`, `usage.realtimeBandwidth`, or `usage.credits`
+* Fixed: `BillingPlan` accepts plans that omit the `seats` and `projects` addons, or an addon's `currency`
+
 ## 0.2.0
 
 * Fixed: `list_regions` accepts a null `available`, which the server returns when access is unresolved
