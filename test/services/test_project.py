@@ -2198,38 +2198,14 @@ class ProjectServiceTest(unittest.TestCase):
     "vectorsdbDatabasesStorage": [],
     "vectorsdbDatabasesReads": [],
     "vectorsdbDatabasesWrites": [],
-    "embeddingsText": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextTokens": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextDuration": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextErrors": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextTotal": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextTokensTotal": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextDurationTotal": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
-    "embeddingsTextErrorsTotal": {
-        "value": 1.0,
-        "date": "2020-10-15T06:38:00.000+00:00"
-    },
+    "embeddingsText": [],
+    "embeddingsTextTokens": [],
+    "embeddingsTextDuration": [],
+    "embeddingsTextErrors": [],
+    "embeddingsTextTotal": 0.0,
+    "embeddingsTextTokensTotal": 0.0,
+    "embeddingsTextDurationTotal": 0.0,
+    "embeddingsTextErrorsTotal": 0.0,
     "functionsExecutions": [],
     "functionsExecutionsTotal": 0.0,
     "sitesExecutions": [],

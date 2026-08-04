@@ -3,7 +3,12 @@ from urllib.parse import quote
 from typing import Any, Dict, List, Optional, Union
 from ..exception import AppwriteException
 from appwrite_console.utils.deprecated import deprecated
+from ..enums.usage_interval import UsageInterval
+from ..enums.usage_event_dimension import UsageEventDimension
+from ..enums.usage_order_by import UsageOrderBy
+from ..enums.usage_order_direction import UsageOrderDirection
 from ..models.usage_event_list import UsageEventList
+from ..enums.usage_gauge_dimension import UsageGaugeDimension
 from ..models.usage_gauge_list import UsageGaugeList
 
 class Usage(Service):
@@ -15,12 +20,12 @@ class Usage(Service):
         self,
         metrics: List[str],
         queries: Optional[List[str]] = None,
-        interval: Optional[str] = None,
-        dimensions: Optional[List[str]] = None,
+        interval: Optional[UsageInterval] = None,
+        dimensions: Optional[List[UsageEventDimension]] = None,
         start_at: Optional[str] = None,
         end_at: Optional[str] = None,
-        order_by: Optional[str] = None,
-        order_dir: Optional[str] = None,
+        order_by: Optional[UsageOrderBy] = None,
+        order_dir: Optional[UsageOrderDirection] = None,
         limit: Optional[float] = None,
         offset: Optional[float] = None
     ) -> UsageEventList:
@@ -39,17 +44,17 @@ class Usage(Service):
             One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=executions` or `metrics[]=executions&metrics[]=executions.compute` for stacked charts.
         queries : Optional[List[str]]
             Up to 10 filter queries in Utopia syntax. Allowed attributes: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
-        interval : Optional[str]
+        interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
-        dimensions : Optional[List[str]]
+        dimensions : Optional[List[UsageEventDimension]]
             Break-down dimensions (max 10). Allowed: path, method, status, service, resourceType, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion, teamId, resourceId.
         start_at : Optional[str]
             Range start in ISO 8601. Defaults adapt to interval (7d for the no-interval aggregate).
         end_at : Optional[str]
             Range end in ISO 8601. Defaults to the current time.
-        order_by : Optional[str]
+        order_by : Optional[UsageOrderBy]
             Column to order by. Allowed: time, value. Default time when an interval is set; otherwise value.
-        order_dir : Optional[str]
+        order_dir : Optional[UsageOrderDirection]
             Sort direction: asc or desc. Default desc — paired with the default limit, returns the most recent / highest-value groups first.
         limit : Optional[float]
             Maximum rows to return (1-5000).
@@ -105,12 +110,12 @@ class Usage(Service):
         self,
         metrics: List[str],
         queries: Optional[List[str]] = None,
-        interval: Optional[str] = None,
-        dimensions: Optional[List[str]] = None,
+        interval: Optional[UsageInterval] = None,
+        dimensions: Optional[List[UsageGaugeDimension]] = None,
         start_at: Optional[str] = None,
         end_at: Optional[str] = None,
-        order_by: Optional[str] = None,
-        order_dir: Optional[str] = None,
+        order_by: Optional[UsageOrderBy] = None,
+        order_dir: Optional[UsageOrderDirection] = None,
         limit: Optional[float] = None,
         offset: Optional[float] = None
     ) -> UsageGaugeList:
@@ -131,17 +136,17 @@ class Usage(Service):
             One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=files.storage` or `metrics[]=files.storage&metrics[]=deployments.storage` for stacked charts.
         queries : Optional[List[str]]
             Up to 10 filter queries in Utopia syntax. Allowed attributes: service, resourceType, resourceId, teamId, ordinal. Allowed methods: equal, notEqual, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
-        interval : Optional[str]
+        interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
-        dimensions : Optional[List[str]]
+        dimensions : Optional[List[UsageGaugeDimension]]
             Break-down dimensions. Allowed: resourceId, teamId, service, resourceType, ordinal.
         start_at : Optional[str]
             Range start in ISO 8601. Defaults to endAt - 7d.
         end_at : Optional[str]
             Range end in ISO 8601. Defaults to the current time.
-        order_by : Optional[str]
+        order_by : Optional[UsageOrderBy]
             Column to order by. Allowed: time, value. Default time.
-        order_dir : Optional[str]
+        order_dir : Optional[UsageOrderDirection]
             Sort direction: asc or desc. Default desc — paired with the default limit, this returns the most recent groups first. Pass asc for chronological charting.
         limit : Optional[float]
             Maximum rows to return (1-5000).
