@@ -103,21 +103,21 @@ class UsageProject(AppwriteModel):
         Aggregated VectorsDB reads per period.
     vectorsdbdatabaseswrites : List[Metric]
         Aggregated VectorsDB writes per period.
-    embeddingstext : Metric
+    embeddingstext : List[Metric]
         Aggregated number of text embedding calls per period.
-    embeddingstexttokens : Metric
+    embeddingstexttokens : List[Metric]
         Aggregated number of tokens processed by text embeddings per period.
-    embeddingstextduration : Metric
+    embeddingstextduration : List[Metric]
         Aggregated duration spent generating text embeddings per period.
-    embeddingstexterrors : Metric
+    embeddingstexterrors : List[Metric]
         Aggregated number of errors while generating text embeddings per period.
-    embeddingstexttotal : Metric
+    embeddingstexttotal : float
         Total aggregated number of text embedding calls.
-    embeddingstexttokenstotal : Metric
+    embeddingstexttokenstotal : float
         Total aggregated number of tokens processed by text.
-    embeddingstextdurationtotal : Metric
+    embeddingstextdurationtotal : float
         Total aggregated duration spent generating text embeddings.
-    embeddingstexterrorstotal : Metric
+    embeddingstexterrorstotal : float
         Total aggregated number of errors while generating text embeddings.
     functionsexecutions : List[Metric]
         Aggregated number of function executions per period.
@@ -194,14 +194,14 @@ class UsageProject(AppwriteModel):
     vectorsdbdatabasesstorage: List[Metric] = Field(..., alias='vectorsdbDatabasesStorage')
     vectorsdbdatabasesreads: List[Metric] = Field(..., alias='vectorsdbDatabasesReads')
     vectorsdbdatabaseswrites: List[Metric] = Field(..., alias='vectorsdbDatabasesWrites')
-    embeddingstext: Metric = Field(..., alias='embeddingsText')
-    embeddingstexttokens: Metric = Field(..., alias='embeddingsTextTokens')
-    embeddingstextduration: Metric = Field(..., alias='embeddingsTextDuration')
-    embeddingstexterrors: Metric = Field(..., alias='embeddingsTextErrors')
-    embeddingstexttotal: Metric = Field(..., alias='embeddingsTextTotal')
-    embeddingstexttokenstotal: Metric = Field(..., alias='embeddingsTextTokensTotal')
-    embeddingstextdurationtotal: Metric = Field(..., alias='embeddingsTextDurationTotal')
-    embeddingstexterrorstotal: Metric = Field(..., alias='embeddingsTextErrorsTotal')
+    embeddingstext: List[Metric] = Field(..., alias='embeddingsText')
+    embeddingstexttokens: List[Metric] = Field(..., alias='embeddingsTextTokens')
+    embeddingstextduration: List[Metric] = Field(..., alias='embeddingsTextDuration')
+    embeddingstexterrors: List[Metric] = Field(..., alias='embeddingsTextErrors')
+    embeddingstexttotal: float = Field(..., alias='embeddingsTextTotal')
+    embeddingstexttokenstotal: float = Field(..., alias='embeddingsTextTokensTotal')
+    embeddingstextdurationtotal: float = Field(..., alias='embeddingsTextDurationTotal')
+    embeddingstexterrorstotal: float = Field(..., alias='embeddingsTextErrorsTotal')
     functionsexecutions: List[Metric] = Field(..., alias='functionsExecutions')
     functionsexecutionstotal: float = Field(..., alias='functionsExecutionsTotal')
     sitesexecutions: List[Metric] = Field(..., alias='sitesExecutions')

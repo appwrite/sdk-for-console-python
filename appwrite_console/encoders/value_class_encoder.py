@@ -63,6 +63,11 @@ from ..enums.site_template_use_case import SiteTemplateUseCase
 from ..enums.compression import Compression
 from ..enums.image_gravity import ImageGravity
 from ..enums.tables_db_index_type import TablesDBIndexType
+from ..enums.usage_interval import UsageInterval
+from ..enums.usage_event_dimension import UsageEventDimension
+from ..enums.usage_order_by import UsageOrderBy
+from ..enums.usage_order_direction import UsageOrderDirection
+from ..enums.usage_gauge_dimension import UsageGaugeDimension
 from ..enums.password_hash import PasswordHash
 from ..enums.messaging_provider_type import MessagingProviderType
 from ..enums.vcs_detection_type import VCSDetectionType
@@ -280,6 +285,21 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, TablesDBIndexType):
+            return o.value
+
+        if isinstance(o, UsageInterval):
+            return o.value
+
+        if isinstance(o, UsageEventDimension):
+            return o.value
+
+        if isinstance(o, UsageOrderBy):
+            return o.value
+
+        if isinstance(o, UsageOrderDirection):
+            return o.value
+
+        if isinstance(o, UsageGaugeDimension):
             return o.value
 
         if isinstance(o, PasswordHash):

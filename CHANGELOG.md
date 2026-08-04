@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.3.0
+
+* Added: `UsageInterval`, `UsageEventDimension`, `UsageGaugeDimension`, `UsageOrderBy`, and `UsageOrderDirection` enums
+* Updated: `list_events` and `list_gauges` accept those enums for `interval`, `dimensions`, `order_by`, and `order_dir`
+* Fixed: `UsageProject` text embedding fields are lists of `Metric`, and their totals are numbers
+* Fixed: `get_session`, `update_session`, and `delete_session` require `session_id` again
+
 ## 0.2.1
 
 * Fixed: `Organization` accepts null for the billing, agreement, and startup program fields the server leaves unset

@@ -1,0 +1,22 @@
+from enum import Enum
+
+class UsageEventDimension(Enum):
+    PATH = "path"
+    METHOD = "method"
+    STATUS = "status"
+    SERVICE = "service"
+    RESOURCETYPE = "resourceType"
+    COUNTRY = "country"
+    CONTINENTCODE = "continentCode"
+    CITY = "city"
+    REGION = "region"
+    HOSTNAME = "hostname"
+    IP = "ip"
+    OSNAME = "osName"
+    CLIENTTYPE = "clientType"
+    CLIENTNAME = "clientName"
+    DEVICENAME = "deviceName"
+    SDK = "sdk"
+    SDKVERSION = "sdkVersion"
+    TEAMID = "teamId"
+    RESOURCEID = "resourceId"

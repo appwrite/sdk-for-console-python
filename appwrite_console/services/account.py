@@ -2561,7 +2561,7 @@ class Account(Service):
         Parameters
         ----------
         session_id : str
-            Session ID. Use the string 'current' to get the current device session.
+            Session ID. Use the string 'current' to get the current device session. Defaults to 'current'.
         
         Returns
         -------
@@ -2600,7 +2600,7 @@ class Account(Service):
         Parameters
         ----------
         session_id : str
-            Session ID. Use the string 'current' to update the current device session.
+            Session ID. Use the string 'current' to update the current device session. Defaults to 'current'.
         
         Returns
         -------
@@ -2640,7 +2640,7 @@ class Account(Service):
         Parameters
         ----------
         session_id : str
-            Session ID. Use the string 'current' to delete the current device session.
+            Session ID. Use the string 'current' to delete the current device session. Defaults to 'current'.
         
         Returns
         -------
