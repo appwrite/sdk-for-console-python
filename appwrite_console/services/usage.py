@@ -4,14 +4,12 @@ from typing import Any, Dict, List, Optional, Union
 from ..exception import AppwriteException
 from appwrite_console.utils.deprecated import deprecated
 from ..enums.usage_event_metric import UsageEventMetric
-from ..enums.usage_event_query_attribute import UsageEventQueryAttribute
 from ..enums.usage_interval import UsageInterval
 from ..enums.usage_event_dimension import UsageEventDimension
 from ..enums.usage_order_by import UsageOrderBy
 from ..enums.usage_order_direction import UsageOrderDirection
 from ..models.usage_event_list import UsageEventList
 from ..enums.usage_gauge_metric import UsageGaugeMetric
-from ..enums.usage_gauge_query_attribute import UsageGaugeQueryAttribute
 from ..enums.usage_gauge_dimension import UsageGaugeDimension
 from ..models.usage_gauge_list import UsageGaugeList
 
@@ -23,7 +21,7 @@ class Usage(Service):
     def list_events(
         self,
         metrics: List[UsageEventMetric],
-        queries: Optional[List[UsageEventQueryAttribute]] = None,
+        queries: Optional[List[str]] = None,
         interval: Optional[UsageInterval] = None,
         dimensions: Optional[List[UsageEventDimension]] = None,
         start_at: Optional[str] = None,
@@ -46,8 +44,8 @@ class Usage(Service):
         ----------
         metrics : List[UsageEventMetric]
             One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=executions` or `metrics[]=executions&metrics[]=executions.compute` for stacked charts. On console: `metrics[]=affiliates.clicks`.
-        queries : Optional[List[UsageEventQueryAttribute]]
-            Up to 10 filter queries in Utopia syntax. The enum lists supported filter attributes for SDK Query builders; the request value is still a full query string. Allowed attributes: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
+        queries : Optional[List[str]]
+            Up to 10 filter queries in Utopia syntax. Allowed attributes, also published as the `UsageEventDimension` enum: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
         interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
         dimensions : Optional[List[UsageEventDimension]]
@@ -113,7 +111,7 @@ class Usage(Service):
     def list_gauges(
         self,
         metrics: List[UsageGaugeMetric],
-        queries: Optional[List[UsageGaugeQueryAttribute]] = None,
+        queries: Optional[List[str]] = None,
         interval: Optional[UsageInterval] = None,
         dimensions: Optional[List[UsageGaugeDimension]] = None,
         start_at: Optional[str] = None,
@@ -141,8 +139,8 @@ class Usage(Service):
         ----------
         metrics : List[UsageGaugeMetric]
             One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=files.storage` or `metrics[]=files.storage&metrics[]=deployments.storage` for stacked charts.
-        queries : Optional[List[UsageGaugeQueryAttribute]]
-            Up to 10 filter queries in Utopia syntax. The enum lists supported filter attributes for SDK Query builders; the request value is still a full query string. Allowed attributes: service, resourceType, resourceId, teamId, ordinal. Allowed methods: equal, notEqual, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
+        queries : Optional[List[str]]
+            Up to 10 filter queries in Utopia syntax. Allowed attributes, also published as the `UsageGaugeDimension` enum: service, resourceType, resourceId, teamId, ordinal. Allowed methods: equal, notEqual, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
         interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
         dimensions : Optional[List[UsageGaugeDimension]]

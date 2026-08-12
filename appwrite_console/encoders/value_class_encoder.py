@@ -65,13 +65,11 @@ from ..enums.compression import Compression
 from ..enums.image_gravity import ImageGravity
 from ..enums.tables_db_index_type import TablesDBIndexType
 from ..enums.usage_event_metric import UsageEventMetric
-from ..enums.usage_event_query_attribute import UsageEventQueryAttribute
 from ..enums.usage_interval import UsageInterval
 from ..enums.usage_event_dimension import UsageEventDimension
 from ..enums.usage_order_by import UsageOrderBy
 from ..enums.usage_order_direction import UsageOrderDirection
 from ..enums.usage_gauge_metric import UsageGaugeMetric
-from ..enums.usage_gauge_query_attribute import UsageGaugeQueryAttribute
 from ..enums.usage_gauge_dimension import UsageGaugeDimension
 from ..enums.password_hash import PasswordHash
 from ..enums.messaging_provider_type import MessagingProviderType
@@ -298,9 +296,6 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, UsageEventMetric):
             return o.value
 
-        if isinstance(o, UsageEventQueryAttribute):
-            return o.value
-
         if isinstance(o, UsageInterval):
             return o.value
 
@@ -314,9 +309,6 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, UsageGaugeMetric):
-            return o.value
-
-        if isinstance(o, UsageGaugeQueryAttribute):
             return o.value
 
         if isinstance(o, UsageGaugeDimension):

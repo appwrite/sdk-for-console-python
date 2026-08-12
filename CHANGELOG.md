@@ -14,9 +14,9 @@
 * Added: `custom` authentication factor on `AuthenticationFactor` and `MfaFactors`
 * Added: `installation_scopes` on `project.update_o_auth_2_server`
 * Added: `aggregate` on `usage.list_gauges`, for peak values over a window
-* Added: `UsageEventMetric`, `UsageGaugeMetric`, and their query attribute enums
+* Added: `UsageEventMetric` and `UsageGaugeMetric` enums for `usage` metric names
 * Added: `PlanChangeLimits.members` and `PlanChangeLimits.domains` compliance
-* Updated: `usage.list_events` and `list_gauges` type `metrics` and `queries` as enums
+* Updated: `usage.list_events` and `list_gauges` type `metrics` as enums
 * Updated: `DatabaseMigration` reports `cutoverRequested`
 * Updated: `syncStateConfirmed` is optional, and absent when no engine was probed
 

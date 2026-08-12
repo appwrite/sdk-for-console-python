@@ -3,7 +3,6 @@ from appwrite_console.client import Client
 from appwrite_console.services.usage import Usage
 from appwrite_console.models import UsageEventList
 from appwrite_console.enums import UsageEventMetric
-from appwrite_console.enums import UsageEventQueryAttribute
 from appwrite_console.enums import UsageInterval
 from appwrite_console.enums import UsageEventDimension
 from appwrite_console.enums import UsageOrderBy
@@ -17,7 +16,7 @@ usage = Usage(client)
 
 result: UsageEventList = usage.list_events(
     metrics = [UsageEventMetric.NETWORK_REQUESTS],
-    queries = [UsageEventQueryAttribute.PATH], # optional
+    queries = [], # optional
     interval = UsageInterval.ONE_MINUTE, # optional
     dimensions = [UsageEventDimension.PATH], # optional
     start_at = '2020-10-15T06:38:00.000+00:00', # optional
