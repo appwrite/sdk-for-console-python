@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.5.0
+
+* Breaking: `Preferences` serializes its keys at the top level, not nested under `data`
+* Added: `target_database_id` on `create_restoration` for `mysql`, `postgresql`, and `mongo`
+* Added: `DedicatedDatabaseRestoration.sourceDatabaseId`, the database a backup was restored from
+* Fixed: `Document` and `Row` serialize nested `data` honouring `by_alias` and `exclude_*`
+* Fixed: `AppwriteException` carries the raw `response` when parsing into a model fails
+* Updated: `DedicatedDatabaseRestoration.databaseId` documents the database restored into
+* Updated: relationship `type` and `on_delete` docstrings list their allowed values
+* Updated: column type docstrings list `double` and the spatial types
+
 ## 0.4.0
 
 * Breaking: Removed `standby_region` and `cross_region_replicas` from `mysql`, `postgresql`, and `mongo`

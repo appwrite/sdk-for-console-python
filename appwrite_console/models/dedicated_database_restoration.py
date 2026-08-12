@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 
 class DedicatedDatabaseRestoration(AppwriteModel):
@@ -14,7 +13,9 @@ class DedicatedDatabaseRestoration(AppwriteModel):
     createdat : str
         Restoration creation time in ISO 8601 format.
     databaseid : str
-        Database ID being restored.
+        Database ID being restored into.
+    sourcedatabaseid : str
+        Source database ID when restoring a backup into another database.
     projectid : str
         Project ID.
     backupid : str
@@ -35,6 +36,7 @@ class DedicatedDatabaseRestoration(AppwriteModel):
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     databaseid: str = Field(..., alias='databaseId')
+    sourcedatabaseid: str = Field(..., alias='sourceDatabaseId')
     projectid: str = Field(..., alias='projectId')
     backupid: str = Field(..., alias='backupId')
     type: str = Field(..., alias='type')

@@ -26,6 +26,7 @@ class UsageServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -40,6 +41,7 @@ class UsageServiceTest(unittest.TestCase):
         response = self.usage.list_gauges(
             [],
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

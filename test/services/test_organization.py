@@ -176,6 +176,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.get(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -342,6 +343,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -367,6 +369,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.list_installations(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -388,6 +391,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.create_installation(
             '<APP_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -411,6 +415,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -432,6 +437,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.update_installation(
             '<INSTALLATION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -459,6 +465,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.list_keys(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -483,6 +490,7 @@ class OrganizationServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -504,6 +512,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.get_key(
             '<KEY_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -528,6 +537,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<NAME>',
             [],
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -554,6 +564,7 @@ class OrganizationServiceTest(unittest.TestCase):
 
         response = self.organization.list_memberships(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -583,6 +594,7 @@ class OrganizationServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -610,6 +622,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.get_membership(
             '<MEMBERSHIP_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -640,6 +653,7 @@ class OrganizationServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -665,6 +679,7 @@ class OrganizationServiceTest(unittest.TestCase):
 
         response = self.organization.list_projects(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -708,6 +723,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -748,6 +764,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.get_project(
             '<PROJECT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -790,6 +807,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             '<NAME>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

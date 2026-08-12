@@ -25,6 +25,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.list(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -75,6 +76,7 @@ class SitesServiceTest(unittest.TestCase):
             'node-14.5',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -88,6 +90,7 @@ class SitesServiceTest(unittest.TestCase):
 
         response = self.sites.list_frameworks(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -103,6 +106,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.list_specifications(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -116,6 +120,7 @@ class SitesServiceTest(unittest.TestCase):
 
         response = self.sites.list_templates(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -142,6 +147,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.get_template(
             '<TEMPLATE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -189,6 +195,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.get(
             '<SITE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -238,6 +245,7 @@ class SitesServiceTest(unittest.TestCase):
             '<NAME>',
             'analog',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -299,6 +307,7 @@ class SitesServiceTest(unittest.TestCase):
             '<DEPLOYMENT_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -313,6 +322,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.list_deployments(
             '<SITE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -355,6 +365,7 @@ class SitesServiceTest(unittest.TestCase):
             InputFile.from_bytes(bytearray(), "example.file"),
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -395,6 +406,7 @@ class SitesServiceTest(unittest.TestCase):
             '<SITE_ID>',
             '<DEPLOYMENT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -441,6 +453,7 @@ class SitesServiceTest(unittest.TestCase):
             '<REFERENCE>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -483,6 +496,7 @@ class SitesServiceTest(unittest.TestCase):
             '<REFERENCE>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -523,6 +537,7 @@ class SitesServiceTest(unittest.TestCase):
             '<SITE_ID>',
             '<DEPLOYMENT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -591,6 +606,7 @@ class SitesServiceTest(unittest.TestCase):
             '<DEPLOYMENT_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -605,6 +621,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.list_logs(
             '<SITE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -637,6 +654,7 @@ class SitesServiceTest(unittest.TestCase):
             '<LOG_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -665,6 +683,7 @@ class SitesServiceTest(unittest.TestCase):
             '<SITE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -689,6 +708,7 @@ class SitesServiceTest(unittest.TestCase):
             '<VALUE>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -711,6 +731,7 @@ class SitesServiceTest(unittest.TestCase):
             '<VARIABLE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -732,6 +753,7 @@ class SitesServiceTest(unittest.TestCase):
             '<SITE_ID>',
             '<VARIABLE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

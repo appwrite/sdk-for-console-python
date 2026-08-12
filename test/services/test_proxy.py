@@ -29,6 +29,7 @@ class ProxyServiceTest(unittest.TestCase):
             'tag',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -42,6 +43,7 @@ class ProxyServiceTest(unittest.TestCase):
 
         response = self.proxy.list_rules(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -70,6 +72,7 @@ class ProxyServiceTest(unittest.TestCase):
             '',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -97,6 +100,7 @@ class ProxyServiceTest(unittest.TestCase):
             '',
             '<FUNCTION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -129,6 +133,7 @@ class ProxyServiceTest(unittest.TestCase):
             'site',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -157,6 +162,7 @@ class ProxyServiceTest(unittest.TestCase):
             '<SITE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -183,6 +189,7 @@ class ProxyServiceTest(unittest.TestCase):
         response = self.proxy.get_rule(
             '<RULE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -222,6 +229,7 @@ class ProxyServiceTest(unittest.TestCase):
         response = self.proxy.update_rule_status(
             '<RULE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

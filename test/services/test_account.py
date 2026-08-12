@@ -39,6 +39,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -70,6 +71,7 @@ class AccountServiceTest(unittest.TestCase):
             'password',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -95,6 +97,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.list_billing_addresses(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -118,6 +121,7 @@ class AccountServiceTest(unittest.TestCase):
             '<STREET_ADDRESS>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -138,6 +142,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_billing_address(
             '<BILLING_ADDRESS_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -162,6 +167,7 @@ class AccountServiceTest(unittest.TestCase):
             '<CITY>',
             '<STREET_ADDRESS>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -189,6 +195,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.list_consents(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -211,6 +218,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_consent(
             '<CONSENT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -239,6 +247,7 @@ class AccountServiceTest(unittest.TestCase):
             '<CONSENT_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -263,6 +272,7 @@ class AccountServiceTest(unittest.TestCase):
             '<CONSENT_ID>',
             '<TOKEN_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -298,6 +308,7 @@ class AccountServiceTest(unittest.TestCase):
             '<COUPON_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -328,6 +339,7 @@ class AccountServiceTest(unittest.TestCase):
             'password',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -341,6 +353,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.list_identities(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -368,6 +381,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.list_invoices(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -380,6 +394,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.create_jwt(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -394,6 +409,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.list_keys(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -418,6 +434,7 @@ class AccountServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -439,6 +456,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_key(
             '<KEY_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -463,6 +481,7 @@ class AccountServiceTest(unittest.TestCase):
             '<NAME>',
             [],
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -489,6 +508,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.list_logs(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -519,20 +539,6 @@ class AccountServiceTest(unittest.TestCase):
             True,
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_create_mfa_authenticator(self, m):
-        data = {
-    "secret": "[SHARED_SECRET]",
-    "uri": "otpauth:\/\/totp\/appwrite:user@example.com?secret=[SHARED_SECRET]&issuer=appwrite"
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.account.create_mfa_authenticator(
-            'totp',
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -548,6 +554,23 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_mfa_authenticator(
             'totp',
         )
+
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_create_mfa_authenticator(self, m):
+        data = {
+    "secret": "[SHARED_SECRET]",
+    "uri": "otpauth:\/\/totp\/appwrite:user@example.com?secret=[SHARED_SECRET]&issuer=appwrite"
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.account.create_mfa_authenticator(
+            'totp',
+        )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -579,6 +602,7 @@ class AccountServiceTest(unittest.TestCase):
             '<OTP>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -608,6 +632,7 @@ class AccountServiceTest(unittest.TestCase):
             'totp',
             '<OTP>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -650,6 +675,7 @@ class AccountServiceTest(unittest.TestCase):
             'email',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -666,6 +692,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_mfa_challenge(
             'email',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -710,6 +737,7 @@ class AccountServiceTest(unittest.TestCase):
             '<OTP>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -753,22 +781,6 @@ class AccountServiceTest(unittest.TestCase):
             '<OTP>',
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_list_mfa_factors(self, m):
-        data = {
-    "totp": True,
-    "phone": True,
-    "email": True,
-    "recoveryCode": True,
-    "custom": True
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.account.list_mfa_factors(
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -787,6 +799,25 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.list_mfa_factors(
         )
 
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_list_mfa_factors(self, m):
+        data = {
+    "totp": True,
+    "phone": True,
+    "email": True,
+    "recoveryCode": True,
+    "custom": True
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.account.list_mfa_factors(
+        )
+
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -800,6 +831,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_mfa_recovery_codes(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -812,6 +844,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.get_mfa_recovery_codes(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -826,6 +859,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_mfa_recovery_codes(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -839,18 +873,6 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_mfa_recovery_codes(
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_update_mfa_recovery_codes(self, m):
-        data = {
-    "recoveryCodes": []
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.account.update_mfa_recovery_codes(
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -864,6 +886,21 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.update_mfa_recovery_codes(
         )
+
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_update_mfa_recovery_codes(self, m):
+        data = {
+    "recoveryCodes": []
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.account.update_mfa_recovery_codes(
+        )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -894,6 +931,7 @@ class AccountServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -923,6 +961,7 @@ class AccountServiceTest(unittest.TestCase):
             'password',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -936,6 +975,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.list_payment_methods(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -969,6 +1009,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_payment_method(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1001,6 +1042,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_payment_method(
             '<PAYMENT_METHOD_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1036,6 +1078,7 @@ class AccountServiceTest(unittest.TestCase):
             1,
             1,
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1084,6 +1127,7 @@ class AccountServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1117,6 +1161,7 @@ class AccountServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1147,6 +1192,7 @@ class AccountServiceTest(unittest.TestCase):
             'password',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1158,7 +1204,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_prefs(
         )
 
-        data['data'] = {}
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1188,6 +1234,7 @@ class AccountServiceTest(unittest.TestCase):
             {},
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1207,6 +1254,7 @@ class AccountServiceTest(unittest.TestCase):
             'email@example.com',
             'https://example.com',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1229,6 +1277,7 @@ class AccountServiceTest(unittest.TestCase):
             'password',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1242,6 +1291,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.list_sessions(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1295,6 +1345,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_anonymous_session(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1338,6 +1389,7 @@ class AccountServiceTest(unittest.TestCase):
             'password',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1380,6 +1432,7 @@ class AccountServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<SECRET>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1436,6 +1489,7 @@ class AccountServiceTest(unittest.TestCase):
             '<SECRET>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1479,6 +1533,7 @@ class AccountServiceTest(unittest.TestCase):
             '<SECRET>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1520,6 +1575,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_session(
             '<SESSION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1563,6 +1619,7 @@ class AccountServiceTest(unittest.TestCase):
             '<SESSION_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1603,6 +1660,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.update_status(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1625,6 +1683,7 @@ class AccountServiceTest(unittest.TestCase):
             '<IDENTIFIER>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1646,6 +1705,7 @@ class AccountServiceTest(unittest.TestCase):
             '<TARGET_ID>',
             '<IDENTIFIER>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1679,6 +1739,7 @@ class AccountServiceTest(unittest.TestCase):
             'email@example.com',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1698,6 +1759,7 @@ class AccountServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1731,6 +1793,7 @@ class AccountServiceTest(unittest.TestCase):
             '+12065550100',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1750,6 +1813,7 @@ class AccountServiceTest(unittest.TestCase):
             'https://example.com',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1768,6 +1832,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_verification(
             'https://example.com',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1789,6 +1854,7 @@ class AccountServiceTest(unittest.TestCase):
             '<SECRET>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1809,6 +1875,7 @@ class AccountServiceTest(unittest.TestCase):
             '<SECRET>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1826,6 +1893,7 @@ class AccountServiceTest(unittest.TestCase):
 
         response = self.account.create_phone_verification(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1846,6 +1914,7 @@ class AccountServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<SECRET>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

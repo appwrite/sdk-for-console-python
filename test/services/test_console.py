@@ -28,6 +28,7 @@ class ConsoleServiceTest(unittest.TestCase):
             '<CAMPAIGN_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -49,6 +50,7 @@ class ConsoleServiceTest(unittest.TestCase):
             '<COUPON_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -62,6 +64,7 @@ class ConsoleServiceTest(unittest.TestCase):
 
         response = self.console.list_databases(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -77,6 +80,7 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.list_o_auth2_providers(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -90,6 +94,7 @@ class ConsoleServiceTest(unittest.TestCase):
 
         response = self.console.get_plans(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -234,6 +239,7 @@ class ConsoleServiceTest(unittest.TestCase):
             '<PLAN_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -247,6 +253,7 @@ class ConsoleServiceTest(unittest.TestCase):
 
         response = self.console.list_postgres_extensions(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -269,6 +276,7 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.get_program(
             '<PROGRAM_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -436,6 +444,7 @@ class ConsoleServiceTest(unittest.TestCase):
             '<PROGRAM_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -449,6 +458,7 @@ class ConsoleServiceTest(unittest.TestCase):
 
         response = self.console.list_regions(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -477,6 +487,7 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.list_organization_scopes(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -490,6 +501,7 @@ class ConsoleServiceTest(unittest.TestCase):
 
         response = self.console.list_project_scopes(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -518,6 +530,7 @@ class ConsoleServiceTest(unittest.TestCase):
             '<TABLE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -533,6 +546,7 @@ class ConsoleServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -567,6 +581,7 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.get_email_template(
             'verification',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -607,6 +622,7 @@ class ConsoleServiceTest(unittest.TestCase):
 
         response = self.console.variables(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

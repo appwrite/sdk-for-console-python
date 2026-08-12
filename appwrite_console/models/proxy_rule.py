@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from ..enums.proxy_rule_deployment_resource_type import ProxyRuleDeploymentResourceType
 from ..enums.proxy_rule_status import ProxyRuleStatus

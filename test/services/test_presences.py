@@ -25,6 +25,7 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.list(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -39,6 +40,7 @@ class PresencesServiceTest(unittest.TestCase):
 
         response = self.presences.get_usage(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -58,6 +60,7 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.get(
             '<PRESENCE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -79,6 +82,7 @@ class PresencesServiceTest(unittest.TestCase):
             '<STATUS>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -97,6 +101,7 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.update(
             '<PRESENCE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

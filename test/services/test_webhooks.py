@@ -25,6 +25,7 @@ class WebhooksServiceTest(unittest.TestCase):
         response = self.webhooks.list(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -54,6 +55,7 @@ class WebhooksServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -79,6 +81,7 @@ class WebhooksServiceTest(unittest.TestCase):
         response = self.webhooks.get(
             '<WEBHOOK_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -108,6 +111,7 @@ class WebhooksServiceTest(unittest.TestCase):
             '',
             [],
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -146,6 +150,7 @@ class WebhooksServiceTest(unittest.TestCase):
         response = self.webhooks.update_secret(
             '<WEBHOOK_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from .oauth2_consent_token import Oauth2ConsentToken
 

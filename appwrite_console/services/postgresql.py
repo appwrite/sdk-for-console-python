@@ -1797,6 +1797,7 @@ class Postgresql(Service):
         database_id: str,
         type: Optional[str] = None,
         backup_id: Optional[str] = None,
+        target_database_id: Optional[str] = None,
         target_time: Optional[str] = None
     ) -> DedicatedDatabaseRestoration:
         """
@@ -1810,6 +1811,8 @@ class Postgresql(Service):
             Restoration type. Allowed values: backup, pitr. Use "backup" to restore from a specific backup, or "pitr" for point-in-time recovery.
         backup_id : Optional[str]
             Backup ID to restore from (required for backup type).
+        target_database_id : Optional[str]
+            Existing database ID to restore into. The target must be distinct, ready, and use the same engine and version.
         target_time : Optional[str]
             Target time for PITR (required for pitr type) as an [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) datetime.
         
@@ -1835,6 +1838,8 @@ class Postgresql(Service):
             api_params['type'] = self._normalize_value(type)
         if backup_id is not None:
             api_params['backupId'] = self._normalize_value(backup_id)
+        if target_database_id is not None:
+            api_params['targetDatabaseId'] = self._normalize_value(target_database_id)
         if target_time is not None:
             api_params['targetTime'] = self._normalize_value(target_time)
 

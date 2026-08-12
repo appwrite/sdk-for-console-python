@@ -25,6 +25,7 @@ class WafServiceTest(unittest.TestCase):
         response = self.waf.list_rules(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -54,6 +55,7 @@ class WafServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -80,6 +82,7 @@ class WafServiceTest(unittest.TestCase):
         response = self.waf.update_bypass_rule(
             '<RULE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -113,6 +116,7 @@ class WafServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -143,6 +147,7 @@ class WafServiceTest(unittest.TestCase):
             '<RULE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -172,6 +177,7 @@ class WafServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -198,6 +204,7 @@ class WafServiceTest(unittest.TestCase):
         response = self.waf.update_deny_rule(
             '<RULE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -233,6 +240,7 @@ class WafServiceTest(unittest.TestCase):
             1,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -262,6 +270,7 @@ class WafServiceTest(unittest.TestCase):
         response = self.waf.update_rate_limit_rule(
             '<RULE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -296,6 +305,7 @@ class WafServiceTest(unittest.TestCase):
             1,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -325,6 +335,7 @@ class WafServiceTest(unittest.TestCase):
             '<RULE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -351,6 +362,7 @@ class WafServiceTest(unittest.TestCase):
         response = self.waf.get_rule(
             '<RULE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast, Generic, TypeVar, Type
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from .preferences import Preferences
 

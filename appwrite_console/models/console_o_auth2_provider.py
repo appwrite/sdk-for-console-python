@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from .console_o_auth2_provider_parameter import ConsoleOAuth2ProviderParameter
 

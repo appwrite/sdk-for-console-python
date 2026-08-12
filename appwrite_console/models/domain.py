@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from ..enums.domain_transfer_status_enum import DomainTransferStatusEnum
 from .dns_record import DnsRecord

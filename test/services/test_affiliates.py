@@ -25,6 +25,7 @@ class AffiliatesServiceTest(unittest.TestCase):
         response = self.affiliates.list_links(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -44,6 +45,7 @@ class AffiliatesServiceTest(unittest.TestCase):
             '<LINK_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -62,6 +64,7 @@ class AffiliatesServiceTest(unittest.TestCase):
         response = self.affiliates.get_link(
             '<LINK_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -89,6 +92,7 @@ class AffiliatesServiceTest(unittest.TestCase):
         response = self.affiliates.list_referrals(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -102,6 +106,7 @@ class AffiliatesServiceTest(unittest.TestCase):
 
         response = self.affiliates.list_rewards(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -125,6 +130,7 @@ class AffiliatesServiceTest(unittest.TestCase):
             'claimed',
             '<ORGANIZATION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

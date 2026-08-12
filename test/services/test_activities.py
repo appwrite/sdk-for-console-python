@@ -25,6 +25,7 @@ class ActivitiesServiceTest(unittest.TestCase):
         response = self.activities.list_events(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -66,6 +67,7 @@ class ActivitiesServiceTest(unittest.TestCase):
         response = self.activities.get_event(
             '<EVENT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

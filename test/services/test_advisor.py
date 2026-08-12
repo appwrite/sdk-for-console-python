@@ -25,6 +25,7 @@ class AdvisorServiceTest(unittest.TestCase):
         response = self.advisor.list_reports(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -48,6 +49,7 @@ class AdvisorServiceTest(unittest.TestCase):
         response = self.advisor.get_report(
             '<REPORT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -76,6 +78,7 @@ class AdvisorServiceTest(unittest.TestCase):
             '<REPORT_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -103,6 +106,7 @@ class AdvisorServiceTest(unittest.TestCase):
             '<REPORT_ID>',
             '<INSIGHT_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

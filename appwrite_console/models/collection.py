@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from .attribute_boolean import AttributeBoolean
 from .attribute_bigint import AttributeBigint

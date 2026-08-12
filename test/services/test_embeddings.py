@@ -26,5 +26,6 @@ class EmbeddingsServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 

@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from .dedicated_database_member import DedicatedDatabaseMember
 
@@ -23,7 +22,7 @@ class DedicatedDatabaseReplicas(AppwriteModel):
     syncstandbycount : float
         Number of standbys registered with the primary for synchronous replication.
     syncstateconfirmed : Optional[bool]
-        Whether the reported sync state was read from the engine. When false the engine was asked and the state could not be confirmed, and the other sync fields carry no reading. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one — draw no conclusion about replication from a response that omits it.
+        Whether the reported sync state was read from the engine and corroborated. When false the engine was asked and the state was not corroborated, which happens two ways: the configuration probe did not answer, in which case the other sync fields carry no reading; or it answered and an active standby contradicted it or its replication stream could not be read, in which case the other sync fields do carry genuine engine readings. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one — draw no conclusion about replication from a response that omits it.
     members : List[DedicatedDatabaseMember]
         Per-pod statuses for the primary and every replica.
     """

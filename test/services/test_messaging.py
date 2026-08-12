@@ -25,6 +25,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.list_messages(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -50,6 +51,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<CONTENT>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -72,6 +74,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_email(
             '<MESSAGE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -96,6 +99,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<MESSAGE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -119,29 +123,6 @@ class MessagingServiceTest(unittest.TestCase):
             '<MESSAGE_ID>',
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_create_sms(self, m):
-        data = {
-    "$id": "5e5ea5c16897e",
-    "$createdAt": "2020-10-15T06:38:00.000+00:00",
-    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-    "providerType": "email",
-    "topics": [],
-    "users": [],
-    "targets": [],
-    "deliveredTotal": 1.0,
-    "data": {},
-    "status": "processing"
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.messaging.create_sms(
-            '<MESSAGE_ID>',
-            '<CONTENT>',
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -167,6 +148,32 @@ class MessagingServiceTest(unittest.TestCase):
             '<CONTENT>',
         )
 
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_create_sms(self, m):
+        data = {
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000+00:00",
+    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+    "providerType": "email",
+    "topics": [],
+    "users": [],
+    "targets": [],
+    "deliveredTotal": 1.0,
+    "data": {},
+    "status": "processing"
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.messaging.create_sms(
+            '<MESSAGE_ID>',
+            '<CONTENT>',
+        )
+
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -190,6 +197,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<MESSAGE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -212,6 +220,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_sms(
             '<MESSAGE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -235,6 +244,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.get_message(
             '<MESSAGE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -263,6 +273,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<MESSAGE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -277,27 +288,6 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.list_providers(
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_create_apns_provider(self, m):
-        data = {
-    "$id": "5e5ea5c16897e",
-    "$createdAt": "2020-10-15T06:38:00.000+00:00",
-    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-    "name": "Mailgun",
-    "provider": "mailgun",
-    "enabled": True,
-    "type": "sms",
-    "credentials": {}
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.messaging.create_apns_provider(
-            '<PROVIDER_ID>',
-            '<NAME>',
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -321,6 +311,30 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_create_apns_provider(self, m):
+        data = {
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000+00:00",
+    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+    "name": "Mailgun",
+    "provider": "mailgun",
+    "enabled": True,
+    "type": "sms",
+    "credentials": {}
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.messaging.create_apns_provider(
+            '<PROVIDER_ID>',
+            '<NAME>',
+        )
+
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -342,6 +356,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<PROVIDER_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -362,6 +377,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_apns_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -385,6 +401,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -407,26 +424,6 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_update_fcm_provider(self, m):
-        data = {
-    "$id": "5e5ea5c16897e",
-    "$createdAt": "2020-10-15T06:38:00.000+00:00",
-    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-    "name": "Mailgun",
-    "provider": "mailgun",
-    "enabled": True,
-    "type": "sms",
-    "credentials": {}
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.messaging.update_fcm_provider(
-            '<PROVIDER_ID>',
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -448,6 +445,29 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_fcm_provider(
             '<PROVIDER_ID>',
         )
+
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_update_fcm_provider(self, m):
+        data = {
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000+00:00",
+    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+    "name": "Mailgun",
+    "provider": "mailgun",
+    "enabled": True,
+    "type": "sms",
+    "credentials": {}
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.messaging.update_fcm_provider(
+            '<PROVIDER_ID>',
+        )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -471,6 +491,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -491,6 +512,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_mailgun_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -514,6 +536,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -534,6 +557,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_msg91_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -557,6 +581,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -577,6 +602,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_resend_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -600,6 +626,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -620,6 +647,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_sendgrid_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -643,6 +671,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -664,28 +693,6 @@ class MessagingServiceTest(unittest.TestCase):
             '<PROVIDER_ID>',
         )
 
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_create_smtp_provider(self, m):
-        data = {
-    "$id": "5e5ea5c16897e",
-    "$createdAt": "2020-10-15T06:38:00.000+00:00",
-    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-    "name": "Mailgun",
-    "provider": "mailgun",
-    "enabled": True,
-    "type": "sms",
-    "credentials": {}
-}
-        headers = {'Content-Type': 'application/json'}
-        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
-
-        response = self.messaging.create_smtp_provider(
-            '<PROVIDER_ID>',
-            '<NAME>',
-            '<HOST>',
-        )
 
         self.assertEqual(response.to_dict(), data)
 
@@ -710,6 +717,31 @@ class MessagingServiceTest(unittest.TestCase):
             '<HOST>',
         )
 
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_create_smtp_provider(self, m):
+        data = {
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000+00:00",
+    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+    "name": "Mailgun",
+    "provider": "mailgun",
+    "enabled": True,
+    "type": "sms",
+    "credentials": {}
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.messaging.create_smtp_provider(
+            '<PROVIDER_ID>',
+            '<NAME>',
+            '<HOST>',
+        )
+
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -731,6 +763,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<PROVIDER_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -751,6 +784,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_smtp_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -774,6 +808,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -794,6 +829,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_telesign_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -817,6 +853,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -837,6 +874,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_textmagic_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -860,6 +898,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -880,6 +919,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_twilio_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -903,6 +943,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -924,6 +965,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<PROVIDER_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -944,6 +986,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.get_provider(
             '<PROVIDER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -971,6 +1014,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.list_topics(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -993,6 +1037,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1014,6 +1059,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<TOPIC_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1034,6 +1080,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_topic(
             '<TOPIC_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1061,6 +1108,7 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.list_subscribers(
             '<TOPIC_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1095,6 +1143,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<TARGET_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1126,6 +1175,7 @@ class MessagingServiceTest(unittest.TestCase):
             '<TOPIC_ID>',
             '<SUBSCRIBER_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

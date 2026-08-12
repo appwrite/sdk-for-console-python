@@ -25,6 +25,7 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.list_buckets(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -53,6 +54,7 @@ class StorageServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -79,6 +81,7 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.get_bucket(
             '<BUCKET_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -108,6 +111,7 @@ class StorageServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -134,6 +138,7 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.list_files(
             '<BUCKET_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -166,6 +171,7 @@ class StorageServiceTest(unittest.TestCase):
             InputFile.from_bytes(bytearray(), "example.file"),
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -196,6 +202,7 @@ class StorageServiceTest(unittest.TestCase):
             '<FILE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -225,6 +232,7 @@ class StorageServiceTest(unittest.TestCase):
             '<BUCKET_ID>',
             '<FILE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

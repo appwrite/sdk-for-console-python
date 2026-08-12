@@ -51,6 +51,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.get(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -104,6 +105,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -117,6 +119,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.list_keys(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -142,6 +145,7 @@ class ProjectServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -165,6 +169,7 @@ class ProjectServiceTest(unittest.TestCase):
             1,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -186,6 +191,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.get_key(
             '<KEY_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -210,6 +216,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<NAME>',
             [],
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -264,6 +271,7 @@ class ProjectServiceTest(unittest.TestCase):
             [],
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -277,6 +285,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.list_mock_phones(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -296,6 +305,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<OTP>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -312,6 +322,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.get_mock_phone(
             '+12065550100',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -330,6 +341,7 @@ class ProjectServiceTest(unittest.TestCase):
             '+12065550100',
             '<OTP>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -356,6 +368,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.list_o_auth2_providers(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -399,6 +412,7 @@ class ProjectServiceTest(unittest.TestCase):
             'https://example.com',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -414,6 +428,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_amazon(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -433,6 +448,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_apple(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -448,6 +464,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_appwrite(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -466,6 +483,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_auth0(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -483,6 +501,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_authentik(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -498,6 +517,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_autodesk(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -515,6 +535,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_bitbucket(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -530,6 +551,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_bitly(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -547,6 +569,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_box(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -562,6 +585,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_dailymotion(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -579,6 +603,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_discord(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -594,6 +619,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_disqus(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -611,6 +637,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_dropbox(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -626,6 +653,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_etsy(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -643,6 +671,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_facebook(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -658,6 +687,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_figma(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -676,6 +706,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_fusion_auth(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -691,6 +722,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_git_hub(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -709,6 +741,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_gitlab(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -725,6 +758,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_google(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -744,6 +778,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_keycloak(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -760,6 +795,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_kick(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -775,6 +811,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_linkedin(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -793,6 +830,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_microsoft(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -808,6 +846,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_notion(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -830,6 +869,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_oidc(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -848,6 +888,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_okta(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -863,6 +904,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_paypal(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -880,6 +922,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_paypal_sandbox(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -895,6 +938,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_podio(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -912,6 +956,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_salesforce(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -927,6 +972,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_slack(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -944,6 +990,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_spotify(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -959,6 +1006,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_stripe(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -976,6 +1024,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_tradeshift(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -991,6 +1040,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_tradeshift_sandbox(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1008,6 +1058,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_twitch(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1023,6 +1074,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_word_press(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1040,6 +1092,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_x(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1055,6 +1108,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_yahoo(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1072,6 +1126,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_yandex(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1088,6 +1143,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_o_auth2_zoho(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1103,6 +1159,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_o_auth2_zoom(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1121,6 +1178,7 @@ class ProjectServiceTest(unittest.TestCase):
             'amazon',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1134,6 +1192,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.list_platforms(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1156,6 +1215,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<APPLICATION_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1176,6 +1236,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<NAME>',
             '<APPLICATION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1198,6 +1259,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<BUNDLE_IDENTIFIER>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1218,6 +1280,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<NAME>',
             '<BUNDLE_IDENTIFIER>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1240,6 +1303,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<PACKAGE_NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1260,6 +1324,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<NAME>',
             '<PACKAGE_NAME>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1282,6 +1347,7 @@ class ProjectServiceTest(unittest.TestCase):
             'app.example.com',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1302,6 +1368,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<NAME>',
             'app.example.com',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1324,6 +1391,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<PACKAGE_IDENTIFIER_NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1345,6 +1413,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<PACKAGE_IDENTIFIER_NAME>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1363,6 +1432,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.get_platform(
             '<PLATFORM_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1389,6 +1459,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.list_policies(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1431,6 +1502,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1471,6 +1543,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_deny_corporate_email_policy(
             True,
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1513,6 +1586,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1554,6 +1628,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1594,6 +1669,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_membership_privacy_policy(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1633,6 +1709,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_mfa_factors_policy(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1675,6 +1752,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1715,6 +1793,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_password_history_policy(
             1,
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1757,6 +1836,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1774,6 +1854,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.update_password_strength_policy(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1816,6 +1897,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1856,6 +1938,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_session_duration_policy(
             1,
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1898,6 +1981,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1938,6 +2022,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_session_limit_policy(
             1,
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1980,6 +2065,7 @@ class ProjectServiceTest(unittest.TestCase):
             1,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1994,6 +2080,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.get_policy(
             'password-dictionary',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2037,6 +2124,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2079,6 +2167,7 @@ class ProjectServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2119,6 +2208,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_smtp(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2145,6 +2235,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.list_email_templates(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2166,6 +2257,7 @@ class ProjectServiceTest(unittest.TestCase):
             'verification',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2186,6 +2278,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.get_email_template(
             'verification',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2269,6 +2362,7 @@ class ProjectServiceTest(unittest.TestCase):
             '2020-10-15T06:38:00.000+00:00',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2282,6 +2376,7 @@ class ProjectServiceTest(unittest.TestCase):
 
         response = self.project.list_variables(
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2306,6 +2401,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<VALUE>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2327,6 +2423,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<VARIABLE_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2347,6 +2444,7 @@ class ProjectServiceTest(unittest.TestCase):
         response = self.project.update_variable(
             '<VARIABLE_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 

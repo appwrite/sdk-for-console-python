@@ -1,6 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
-
 from .base_model import AppwriteModel
 from ..enums.detection_runtime_type import DetectionRuntimeType
 from .detection_variable import DetectionVariable

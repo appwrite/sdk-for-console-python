@@ -30,6 +30,7 @@ class VcsServiceTest(unittest.TestCase):
             'runtime',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -46,6 +47,7 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             'runtime',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -72,6 +74,7 @@ class VcsServiceTest(unittest.TestCase):
             True,
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -96,6 +99,7 @@ class VcsServiceTest(unittest.TestCase):
             '<PROVIDER_REPOSITORY_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -112,6 +116,7 @@ class VcsServiceTest(unittest.TestCase):
             '<PROVIDER_REPOSITORY_ID>',
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -127,6 +132,7 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<PROVIDER_REPOSITORY_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -156,6 +162,7 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.list_installations(
         )
 
+
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -174,6 +181,7 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.get_installation(
             '<INSTALLATION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
@@ -201,6 +209,7 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.list_namespaces(
             '<INSTALLATION_ID>',
         )
+
 
         self.assertEqual(response.to_dict(), data)
 
