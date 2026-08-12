@@ -1076,7 +1076,7 @@ class TablesDB(Service):
         enabled : Optional[bool]
             Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
         columns : Optional[List[Dict[str, Any]]]
-            Array of column definitions to create. Each column should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, float, boolean, datetime, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+            Array of column definitions to create. Each column should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, double, boolean, datetime, point, linestring, polygon, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
         indexes : Optional[List[Dict[str, Any]]]
             Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of column keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
         
@@ -3291,7 +3291,7 @@ class TablesDB(Service):
         related_table_id : str
             Related Table ID.
         type : RelationshipType
-            Relation type
+            Relationship type. Possible values are: oneToOne, oneToMany, manyToOne, manyToMany.
         two_way : Optional[bool]
             Is Two Way?
         key : Optional[str]
@@ -3299,7 +3299,7 @@ class TablesDB(Service):
         two_way_key : Optional[str]
             Two Way Column Key.
         on_delete : Optional[RelationMutate]
-            Constraints option
+            Delete constraint. Possible values are: cascade, restrict, setNull.
         
         Returns
         -------
@@ -4125,7 +4125,7 @@ class TablesDB(Service):
         key : str
             Column Key.
         on_delete : Optional[RelationMutate]
-            Constraints option
+            Delete constraint. Possible values are: cascade, restrict, setNull.
         new_key : Optional[str]
             New Column Key.
         

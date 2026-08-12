@@ -1158,7 +1158,6 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.get_prefs(
         )
 
-        data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()

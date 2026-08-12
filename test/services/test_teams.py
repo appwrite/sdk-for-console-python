@@ -367,7 +367,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
         )
 
-        data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -381,6 +380,5 @@ class TeamsServiceTest(unittest.TestCase):
             {},
         )
 
-        data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 

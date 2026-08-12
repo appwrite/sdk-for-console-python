@@ -824,7 +824,6 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
         )
 
-        data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -838,7 +837,6 @@ class UsersServiceTest(unittest.TestCase):
             {},
         )
 
-        data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
