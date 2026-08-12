@@ -761,7 +761,8 @@ class AccountServiceTest(unittest.TestCase):
     "totp": True,
     "phone": True,
     "email": True,
-    "recoveryCode": True
+    "recoveryCode": True,
+    "custom": True
 }
         headers = {'Content-Type': 'application/json'}
         m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
@@ -777,7 +778,8 @@ class AccountServiceTest(unittest.TestCase):
     "totp": True,
     "phone": True,
     "email": True,
-    "recoveryCode": True
+    "recoveryCode": True,
+    "custom": True
 }
         headers = {'Content-Type': 'application/json'}
         m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)

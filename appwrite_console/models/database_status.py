@@ -34,8 +34,8 @@ class DatabaseStatus(AppwriteModel):
         Number of standby acknowledgements the primary waits for before a write is committed.
     syncstandbycount : float
         Number of standbys registered with the primary for synchronous replication.
-    syncstateconfirmed : bool
-        Whether the reported sync state was read from the engine. When false the state could not be confirmed and the other sync fields carry no reading.
+    syncstateconfirmed : Optional[bool]
+        Whether the reported sync state was read from the engine. When false the engine was asked and the state could not be confirmed, and the other sync fields carry no reading. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one — draw no conclusion about replication from a response that omits it.
     replicas : List[DatabaseStatusReplica]
         List of database replicas and their status. Every configured member appears, including one the backend has not brought up, which is reported as not healthy.
     volumes : List[DatabaseStatusVolume]
@@ -52,6 +52,6 @@ class DatabaseStatus(AppwriteModel):
     syncdegraded: bool = Field(..., alias='syncDegraded')
     syncacknowledgements: float = Field(..., alias='syncAcknowledgements')
     syncstandbycount: float = Field(..., alias='syncStandbyCount')
-    syncstateconfirmed: bool = Field(..., alias='syncStateConfirmed')
+    syncstateconfirmed: Optional[bool] = Field(default=None, alias='syncStateConfirmed')
     replicas: List[DatabaseStatusReplica] = Field(..., alias='replicas')
     volumes: List[DatabaseStatusVolume] = Field(..., alias='volumes')

@@ -36,7 +36,9 @@ class DatabaseMigration(AppwriteModel):
     soakuntil : str
         Time the post-cutover soak window ends in ISO 8601 format.
     autocutover : bool
-        Whether the migration cuts over automatically once ready.
+        Whether the migration cuts over automatically once ready. Set when the migration is created and never changed afterwards, so it always reports what was asked for.
+    cutoverrequested : bool
+        Whether a cutover has been requested and not yet attempted. Set by the cutover endpoint and cleared when the attempt is made, so a cutover that fails a check parks the migration again rather than retrying on its own.
     paused : bool
         Whether the migration is paused.
     """
@@ -54,4 +56,5 @@ class DatabaseMigration(AppwriteModel):
     cutoverat: str = Field(..., alias='cutoverAt')
     soakuntil: str = Field(..., alias='soakUntil')
     autocutover: bool = Field(..., alias='autoCutover')
+    cutoverrequested: bool = Field(..., alias='cutoverRequested')
     paused: bool = Field(..., alias='paused')

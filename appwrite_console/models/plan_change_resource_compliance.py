@@ -16,11 +16,11 @@ class PlanChangeResourceCompliance(AppwriteModel):
     limit : float
         Allowed limit in target plan
     status : str
-        Compliance status
+        Compliance status. Either `over_limit` or `within_limit`.
     excess : float
         Number of resources exceeding the limit
     resolutionhint : str
-        Suggestion for resolving the compliance issue
+        Suggestion for resolving the compliance issue. Empty when the resource is within limits.
     """
     type: str = Field(..., alias='type')
     currentusage: float = Field(..., alias='currentUsage')

@@ -1391,7 +1391,7 @@ class Account(Service):
         Parameters
         ----------
         factor : AuthenticationFactor
-            Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`.
+            Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`, `custom`.
         
         Returns
         -------
@@ -2561,7 +2561,7 @@ class Account(Service):
         Parameters
         ----------
         session_id : str
-            Session ID. Use the string 'current' to get the current device session. Defaults to 'current'.
+            Session ID. Use the string 'current' to get the current device session.
         
         Returns
         -------
@@ -2600,7 +2600,7 @@ class Account(Service):
         Parameters
         ----------
         session_id : str
-            Session ID. Use the string 'current' to update the current device session. Defaults to 'current'.
+            Session ID. Use the string 'current' to update the current device session.
         
         Returns
         -------
@@ -2640,7 +2640,7 @@ class Account(Service):
         Parameters
         ----------
         session_id : str
-            Session ID. Use the string 'current' to delete the current device session. Defaults to 'current'.
+            Session ID. Use the string 'current' to delete the current device session.
         
         Returns
         -------

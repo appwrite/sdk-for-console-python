@@ -672,7 +672,8 @@ class TablesDB(Service):
     def create_migration(
         self,
         database_id: str,
-        specification: str
+        specification: str,
+        auto_cutover: Optional[bool] = None
     ) -> DatabaseMigration:
         """
         Start migrating a serverless TablesDB database onto a dedicated MySQL compute. Data is copied to the target while the source stays live, with a brief read-only window during cutover.
@@ -683,6 +684,8 @@ class TablesDB(Service):
             Database ID.
         specification : str
             Dedicated compute specification to provision as the migration target (e.g. s-2vcpu-4gb). The migration always targets a dedicated compute, so `serverless` is not accepted.
+        auto_cutover : Optional[bool]
+            Whether to cut over automatically once the copy is verified. When disabled the migration parks at ready_to_cutover and holds there until the cutover is performed manually.
         
         Returns
         -------
@@ -706,6 +709,8 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
         api_params['specification'] = self._normalize_value(specification)
+        if auto_cutover is not None:
+            api_params['autoCutover'] = self._normalize_value(auto_cutover)
 
         response = self.client.call('post', api_path, {
             'X-Appwrite-Project': self.client.get_config('project'),
@@ -807,6 +812,53 @@ class TablesDB(Service):
         }, api_params)
 
         return response
+
+
+    def cutover_migration(
+        self,
+        database_id: str,
+        migration_id: str
+    ) -> DatabaseMigration:
+        """
+        Cut a verified TablesDB migration over to its dedicated compute. Only applies to a migration created with `autoCutover` disabled, which waits at `ready_to_cutover` until this is called. The routing flip happens shortly after this returns, with a brief read-only window. One call buys one attempt: a cutover that fails a check returns the migration to `verifying` and parks it again, so call this once more to retry.
+
+        Parameters
+        ----------
+        database_id : str
+            Database ID.
+        migration_id : str
+            Migration ID.
+        
+        Returns
+        -------
+        DatabaseMigration
+            API response as a typed Pydantic model
+        
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/tablesdb/{databaseId}/migrations/{migrationId}/cutover'
+        api_params = {}
+        if database_id is None:
+            raise AppwriteException('Missing required parameter: "database_id"')
+
+        if migration_id is None:
+            raise AppwriteException('Missing required parameter: "migration_id"')
+
+        api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
+        api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
+
+
+        response = self.client.call('post', api_path, {
+            'X-Appwrite-Project': self.client.get_config('project'),
+            'content-type': 'application/json',
+            'accept': 'application/json',
+        }, api_params)
+
+        return self._parse_response(response, model=DatabaseMigration)
 
 
     def list_operations(
@@ -1024,7 +1076,7 @@ class TablesDB(Service):
         enabled : Optional[bool]
             Is table enabled? When set to 'disabled', users cannot access the table but Server SDKs with and API key can still read and write to the table. No data is lost when this is toggled.
         columns : Optional[List[Dict[str, Any]]]
-            Array of column definitions to create. Each column should contain: key (string), type (string: string, integer, float, boolean, datetime, relationship), size (integer, required for string type), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
+            Array of column definitions to create. Each column should contain: key (string), type (string: string, varchar, text, mediumtext, longtext, integer, bigint, float, boolean, datetime, email, url, ip, enum), size (integer, required for string and varchar types), required (boolean, optional), default (mixed, optional), array (boolean, optional), and type-specific options.
         indexes : Optional[List[Dict[str, Any]]]
             Array of index definitions to create. Each index should contain: key (string), type (string: key, fulltext, unique, spatial), attributes (array of column keys), orders (array of ASC/DESC, optional), and lengths (array of integers, optional).
         

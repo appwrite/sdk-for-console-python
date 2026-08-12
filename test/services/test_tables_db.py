@@ -56,7 +56,6 @@ class TablesDBServiceTest(unittest.TestCase):
         "storageOverageRate": 0.125,
         "bandwidthOverageRate": 0.08,
         "replicaRate": 1,
-        "crossRegionReplicaRate": 1,
         "pitrRate": 0.2
     }
 }
@@ -250,7 +249,6 @@ class TablesDBServiceTest(unittest.TestCase):
     "nodePool": "db-pool-4vcpu-8gb",
     "replicas": 2.0,
     "syncMode": "async",
-    "crossRegionReplicas": 1.0,
     "networkMaxConnections": 500.0,
     "networkIdleTimeoutSeconds": 900.0,
     "networkIPAllowlist": [],
@@ -311,6 +309,7 @@ class TablesDBServiceTest(unittest.TestCase):
     "cutoverAt": "2020-10-15T06:38:00.000+00:00",
     "soakUntil": "2020-10-15T06:38:00.000+00:00",
     "autoCutover": True,
+    "cutoverRequested": True,
     "paused": True
 }
         headers = {'Content-Type': 'application/json'}
@@ -340,6 +339,7 @@ class TablesDBServiceTest(unittest.TestCase):
     "cutoverAt": "2020-10-15T06:38:00.000+00:00",
     "soakUntil": "2020-10-15T06:38:00.000+00:00",
     "autoCutover": True,
+    "cutoverRequested": True,
     "paused": True
 }
         headers = {'Content-Type': 'application/json'}
@@ -366,6 +366,36 @@ class TablesDBServiceTest(unittest.TestCase):
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
+    def test_cutover_migration(self, m):
+        data = {
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000+00:00",
+    "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+    "projectId": "5e5ea5c16897e",
+    "databaseId": "5e5ea5c16897e",
+    "specification": "s-2vcpu-4gb",
+    "phase": "pending",
+    "attempt": 0.0,
+    "lastError": "",
+    "lagDocuments": 0.0,
+    "verifiedAt": "2020-10-15T06:38:00.000+00:00",
+    "cutoverAt": "2020-10-15T06:38:00.000+00:00",
+    "soakUntil": "2020-10-15T06:38:00.000+00:00",
+    "autoCutover": True,
+    "cutoverRequested": True,
+    "paused": True
+}
+        headers = {'Content-Type': 'application/json'}
+        m.request(requests_mock.ANY, requests_mock.ANY, text=json.dumps(data), headers=headers)
+
+        response = self.tables_db.cutover_migration(
+            '<DATABASE_ID>',
+            '<MIGRATION_ID>',
+        )
+
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
     def test_list_operations(self, m):
         data = {
     "total": 5.0,
@@ -388,7 +418,6 @@ class TablesDBServiceTest(unittest.TestCase):
     "syncDegraded": True,
     "syncAcknowledgements": 1.0,
     "syncStandbyCount": 2.0,
-    "syncStateConfirmed": True,
     "members": []
 }
         headers = {'Content-Type': 'application/json'}
@@ -416,7 +445,6 @@ class TablesDBServiceTest(unittest.TestCase):
     "syncDegraded": True,
     "syncAcknowledgements": 1.0,
     "syncStandbyCount": 2.0,
-    "syncStateConfirmed": True,
     "replicas": [],
     "volumes": []
 }

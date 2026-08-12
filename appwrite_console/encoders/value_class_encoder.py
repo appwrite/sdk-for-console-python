@@ -54,6 +54,7 @@ from ..enums.project_smtp_secure import ProjectSMTPSecure
 from ..enums.project_usage_range import ProjectUsageRange
 from ..enums.schedule_resource_type import ScheduleResourceType
 from ..enums.status import Status
+from ..enums.invalidation_type import InvalidationType
 from ..enums.status_code import StatusCode
 from ..enums.proxy_resource_type import ProxyResourceType
 from ..enums.framework import Framework
@@ -63,10 +64,12 @@ from ..enums.site_template_use_case import SiteTemplateUseCase
 from ..enums.compression import Compression
 from ..enums.image_gravity import ImageGravity
 from ..enums.tables_db_index_type import TablesDBIndexType
+from ..enums.usage_event_metric import UsageEventMetric
 from ..enums.usage_interval import UsageInterval
 from ..enums.usage_event_dimension import UsageEventDimension
 from ..enums.usage_order_by import UsageOrderBy
 from ..enums.usage_order_direction import UsageOrderDirection
+from ..enums.usage_gauge_metric import UsageGaugeMetric
 from ..enums.usage_gauge_dimension import UsageGaugeDimension
 from ..enums.password_hash import PasswordHash
 from ..enums.messaging_provider_type import MessagingProviderType
@@ -260,6 +263,9 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, Status):
             return o.value
 
+        if isinstance(o, InvalidationType):
+            return o.value
+
         if isinstance(o, StatusCode):
             return o.value
 
@@ -287,6 +293,9 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, TablesDBIndexType):
             return o.value
 
+        if isinstance(o, UsageEventMetric):
+            return o.value
+
         if isinstance(o, UsageInterval):
             return o.value
 
@@ -297,6 +306,9 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, UsageOrderDirection):
+            return o.value
+
+        if isinstance(o, UsageGaugeMetric):
             return o.value
 
         if isinstance(o, UsageGaugeDimension):
