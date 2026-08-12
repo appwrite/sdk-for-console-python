@@ -25,7 +25,6 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -62,7 +61,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             '<API_KEY>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -108,7 +106,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<KEY>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -144,7 +141,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<COLLECTION_ID>',
             '<FILENAME>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -183,7 +179,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<COLLECTION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -218,7 +213,6 @@ class MigrationsServiceTest(unittest.TestCase):
             [],
             '<SERVICE_ACCOUNT>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -262,7 +256,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<SERVICE_ACCOUNT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -298,7 +291,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<COLLECTION_ID>',
             '<FILENAME>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -336,7 +328,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -377,7 +368,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<USERNAME>',
             'password',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -426,7 +416,6 @@ class MigrationsServiceTest(unittest.TestCase):
             'password',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -465,7 +454,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<USERNAME>',
             'password',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -513,7 +501,6 @@ class MigrationsServiceTest(unittest.TestCase):
             'password',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -548,7 +535,6 @@ class MigrationsServiceTest(unittest.TestCase):
             '<MIGRATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -582,7 +568,6 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.retry(
             '<MIGRATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

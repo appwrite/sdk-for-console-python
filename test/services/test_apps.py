@@ -25,7 +25,6 @@ class AppsServiceTest(unittest.TestCase):
         response = self.apps.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -67,7 +66,6 @@ class AppsServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -82,7 +80,6 @@ class AppsServiceTest(unittest.TestCase):
         response = self.apps.list_installation_scopes(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -96,7 +93,6 @@ class AppsServiceTest(unittest.TestCase):
 
         response = self.apps.list_o_auth2_scopes(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -136,7 +132,6 @@ class AppsServiceTest(unittest.TestCase):
         response = self.apps.get(
             '<APP_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -178,7 +173,6 @@ class AppsServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -206,7 +200,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -229,7 +222,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
             '<INSTALLATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -263,7 +255,6 @@ class AppsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -278,7 +269,6 @@ class AppsServiceTest(unittest.TestCase):
         response = self.apps.list_keys(
             '<APP_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -301,7 +291,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -323,7 +312,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
             '<KEY_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -378,7 +366,6 @@ class AppsServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -393,7 +380,6 @@ class AppsServiceTest(unittest.TestCase):
         response = self.apps.list_secrets(
             '<APP_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -416,7 +402,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -438,7 +423,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
             '<SECRET_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -492,7 +476,6 @@ class AppsServiceTest(unittest.TestCase):
             '<APP_ID>',
             '<TEAM_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

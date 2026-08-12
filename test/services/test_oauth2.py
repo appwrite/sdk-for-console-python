@@ -25,7 +25,6 @@ class Oauth2ServiceTest(unittest.TestCase):
             '<GRANT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -40,7 +39,6 @@ class Oauth2ServiceTest(unittest.TestCase):
         response = self.oauth2.authorize(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -54,7 +52,6 @@ class Oauth2ServiceTest(unittest.TestCase):
 
         response = self.oauth2.authorize_post(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -73,7 +70,6 @@ class Oauth2ServiceTest(unittest.TestCase):
 
         response = self.oauth2.create_device_authorization(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -100,7 +96,6 @@ class Oauth2ServiceTest(unittest.TestCase):
             '<USER_CODE>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -125,7 +120,6 @@ class Oauth2ServiceTest(unittest.TestCase):
         response = self.oauth2.get_grant(
             '<GRANT_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -163,7 +157,6 @@ class Oauth2ServiceTest(unittest.TestCase):
         response = self.oauth2.list_organizations(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -181,7 +174,6 @@ class Oauth2ServiceTest(unittest.TestCase):
             'code',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -196,7 +188,6 @@ class Oauth2ServiceTest(unittest.TestCase):
         response = self.oauth2.list_projects(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -210,7 +201,6 @@ class Oauth2ServiceTest(unittest.TestCase):
         response = self.oauth2.reject(
             '<GRANT_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -241,7 +231,6 @@ class Oauth2ServiceTest(unittest.TestCase):
         response = self.oauth2.create_token(
             '<GRANT_TYPE>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

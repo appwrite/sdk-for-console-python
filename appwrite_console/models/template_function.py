@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
+
 from .base_model import AppwriteModel
 from .template_runtime import TemplateRuntime
 from .template_variable import TemplateVariable

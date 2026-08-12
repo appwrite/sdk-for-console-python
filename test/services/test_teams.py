@@ -25,7 +25,6 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -46,7 +45,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -65,7 +63,6 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.get(
             '<TEAM_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -86,7 +83,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
             '<NAME>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -115,7 +111,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -138,7 +133,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
             '<APP_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -163,7 +157,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -186,7 +179,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
             '<INSTALLATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -216,7 +208,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -231,7 +222,6 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.list_memberships(
             '<TEAM_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -262,7 +252,6 @@ class TeamsServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -291,7 +280,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
             '<MEMBERSHIP_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -322,7 +310,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<MEMBERSHIP_ID>',
             [],
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -368,7 +355,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<SECRET>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -380,7 +366,6 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.get_prefs(
             '<TEAM_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -394,7 +379,6 @@ class TeamsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
             {},
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

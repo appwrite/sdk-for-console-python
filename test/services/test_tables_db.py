@@ -25,7 +25,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -45,7 +44,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<NAME>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -67,7 +65,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_specifications(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -81,7 +78,6 @@ class TablesDBServiceTest(unittest.TestCase):
 
         response = self.tables_db.list_transactions(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -100,7 +96,6 @@ class TablesDBServiceTest(unittest.TestCase):
 
         response = self.tables_db.create_transaction(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -121,7 +116,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TRANSACTION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -140,7 +134,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_transaction(
             '<TRANSACTION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -173,7 +166,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TRANSACTION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -193,7 +185,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -212,7 +203,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -285,7 +275,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -300,7 +289,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_migrations(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -332,7 +320,6 @@ class TablesDBServiceTest(unittest.TestCase):
             's-1vcpu-1gb',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -362,7 +349,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<MIGRATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -407,7 +393,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<MIGRATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -422,7 +407,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_operations(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -442,7 +426,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.get_replicas(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -472,7 +455,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -487,7 +469,6 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_tables(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -516,7 +497,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -543,7 +523,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -569,7 +548,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -600,7 +578,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -623,7 +600,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -649,7 +625,6 @@ class TablesDBServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -672,7 +647,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -698,7 +672,6 @@ class TablesDBServiceTest(unittest.TestCase):
             True,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -722,7 +695,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -749,7 +721,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '2020-10-15T06:38:00.000+00:00',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -773,7 +744,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -800,7 +770,6 @@ class TablesDBServiceTest(unittest.TestCase):
             'email@example.com',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -826,7 +795,6 @@ class TablesDBServiceTest(unittest.TestCase):
             [],
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -855,7 +823,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DEFAULT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -878,7 +845,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -904,7 +870,6 @@ class TablesDBServiceTest(unittest.TestCase):
             1.0,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -927,7 +892,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -953,7 +917,6 @@ class TablesDBServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -977,7 +940,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1004,7 +966,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1027,7 +988,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1052,7 +1012,6 @@ class TablesDBServiceTest(unittest.TestCase):
             True,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1075,7 +1034,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1101,7 +1059,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DEFAULT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1124,7 +1081,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1150,7 +1106,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DEFAULT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1173,7 +1128,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1198,7 +1152,6 @@ class TablesDBServiceTest(unittest.TestCase):
             True,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1222,7 +1175,6 @@ class TablesDBServiceTest(unittest.TestCase):
             True,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1245,7 +1197,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1276,7 +1227,6 @@ class TablesDBServiceTest(unittest.TestCase):
             'oneToOne',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1301,7 +1251,6 @@ class TablesDBServiceTest(unittest.TestCase):
             1,
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1328,7 +1277,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DEFAULT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1351,7 +1299,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1377,7 +1324,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DEFAULT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1401,7 +1347,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1428,7 +1373,6 @@ class TablesDBServiceTest(unittest.TestCase):
             'https://example.com',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1453,7 +1397,6 @@ class TablesDBServiceTest(unittest.TestCase):
             1,
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1480,7 +1423,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DEFAULT>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1502,7 +1444,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1546,7 +1487,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1562,7 +1502,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1590,7 +1529,6 @@ class TablesDBServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1614,7 +1552,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1645,7 +1582,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1688,7 +1624,6 @@ class TablesDBServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1706,7 +1641,6 @@ class TablesDBServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1723,7 +1657,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1739,7 +1672,6 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

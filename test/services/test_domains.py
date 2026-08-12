@@ -25,7 +25,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -52,7 +51,6 @@ class DomainsServiceTest(unittest.TestCase):
             '',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -71,7 +69,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_price(
             '',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -103,7 +100,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -128,7 +124,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -143,7 +138,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.list_suggestions(
             '<QUERY>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -171,7 +165,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -196,7 +189,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -211,7 +203,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -237,7 +228,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -277,7 +267,6 @@ class DomainsServiceTest(unittest.TestCase):
             True,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -302,7 +291,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_nameservers(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -329,7 +317,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -344,7 +331,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_preset_google_workspace(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -361,7 +347,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -376,7 +361,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_preset_i_cloud(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -393,7 +377,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -408,7 +391,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_preset_mailgun(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -425,7 +407,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -440,7 +421,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_preset_outlook(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -457,7 +437,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -472,7 +451,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_preset_proton_mail(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -489,7 +467,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -504,7 +481,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_preset_zoho(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -521,7 +497,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -536,7 +511,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.list_records(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -565,7 +539,6 @@ class DomainsServiceTest(unittest.TestCase):
             '',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -596,7 +569,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -624,7 +596,6 @@ class DomainsServiceTest(unittest.TestCase):
             '',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -655,7 +626,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -683,7 +653,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -714,7 +683,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -742,7 +710,6 @@ class DomainsServiceTest(unittest.TestCase):
             '',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -773,7 +740,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -801,7 +767,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -832,7 +797,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -860,7 +824,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -891,7 +854,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -920,7 +882,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -952,7 +913,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -980,7 +940,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1010,7 +969,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1042,7 +1000,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1076,7 +1033,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1103,7 +1059,6 @@ class DomainsServiceTest(unittest.TestCase):
             '',
             1,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1134,7 +1089,6 @@ class DomainsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1160,7 +1114,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
             '<RECORD_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1201,7 +1154,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<TEAM_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1217,7 +1169,6 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.get_transfer_status(
             '<DOMAIN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1256,7 +1207,6 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
             '<CONTENT>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

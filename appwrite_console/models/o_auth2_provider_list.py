@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
+
 from .base_model import AppwriteModel
 from .o_auth2_github import OAuth2Github
 from .o_auth2_discord import OAuth2Discord

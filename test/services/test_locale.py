@@ -30,7 +30,6 @@ class LocaleServiceTest(unittest.TestCase):
         response = self.locale.get(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -44,7 +43,6 @@ class LocaleServiceTest(unittest.TestCase):
 
         response = self.locale.list_codes(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -60,7 +58,6 @@ class LocaleServiceTest(unittest.TestCase):
         response = self.locale.list_continents(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -74,7 +71,6 @@ class LocaleServiceTest(unittest.TestCase):
 
         response = self.locale.list_countries(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -90,7 +86,6 @@ class LocaleServiceTest(unittest.TestCase):
         response = self.locale.list_countries_eu(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -104,7 +99,6 @@ class LocaleServiceTest(unittest.TestCase):
 
         response = self.locale.list_countries_phones(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -120,7 +114,6 @@ class LocaleServiceTest(unittest.TestCase):
         response = self.locale.list_currencies(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -134,7 +127,6 @@ class LocaleServiceTest(unittest.TestCase):
 
         response = self.locale.list_languages(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

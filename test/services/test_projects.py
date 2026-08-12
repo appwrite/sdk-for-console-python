@@ -26,7 +26,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -48,7 +47,6 @@ class ProjectsServiceTest(unittest.TestCase):
         response = self.projects.create_premium_geo_db_addon(
             '<PROJECT_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -72,7 +70,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             '<ADDON_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -110,7 +107,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<ADDON_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -132,7 +128,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             'baa',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -161,7 +156,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -183,7 +177,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             '<KEY_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -208,7 +201,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<NAME>',
             '2020-10-15T06:38:00.000+00:00',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -238,7 +230,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -266,7 +257,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -292,7 +282,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<SCHEDULE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -306,7 +295,6 @@ class ProjectsServiceTest(unittest.TestCase):
         response = self.projects.list_stages(
             '<PROJECT_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -326,7 +314,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             '<STAGE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -382,7 +369,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             '<TEAM_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

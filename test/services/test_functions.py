@@ -25,7 +25,6 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -73,7 +72,6 @@ class FunctionsServiceTest(unittest.TestCase):
             'node-14.5',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -87,7 +85,6 @@ class FunctionsServiceTest(unittest.TestCase):
 
         response = self.functions.list_runtimes(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -103,7 +100,6 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.list_specifications(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -117,7 +113,6 @@ class FunctionsServiceTest(unittest.TestCase):
 
         response = self.functions.list_templates(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -148,7 +143,6 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.get_template(
             '<TEMPLATE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -195,7 +189,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<FUNCTION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -241,7 +234,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<FUNCTION_ID>',
             '<NAME>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -301,7 +293,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<DEPLOYMENT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -316,7 +307,6 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.list_deployments(
             '<FUNCTION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -360,7 +350,6 @@ class FunctionsServiceTest(unittest.TestCase):
             True,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -401,7 +390,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<FUNCTION_ID>',
             '<DEPLOYMENT_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -448,7 +436,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<REFERENCE>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -491,7 +478,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<REFERENCE>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -532,7 +518,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<FUNCTION_ID>',
             '<DEPLOYMENT_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -601,7 +586,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<DEPLOYMENT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -616,7 +600,6 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.list_executions(
             '<FUNCTION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -647,7 +630,6 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.create_execution(
             '<FUNCTION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -680,7 +662,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<EXECUTION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -709,7 +690,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<FUNCTION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -734,7 +714,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<VALUE>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -757,7 +736,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<VARIABLE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -779,7 +757,6 @@ class FunctionsServiceTest(unittest.TestCase):
             '<FUNCTION_ID>',
             '<VARIABLE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

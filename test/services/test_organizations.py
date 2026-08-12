@@ -25,7 +25,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -194,7 +193,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             'tier-0',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -214,7 +212,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.estimation_create_organization(
             'tier-0',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -243,7 +240,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -265,7 +261,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.create_baa_addon(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -289,7 +284,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -312,7 +306,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<ADDON_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -350,7 +343,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ADDON_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -373,7 +365,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             'baa',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -388,7 +379,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.list_aggregations(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -432,7 +422,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<AGGREGATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -601,7 +590,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<BILLING_ADDRESS_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -635,7 +623,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<BILLING_ADDRESS_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -804,7 +791,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             'email@example.com',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -972,7 +958,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -988,7 +973,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.list_credits(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1015,7 +999,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<COUPON_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1029,7 +1012,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.get_available_credits(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1056,7 +1038,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<CREDIT_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1070,7 +1051,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.estimation_delete_organization(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1093,7 +1073,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             'tier-0',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1122,7 +1101,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<TO_PLAN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1137,7 +1115,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.list_invoices(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1175,7 +1152,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<INVOICE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1228,7 +1204,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1265,7 +1240,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<INVOICE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1447,7 +1421,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1613,7 +1586,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.delete_default_payment_method(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1782,7 +1754,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1949,7 +1920,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1983,7 +1953,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<PAYMENT_METHOD_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2127,7 +2096,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.get_plan(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2296,7 +2264,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             'tier-0',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2463,7 +2430,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2522,7 +2488,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             'tier-0',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2538,7 +2503,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2553,7 +2517,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.get_scopes(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2722,7 +2685,6 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<TAX_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2765,7 +2727,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.get_usage(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -2932,7 +2893,6 @@ class OrganizationsServiceTest(unittest.TestCase):
         response = self.organizations.validate_payment(
             '<ORGANIZATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

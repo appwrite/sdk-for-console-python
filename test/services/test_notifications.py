@@ -25,7 +25,6 @@ class NotificationsServiceTest(unittest.TestCase):
         response = self.notifications.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -50,7 +49,6 @@ class NotificationsServiceTest(unittest.TestCase):
             '<NOTIFICATION_ID>',
             True,
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

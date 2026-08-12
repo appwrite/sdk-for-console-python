@@ -27,7 +27,6 @@ class TokensServiceTest(unittest.TestCase):
             '<FILE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -49,7 +48,6 @@ class TokensServiceTest(unittest.TestCase):
             '<FILE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -70,7 +68,6 @@ class TokensServiceTest(unittest.TestCase):
             '<TOKEN_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -90,7 +87,6 @@ class TokensServiceTest(unittest.TestCase):
         response = self.tokens.update(
             '<TOKEN_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

@@ -25,7 +25,6 @@ class BackupsServiceTest(unittest.TestCase):
         response = self.backups.list_archives(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -49,7 +48,6 @@ class BackupsServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -72,7 +70,6 @@ class BackupsServiceTest(unittest.TestCase):
         response = self.backups.get_archive(
             '<ARCHIVE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -100,7 +97,6 @@ class BackupsServiceTest(unittest.TestCase):
         response = self.backups.list_policies(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -127,7 +123,6 @@ class BackupsServiceTest(unittest.TestCase):
             '',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -151,7 +146,6 @@ class BackupsServiceTest(unittest.TestCase):
             '<POLICY_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -174,7 +168,6 @@ class BackupsServiceTest(unittest.TestCase):
         response = self.backups.update_policy(
             '<POLICY_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -213,7 +206,6 @@ class BackupsServiceTest(unittest.TestCase):
             [],
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -227,7 +219,6 @@ class BackupsServiceTest(unittest.TestCase):
 
         response = self.backups.list_restorations(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -252,7 +243,6 @@ class BackupsServiceTest(unittest.TestCase):
         response = self.backups.get_restoration(
             '<RESTORATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

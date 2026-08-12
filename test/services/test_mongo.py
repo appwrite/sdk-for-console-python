@@ -25,7 +25,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.list(
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -86,7 +85,6 @@ class MongoServiceTest(unittest.TestCase):
             '<NAME>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -106,7 +104,6 @@ class MongoServiceTest(unittest.TestCase):
 
         response = self.mongo.list_specifications(
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -167,7 +164,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -227,7 +223,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -255,7 +250,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -281,7 +275,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -296,7 +289,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.list_backup_policies(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -325,7 +317,6 @@ class MongoServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -350,7 +341,6 @@ class MongoServiceTest(unittest.TestCase):
             '<POLICY_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -374,7 +364,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<POLICY_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -411,7 +400,6 @@ class MongoServiceTest(unittest.TestCase):
             '<SECRET_KEY>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -437,7 +425,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<BACKUP_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -465,7 +452,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.list_branches(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -525,7 +511,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.create_branch(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -587,7 +572,6 @@ class MongoServiceTest(unittest.TestCase):
             '<BRANCH_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -647,7 +631,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -706,7 +689,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.create_failover(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -769,7 +751,6 @@ class MongoServiceTest(unittest.TestCase):
             1,
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -830,7 +811,6 @@ class MongoServiceTest(unittest.TestCase):
             'shared',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -846,7 +826,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -861,7 +840,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.get_pitr(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -882,7 +860,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -897,7 +874,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.list_restorations(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -924,7 +900,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
         )
 
-
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -950,7 +925,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<RESTORATION_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -979,7 +953,6 @@ class MongoServiceTest(unittest.TestCase):
         response = self.mongo.get_status(
             '<DATABASE_ID>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 
@@ -1040,7 +1013,6 @@ class MongoServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TARGET_VERSION>',
         )
-
 
         self.assertEqual(response.to_dict(), data)
 

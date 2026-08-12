@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Optional, Union, cast, Generic, TypeVar, Type
 from pydantic import Field, PrivateAttr
+
 from .base_model import AppwriteModel
 from .algo_argon2 import AlgoArgon2
 from .algo_scrypt import AlgoScrypt
