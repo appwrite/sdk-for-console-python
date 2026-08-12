@@ -69,8 +69,6 @@ class DedicatedDatabase(AppwriteModel):
         Number of high availability replicas. High availability is enabled when greater than 0.
     syncmode : str
         Replication sync mode: async, sync, or quorum.
-    crossregionreplicas : float
-        Number of cross-region replicas. Cross-region availability is enabled when greater than 0.
     networkmaxconnections : float
         Maximum concurrent client connections. This is the limit a client pool may reach; the engine&#039;s own max_connections reported by the status endpoint is a smaller backend limit the pooler multiplexes onto and does not constrain a client pool.
     networkidletimeoutseconds : float
@@ -138,7 +136,6 @@ class DedicatedDatabase(AppwriteModel):
     nodepool: str = Field(..., alias='nodePool')
     replicas: float = Field(..., alias='replicas')
     syncmode: str = Field(..., alias='syncMode')
-    crossregionreplicas: float = Field(..., alias='crossRegionReplicas')
     networkmaxconnections: float = Field(..., alias='networkMaxConnections')
     networkidletimeoutseconds: float = Field(..., alias='networkIdleTimeoutSeconds')
     networkipallowlist: List[Any] = Field(..., alias='networkIPAllowlist')

@@ -22,8 +22,8 @@ class DedicatedDatabaseReplicas(AppwriteModel):
         Number of standby acknowledgements the primary waits for before a write is committed. Zero means writes are acknowledged locally.
     syncstandbycount : float
         Number of standbys registered with the primary for synchronous replication.
-    syncstateconfirmed : bool
-        Whether the reported sync state was read from the engine. When false the state could not be confirmed and the other sync fields carry no reading.
+    syncstateconfirmed : Optional[bool]
+        Whether the reported sync state was read from the engine. When false the engine was asked and the state could not be confirmed, and the other sync fields carry no reading. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one — draw no conclusion about replication from a response that omits it.
     members : List[DedicatedDatabaseMember]
         Per-pod statuses for the primary and every replica.
     """
@@ -33,5 +33,5 @@ class DedicatedDatabaseReplicas(AppwriteModel):
     syncdegraded: bool = Field(..., alias='syncDegraded')
     syncacknowledgements: float = Field(..., alias='syncAcknowledgements')
     syncstandbycount: float = Field(..., alias='syncStandbyCount')
-    syncstateconfirmed: bool = Field(..., alias='syncStateConfirmed')
+    syncstateconfirmed: Optional[bool] = Field(default=None, alias='syncStateConfirmed')
     members: List[DedicatedDatabaseMember] = Field(..., alias='members')

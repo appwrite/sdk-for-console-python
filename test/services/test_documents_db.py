@@ -56,7 +56,6 @@ class DocumentsDBServiceTest(unittest.TestCase):
         "storageOverageRate": 0.125,
         "bandwidthOverageRate": 0.08,
         "replicaRate": 1,
-        "crossRegionReplicaRate": 1,
         "pitrRate": 0.2
     }
 }
@@ -657,7 +656,6 @@ class DocumentsDBServiceTest(unittest.TestCase):
     "nodePool": "db-pool-4vcpu-8gb",
     "replicas": 2.0,
     "syncMode": "async",
-    "crossRegionReplicas": 1.0,
     "networkMaxConnections": 500.0,
     "networkIdleTimeoutSeconds": 900.0,
     "networkIPAllowlist": [],
@@ -709,7 +707,6 @@ class DocumentsDBServiceTest(unittest.TestCase):
     "syncDegraded": True,
     "syncAcknowledgements": 1.0,
     "syncStandbyCount": 2.0,
-    "syncStateConfirmed": True,
     "members": []
 }
         headers = {'Content-Type': 'application/json'}
@@ -737,7 +734,6 @@ class DocumentsDBServiceTest(unittest.TestCase):
     "syncDegraded": True,
     "syncAcknowledgements": 1.0,
     "syncStandbyCount": 2.0,
-    "syncStateConfirmed": True,
     "replicas": [],
     "volumes": []
 }

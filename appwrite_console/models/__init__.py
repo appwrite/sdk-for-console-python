@@ -215,6 +215,7 @@ from .policy_session_invalidation import PolicySessionInvalidation
 from .policy_session_limit import PolicySessionLimit
 from .policy_user_limit import PolicyUserLimit
 from .policy_membership_privacy import PolicyMembershipPrivacy
+from .policy_mfa_factors import PolicyMfaFactors
 from .platform_web import PlatformWeb
 from .platform_apple import PlatformApple
 from .platform_android import PlatformAndroid
@@ -245,6 +246,7 @@ from .console_o_auth2_provider_list import ConsoleOAuth2ProviderList
 from .console_key_scope import ConsoleKeyScope
 from .console_key_scope_list import ConsoleKeyScopeList
 from .mfa_challenge import MfaChallenge
+from .mfa_challenge_secret import MfaChallengeSecret
 from .mfa_recovery_codes import MfaRecoveryCodes
 from .mfa_type import MfaType
 from .mfa_factors import MfaFactors
@@ -263,6 +265,12 @@ from .activity_event import ActivityEvent
 from .additional_resource import AdditionalResource
 from .addon import Addon
 from .addon_price import AddonPrice
+from .affiliate_link import AffiliateLink
+from .affiliate_link_list import AffiliateLinkList
+from .affiliate_referral import AffiliateReferral
+from .affiliate_referral_list import AffiliateReferralList
+from .affiliate_reward import AffiliateReward
+from .affiliate_reward_list import AffiliateRewardList
 from .aggregation_breakdown import AggregationBreakdown
 from .aggregation_team import AggregationTeam
 from .backup_archive import BackupArchive
@@ -309,6 +317,7 @@ from .dedicated_database_member import DedicatedDatabaseMember
 from .dedicated_database_operation import DedicatedDatabaseOperation
 from .dedicated_database_operation_list import DedicatedDatabaseOperationList
 from .dedicated_database_replicas import DedicatedDatabaseReplicas
+from .proxy_invalidation import ProxyInvalidation
 from .invoice import Invoice
 from .organization import Organization
 from .payment_authentication import PaymentAuthentication
@@ -615,6 +624,7 @@ __all__ = [
     'PolicySessionLimit',
     'PolicyUserLimit',
     'PolicyMembershipPrivacy',
+    'PolicyMfaFactors',
     'PlatformWeb',
     'PlatformApple',
     'PlatformAndroid',
@@ -645,6 +655,7 @@ __all__ = [
     'ConsoleKeyScope',
     'ConsoleKeyScopeList',
     'MfaChallenge',
+    'MfaChallengeSecret',
     'MfaRecoveryCodes',
     'MfaType',
     'MfaFactors',
@@ -663,6 +674,12 @@ __all__ = [
     'AdditionalResource',
     'Addon',
     'AddonPrice',
+    'AffiliateLink',
+    'AffiliateLinkList',
+    'AffiliateReferral',
+    'AffiliateReferralList',
+    'AffiliateReward',
+    'AffiliateRewardList',
     'AggregationBreakdown',
     'AggregationTeam',
     'BackupArchive',
@@ -709,6 +726,7 @@ __all__ = [
     'DedicatedDatabaseOperation',
     'DedicatedDatabaseOperationList',
     'DedicatedDatabaseReplicas',
+    'ProxyInvalidation',
     'Invoice',
     'Organization',
     'PaymentAuthentication',

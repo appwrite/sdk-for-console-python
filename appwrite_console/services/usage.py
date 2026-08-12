@@ -3,11 +3,15 @@ from urllib.parse import quote
 from typing import Any, Dict, List, Optional, Union
 from ..exception import AppwriteException
 from appwrite_console.utils.deprecated import deprecated
+from ..enums.usage_event_metric import UsageEventMetric
+from ..enums.usage_event_query_attribute import UsageEventQueryAttribute
 from ..enums.usage_interval import UsageInterval
 from ..enums.usage_event_dimension import UsageEventDimension
 from ..enums.usage_order_by import UsageOrderBy
 from ..enums.usage_order_direction import UsageOrderDirection
 from ..models.usage_event_list import UsageEventList
+from ..enums.usage_gauge_metric import UsageGaugeMetric
+from ..enums.usage_gauge_query_attribute import UsageGaugeQueryAttribute
 from ..enums.usage_gauge_dimension import UsageGaugeDimension
 from ..models.usage_gauge_list import UsageGaugeList
 
@@ -18,8 +22,8 @@ class Usage(Service):
 
     def list_events(
         self,
-        metrics: List[str],
-        queries: Optional[List[str]] = None,
+        metrics: List[UsageEventMetric],
+        queries: Optional[List[UsageEventQueryAttribute]] = None,
         interval: Optional[UsageInterval] = None,
         dimensions: Optional[List[UsageEventDimension]] = None,
         start_at: Optional[str] = None,
@@ -40,10 +44,10 @@ class Usage(Service):
 
         Parameters
         ----------
-        metrics : List[str]
-            One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=executions` or `metrics[]=executions&metrics[]=executions.compute` for stacked charts.
-        queries : Optional[List[str]]
-            Up to 10 filter queries in Utopia syntax. Allowed attributes: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
+        metrics : List[UsageEventMetric]
+            One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=executions` or `metrics[]=executions&metrics[]=executions.compute` for stacked charts. On console: `metrics[]=affiliates.clicks`.
+        queries : Optional[List[UsageEventQueryAttribute]]
+            Up to 10 filter queries in Utopia syntax. The enum lists supported filter attributes for SDK Query builders; the request value is still a full query string. Allowed attributes: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
         interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
         dimensions : Optional[List[UsageEventDimension]]
@@ -108,8 +112,8 @@ class Usage(Service):
 
     def list_gauges(
         self,
-        metrics: List[str],
-        queries: Optional[List[str]] = None,
+        metrics: List[UsageGaugeMetric],
+        queries: Optional[List[UsageGaugeQueryAttribute]] = None,
         interval: Optional[UsageInterval] = None,
         dimensions: Optional[List[UsageGaugeDimension]] = None,
         start_at: Optional[str] = None,
@@ -117,7 +121,8 @@ class Usage(Service):
         order_by: Optional[UsageOrderBy] = None,
         order_dir: Optional[UsageOrderDirection] = None,
         limit: Optional[float] = None,
-        offset: Optional[float] = None
+        offset: Optional[float] = None,
+        aggregate: Optional[str] = None
     ) -> UsageGaugeList:
         """
         Aggregate usage gauge snapshots. Gauges are point-in-time values (storage totals, resource counts, …); each point carries the latest snapshot in its interval via `argMax(value, time)`. `metrics[]` (1-10) is required; the response always contains one entry per requested metric, each with its own `points[]` time series.
@@ -129,13 +134,15 @@ class Usage(Service):
         - Pass `interval` (`1m`, `15m`, `30m`, `1h`, `1d`) for a time series — one snapshot per (time bucket × dimension combination).
         
         `dimensions[]` breaks each point down further. Supported on gauges: `resourceId`, `teamId`, `service`, `resourceType`, `ordinal`. `service` and `resourceType` enable per-service / per-resource-type panels (e.g. storage-by-service: group `files.storage`, `deployments.storage`, `builds.storage`, `databases.storage` by `service`). `ordinal` separates per-node series for multi-node resources such as dedicated databases. It is a stable per-node identity, not a role — ordinal 0 is the first member created, and a failover can leave the primary on any ordinal, so read the role from the database's replicas endpoint rather than inferring it here. `queries[]` filters the underlying rows using the standard Utopia query syntax — `equal("resourceType", ["bucket"])`, `equal("resourceId", ["abc123"])`, `equal("teamId", ["team_x"])`, `equal("ordinal", ["0"])`, `isNotNull("teamId")`. Supported attributes: see `queries[]` param. Supported methods: `equal`, `notEqual`, `isNull`, `isNotNull`. Pass multiple metrics to render stacked charts in one round-trip. `orderBy=value`+`orderDir=desc`+`limit=N` returns the top-N. When `startAt` is omitted, the default window adapts to interval (or 7d when interval is omitted).
+        
+        `aggregate` selects how the samples in a bucket are combined: `last` (default) is the latest reading — correct for a snapshot such as storage — while `max` is the highest reading. Use `max` for a sampled level series: peak concurrent realtime connections is `metrics[]=realtime.connections&aggregate=max`, at whatever `interval` the chart needs, since the peak of a set of samples is just the max of their per-bucket maxima. `realtime.connections` is served only here - it is a concurrency level, not a countable event, so `/v1/usage/events` rejects it.
 
         Parameters
         ----------
-        metrics : List[str]
+        metrics : List[UsageGaugeMetric]
             One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=files.storage` or `metrics[]=files.storage&metrics[]=deployments.storage` for stacked charts.
-        queries : Optional[List[str]]
-            Up to 10 filter queries in Utopia syntax. Allowed attributes: service, resourceType, resourceId, teamId, ordinal. Allowed methods: equal, notEqual, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
+        queries : Optional[List[UsageGaugeQueryAttribute]]
+            Up to 10 filter queries in Utopia syntax. The enum lists supported filter attributes for SDK Query builders; the request value is still a full query string. Allowed attributes: service, resourceType, resourceId, teamId, ordinal. Allowed methods: equal, notEqual, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
         interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
         dimensions : Optional[List[UsageGaugeDimension]]
@@ -152,6 +159,8 @@ class Usage(Service):
             Maximum rows to return (1-5000).
         offset : Optional[float]
             Pagination offset (0-100000).
+        aggregate : Optional[str]
+            How to combine the samples in each bucket. `last` (default) returns the latest reading — the right answer for a snapshot such as storage. `max` returns the highest reading, which is what a sampled level series needs: peak concurrent realtime connections is the max of `realtime.connections` over the window.
         
         Returns
         -------
@@ -189,6 +198,8 @@ class Usage(Service):
             api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
             api_params['offset'] = self._normalize_value(offset)
+        if aggregate is not None:
+            api_params['aggregate'] = self._normalize_value(aggregate)
 
         response = self.client.call('get', api_path, {
             'X-Appwrite-Project': self.client.get_config('project'),

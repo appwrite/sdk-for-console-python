@@ -69,7 +69,6 @@ class Mongo(Service):
         specification: Optional[str] = None,
         replicas: Optional[float] = None,
         sync_mode: Optional[str] = None,
-        standby_region: Optional[str] = None,
         network_idle_timeout_seconds: Optional[float] = None,
         network_ip_allowlist: Optional[List[str]] = None,
         idle_timeout_minutes: Optional[float] = None,
@@ -96,8 +95,6 @@ class Mongo(Service):
             Number of high availability replicas (0-5). High availability is enabled when greater than 0.
         sync_mode : Optional[str]
             Replication sync mode preference. Allowed values: async, sync, quorum.
-        standby_region : Optional[str]
-            Standby region for a cross-region replica. When set, a replica is provisioned in this region for cross-region high availability. Must differ from the database region.
         network_idle_timeout_seconds : Optional[float]
             Connection idle timeout in seconds.
         network_ip_allowlist : Optional[List[str]]
@@ -145,8 +142,6 @@ class Mongo(Service):
             api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
             api_params['syncMode'] = self._normalize_value(sync_mode)
-        if standby_region is not None:
-            api_params['standbyRegion'] = self._normalize_value(standby_region)
         if network_idle_timeout_seconds is not None:
             api_params['networkIdleTimeoutSeconds'] = self._normalize_value(network_idle_timeout_seconds)
         if network_ip_allowlist is not None:
@@ -248,8 +243,6 @@ class Mongo(Service):
         specification: Optional[str] = None,
         replicas: Optional[float] = None,
         sync_mode: Optional[str] = None,
-        cross_region_replicas: Optional[float] = None,
-        standby_region: Optional[str] = None,
         network_idle_timeout_seconds: Optional[float] = None,
         network_ip_allowlist: Optional[List[str]] = None,
         idle_timeout_minutes: Optional[float] = None,
@@ -283,10 +276,6 @@ class Mongo(Service):
             Number of high availability replicas (0-5). High availability is enabled when greater than 0.
         sync_mode : Optional[str]
             Replication sync mode preference. Allowed values: async, sync, quorum.
-        cross_region_replicas : Optional[float]
-            Number of cross-region standby replicas (0-1). Cross-region replication is enabled when greater than 0.
-        standby_region : Optional[str]
-            Standby region for the cross-region replica. Required when enabling cross-region replication and no standby region is already configured. Must differ from the database region.
         network_idle_timeout_seconds : Optional[float]
             Connection idle timeout in seconds (60-86400).
         network_ip_allowlist : Optional[List[str]]
@@ -346,10 +335,6 @@ class Mongo(Service):
             api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
             api_params['syncMode'] = self._normalize_value(sync_mode)
-        if cross_region_replicas is not None:
-            api_params['crossRegionReplicas'] = self._normalize_value(cross_region_replicas)
-        if standby_region is not None:
-            api_params['standbyRegion'] = self._normalize_value(standby_region)
         if network_idle_timeout_seconds is not None:
             api_params['networkIdleTimeoutSeconds'] = self._normalize_value(network_idle_timeout_seconds)
         if network_ip_allowlist is not None:

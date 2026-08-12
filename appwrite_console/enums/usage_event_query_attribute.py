@@ -1,0 +1,22 @@
+from enum import Enum
+
+class UsageEventQueryAttribute(Enum):
+    PATH = "path"
+    METHOD = "method"
+    STATUS = "status"
+    SERVICE = "service"
+    RESOURCETYPE = "resourceType"
+    RESOURCEID = "resourceId"
+    TEAMID = "teamId"
+    COUNTRY = "country"
+    CONTINENTCODE = "continentCode"
+    CITY = "city"
+    REGION = "region"
+    HOSTNAME = "hostname"
+    IP = "ip"
+    OSNAME = "osName"
+    CLIENTTYPE = "clientType"
+    CLIENTNAME = "clientName"
+    DEVICENAME = "deviceName"
+    SDK = "sdk"
+    SDKVERSION = "sdkVersion"

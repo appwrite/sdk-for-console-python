@@ -262,7 +262,7 @@ class Apps(Service):
         Parameters
         ----------
         app_id : str
-            Application unique ID or HTTPS client ID metadata document URL.
+            Application unique ID.
         
         Returns
         -------
@@ -356,7 +356,7 @@ class Apps(Service):
         device_flow : Optional[bool]
             Allow this client to use the OAuth2 Device Authorization Grant (RFC 8628) for input-constrained devices such as TVs and CLIs. Defaults to false.
         installation_scopes : Optional[List[str]]
-            Scopes the application requests when installed on a team. Organization-level and project-level scopes only; use the list scopes endpoint with `type=installation` to discover available values. Maximum of 100 scopes are allowed.
+            Scopes the application requests when installed on a team. Only scopes allowed by the project's OAuth2 server installation scopes configuration are accepted; use the list installation scopes endpoint to discover available values. Maximum of 100 scopes are allowed.
         installation_redirect_url : Optional[str]
             URL users are redirected to after creating or updating an installation of this application. Must be an https URL, an http loopback URL (localhost, 127.0.0.1, [::1]), or a private-use scheme URI, and must not contain a fragment. Leave empty for no redirect.
         

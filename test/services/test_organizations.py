@@ -2450,11 +2450,34 @@ class OrganizationsServiceTest(unittest.TestCase):
         "discounts": {}
     },
     "limits": {
-        "totalProjects": 5.0,
-        "nonCompliantProjects": 2.0,
         "canChangePlan": True,
-        "projects": [],
-        "unsupportedAddons": []
+        "unsupportedAddons": [],
+        "projects": {
+            "type": "databases",
+            "currentUsage": 3.0,
+            "limit": 1.0,
+            "status": "over_limit",
+            "excess": 2.0,
+            "resolutionHint": "Delete or migrate 2 databases."
+        },
+        "members": {
+            "type": "databases",
+            "currentUsage": 3.0,
+            "limit": 1.0,
+            "status": "over_limit",
+            "excess": 2.0,
+            "resolutionHint": "Delete or migrate 2 databases."
+        },
+        "domains": {
+            "type": "databases",
+            "currentUsage": 3.0,
+            "limit": 1.0,
+            "status": "over_limit",
+            "excess": 2.0,
+            "resolutionHint": "Delete or migrate 2 databases."
+        },
+        "nonCompliantProjects": 2.0,
+        "projectCompliance": []
     }
 }
         headers = {'Content-Type': 'application/json'}
