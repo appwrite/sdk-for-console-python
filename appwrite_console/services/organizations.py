@@ -9,8 +9,8 @@ from ..models.organization import Organization
 from ..models.payment_authentication import PaymentAuthentication
 from ..models.estimation import Estimation
 from ..models.addon_list import AddonList
-from ..models.addon import Addon as AddonModel
-from ..enums.addon import Addon
+from ..models.addon import Addon
+from ..enums.addon_key import AddonKey
 from ..models.addon_price import AddonPrice
 from ..models.aggregation_team_list import AggregationTeamList
 from ..models.aggregation_team import AggregationTeam
@@ -326,7 +326,7 @@ class Organizations(Service):
     def create_baa_addon(
         self,
         organization_id: str,
-    ) -> AddonModel:
+    ) -> Addon:
         """
         Create the BAA billing addon for an organization.
 
@@ -336,7 +336,7 @@ class Organizations(Service):
             Organization ID
         Returns
         -------
-        AddonModel
+        Addon
             API response as a typed Pydantic model
 
         Raises
@@ -362,12 +362,12 @@ class Organizations(Service):
             api_params,
         )
 
-        return self._parse_response(response, model=AddonModel)
+        return self._parse_response(response, model=Addon)
 
     def create_premium_geo_db_addon(
         self,
         organization_id: str,
-    ) -> AddonModel:
+    ) -> Addon:
         """
         Create a Premium Geo DB addon for an organization.
 
@@ -377,7 +377,7 @@ class Organizations(Service):
             Organization ID
         Returns
         -------
-        AddonModel
+        Addon
             API response as a typed Pydantic model
 
         Raises
@@ -403,13 +403,13 @@ class Organizations(Service):
             api_params,
         )
 
-        return self._parse_response(response, model=AddonModel)
+        return self._parse_response(response, model=Addon)
 
     def get_addon(
         self,
         organization_id: str,
         addon_id: str,
-    ) -> AddonModel:
+    ) -> Addon:
         """
         Get the details of a billing addon for an organization.
 
@@ -421,7 +421,7 @@ class Organizations(Service):
             Addon ID
         Returns
         -------
-        AddonModel
+        Addon
             API response as a typed Pydantic model
 
         Raises
@@ -449,7 +449,7 @@ class Organizations(Service):
             api_params,
         )
 
-        return self._parse_response(response, model=AddonModel)
+        return self._parse_response(response, model=Addon)
 
     def delete_addon(
         self,
@@ -502,7 +502,7 @@ class Organizations(Service):
         self,
         organization_id: str,
         addon_id: str,
-    ) -> AddonModel:
+    ) -> Addon:
         """
         Confirm payment for a billing addon for an organization.
 
@@ -514,7 +514,7 @@ class Organizations(Service):
             Addon ID
         Returns
         -------
-        AddonModel
+        Addon
             API response as a typed Pydantic model
 
         Raises
@@ -543,12 +543,12 @@ class Organizations(Service):
             api_params,
         )
 
-        return self._parse_response(response, model=AddonModel)
+        return self._parse_response(response, model=Addon)
 
     def get_addon_price(
         self,
         organization_id: str,
-        addon: Addon,
+        addon: AddonKey,
     ) -> AddonPrice:
         """
         Get the price details for a billing addon for an organization.
@@ -557,7 +557,7 @@ class Organizations(Service):
         ----------
         organization_id : str
             Organization ID
-        addon : Addon
+        addon : AddonKey
             Addon key identifier (e.g. baa).
         Returns
         -------

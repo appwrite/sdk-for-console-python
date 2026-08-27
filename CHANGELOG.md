@@ -7,8 +7,8 @@
 * Breaking: `list_events` and `list_gauges` take `metrics` as plain strings
 * Breaking: `UsageOrganizationProject` usage fields are single totals, not `List[Metric]`
 * Breaking: `conditions`, `resourceData`, `items`, `discounts`, `authorizationDetails` and `rows` are lists, not dicts
-* Breaking: `get_addon_price` takes `Addon`, renamed from `AddonEnum`
 * Breaking: Removed `ProjectKeyScopes.DEDICATEDDATABASES_EXECUTE`
+* Breaking: `Addon` enum renamed to `AddonKey`; `get_addon_price` takes `AddonKey`
 * Added: `huggingface` OAuth2 provider, `OAuth2HuggingFace` and `update_o_auth2_hugging_face`
 * Added: `avatars.get_photo` for Gravatar-backed profile photos
 * Added: `scopes` on `sites.create`, `sites.update` and `Site`
@@ -19,7 +19,6 @@
 * Added: `Database.lifecycleState`, `Database.containerStatus` and `Database.error`
 * Added: `DatabaseMigration.changelogWatermark`, `replicating` on replicas and members, `DedicatedDatabaseBranchList.total`
 * Added: `_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES` and `_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION`
-* Fixed: `Addon` response model no longer shadowed by the `Addon` enum in `organizations`
 * Fixed: chunked uploads only probe for prior progress when an `upload_id` is given
 * Updated: `Project.wafEnabled` and `UsageDataPoint.time` are optional
 

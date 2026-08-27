@@ -41,7 +41,7 @@ from ..enums.n_host_migration_resource import NHostMigrationResource
 from ..enums.supabase_migration_resource import SupabaseMigrationResource
 from ..enums.organization_key_scopes import OrganizationKeyScopes
 from ..enums.region import Region
-from ..enums.addon import Addon
+from ..enums.addon_key import AddonKey
 from ..enums.usage_range import UsageRange
 from ..enums.project_auth_method_id import ProjectAuthMethodId
 from ..enums.project_o_auth2_google_prompt import ProjectOAuth2GooglePrompt
@@ -226,7 +226,7 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, Region):
             return o.value
 
-        if isinstance(o, Addon):
+        if isinstance(o, AddonKey):
             return o.value
 
         if isinstance(o, UsageRange):
