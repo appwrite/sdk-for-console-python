@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .postgres_extension import PostgresExtension
 
+
 class DedicatedDatabaseExtensions(AppwriteModel):
     """
     Extensions
@@ -17,6 +18,7 @@ class DedicatedDatabaseExtensions(AppwriteModel):
     metadata : List[PostgresExtension]
         Curated metadata (display name, description, category) for each available extension.
     """
+
     installed: List[Any] = Field(..., alias='installed')
     available: List[Any] = Field(..., alias='available')
     metadata: List[PostgresExtension] = Field(..., alias='metadata')

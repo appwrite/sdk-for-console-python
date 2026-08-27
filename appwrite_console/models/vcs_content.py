@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class VcsContent(AppwriteModel):
     """
     VcsContents
@@ -16,6 +17,7 @@ class VcsContent(AppwriteModel):
     name : str
         Name of directory or file.
     """
+
     size: Optional[float] = Field(default=None, alias='size')
     isdirectory: Optional[bool] = Field(default=None, alias='isDirectory')
     name: str = Field(..., alias='name')

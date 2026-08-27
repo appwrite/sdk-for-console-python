@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseRestoration(AppwriteModel):
     """
     Restoration
@@ -34,6 +35,7 @@ class DedicatedDatabaseRestoration(AppwriteModel):
     error : str
         Error message if restoration failed.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     databaseid: str = Field(..., alias='databaseId')

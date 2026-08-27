@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class TemplateVariable(AppwriteModel):
     """
     Template Variable
@@ -24,6 +25,7 @@ class TemplateVariable(AppwriteModel):
     type : str
         Variable Type.
     """
+
     name: str = Field(..., alias='name')
     description: str = Field(..., alias='description')
     value: str = Field(..., alias='value')

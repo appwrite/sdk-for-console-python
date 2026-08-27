@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DomainTransferOut(AppwriteModel):
     """
     domainTransferOut
@@ -12,4 +13,5 @@ class DomainTransferOut(AppwriteModel):
     authcode : str
         Domain transfer authorization code.
     """
+
     authcode: str = Field(..., alias='authCode')

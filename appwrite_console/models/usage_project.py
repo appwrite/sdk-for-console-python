@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .metric import Metric
 from .metric_breakdown import MetricBreakdown
 
+
 class UsageProject(AppwriteModel):
     """
     Project
@@ -148,6 +149,7 @@ class UsageProject(AppwriteModel):
     realtimebandwidth : List[Metric]
         Aggregated consumed Realtime bandwidth (in bytes) per period.
     """
+
     executionstotal: float = Field(..., alias='executionsTotal')
     documentstotal: float = Field(..., alias='documentsTotal')
     documentsdbdocumentstotal: float = Field(..., alias='documentsdbDocumentsTotal')

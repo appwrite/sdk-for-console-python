@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .template_runtime import TemplateRuntime
 from .template_variable import TemplateVariable
 
+
 class TemplateFunction(AppwriteModel):
     """
     Template Function
@@ -46,6 +47,7 @@ class TemplateFunction(AppwriteModel):
     scopes : List[Any]
         Function scopes.
     """
+
     icon: str = Field(..., alias='icon')
     id: str = Field(..., alias='id')
     name: str = Field(..., alias='name')

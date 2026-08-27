@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ProviderRepository(AppwriteModel):
     """
     ProviderRepository
@@ -30,6 +31,7 @@ class ProviderRepository(AppwriteModel):
     variables : List[Any]
         Environment variables found in .env files
     """
+
     id: str = Field(..., alias='id')
     name: str = Field(..., alias='name')
     organization: str = Field(..., alias='organization')

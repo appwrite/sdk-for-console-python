@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ProviderRepositoryFramework(AppwriteModel):
     """
     ProviderRepositoryFramework
@@ -32,6 +33,7 @@ class ProviderRepositoryFramework(AppwriteModel):
     framework : str
         Auto-detected framework. Empty if type is not &quot;framework&quot;.
     """
+
     id: str = Field(..., alias='id')
     name: str = Field(..., alias='name')
     organization: str = Field(..., alias='organization')

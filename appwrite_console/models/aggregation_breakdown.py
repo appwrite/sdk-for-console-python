@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .usage_resources import UsageResources
 
+
 class AggregationBreakdown(AppwriteModel):
     """
     Breakdown
@@ -21,6 +22,7 @@ class AggregationBreakdown(AppwriteModel):
     resources : List[UsageResources]
         Typed model field.
     """
+
     id: str = Field(..., alias='$id')
     name: str = Field(..., alias='name')
     region: str = Field(..., alias='region')

@@ -15,6 +15,7 @@ from ..models.dns_records_list import DnsRecordsList
 from ..models.dns_record import DnsRecord
 from ..models.domain_transfer_status import DomainTransferStatus
 
+
 class Domains(Service):
 
     def __init__(self, client) -> None:
@@ -23,7 +24,7 @@ class Domains(Service):
     def list(
         self,
         queries: Optional[List[str]] = None,
-        search: Optional[str] = None
+        search: Optional[str] = None,
     ) -> DomainsList:
         """
         List all domains registered for this project. This endpoint supports pagination.
@@ -34,12 +35,11 @@ class Domains(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on attributes such as domain name, teamInternalId, expiration, etc.
         search : Optional[str]
             Search term to filter your list results. Max length: 256 chars.
-        
         Returns
         -------
         DomainsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -48,24 +48,27 @@ class Domains(Service):
 
         api_path = '/domains'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
             api_params['search'] = self._normalize_value(search)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainsList)
-
 
     def create(
         self,
         team_id: str,
-        domain: str
+        domain: str,
     ) -> Domain:
         """
         Create a new domain. Before creating a domain, you need to ensure that your DNS provider is properly configured. After creating the domain, you can use the verification endpoint to check if the domain is ready to be used.
@@ -76,12 +79,11 @@ class Domains(Service):
             Team unique ID.
         domain : str
             Domain name (e.g. "example.com").
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -92,28 +94,29 @@ class Domains(Service):
         api_params = {}
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
-
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-
-
         api_params['teamId'] = self._normalize_value(team_id)
         api_params['domain'] = self._normalize_value(domain)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
-
 
     def get_price(
         self,
         domain: str,
         period_years: Optional[float] = None,
-        registration_type: Optional[DomainRegistrationType] = None
+        registration_type: Optional[DomainRegistrationType] = None,
     ) -> DomainPrice:
         """
         Get the registration price for a domain name.
@@ -126,12 +129,11 @@ class Domains(Service):
             Number of years to calculate the domain price for. Must be at least 1.
         registration_type : Optional[DomainRegistrationType]
             Type of registration pricing to fetch. Allowed values: new, transfer, renewal, trade.
-        
         Returns
         -------
         DomainPrice
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -142,21 +144,23 @@ class Domains(Service):
         api_params = {}
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-
-
         api_params['domain'] = self._normalize_value(domain)
         if period_years is not None:
             api_params['periodYears'] = self._normalize_value(period_years)
         if registration_type is not None:
             api_params['registrationType'] = self._normalize_value(registration_type)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainPrice)
-
 
     def create_purchase(
         self,
@@ -171,7 +175,7 @@ class Domains(Service):
         address_line3: Optional[str] = None,
         company_name: Optional[str] = None,
         period_years: Optional[float] = None,
-        auto_renewal: Optional[bool] = None
+        auto_renewal: Optional[bool] = None,
     ) -> DomainPurchase:
         """
         Initiate a domain purchase by providing registrant details and a payment method. Authorizes the payment and returns a `clientSecret`. If 3D Secure is required, use the `clientSecret` on the client to complete the authentication challenge. Once authentication is complete (or if none is needed), call the Update Purchase endpoint to capture the payment and finalize the purchase.
@@ -202,12 +206,11 @@ class Domains(Service):
             Registration term in years (1-10).
         auto_renewal : Optional[bool]
             Whether the domain should renew automatically after purchase.
-        
         Returns
         -------
         DomainPurchase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -218,29 +221,20 @@ class Domains(Service):
         api_params = {}
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-
         if first_name is None:
             raise AppwriteException('Missing required parameter: "first_name"')
-
         if last_name is None:
             raise AppwriteException('Missing required parameter: "last_name"')
-
         if email is None:
             raise AppwriteException('Missing required parameter: "email"')
-
         if phone is None:
             raise AppwriteException('Missing required parameter: "phone"')
-
         if billing_address_id is None:
             raise AppwriteException('Missing required parameter: "billing_address_id"')
-
         if payment_method_id is None:
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-
-
         api_params['domain'] = self._normalize_value(domain)
         api_params['organizationId'] = self._normalize_value(organization_id)
         api_params['firstName'] = self._normalize_value(first_name)
@@ -258,19 +252,23 @@ class Domains(Service):
             api_params['autoRenewal'] = self._normalize_value(auto_renewal)
         api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainPurchase)
-
 
     def update_purchase(
         self,
         invoice_id: str,
-        organization_id: str
+        organization_id: str,
     ) -> DomainPurchase:
         """
         Finalize a domain purchase initiated with Create Purchase. Verifies that any required 3D Secure authentication is complete, registers the domain, captures the payment, and provisions default DNS records. Returns a 402 error if authentication is still pending.
@@ -281,12 +279,11 @@ class Domains(Service):
             Invoice ID.
         organization_id : str
             Team ID that owns the domain.
-        
         Returns
         -------
         DomainPurchase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -297,22 +294,23 @@ class Domains(Service):
         api_params = {}
         if invoice_id is None:
             raise AppwriteException('Missing required parameter: "invoice_id"')
-
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-
         api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
-
         api_params['organizationId'] = self._normalize_value(organization_id)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainPurchase)
-
 
     def list_suggestions(
         self,
@@ -321,7 +319,7 @@ class Domains(Service):
         limit: Optional[float] = None,
         filter_type: Optional[DomainSuggestionType] = None,
         price_max: Optional[float] = None,
-        price_min: Optional[float] = None
+        price_min: Optional[float] = None,
     ) -> DomainSuggestionsList:
         """
         List domain suggestions.
@@ -340,12 +338,11 @@ class Domains(Service):
             Filter premium domains by maximum price. Only premium domains at or below this price will be returned. Does not affect regular domain suggestions.
         price_min : Optional[float]
             Filter premium domains by minimum price. Only premium domains at or above this price will be returned. Does not affect regular domain suggestions.
-        
         Returns
         -------
         DomainSuggestionsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -356,8 +353,6 @@ class Domains(Service):
         api_params = {}
         if query is None:
             raise AppwriteException('Missing required parameter: "query"')
-
-
         api_params['query'] = self._normalize_value(query)
         if tlds is not None:
             api_params['tlds'] = self._normalize_value(tlds)
@@ -370,13 +365,17 @@ class Domains(Service):
         if price_min is not None:
             api_params['priceMin'] = self._normalize_value(price_min)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainSuggestionsList)
-
 
     def create_transfer_in(
         self,
@@ -384,7 +383,7 @@ class Domains(Service):
         organization_id: str,
         auth_code: str,
         payment_method_id: str,
-        auto_renewal: Optional[bool] = None
+        auto_renewal: Optional[bool] = None,
     ) -> DomainPurchase:
         """
         Initiate a domain transfer-in by providing an authorization code, registrant details, and a payment method. Authorizes the payment and returns a `clientSecret`. If 3D Secure is required, use the `clientSecret` on the client to complete the authentication challenge. Once authentication is complete (or if none is needed), call the Update Transfer In endpoint to capture the payment and submit the transfer.
@@ -401,12 +400,11 @@ class Domains(Service):
             Payment method ID to authorize and capture the transfer.
         auto_renewal : Optional[bool]
             Whether the domain should renew automatically after transfer.
-        
         Returns
         -------
         DomainPurchase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -417,17 +415,12 @@ class Domains(Service):
         api_params = {}
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-
         if auth_code is None:
             raise AppwriteException('Missing required parameter: "auth_code"')
-
         if payment_method_id is None:
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-
-
         api_params['domain'] = self._normalize_value(domain)
         api_params['organizationId'] = self._normalize_value(organization_id)
         api_params['authCode'] = self._normalize_value(auth_code)
@@ -435,19 +428,23 @@ class Domains(Service):
             api_params['autoRenewal'] = self._normalize_value(auto_renewal)
         api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainPurchase)
-
 
     def update_transfer_in(
         self,
         invoice_id: str,
-        organization_id: str
+        organization_id: str,
     ) -> DomainPurchase:
         """
         Finalize a domain transfer-in initiated with Create Transfer In. Verifies that any required 3D Secure authentication is complete, submits the transfer with the authorization code, captures the payment, and sends a confirmation email. Returns a 402 error if authentication is still pending.
@@ -458,12 +455,11 @@ class Domains(Service):
             Invoice ID.
         organization_id : str
             Team ID that owns the domain.
-        
         Returns
         -------
         DomainPurchase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -474,27 +470,28 @@ class Domains(Service):
         api_params = {}
         if invoice_id is None:
             raise AppwriteException('Missing required parameter: "invoice_id"')
-
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-
         api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
-
         api_params['organizationId'] = self._normalize_value(organization_id)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainPurchase)
-
 
     def create_transfer_out(
         self,
         domain_id: str,
-        organization_id: str
+        organization_id: str,
     ) -> DomainTransferOut:
         """
         Initiate a domain transfer-out by generating an authorization code for the specified domain. The returned `authCode` should be provided to the gaining provider to complete the transfer. If the domain has auto-renewal enabled, it will be automatically disabled as part of this operation.
@@ -505,12 +502,11 @@ class Domains(Service):
             Domain unique ID.
         organization_id : str
             Organization ID that this domain belongs to.
-        
         Returns
         -------
         DomainTransferOut
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -521,26 +517,27 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-
-
         api_params['domainId'] = self._normalize_value(domain_id)
         api_params['organizationId'] = self._normalize_value(organization_id)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainTransferOut)
 
-
     def get(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> Domain:
         """
         Get a domain by its unique ID.
@@ -549,12 +546,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -565,21 +561,23 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
 
-
     def delete(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a domain by its unique ID. This endpoint can be used to delete a domain from your project.
@@ -589,12 +587,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -605,23 +602,25 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def update_auto_renewal(
         self,
         domain_id: str,
-        auto_renewal: bool
+        auto_renewal: bool,
     ) -> Domain:
         """
         Enable or disable auto-renewal for a domain.
@@ -632,12 +631,11 @@ class Domains(Service):
             Domain unique ID.
         auto_renewal : bool
             Whether the domain should renew automatically.
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -648,27 +646,28 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if auto_renewal is None:
             raise AppwriteException('Missing required parameter: "auto_renewal"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['autoRenewal'] = self._normalize_value(auto_renewal)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
-
 
     def update_nameservers(
         self,
         domain_id: str,
-        nameservers: Optional[List[str]] = None
+        nameservers: Optional[List[str]] = None,
     ) -> Domain:
         """
         Update the registrar nameservers for the given domain. When nameservers are not provided,
@@ -680,12 +679,11 @@ class Domains(Service):
             Domain unique ID.
         nameservers : Optional[List[str]]
             Nameservers to set for the domain. Defaults to Appwrite nameservers when omitted.
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -696,24 +694,26 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         if nameservers is not None:
             api_params['nameservers'] = self._normalize_value(nameservers)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
 
-
     def verify_nameservers(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> Domain:
         """
         Verify which NS records are used and update the domain accordingly. This will check the domain's
@@ -724,12 +724,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -740,22 +739,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
 
-
     def get_preset_google_workspace(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         List Google Workspace DNS records.
@@ -764,12 +765,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -780,36 +780,37 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def create_preset_google_workspace(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
-        Add Google Workspace DNS records to the domain. This will create the required MX records 
+        Add Google Workspace DNS records to the domain. This will create the required MX records
         for Google Workspace email hosting.
 
         Parameters
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -820,22 +821,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def get_preset_i_cloud(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         List iCloud DNS records.
@@ -844,12 +847,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -860,21 +862,23 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def create_preset_i_cloud(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         Add iCloud DNS records to the domain. This will create the required MX and SPF records
@@ -884,12 +888,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -900,22 +903,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def get_preset_mailgun(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         List Mailgun DNS records.
@@ -924,12 +929,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -940,36 +944,37 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def create_preset_mailgun(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
-        Add Mailgun DNS records to the domain. This endpoint will create the required DNS records 
+        Add Mailgun DNS records to the domain. This endpoint will create the required DNS records
         for Mailgun in the specified domain.
 
         Parameters
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -980,22 +985,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def get_preset_outlook(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         List Outlook DNS records.
@@ -1004,12 +1011,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1020,21 +1026,23 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def create_preset_outlook(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         Add Outlook DNS records to the domain. This will create the required MX records
@@ -1044,12 +1052,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1060,22 +1067,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def get_preset_proton_mail(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         List ProtonMail DNS records.
@@ -1084,12 +1093,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1100,21 +1108,23 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def create_preset_proton_mail(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         Add ProtonMail DNS records to the domain. This will create the required MX records
@@ -1124,12 +1134,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1140,22 +1149,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def get_preset_zoho(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         List Zoho DNS records.
@@ -1164,12 +1175,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1180,21 +1190,23 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
 
-
     def create_preset_zoho(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DnsRecordsList:
         """
         Add Zoho Mail DNS records to the domain. This will create the required MX records
@@ -1204,12 +1216,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1220,23 +1231,25 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
-
 
     def list_records(
         self,
         domain_id: str,
-        queries: Optional[List[str]] = None
+        queries: Optional[List[str]] = None,
     ) -> DnsRecordsList:
         """
         List DNS records for a given domain. You can use this endpoint to list all the DNS records
@@ -1248,12 +1261,11 @@ class Domains(Service):
             Domain unique ID.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. You may filter on attributes such as type, name, value, etc. Maximum of 100 queries are allowed, each 4096 characters long.
-        
         Returns
         -------
         DnsRecordsList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1264,19 +1276,21 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecordsList)
-
 
     def create_record_a(
         self,
@@ -1284,10 +1298,10 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new A record for the given domain. A records are used to point a domain name 
+        Create a new A record for the given domain. A records are used to point a domain name
         to an IPv4 address. The record value should be a valid IPv4 address.
 
         Parameters
@@ -1302,12 +1316,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment explaining what this record is for.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1318,32 +1331,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_a(
         self,
@@ -1352,11 +1364,11 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Update an existing A record for the given domain. This endpoint allows you to modify 
-        the properties of an A record including its name (subdomain), IPv4 address, TTL, 
+        Update an existing A record for the given domain. This endpoint allows you to modify
+        the properties of an A record including its name (subdomain), IPv4 address, TTL,
         and optional comment.
 
         Parameters
@@ -1373,12 +1385,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment explaining what this record is for.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1389,36 +1400,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_aaaa(
         self,
@@ -1426,10 +1435,10 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new AAAA record for the given domain. This endpoint allows you to add a new IPv6 DNS record 
+        Create a new AAAA record for the given domain. This endpoint allows you to add a new IPv6 DNS record
         to your domain. The record will be used to point a hostname to an IPv6 address.
 
         Parameters
@@ -1444,12 +1453,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment explaining what this record is for.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1460,32 +1468,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_aaaa(
         self,
@@ -1494,7 +1501,7 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Update an existing AAAA record for the given domain. This endpoint allows you to modify
@@ -1515,12 +1522,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1531,36 +1537,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_alias(
         self,
@@ -1568,11 +1572,11 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new ALIAS record for the given domain. This record type can be used to point your domain 
-        to another domain name that will serve as an alias. This is particularly useful when you want to 
+        Create a new ALIAS record for the given domain. This record type can be used to point your domain
+        to another domain name that will serve as an alias. This is particularly useful when you want to
         map your domain to a target domain that may change its IP address.
 
         Parameters
@@ -1587,12 +1591,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1603,32 +1606,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_alias(
         self,
@@ -1637,12 +1639,12 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Update an existing ALIAS record for the specified domain. This endpoint allows you to modify
         the properties of an existing ALIAS record including its name, target domain, TTL, and comment.
-            
+
         The ALIAS record type is similar to a CNAME record but can be used at the zone apex (root domain).
         It provides a way to map one domain name to another.
 
@@ -1660,12 +1662,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1676,36 +1677,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_caa(
         self,
@@ -1713,10 +1712,10 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new CAA record for the given domain. CAA records are used to specify which 
+        Create a new CAA record for the given domain. CAA records are used to specify which
         Certificate Authorities (CAs) are allowed to issue SSL/TLS certificates for your domain.
 
         Parameters
@@ -1731,12 +1730,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1747,32 +1745,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_caa(
         self,
@@ -1781,11 +1778,11 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Update an existing CAA record for the given domain. A CAA (Certification Authority Authorization) 
-        record is used to specify which certificate authorities (CAs) are authorized to issue certificates 
+        Update an existing CAA record for the given domain. A CAA (Certification Authority Authorization)
+        record is used to specify which certificate authorities (CAs) are authorized to issue certificates
         for a domain.
 
         Parameters
@@ -1802,12 +1799,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1818,36 +1814,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_cname(
         self,
@@ -1855,13 +1849,13 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Create a new CNAME record for the given domain.
-            
-        A CNAME record maps a subdomain to another domain name, allowing you to create aliases 
-        for your domain. For example, you can create a CNAME record to point 'blog.example.com' 
+
+        A CNAME record maps a subdomain to another domain name, allowing you to create aliases
+        for your domain. For example, you can create a CNAME record to point 'blog.example.com'
         to 'example.wordpress.com'.
 
         Parameters
@@ -1876,12 +1870,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1892,32 +1885,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_cname(
         self,
@@ -1926,7 +1918,7 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Update an existing CNAME record for the given domain.
@@ -1945,12 +1937,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1961,36 +1952,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_https(
         self,
@@ -1998,10 +1987,10 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new HTTPS record for the given domain. This record is used to configure HTTPS 
+        Create a new HTTPS record for the given domain. This record is used to configure HTTPS
         settings for your domain, enabling secure communication over SSL/TLS.
 
         Parameters
@@ -2016,12 +2005,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2032,32 +2020,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_https(
         self,
@@ -2066,11 +2053,11 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Update an existing HTTPS record for the given domain. This endpoint allows you to modify 
-        the properties of an HTTPS record associated with your domain, including the name (subdomain), 
+        Update an existing HTTPS record for the given domain. This endpoint allows you to modify
+        the properties of an HTTPS record associated with your domain, including the name (subdomain),
         target value, TTL, and optional comment.
 
         Parameters
@@ -2087,12 +2074,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2103,36 +2089,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_mx(
         self,
@@ -2141,12 +2125,12 @@ class Domains(Service):
         value: str,
         ttl: float,
         priority: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new MX record for the given domain. MX records are used to define the mail servers responsible 
+        Create a new MX record for the given domain. MX records are used to define the mail servers responsible
         for accepting email messages for the domain. Multiple MX records can be created with different priorities.
-        The priority parameter determines the order in which mail servers are used, with lower values indicating 
+        The priority parameter determines the order in which mail servers are used, with lower values indicating
         higher priority.
 
         Parameters
@@ -2163,12 +2147,11 @@ class Domains(Service):
             MX priority.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2179,21 +2162,15 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2201,14 +2178,18 @@ class Domains(Service):
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_mx(
         self,
@@ -2218,7 +2199,7 @@ class Domains(Service):
         value: str,
         ttl: float,
         priority: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Update an existing MX record for the given domain.
@@ -2239,12 +2220,11 @@ class Domains(Service):
             MX priority.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2255,25 +2235,18 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2281,14 +2254,18 @@ class Domains(Service):
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_ns(
         self,
@@ -2296,10 +2273,10 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new NS record for the given domain. NS records specify the nameservers that are used 
+        Create a new NS record for the given domain. NS records specify the nameservers that are used
         to resolve the domain name to IP addresses. Each domain can have multiple NS records.
 
         Parameters
@@ -2314,12 +2291,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2330,32 +2306,31 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_ns(
         self,
@@ -2364,12 +2339,12 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Update an existing NS record for the given domain. This endpoint allows you to modify 
-        the properties of an NS (nameserver) record associated with your domain. You can update 
-        the record name (subdomain), target nameserver value, TTL, and add or modify comments 
+        Update an existing NS record for the given domain. This endpoint allows you to modify
+        the properties of an NS (nameserver) record associated with your domain. You can update
+        the record name (subdomain), target nameserver value, TTL, and add or modify comments
         for better record management.
 
         Parameters
@@ -2386,12 +2361,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2402,36 +2376,34 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_srv(
         self,
@@ -2442,11 +2414,11 @@ class Domains(Service):
         priority: float,
         weight: float,
         port: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new SRV record for the given domain. SRV records are used to define the location 
-        of servers for specific services. For example, they can be used to specify which server 
+        Create a new SRV record for the given domain. SRV records are used to define the location
+        of servers for specific services. For example, they can be used to specify which server
         handles a specific service like SIP or XMPP for the domain.
 
         Parameters
@@ -2467,12 +2439,11 @@ class Domains(Service):
             Port number for the service.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2483,27 +2454,19 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
-
         if weight is None:
             raise AppwriteException('Missing required parameter: "weight"')
-
         if port is None:
             raise AppwriteException('Missing required parameter: "port"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2513,14 +2476,18 @@ class Domains(Service):
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_srv(
         self,
@@ -2532,11 +2499,11 @@ class Domains(Service):
         priority: float,
         weight: float,
         port: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Update an existing SRV record for the given domain.
-            
+
         Required parameters:
         - domainId: Domain unique ID
         - recordId: DNS record unique ID
@@ -2546,7 +2513,7 @@ class Domains(Service):
         - priority: Record priority
         - weight: Record weight
         - port: Port number for the service
-            
+
         Optional parameters:
         - comment: A comment for this record
 
@@ -2570,12 +2537,11 @@ class Domains(Service):
             Port number for the service.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2586,31 +2552,22 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
-
         if weight is None:
             raise AppwriteException('Missing required parameter: "weight"')
-
         if port is None:
             raise AppwriteException('Missing required parameter: "port"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2620,14 +2577,18 @@ class Domains(Service):
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def create_record_txt(
         self,
@@ -2635,11 +2596,11 @@ class Domains(Service):
         name: str,
         ttl: float,
         value: Optional[str] = None,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
-        Create a new TXT record for the given domain. TXT records can be used 
-        to provide additional information about your domain, such as domain 
+        Create a new TXT record for the given domain. TXT records can be used
+        to provide additional information about your domain, such as domain
         verification records, SPF records, or DKIM records.
 
         Parameters
@@ -2654,12 +2615,11 @@ class Domains(Service):
             TXT record value.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2670,15 +2630,11 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['name'] = self._normalize_value(name)
         if value is not None:
             api_params['value'] = self._normalize_value(value)
@@ -2686,14 +2642,18 @@ class Domains(Service):
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def update_record_txt(
         self,
@@ -2702,11 +2662,11 @@ class Domains(Service):
         name: str,
         value: str,
         ttl: float,
-        comment: Optional[str] = None
+        comment: Optional[str] = None,
     ) -> DnsRecord:
         """
         Update an existing TXT record for the given domain.
-            
+
         Update the TXT record details for a specific domain by providing the domain ID,
         record ID, and the new record configuration including name, value, TTL, and an optional comment.
 
@@ -2724,12 +2684,11 @@ class Domains(Service):
             Time to live, in seconds. Must be greater than 0.
         comment : Optional[str]
             A comment for this record.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2740,45 +2699,43 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
             api_params['comment'] = self._normalize_value(comment)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def get_record(
         self,
         domain_id: str,
-        record_id: str
+        record_id: str,
     ) -> DnsRecord:
         """
         Get a single DNS record for a given domain by record ID.
-            
+
         This endpoint allows you to retrieve a specific DNS record associated with a domain
         using its unique identifier. The record contains information about the DNS configuration
         such as type, value, and TTL settings.
@@ -2789,12 +2746,11 @@ class Domains(Service):
             Domain unique ID.
         record_id : str
             DNS record unique ID.
-        
         Returns
         -------
         DnsRecord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2805,29 +2761,30 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DnsRecord)
-
 
     def delete_record(
         self,
         domain_id: str,
-        record_id: str
+        record_id: str,
     ) -> Dict[str, Any]:
         """
-        Delete a DNS record for the given domain. This endpoint allows you to delete an existing DNS record 
+        Delete a DNS record for the given domain. This endpoint allows you to delete an existing DNS record
         from a specific domain.
 
         Parameters
@@ -2836,12 +2793,11 @@ class Domains(Service):
             Domain unique ID.
         record_id : str
             DNS record unique ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -2852,31 +2808,33 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if record_id is None:
             raise AppwriteException('Missing required parameter: "record_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def update_team(
         self,
         domain_id: str,
-        team_id: str
+        team_id: str,
     ) -> Domain:
         """
-        Update the team ID for a specific domain. This endpoint requires admin access.
-            
+        Update the team ID for a specific domain. The caller must administer the current
+        team and be an owner of the destination team.
+
         Updating the team ID will transfer ownership and access control of the domain
         and all its DNS records to the new team.
 
@@ -2886,12 +2844,11 @@ class Domains(Service):
             Domain unique ID.
         team_id : str
             New team unique ID.
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2902,26 +2859,27 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['teamId'] = self._normalize_value(team_id)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
 
-
     def get_transfer_status(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> DomainTransferStatus:
         """
         Retrieve the current transfer status for a domain. Returns the status, an optional reason, and a timestamp of the last status change.
@@ -2930,12 +2888,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         DomainTransferStatus
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2946,21 +2903,23 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DomainTransferStatus)
 
-
     def get_zone(
         self,
-        domain_id: str
+        domain_id: str,
     ) -> Dict[str, Any]:
         """
         Retrieve the DNS zone file for the given domain. This endpoint will return the DNS
@@ -2970,12 +2929,11 @@ class Domains(Service):
         ----------
         domain_id : str
             Domain unique ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -2986,22 +2944,24 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'text/plain',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'text/plain',
+            },
+            api_params,
+        )
 
         return response
-
 
     def update_zone(
         self,
         domain_id: str,
-        content: str
+        content: str,
     ) -> Domain:
         """
         Update the DNS zone for the given domain using the provided zone file content.
@@ -3013,12 +2973,11 @@ class Domains(Service):
             Domain unique ID.
         content : str
             DNS zone file content as a string.
-        
         Returns
         -------
         Domain
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3029,19 +2988,20 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
-
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
-
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-
         api_params['content'] = self._normalize_value(content)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Domain)
-

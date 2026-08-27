@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class AddonPrice(AppwriteModel):
     """
     AddonPrice
@@ -26,6 +27,7 @@ class AddonPrice(AppwriteModel):
     billingcycleend : str
         When the current billing cycle ends.
     """
+
     addonkey: str = Field(..., alias='addonKey')
     name: str = Field(..., alias='name')
     monthlyprice: float = Field(..., alias='monthlyPrice')

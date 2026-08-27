@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ProviderRepositoryRuntime(AppwriteModel):
     """
     ProviderRepositoryRuntime
@@ -32,6 +33,7 @@ class ProviderRepositoryRuntime(AppwriteModel):
     runtime : str
         Auto-detected runtime. Empty if type is not &quot;runtime&quot;.
     """
+
     id: str = Field(..., alias='id')
     name: str = Field(..., alias='name')
     organization: str = Field(..., alias='organization')

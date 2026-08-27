@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from ..enums.detection_runtime_type import DetectionRuntimeType
 from .detection_variable import DetectionVariable
 
+
 class DetectionRuntime(AppwriteModel):
     """
     DetectionRuntime
@@ -22,6 +23,7 @@ class DetectionRuntime(AppwriteModel):
     commands : str
         Function install and build commands
     """
+
     type: DetectionRuntimeType = Field(..., alias='type')
     variables: Optional[List[DetectionVariable]] = Field(default=None, alias='variables')
     runtime: str = Field(..., alias='runtime')

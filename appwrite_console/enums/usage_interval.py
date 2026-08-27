@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class UsageInterval(Enum):
     ONE_MINUTE = "1m"
     FIFTEEN_MINUTES = "15m"

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Stage(AppwriteModel):
     """
     Stage
@@ -20,6 +21,7 @@ class Stage(AppwriteModel):
     actortype : str
         Actor type when the stage was recorded.
     """
+
     id: str = Field(..., alias='id')
     sdk: str = Field(..., alias='sdk')
     status: str = Field(..., alias='status')

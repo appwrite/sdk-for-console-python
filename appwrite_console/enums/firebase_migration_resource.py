@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class FirebaseMigrationResource(Enum):
     USER = "user"
     DATABASE = "database"

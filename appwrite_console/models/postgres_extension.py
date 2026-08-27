@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class PostgresExtension(AppwriteModel):
     """
     Postgres extension
@@ -18,6 +19,7 @@ class PostgresExtension(AppwriteModel):
     category : str
         Category the extension belongs to.
     """
+
     key: str = Field(..., alias='key')
     name: str = Field(..., alias='name')
     description: str = Field(..., alias='description')

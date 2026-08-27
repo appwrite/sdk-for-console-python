@@ -33,6 +33,7 @@ from ..models.o_auth2_github import OAuth2Github
 from ..models.o_auth2_gitlab import OAuth2Gitlab
 from ..enums.project_o_auth2_google_prompt import ProjectOAuth2GooglePrompt
 from ..models.o_auth2_google import OAuth2Google
+from ..models.o_auth2_hugging_face import OAuth2HuggingFace
 from ..models.o_auth2_keycloak import OAuth2Keycloak
 from ..models.o_auth2_kick import OAuth2Kick
 from ..models.o_auth2_linkedin import OAuth2Linkedin
@@ -91,22 +92,22 @@ from ..models.usage_project import UsageProject
 from ..models.variable_list import VariableList
 from ..models.variable import Variable
 
+
 class Project(Service):
 
     def __init__(self, client) -> None:
         super(Project, self).__init__(client)
 
     def get(
-        self
+        self,
     ) -> ProjectModel:
         """
         Get a project.
-
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -116,24 +117,27 @@ class Project(Service):
         api_path = '/project'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def delete(
-        self
+        self,
     ) -> Dict[str, Any]:
         """
         Delete a project.
-
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -143,21 +147,25 @@ class Project(Service):
         api_path = '/project'
         api_params = {}
 
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def update_auth_method(
         self,
         method_id: ProjectAuthMethodId,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
-        Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project. 
+        Update properties of a specific auth method. Use this endpoint to enable or disable a method in your project.
 
         Parameters
         ----------
@@ -165,12 +173,11 @@ class Project(Service):
             Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone
         enabled : bool
             Auth method status.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -181,27 +188,28 @@ class Project(Service):
         api_params = {}
         if method_id is None:
             raise AppwriteException('Missing required parameter: "method_id"')
-
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
         api_path = api_path.replace('{methodId}', str(self._normalize_value(method_id)))
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def list_keys(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> KeyList:
         """
         Get a list of all API keys from the current project.
@@ -212,12 +220,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: expire, accessedAt, name, scopes
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         KeyList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -226,30 +233,33 @@ class Project(Service):
 
         api_path = '/project/keys'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=KeyList)
-
 
     def create_key(
         self,
         key_id: str,
         name: str,
         scopes: List[ProjectKeyScopes],
-        expire: Optional[str] = None
+        expire: Optional[str] = None,
     ) -> Key:
         """
         Create a new API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
-        
+
         You can also create an ephemeral API key if you need a short-lived key instead.
 
         Parameters
@@ -262,12 +272,11 @@ class Project(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         expire : Optional[str]
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-        
         Returns
         -------
         Key
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -278,37 +287,37 @@ class Project(Service):
         api_params = {}
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
-
-
         api_params['keyId'] = self._normalize_value(key_id)
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
             api_params['expire'] = self._normalize_value(expire)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Key)
-
 
     def create_ephemeral_key(
         self,
         scopes: List[ProjectKeyScopes],
-        duration: float
+        duration: float,
     ) -> EphemeralKey:
         """
         Create a new ephemeral API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
-        
+
         You can also create a standard API key if you need a longer-lived key instead.
 
         Parameters
@@ -317,12 +326,11 @@ class Project(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         duration : float
             Time in seconds before ephemeral key expires. Maximum duration is 3600 seconds.
-        
         Returns
         -------
         EphemeralKey
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -333,40 +341,40 @@ class Project(Service):
         api_params = {}
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
-
         if duration is None:
             raise AppwriteException('Missing required parameter: "duration"')
-
-
         api_params['scopes'] = self._normalize_value(scopes)
         api_params['duration'] = self._normalize_value(duration)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=EphemeralKey)
 
-
     def get_key(
         self,
-        key_id: str
+        key_id: str,
     ) -> Key:
         """
-        Get a key by its unique ID. 
+        Get a key by its unique ID.
 
         Parameters
         ----------
         key_id : str
             Key ID.
-        
         Returns
         -------
         Key
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -377,24 +385,26 @@ class Project(Service):
         api_params = {}
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Key)
-
 
     def update_key(
         self,
         key_id: str,
         name: str,
         scopes: List[ProjectKeyScopes],
-        expire: Optional[str] = None
+        expire: Optional[str] = None,
     ) -> Key:
         """
         Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
@@ -409,12 +419,11 @@ class Project(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         expire : Optional[str]
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
-        
         Returns
         -------
         Key
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -425,32 +434,32 @@ class Project(Service):
         api_params = {}
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
-
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
             api_params['expire'] = self._normalize_value(expire)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Key)
 
-
     def delete_key(
         self,
-        key_id: str
+        key_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
@@ -459,12 +468,11 @@ class Project(Service):
         ----------
         key_id : str
             Key ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -475,21 +483,23 @@ class Project(Service):
         api_params = {}
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
 
-
     def update_labels(
         self,
-        labels: List[str]
+        labels: List[str],
     ) -> ProjectModel:
         """
         Update the project labels. Labels can be used to easily filter projects in an organization.
@@ -498,12 +508,11 @@ class Project(Service):
         ----------
         labels : List[str]
             Array of project labels. Replaces the previous labels. Maximum of 1000 labels are allowed, each up to 36 alphanumeric characters long.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -514,23 +523,25 @@ class Project(Service):
         api_params = {}
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
-
-
         api_params['labels'] = self._normalize_value(labels)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def list_mock_phones(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> MockNumberList:
         """
         Get a list of all mock phones in the project. This endpoint returns an array of all mock phones and their OTPs.
@@ -541,12 +552,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         MockNumberList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -555,24 +565,27 @@ class Project(Service):
 
         api_path = '/project/mock-phones'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MockNumberList)
-
 
     def create_mock_phone(
         self,
         number: str,
-        otp: str
+        otp: str,
     ) -> MockNumber:
         """
         Create a new mock phone for your project. Use this endpoint to register a mock phone number and its sign-in OTP for your testers.
@@ -583,12 +596,11 @@ class Project(Service):
             Phone number to associate with the mock phone. Must be a valid E.164 formatted phone number.
         otp : str
             One-time password (OTP) to associate with the mock phone. Must be a 6-digit numeric code.
-        
         Returns
         -------
         MockNumber
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -599,26 +611,27 @@ class Project(Service):
         api_params = {}
         if number is None:
             raise AppwriteException('Missing required parameter: "number"')
-
         if otp is None:
             raise AppwriteException('Missing required parameter: "otp"')
-
-
         api_params['number'] = self._normalize_value(number)
         api_params['otp'] = self._normalize_value(otp)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MockNumber)
 
-
     def get_mock_phone(
         self,
-        number: str
+        number: str,
     ) -> MockNumber:
         """
         Get a mock phone by its unique number. This endpoint returns the mock phone's OTP.
@@ -627,12 +640,11 @@ class Project(Service):
         ----------
         number : str
             Phone number associated with the mock phone. Must be a valid E.164 formatted phone number.
-        
         Returns
         -------
         MockNumber
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -643,22 +655,24 @@ class Project(Service):
         api_params = {}
         if number is None:
             raise AppwriteException('Missing required parameter: "number"')
-
         api_path = api_path.replace('{number}', str(self._normalize_value(number)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MockNumber)
-
 
     def update_mock_phone(
         self,
         number: str,
-        otp: str
+        otp: str,
     ) -> MockNumber:
         """
         Update a mock phone by its unique number. Use this endpoint to update the mock phone's OTP.
@@ -669,12 +683,11 @@ class Project(Service):
             Phone number associated with the mock phone. Must be a valid E.164 formatted phone number.
         otp : str
             One-time password (OTP) to associate with the mock phone. Must be a 6-digit numeric code.
-        
         Returns
         -------
         MockNumber
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -685,26 +698,27 @@ class Project(Service):
         api_params = {}
         if number is None:
             raise AppwriteException('Missing required parameter: "number"')
-
         if otp is None:
             raise AppwriteException('Missing required parameter: "otp"')
-
         api_path = api_path.replace('{number}', str(self._normalize_value(number)))
-
         api_params['otp'] = self._normalize_value(otp)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MockNumber)
 
-
     def delete_mock_phone(
         self,
-        number: str
+        number: str,
     ) -> Dict[str, Any]:
         """
         Delete a mock phone by its unique number. This endpoint removes the mock phone and its OTP configuration from the project.
@@ -713,12 +727,11 @@ class Project(Service):
         ----------
         number : str
             Phone number associated with the mock phone. Must be a valid E.164 formatted phone number.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -729,22 +742,24 @@ class Project(Service):
         api_params = {}
         if number is None:
             raise AppwriteException('Missing required parameter: "number"')
-
         api_path = api_path.replace('{number}', str(self._normalize_value(number)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_o_auth2_providers(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> OAuth2ProviderList:
         """
         Get a list of all OAuth2 providers supported by the server, along with the project's configuration for each. Credential fields are write-only and always returned empty.
@@ -755,12 +770,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         OAuth2ProviderList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -769,19 +783,22 @@ class Project(Service):
 
         api_path = '/project/oauth2'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2ProviderList)
-
 
     def update_o_auth2_server(
         self,
@@ -800,7 +817,7 @@ class Project(Service):
         user_code_format: Optional[str] = None,
         device_code_duration: Optional[float] = None,
         default_scopes: Optional[List[str]] = None,
-        installation_scopes: Optional[List[str]] = None
+        installation_scopes: Optional[List[str]] = None,
     ) -> ProjectModel:
         """
         Update the OAuth2 server (OIDC provider) configuration.
@@ -839,12 +856,11 @@ class Project(Service):
             List of OAuth2 scopes used when an authorization request omits the scope parameter. Every default scope must also be allowed by the OAuth2 server. Maximum of 100 scopes are allowed, each up to 128 characters long.
         installation_scopes : Optional[List[str]]
             List of scopes an application may request when installed on a team. Omitting the parameter clears the list, so no installation scopes can be granted. Maximum of 100 scopes are allowed, each up to 128 characters long.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -855,11 +871,8 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
         if authorization_url is None:
             raise AppwriteException('Missing required parameter: "authorization_url"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
         api_params['authorizationUrl'] = self._normalize_value(authorization_url)
         if scopes is not None:
@@ -891,20 +904,24 @@ class Project(Service):
         if installation_scopes is not None:
             api_params['installationScopes'] = self._normalize_value(installation_scopes)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def update_o_auth2_amazon(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Amazon:
         """
         Update the project OAuth2 Amazon configuration.
@@ -917,12 +934,11 @@ class Project(Service):
             'Client Secret' of Amazon OAuth2 app. For example: 79ffe4000000000000000000000000000000000000000000000000000002de55
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Amazon
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -931,7 +947,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/amazon'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -939,14 +954,18 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Amazon)
-
 
     def update_o_auth2_apple(
         self,
@@ -954,7 +973,7 @@ class Project(Service):
         key_id: Optional[str] = None,
         team_id: Optional[str] = None,
         p8_file: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Apple:
         """
         Update the project OAuth2 Apple configuration.
@@ -971,12 +990,11 @@ class Project(Service):
             Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Apple
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -985,7 +1003,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/apple'
         api_params = {}
-
         if service_id is not None:
             api_params['serviceId'] = self._normalize_value(service_id)
         if key_id is not None:
@@ -997,20 +1014,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Apple)
-
 
     def update_o_auth2_appwrite(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Appwrite:
         """
         Update the project OAuth2 Appwrite configuration.
@@ -1023,12 +1044,11 @@ class Project(Service):
             'Client Secret' of Appwrite OAuth2 app. For example: b86afd000000000000000000000000000000000000000000000000000ced5f93
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Appwrite
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1037,7 +1057,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/appwrite'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1045,21 +1064,25 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Appwrite)
-
 
     def update_o_auth2_auth0(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         endpoint: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Auth0:
         """
         Update the project OAuth2 Auth0 configuration.
@@ -1074,12 +1097,11 @@ class Project(Service):
             Domain of Auth0 instance. For example: example.us.auth0.com
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Auth0
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1088,7 +1110,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/auth0'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1098,21 +1119,25 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Auth0)
-
 
     def update_o_auth2_authentik(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         endpoint: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Authentik:
         """
         Update the project OAuth2 Authentik configuration.
@@ -1127,12 +1152,11 @@ class Project(Service):
             Domain of Authentik instance. For example: example.authentik.com
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Authentik
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1141,7 +1165,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/authentik'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1151,20 +1174,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Authentik)
-
 
     def update_o_auth2_autodesk(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Autodesk:
         """
         Update the project OAuth2 Autodesk configuration.
@@ -1177,12 +1204,11 @@ class Project(Service):
             'Client Secret' of Autodesk OAuth2 app. For example: 7I000000000000MW
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Autodesk
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1191,7 +1217,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/autodesk'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1199,20 +1224,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Autodesk)
-
 
     def update_o_auth2_bitbucket(
         self,
         key: Optional[str] = None,
         secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Bitbucket:
         """
         Update the project OAuth2 Bitbucket configuration.
@@ -1225,12 +1254,11 @@ class Project(Service):
             'Secret' of Bitbucket OAuth2 app. For example: NMfLZJ00000000000000000000TLQdDx
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Bitbucket
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1239,7 +1267,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/bitbucket'
         api_params = {}
-
         if key is not None:
             api_params['key'] = self._normalize_value(key)
         if secret is not None:
@@ -1247,20 +1274,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Bitbucket)
-
 
     def update_o_auth2_bitly(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Bitly:
         """
         Update the project OAuth2 Bitly configuration.
@@ -1273,12 +1304,11 @@ class Project(Service):
             'Client Secret' of Bitly OAuth2 app. For example: a13e250000000000000000000000000000d73095
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Bitly
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1287,7 +1317,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/bitly'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1295,20 +1324,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Bitly)
-
 
     def update_o_auth2_box(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Box:
         """
         Update the project OAuth2 Box configuration.
@@ -1321,12 +1354,11 @@ class Project(Service):
             'Client Secret' of Box OAuth2 app. For example: OKM1f100000000000000000000eshEif
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Box
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1335,7 +1367,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/box'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1343,20 +1374,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Box)
-
 
     def update_o_auth2_dailymotion(
         self,
         api_key: Optional[str] = None,
         api_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Dailymotion:
         """
         Update the project OAuth2 Dailymotion configuration.
@@ -1369,12 +1404,11 @@ class Project(Service):
             'API Secret' of Dailymotion OAuth2 app. For example: a399a90000000000000000000000000000d90639
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Dailymotion
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1383,7 +1417,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/dailymotion'
         api_params = {}
-
         if api_key is not None:
             api_params['apiKey'] = self._normalize_value(api_key)
         if api_secret is not None:
@@ -1391,20 +1424,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Dailymotion)
-
 
     def update_o_auth2_discord(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Discord:
         """
         Update the project OAuth2 Discord configuration.
@@ -1417,12 +1454,11 @@ class Project(Service):
             'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Discord
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1431,7 +1467,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/discord'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1439,20 +1474,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Discord)
-
 
     def update_o_auth2_disqus(
         self,
         public_key: Optional[str] = None,
         secret_key: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Disqus:
         """
         Update the project OAuth2 Disqus configuration.
@@ -1465,12 +1504,11 @@ class Project(Service):
             'Secret Key, also known as API Secret' of Disqus OAuth2 app. For example: W7Bykj00000000000000000000000000000000000000000000000000003o43w9
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Disqus
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1479,7 +1517,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/disqus'
         api_params = {}
-
         if public_key is not None:
             api_params['publicKey'] = self._normalize_value(public_key)
         if secret_key is not None:
@@ -1487,20 +1524,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Disqus)
-
 
     def update_o_auth2_dropbox(
         self,
         app_key: Optional[str] = None,
         app_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Dropbox:
         """
         Update the project OAuth2 Dropbox configuration.
@@ -1513,12 +1554,11 @@ class Project(Service):
             'App Secret' of Dropbox OAuth2 app. For example: g200000000000vw
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Dropbox
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1527,7 +1567,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/dropbox'
         api_params = {}
-
         if app_key is not None:
             api_params['appKey'] = self._normalize_value(app_key)
         if app_secret is not None:
@@ -1535,20 +1574,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Dropbox)
-
 
     def update_o_auth2_etsy(
         self,
         key_string: Optional[str] = None,
         shared_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Etsy:
         """
         Update the project OAuth2 Etsy configuration.
@@ -1561,12 +1604,11 @@ class Project(Service):
             'Shared Secret' of Etsy OAuth2 app. For example: tp000000ru
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Etsy
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1575,7 +1617,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/etsy'
         api_params = {}
-
         if key_string is not None:
             api_params['keyString'] = self._normalize_value(key_string)
         if shared_secret is not None:
@@ -1583,20 +1624,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Etsy)
-
 
     def update_o_auth2_facebook(
         self,
         app_id: Optional[str] = None,
         app_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Facebook:
         """
         Update the project OAuth2 Facebook configuration.
@@ -1609,12 +1654,11 @@ class Project(Service):
             'App Secret' of Facebook OAuth2 app. For example: 2d0b2800000000000000000000d38af4
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Facebook
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1623,7 +1667,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/facebook'
         api_params = {}
-
         if app_id is not None:
             api_params['appId'] = self._normalize_value(app_id)
         if app_secret is not None:
@@ -1631,20 +1674,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Facebook)
-
 
     def update_o_auth2_figma(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Figma:
         """
         Update the project OAuth2 Figma configuration.
@@ -1657,12 +1704,11 @@ class Project(Service):
             'Client Secret' of Figma OAuth2 app. For example: yEpOYn0000000000000000004iIsU5
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Figma
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1671,7 +1717,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/figma'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1679,21 +1724,25 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Figma)
-
 
     def update_o_auth2_fusion_auth(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         endpoint: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2FusionAuth:
         """
         Update the project OAuth2 FusionAuth configuration.
@@ -1708,12 +1757,11 @@ class Project(Service):
             Domain of FusionAuth instance. For example: example.fusionauth.io
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2FusionAuth
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1722,7 +1770,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/fusionauth'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1732,20 +1779,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2FusionAuth)
-
 
     def update_o_auth2_git_hub(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Github:
         """
         Update the project OAuth2 GitHub configuration.
@@ -1758,12 +1809,11 @@ class Project(Service):
             'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Github
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1772,7 +1822,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/github'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1780,21 +1829,25 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Github)
-
 
     def update_o_auth2_gitlab(
         self,
         application_id: Optional[str] = None,
         secret: Optional[str] = None,
         endpoint: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Gitlab:
         """
         Update the project OAuth2 Gitlab configuration.
@@ -1809,12 +1862,11 @@ class Project(Service):
             Endpoint URL of self-hosted GitLab instance. For example: https://gitlab.com
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Gitlab
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1823,7 +1875,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/gitlab'
         api_params = {}
-
         if application_id is not None:
             api_params['applicationId'] = self._normalize_value(application_id)
         if secret is not None:
@@ -1833,21 +1884,25 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Gitlab)
-
 
     def update_o_auth2_google(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         prompt: Optional[List[ProjectOAuth2GooglePrompt]] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Google:
         """
         Update the project OAuth2 Google configuration.
@@ -1862,12 +1917,11 @@ class Project(Service):
             Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Google
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1876,7 +1930,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/google'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1886,14 +1939,68 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Google)
 
+    def update_o_auth2_hugging_face(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        enabled: Optional[bool] = None,
+    ) -> OAuth2HuggingFace:
+        """
+        Update the project OAuth2 Hugging Face configuration.
+
+        Parameters
+        ----------
+        client_id : Optional[str]
+            'Client ID' of Hugging Face OAuth2 app. For example: 2ab9cff9-d711-40ad-a91e-b08a49c42d24
+        client_secret : Optional[str]
+            'Client Secret' of Hugging Face OAuth2 app. For example: oauth_app_secret_wcLhRtl000000000000000000000xbNdLt
+        enabled : Optional[bool]
+            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        Returns
+        -------
+        OAuth2HuggingFace
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/oauth2/huggingface'
+        api_params = {}
+        if client_id is not None:
+            api_params['clientId'] = self._normalize_value(client_id)
+        if client_secret is not None:
+            api_params['clientSecret'] = self._normalize_value(client_secret)
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=OAuth2HuggingFace)
 
     def update_o_auth2_keycloak(
         self,
@@ -1901,7 +2008,7 @@ class Project(Service):
         client_secret: Optional[str] = None,
         endpoint: Optional[str] = None,
         realm_name: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Keycloak:
         """
         Update the project OAuth2 Keycloak configuration.
@@ -1918,12 +2025,11 @@ class Project(Service):
             Keycloak realm name. For example: appwrite-realm
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Keycloak
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1932,7 +2038,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/keycloak'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1944,20 +2049,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Keycloak)
-
 
     def update_o_auth2_kick(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Kick:
         """
         Update the project OAuth2 Kick configuration.
@@ -1970,12 +2079,11 @@ class Project(Service):
             'Client Secret' of Kick OAuth2 app. For example: 34ac5600000000000000000000000000000000000000000000000000e830c8b
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Kick
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1984,7 +2092,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/kick'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -1992,20 +2099,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Kick)
-
 
     def update_o_auth2_linkedin(
         self,
         client_id: Optional[str] = None,
         primary_client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Linkedin:
         """
         Update the project OAuth2 Linkedin configuration.
@@ -2018,12 +2129,11 @@ class Project(Service):
             'Primary Client Secret or Secondary Client Secret' of Linkedin OAuth2 app. For example: WPL_AP1.2Bf0000000000000./HtlYw==
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Linkedin
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2032,7 +2142,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/linkedin'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if primary_client_secret is not None:
@@ -2040,21 +2149,25 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Linkedin)
-
 
     def update_o_auth2_microsoft(
         self,
         application_id: Optional[str] = None,
         application_secret: Optional[str] = None,
         tenant: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Microsoft:
         """
         Update the project OAuth2 Microsoft configuration.
@@ -2069,12 +2182,11 @@ class Project(Service):
             Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Microsoft
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2083,7 +2195,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/microsoft'
         api_params = {}
-
         if application_id is not None:
             api_params['applicationId'] = self._normalize_value(application_id)
         if application_secret is not None:
@@ -2093,20 +2204,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Microsoft)
-
 
     def update_o_auth2_notion(
         self,
         oauth_client_id: Optional[str] = None,
         oauth_client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Notion:
         """
         Update the project OAuth2 Notion configuration.
@@ -2119,12 +2234,11 @@ class Project(Service):
             'OAuth Client Secret' of Notion OAuth2 app. For example: secret_dLUr4b000000000000000000000000000000lFHAa9
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Notion
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2133,7 +2247,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/notion'
         api_params = {}
-
         if oauth_client_id is not None:
             api_params['oauthClientId'] = self._normalize_value(oauth_client_id)
         if oauth_client_secret is not None:
@@ -2141,14 +2254,18 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Notion)
-
 
     def update_o_auth2_oidc(
         self,
@@ -2160,7 +2277,7 @@ class Project(Service):
         user_info_url: Optional[str] = None,
         prompt: Optional[List[ProjectOAuth2OidcPrompt]] = None,
         max_age: Optional[float] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Oidc:
         """
         Update the project OAuth2 Oidc configuration.
@@ -2185,12 +2302,11 @@ class Project(Service):
             Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds, otherwise they are prompted to re-authenticate.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Oidc
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2199,7 +2315,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/oidc'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2219,14 +2334,18 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Oidc)
-
 
     def update_o_auth2_okta(
         self,
@@ -2234,7 +2353,7 @@ class Project(Service):
         client_secret: Optional[str] = None,
         domain: Optional[str] = None,
         authorization_server_id: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Okta:
         """
         Update the project OAuth2 Okta configuration.
@@ -2251,12 +2370,11 @@ class Project(Service):
             Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Okta
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2265,7 +2383,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/okta'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2277,20 +2394,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Okta)
-
 
     def update_o_auth2_paypal(
         self,
         client_id: Optional[str] = None,
         secret_key: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Paypal:
         """
         Update the project OAuth2 Paypal configuration.
@@ -2303,12 +2424,11 @@ class Project(Service):
             'Secret Key 1 or Secret Key 2' of Paypal OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Paypal
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2317,7 +2437,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/paypal'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if secret_key is not None:
@@ -2325,20 +2444,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Paypal)
-
 
     def update_o_auth2_paypal_sandbox(
         self,
         client_id: Optional[str] = None,
         secret_key: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Paypal:
         """
         Update the project OAuth2 PaypalSandbox configuration.
@@ -2351,12 +2474,11 @@ class Project(Service):
             'Secret Key 1 or Secret Key 2' of PaypalSandbox OAuth2 app. For example: EH8KCXtew--000000000000000000000000000000000000000_C-1_5UP_000000000000000CB7KDp
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Paypal
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2365,7 +2487,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/paypalSandbox'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if secret_key is not None:
@@ -2373,20 +2494,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Paypal)
-
 
     def update_o_auth2_podio(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Podio:
         """
         Update the project OAuth2 Podio configuration.
@@ -2399,12 +2524,11 @@ class Project(Service):
             'Client Secret' of Podio OAuth2 app. For example: Rn247T0000000000000000000000000000000000000000000000000000W2zWTN
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Podio
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2413,7 +2537,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/podio'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2421,20 +2544,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Podio)
-
 
     def update_o_auth2_salesforce(
         self,
         customer_key: Optional[str] = None,
         customer_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Salesforce:
         """
         Update the project OAuth2 Salesforce configuration.
@@ -2447,12 +2574,11 @@ class Project(Service):
             'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Salesforce
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2461,7 +2587,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/salesforce'
         api_params = {}
-
         if customer_key is not None:
             api_params['customerKey'] = self._normalize_value(customer_key)
         if customer_secret is not None:
@@ -2469,20 +2594,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Salesforce)
-
 
     def update_o_auth2_slack(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Slack:
         """
         Update the project OAuth2 Slack configuration.
@@ -2495,12 +2624,11 @@ class Project(Service):
             'Client Secret' of Slack OAuth2 app. For example: 81656000000000000000000000f3d2fd
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Slack
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2509,7 +2637,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/slack'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2517,20 +2644,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Slack)
-
 
     def update_o_auth2_spotify(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Spotify:
         """
         Update the project OAuth2 Spotify configuration.
@@ -2543,12 +2674,11 @@ class Project(Service):
             'Client Secret' of Spotify OAuth2 app. For example: db068a000000000000000000008b5b9f
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Spotify
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2557,7 +2687,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/spotify'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2565,20 +2694,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Spotify)
-
 
     def update_o_auth2_stripe(
         self,
         client_id: Optional[str] = None,
         api_secret_key: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Stripe:
         """
         Update the project OAuth2 Stripe configuration.
@@ -2591,12 +2724,11 @@ class Project(Service):
             'API Secret Key' of Stripe OAuth2 app. For example: sk_51SfOd000000000000000000000000000000000000000000000000000000000000000000000000000000000000000QGWYfp
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Stripe
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2605,7 +2737,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/stripe'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if api_secret_key is not None:
@@ -2613,20 +2744,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Stripe)
-
 
     def update_o_auth2_tradeshift(
         self,
         oauth2_client_id: Optional[str] = None,
         oauth2_client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Tradeshift:
         """
         Update the project OAuth2 Tradeshift configuration.
@@ -2639,12 +2774,11 @@ class Project(Service):
             'OAuth2 Client Secret' of Tradeshift OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Tradeshift
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2653,7 +2787,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/tradeshift'
         api_params = {}
-
         if oauth2_client_id is not None:
             api_params['oauth2ClientId'] = self._normalize_value(oauth2_client_id)
         if oauth2_client_secret is not None:
@@ -2661,20 +2794,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Tradeshift)
-
 
     def update_o_auth2_tradeshift_sandbox(
         self,
         oauth2_client_id: Optional[str] = None,
         oauth2_client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Tradeshift:
         """
         Update the project OAuth2 Tradeshift Sandbox configuration.
@@ -2687,12 +2824,11 @@ class Project(Service):
             'OAuth2 Client Secret' of Tradeshift Sandbox OAuth2 app. For example: 7cb52700-0000-0000-0000-000000ca5b83
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Tradeshift
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2701,7 +2837,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/tradeshiftBox'
         api_params = {}
-
         if oauth2_client_id is not None:
             api_params['oauth2ClientId'] = self._normalize_value(oauth2_client_id)
         if oauth2_client_secret is not None:
@@ -2709,20 +2844,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Tradeshift)
-
 
     def update_o_auth2_twitch(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Twitch:
         """
         Update the project OAuth2 Twitch configuration.
@@ -2735,12 +2874,11 @@ class Project(Service):
             'Client Secret' of Twitch OAuth2 app. For example: pmapue000000000000000000zylw3v
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Twitch
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2749,7 +2887,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/twitch'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2757,20 +2894,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Twitch)
-
 
     def update_o_auth2_word_press(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2WordPress:
         """
         Update the project OAuth2 WordPress configuration.
@@ -2783,12 +2924,11 @@ class Project(Service):
             'Client Secret' of WordPress OAuth2 app. For example: PlBfJS0000000000000000000000000000000000000000000000000000EdUZJk
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2WordPress
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2797,7 +2937,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/wordpress'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2805,20 +2944,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2WordPress)
-
 
     def update_o_auth2_x(
         self,
         customer_key: Optional[str] = None,
         secret_key: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2X:
         """
         Update the project OAuth2 X configuration.
@@ -2831,12 +2974,11 @@ class Project(Service):
             'Secret Key' of X OAuth2 app. For example: tkEPkp00000000000000000000000000000000000000FTxbI9
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2X
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2845,7 +2987,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/x'
         api_params = {}
-
         if customer_key is not None:
             api_params['customerKey'] = self._normalize_value(customer_key)
         if secret_key is not None:
@@ -2853,20 +2994,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2X)
-
 
     def update_o_auth2_yahoo(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Yahoo:
         """
         Update the project OAuth2 Yahoo configuration.
@@ -2879,12 +3024,11 @@ class Project(Service):
             'Client Secret, also known as Customer Secret' of Yahoo OAuth2 app. For example: cf978f0000000000000000000000000000c5e2e9
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Yahoo
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2893,7 +3037,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/yahoo'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2901,20 +3044,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Yahoo)
-
 
     def update_o_auth2_yandex(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Yandex:
         """
         Update the project OAuth2 Yandex configuration.
@@ -2927,12 +3074,11 @@ class Project(Service):
             'Client Secret' of Yandex OAuth2 app. For example: bbf98500000000000000000000c75a63
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Yandex
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2941,7 +3087,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/yandex'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2949,20 +3094,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Yandex)
-
 
     def update_o_auth2_zoho(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Zoho:
         """
         Update the project OAuth2 Zoho configuration.
@@ -2975,12 +3124,11 @@ class Project(Service):
             'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Zoho
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -2989,7 +3137,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/zoho'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2997,20 +3144,24 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Zoho)
-
 
     def update_o_auth2_zoom(
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> OAuth2Zoom:
         """
         Update the project OAuth2 Zoom configuration.
@@ -3023,12 +3174,11 @@ class Project(Service):
             'Client Secret' of Zoom OAuth2 app. For example: GAWsG4000000000000000000007U01ON
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
-        
         Returns
         -------
         OAuth2Zoom
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3037,7 +3187,6 @@ class Project(Service):
 
         api_path = '/project/oauth2/zoom'
         api_params = {}
-
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -3045,19 +3194,65 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=OAuth2Zoom)
 
-
     def get_o_auth2_provider(
         self,
-        provider_id: ProjectOAuthProviderId
-    ) -> Union[OAuth2Github, OAuth2Discord, OAuth2Figma, OAuth2Dropbox, OAuth2Dailymotion, OAuth2Bitbucket, OAuth2Bitly, OAuth2Box, OAuth2Autodesk, OAuth2Google, OAuth2Zoom, OAuth2Zoho, OAuth2Yandex, OAuth2X, OAuth2WordPress, OAuth2Twitch, OAuth2Stripe, OAuth2Spotify, OAuth2Slack, OAuth2Podio, OAuth2Notion, OAuth2Salesforce, OAuth2Yahoo, OAuth2Linkedin, OAuth2Disqus, OAuth2Amazon, OAuth2Etsy, OAuth2Facebook, OAuth2Tradeshift, OAuth2Paypal, OAuth2Gitlab, OAuth2Authentik, OAuth2Auth0, OAuth2FusionAuth, OAuth2Keycloak, OAuth2Oidc, OAuth2Apple, OAuth2Okta, OAuth2Kick, OAuth2Microsoft]:
+        provider_id: ProjectOAuthProviderId,
+    ) -> Union[
+        OAuth2Github,
+        OAuth2Discord,
+        OAuth2Figma,
+        OAuth2Dropbox,
+        OAuth2Dailymotion,
+        OAuth2Bitbucket,
+        OAuth2Bitly,
+        OAuth2Box,
+        OAuth2Autodesk,
+        OAuth2Google,
+        OAuth2Zoom,
+        OAuth2Zoho,
+        OAuth2Yandex,
+        OAuth2X,
+        OAuth2WordPress,
+        OAuth2Twitch,
+        OAuth2Stripe,
+        OAuth2Spotify,
+        OAuth2Slack,
+        OAuth2Podio,
+        OAuth2Notion,
+        OAuth2Salesforce,
+        OAuth2Yahoo,
+        OAuth2HuggingFace,
+        OAuth2Linkedin,
+        OAuth2Disqus,
+        OAuth2Amazon,
+        OAuth2Etsy,
+        OAuth2Facebook,
+        OAuth2Tradeshift,
+        OAuth2Paypal,
+        OAuth2Gitlab,
+        OAuth2Authentik,
+        OAuth2Auth0,
+        OAuth2FusionAuth,
+        OAuth2Keycloak,
+        OAuth2Oidc,
+        OAuth2Apple,
+        OAuth2Okta,
+        OAuth2Kick,
+        OAuth2Microsoft,
+    ]:
         """
         Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
 
@@ -3065,12 +3260,11 @@ class Project(Service):
         ----------
         provider_id : ProjectOAuthProviderId
             OAuth2 provider key. For example: github, google, apple.
-        
         Returns
         -------
-        Union[OAuth2Github, OAuth2Discord, OAuth2Figma, OAuth2Dropbox, OAuth2Dailymotion, OAuth2Bitbucket, OAuth2Bitly, OAuth2Box, OAuth2Autodesk, OAuth2Google, OAuth2Zoom, OAuth2Zoho, OAuth2Yandex, OAuth2X, OAuth2WordPress, OAuth2Twitch, OAuth2Stripe, OAuth2Spotify, OAuth2Slack, OAuth2Podio, OAuth2Notion, OAuth2Salesforce, OAuth2Yahoo, OAuth2Linkedin, OAuth2Disqus, OAuth2Amazon, OAuth2Etsy, OAuth2Facebook, OAuth2Tradeshift, OAuth2Paypal, OAuth2Gitlab, OAuth2Authentik, OAuth2Auth0, OAuth2FusionAuth, OAuth2Keycloak, OAuth2Oidc, OAuth2Apple, OAuth2Okta, OAuth2Kick, OAuth2Microsoft]
+        Union[OAuth2Github, OAuth2Discord, OAuth2Figma, OAuth2Dropbox, OAuth2Dailymotion, OAuth2Bitbucket, OAuth2Bitly, OAuth2Box, OAuth2Autodesk, OAuth2Google, OAuth2Zoom, OAuth2Zoho, OAuth2Yandex, OAuth2X, OAuth2WordPress, OAuth2Twitch, OAuth2Stripe, OAuth2Spotify, OAuth2Slack, OAuth2Podio, OAuth2Notion, OAuth2Salesforce, OAuth2Yahoo, OAuth2HuggingFace, OAuth2Linkedin, OAuth2Disqus, OAuth2Amazon, OAuth2Etsy, OAuth2Facebook, OAuth2Tradeshift, OAuth2Paypal, OAuth2Gitlab, OAuth2Authentik, OAuth2Auth0, OAuth2FusionAuth, OAuth2Keycloak, OAuth2Oidc, OAuth2Apple, OAuth2Okta, OAuth2Kick, OAuth2Microsoft]
             API response as one of the typed response models
-        
+
         Raises
         ------
         AppwriteException
@@ -3081,14 +3275,17 @@ class Project(Service):
         api_params = {}
         if provider_id is None:
             raise AppwriteException('Missing required parameter: "provider_id"')
-
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
         if not isinstance(response, dict):
             raise AppwriteException('Expected object response when hydrating a response model')
 
@@ -3161,6 +3358,9 @@ class Project(Service):
         if response.get('$id') == 'yahoo':
             return self._parse_response(response, model=OAuth2Yahoo)
 
+        if response.get('$id') == 'huggingface':
+            return self._parse_response(response, model=OAuth2HuggingFace)
+
         if response.get('$id') == 'linkedin':
             return self._parse_response(response, model=OAuth2Linkedin)
 
@@ -3214,11 +3414,10 @@ class Project(Service):
 
         raise AppwriteException('Unable to match response to any known model')
 
-
     def list_platforms(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> PlatformList:
         """
         Get a list of all platforms in the project. This endpoint returns an array of all platforms and their configurations.
@@ -3229,12 +3428,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: type, name, hostname, bundleIdentifier, applicationId, packageIdentifierName, packageName
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         PlatformList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3243,25 +3441,28 @@ class Project(Service):
 
         api_path = '/project/platforms'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformList)
-
 
     def create_android_platform(
         self,
         platform_id: str,
         name: str,
-        application_id: str
+        application_id: str,
     ) -> PlatformAndroid:
         """
         Create a new Android platform for your project. Use this endpoint to register a new Android platform where your users will run your application which will interact with the Appwrite API.
@@ -3274,12 +3475,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         application_id : str
             Android application ID. Max length: 256 chars.
-        
         Returns
         -------
         PlatformAndroid
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3290,32 +3490,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if application_id is None:
             raise AppwriteException('Missing required parameter: "application_id"')
-
-
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['applicationId'] = self._normalize_value(application_id)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformAndroid)
-
 
     def update_android_platform(
         self,
         platform_id: str,
         name: str,
-        application_id: str
+        application_id: str,
     ) -> PlatformAndroid:
         """
         Update an Android platform by its unique ID. Use this endpoint to update the platform's name or application ID.
@@ -3328,12 +3528,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         application_id : str
             Android application ID. Max length: 256 chars.
-        
         Returns
         -------
         PlatformAndroid
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3344,32 +3543,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if application_id is None:
             raise AppwriteException('Missing required parameter: "application_id"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['applicationId'] = self._normalize_value(application_id)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformAndroid)
-
 
     def create_apple_platform(
         self,
         platform_id: str,
         name: str,
-        bundle_identifier: str
+        bundle_identifier: str,
     ) -> PlatformApple:
         """
         Create a new Apple platform for your project. Use this endpoint to register a new Apple platform where your users will run your application which will interact with the Appwrite API.
@@ -3382,12 +3581,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         bundle_identifier : str
             Apple bundle identifier. Max length: 256 chars.
-        
         Returns
         -------
         PlatformApple
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3398,32 +3596,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if bundle_identifier is None:
             raise AppwriteException('Missing required parameter: "bundle_identifier"')
-
-
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['bundleIdentifier'] = self._normalize_value(bundle_identifier)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformApple)
-
 
     def update_apple_platform(
         self,
         platform_id: str,
         name: str,
-        bundle_identifier: str
+        bundle_identifier: str,
     ) -> PlatformApple:
         """
         Update an Apple platform by its unique ID. Use this endpoint to update the platform's name or bundle identifier.
@@ -3436,12 +3634,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         bundle_identifier : str
             Apple bundle identifier. Max length: 256 chars.
-        
         Returns
         -------
         PlatformApple
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3452,32 +3649,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if bundle_identifier is None:
             raise AppwriteException('Missing required parameter: "bundle_identifier"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['bundleIdentifier'] = self._normalize_value(bundle_identifier)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformApple)
-
 
     def create_linux_platform(
         self,
         platform_id: str,
         name: str,
-        package_name: str
+        package_name: str,
     ) -> PlatformLinux:
         """
         Create a new Linux platform for your project. Use this endpoint to register a new Linux platform where your users will run your application which will interact with the Appwrite API.
@@ -3490,12 +3687,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         package_name : str
             Linux package name. Max length: 256 chars.
-        
         Returns
         -------
         PlatformLinux
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3506,32 +3702,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if package_name is None:
             raise AppwriteException('Missing required parameter: "package_name"')
-
-
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['packageName'] = self._normalize_value(package_name)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformLinux)
-
 
     def update_linux_platform(
         self,
         platform_id: str,
         name: str,
-        package_name: str
+        package_name: str,
     ) -> PlatformLinux:
         """
         Update a Linux platform by its unique ID. Use this endpoint to update the platform's name or package name.
@@ -3544,12 +3740,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         package_name : str
             Linux package name. Max length: 256 chars.
-        
         Returns
         -------
         PlatformLinux
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3560,32 +3755,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if package_name is None:
             raise AppwriteException('Missing required parameter: "package_name"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['packageName'] = self._normalize_value(package_name)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformLinux)
-
 
     def create_web_platform(
         self,
         platform_id: str,
         name: str,
-        hostname: str
+        hostname: str,
     ) -> PlatformWeb:
         """
         Create a new web platform for your project. Use this endpoint to register a new platform where your users will run your application which will interact with the Appwrite API.
@@ -3598,12 +3793,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         hostname : str
             Platform web hostname. Max length: 256 chars.
-        
         Returns
         -------
         PlatformWeb
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3614,32 +3808,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if hostname is None:
             raise AppwriteException('Missing required parameter: "hostname"')
-
-
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['hostname'] = self._normalize_value(hostname)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformWeb)
-
 
     def update_web_platform(
         self,
         platform_id: str,
         name: str,
-        hostname: str
+        hostname: str,
     ) -> PlatformWeb:
         """
         Update a web platform by its unique ID. Use this endpoint to update the platform's name or hostname.
@@ -3652,12 +3846,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         hostname : str
             Platform web hostname. Max length: 256 chars.
-        
         Returns
         -------
         PlatformWeb
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3668,32 +3861,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if hostname is None:
             raise AppwriteException('Missing required parameter: "hostname"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['hostname'] = self._normalize_value(hostname)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformWeb)
-
 
     def create_windows_platform(
         self,
         platform_id: str,
         name: str,
-        package_identifier_name: str
+        package_identifier_name: str,
     ) -> PlatformWindows:
         """
         Create a new Windows platform for your project. Use this endpoint to register a new Windows platform where your users will run your application which will interact with the Appwrite API.
@@ -3706,12 +3899,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         package_identifier_name : str
             Windows package identifier name. Max length: 256 chars.
-        
         Returns
         -------
         PlatformWindows
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3722,32 +3914,32 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if package_identifier_name is None:
             raise AppwriteException('Missing required parameter: "package_identifier_name"')
-
-
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['packageIdentifierName'] = self._normalize_value(package_identifier_name)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformWindows)
-
 
     def update_windows_platform(
         self,
         platform_id: str,
         name: str,
-        package_identifier_name: str
+        package_identifier_name: str,
     ) -> PlatformWindows:
         """
         Update a Windows platform by its unique ID. Use this endpoint to update the platform's name or package identifier name.
@@ -3760,12 +3952,11 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         package_identifier_name : str
             Windows package identifier name. Max length: 256 chars.
-        
         Returns
         -------
         PlatformWindows
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3776,31 +3967,37 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if package_identifier_name is None:
             raise AppwriteException('Missing required parameter: "package_identifier_name"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-
         api_params['name'] = self._normalize_value(name)
         api_params['packageIdentifierName'] = self._normalize_value(package_identifier_name)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PlatformWindows)
 
-
     def get_platform(
         self,
-        platform_id: str
-    ) -> Union[PlatformWeb, PlatformApple, PlatformAndroid, PlatformWindows, PlatformLinux]:
+        platform_id: str,
+    ) -> Union[
+        PlatformWeb,
+        PlatformApple,
+        PlatformAndroid,
+        PlatformWindows,
+        PlatformLinux,
+    ]:
         """
         Get a platform by its unique ID. This endpoint returns the platform's details, including its name, type, and key configurations.
 
@@ -3808,12 +4005,11 @@ class Project(Service):
         ----------
         platform_id : str
             Platform ID.
-        
         Returns
         -------
         Union[PlatformWeb, PlatformApple, PlatformAndroid, PlatformWindows, PlatformLinux]
             API response as one of the typed response models
-        
+
         Raises
         ------
         AppwriteException
@@ -3824,14 +4020,17 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
         if not isinstance(response, dict):
             raise AppwriteException('Expected object response when hydrating a response model')
 
@@ -3852,10 +4051,9 @@ class Project(Service):
 
         raise AppwriteException('Unable to match response to any known model')
 
-
     def delete_platform(
         self,
-        platform_id: str
+        platform_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a platform by its unique ID. This endpoint removes the platform and all its configurations from the project.
@@ -3864,12 +4062,11 @@ class Project(Service):
         ----------
         platform_id : str
             Platform ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -3880,22 +4077,24 @@ class Project(Service):
         api_params = {}
         if platform_id is None:
             raise AppwriteException('Missing required parameter: "platform_id"')
-
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_policies(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> PolicyList:
         """
         Get a list of all project policies and their current configuration.
@@ -3906,12 +4105,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         PolicyList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3920,23 +4118,26 @@ class Project(Service):
 
         api_path = '/project/policies'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PolicyList)
 
-
     def update_deny_aliased_email_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Configures if aliased emails such as subaddresses and emails with suffixes are denied during new users sign-ups and email updates.
@@ -3945,12 +4146,11 @@ class Project(Service):
         ----------
         enabled : bool
             Set whether or not to block aliased emails during signup and email updates.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -3961,22 +4161,24 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_deny_corporate_email_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Configures if only corporate email addresses (non-free and non-disposable domains) are allowed during new user sign-ups and email updates.
@@ -3985,12 +4187,11 @@ class Project(Service):
         ----------
         enabled : bool
             Set whether or not to restrict sign-ups and email updates to corporate email addresses only.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4001,22 +4202,24 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_deny_disposable_email_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Configures if disposable emails from known temporary domains are denied during new users sign-ups and email updates.
@@ -4025,12 +4228,11 @@ class Project(Service):
         ----------
         enabled : bool
             Set whether or not to block disposable email addresses during signup and email updates.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4041,22 +4243,24 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_deny_free_email_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Configures if emails from free providers such as Gmail or Yahoo are denied during new users sign-ups and email updates.
@@ -4065,12 +4269,11 @@ class Project(Service):
         ----------
         enabled : bool
             Set whether or not to block free email addresses during signup and email updates.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4081,18 +4284,20 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def update_membership_privacy_policy(
         self,
@@ -4101,7 +4306,7 @@ class Project(Service):
         user_phone: Optional[bool] = None,
         user_name: Optional[bool] = None,
         user_mfa: Optional[bool] = None,
-        user_accessed_at: Optional[bool] = None
+        user_accessed_at: Optional[bool] = None,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if team members can see other members information. When enabled, all team members can see ID, name, email, phone number, and MFA status of other members..
@@ -4120,12 +4325,11 @@ class Project(Service):
             Set to true if you want make user MFA status visible to all team members, or false to hide it.
         user_accessed_at : Optional[bool]
             Set to true if you want make user last access time visible to all team members, or false to hide it.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4134,7 +4338,6 @@ class Project(Service):
 
         api_path = '/project/policies/membership-privacy'
         api_params = {}
-
         if user_id is not None:
             api_params['userId'] = self._normalize_value(user_id)
         if user_email is not None:
@@ -4148,21 +4351,25 @@ class Project(Service):
         if user_accessed_at is not None:
             api_params['userAccessedAt'] = self._normalize_value(user_accessed_at)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def update_mfa_factors_policy(
         self,
         totp: Optional[bool] = None,
         email: Optional[bool] = None,
         phone: Optional[bool] = None,
-        custom: Optional[bool] = None
+        custom: Optional[bool] = None,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control which factors users can use to complete an MFA challenge. Disabled factors cannot be used to create a challenge and are reported as unavailable when listing factors. The custom factor is disabled by default; enable it to deliver challenge codes through your own channel. Recovery codes always remain available as a fallback.
@@ -4177,12 +4384,11 @@ class Project(Service):
             Set to true to allow phone (SMS) to complete an MFA challenge, or false to disable it.
         custom : Optional[bool]
             Set to true to allow the custom factor to complete an MFA challenge, or false to disable it.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4191,7 +4397,6 @@ class Project(Service):
 
         api_path = '/project/policies/mfa-factors'
         api_params = {}
-
         if totp is not None:
             api_params['totp'] = self._normalize_value(totp)
         if email is not None:
@@ -4201,18 +4406,22 @@ class Project(Service):
         if custom is not None:
             api_params['custom'] = self._normalize_value(custom)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_password_dictionary_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
@@ -4221,12 +4430,11 @@ class Project(Service):
         ----------
         enabled : bool
             Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4237,38 +4445,39 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_password_history_policy(
         self,
-        total: Optional[float]
+        total: Optional[float],
     ) -> ProjectModel:
         """
         Updates one of password strength policies. Based on total length configured, previous password hashes are stored, and users cannot choose a new password that is already stored in the passwird history list, when updating an user password, or setting new one through password recovery.
-        
+
         Keep in mind, while password history policy is disabled, the history is not being stored. Enabling the policy will not have any history on existing users, and it will only start to collect and enforce the policy on password changes since the policy is enabled.
 
         Parameters
         ----------
         total : Optional[float]
             Set the password history length per user. Value can be between 1 and 20, or null to disable the limit.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4277,21 +4486,24 @@ class Project(Service):
 
         api_path = '/project/policies/password-history'
         api_params = {}
-
         api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_password_personal_data_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if password strength is checked against personal data. When enabled, and user sets or changes their password, the password must not contain user ID, name, email or phone number.
@@ -4300,12 +4512,11 @@ class Project(Service):
         ----------
         enabled : bool
             Toggle password personal data policy. Set to true if you want to block passwords including user's personal data, or false to allow it. When changing this policy, existing passwords remain valid.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4316,18 +4527,20 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def update_password_strength_policy(
         self,
@@ -4335,7 +4548,7 @@ class Project(Service):
         uppercase: Optional[bool] = None,
         lowercase: Optional[bool] = None,
         number: Optional[bool] = None,
-        symbols: Optional[bool] = None
+        symbols: Optional[bool] = None,
     ) -> PolicyPasswordStrength:
         """
         Update the password strength requirements for users in the project.
@@ -4352,12 +4565,11 @@ class Project(Service):
             Whether passwords must include at least one number.
         symbols : Optional[bool]
             Whether passwords must include at least one symbol.
-        
         Returns
         -------
         PolicyPasswordStrength
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4366,7 +4578,6 @@ class Project(Service):
 
         api_path = '/project/policies/password-strength'
         api_params = {}
-
         if min is not None:
             api_params['min'] = self._normalize_value(min)
         if uppercase is not None:
@@ -4378,18 +4589,22 @@ class Project(Service):
         if symbols is not None:
             api_params['symbols'] = self._normalize_value(symbols)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PolicyPasswordStrength)
 
-
     def update_session_alert_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if email alert is sent upon session creation. When enabled, and user signs into their account, they will be sent an email notification. There is an exception, the first session after a new sign up does not trigger an alert, even if the policy is enabled.
@@ -4398,12 +4613,11 @@ class Project(Service):
         ----------
         enabled : bool
             Toggle session alert policy. Set to true if you want users to receive email notifications when a sessions are created for their users, or false to not send email alerts.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4414,22 +4628,24 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_session_duration_policy(
         self,
-        duration: float
+        duration: float,
     ) -> ProjectModel:
         """
         Update maximum duration how long sessions created within a project should stay active for.
@@ -4438,12 +4654,11 @@ class Project(Service):
         ----------
         duration : float
             Maximum session length in seconds. Minium allowed value is 60 seconds, and maximum is 1 year, which is 31536000 seconds.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4454,22 +4669,24 @@ class Project(Service):
         api_params = {}
         if duration is None:
             raise AppwriteException('Missing required parameter: "duration"')
-
-
         api_params['duration'] = self._normalize_value(duration)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_session_invalidation_policy(
         self,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if existing sessions should be invalidated when a password of a user is changed. When enabled, and user changes their password, they will be logged out of all their devices.
@@ -4478,12 +4695,11 @@ class Project(Service):
         ----------
         enabled : bool
             Toggle session invalidation policy. Set to true if you want password change to invalidate all sessions of an user, or false to keep sessions active.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4494,22 +4710,24 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_session_limit_policy(
         self,
-        total: float
+        total: float,
     ) -> ProjectModel:
         """
         Update the maximum number of sessions allowed per user. When the limit is hit, the oldest session will be deleted to make room for new one.
@@ -4518,12 +4736,11 @@ class Project(Service):
         ----------
         total : float
             Set the maximum number of sessions allowed per user. Value can be between 1 and 100.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4534,22 +4751,24 @@ class Project(Service):
         api_params = {}
         if total is None:
             raise AppwriteException('Missing required parameter: "total"')
-
-
         api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def update_user_limit_policy(
         self,
-        total: Optional[float]
+        total: Optional[float],
     ) -> ProjectModel:
         """
         Update the maximum number of users in the project. When the limit is hit or amount of existing users already exceeded the limit, all users remain active, but new user sign up will be prohibited.
@@ -4558,12 +4777,11 @@ class Project(Service):
         ----------
         total : Optional[float]
             Set the maximum number of users allowed in the project. Value can be between 0 and 10000. Use 0 or null to disable the limit.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4572,22 +4790,41 @@ class Project(Service):
 
         api_path = '/project/policies/user-limit'
         api_params = {}
-
         api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def get_policy(
         self,
-        policy_id: ProjectPolicyId
-    ) -> Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail]:
+        policy_id: ProjectPolicyId,
+    ) -> Union[
+        PolicyPasswordDictionary,
+        PolicyPasswordHistory,
+        PolicyPasswordStrength,
+        PolicyPasswordPersonalData,
+        PolicySessionAlert,
+        PolicySessionDuration,
+        PolicySessionInvalidation,
+        PolicySessionLimit,
+        PolicyUserLimit,
+        PolicyMembershipPrivacy,
+        PolicyMfaFactors,
+        PolicyDenyAliasedEmail,
+        PolicyDenyDisposableEmail,
+        PolicyDenyFreeEmail,
+        PolicyDenyCorporateEmail,
+    ]:
         """
         Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
 
@@ -4595,12 +4832,11 @@ class Project(Service):
         ----------
         policy_id : ProjectPolicyId
             Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
-        
         Returns
         -------
         Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail]
             API response as one of the typed response models
-        
+
         Raises
         ------
         AppwriteException
@@ -4611,14 +4847,17 @@ class Project(Service):
         api_params = {}
         if policy_id is None:
             raise AppwriteException('Missing required parameter: "policy_id"')
-
         api_path = api_path.replace('{policyId}', str(self._normalize_value(policy_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
         if not isinstance(response, dict):
             raise AppwriteException('Expected object response when hydrating a response model')
 
@@ -4669,14 +4908,13 @@ class Project(Service):
 
         raise AppwriteException('Unable to match response to any known model')
 
-
     def update_protocol(
         self,
         protocol_id: ProjectProtocolId,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
-        Update properties of a specific protocol. Use this endpoint to enable or disable a protocol in your project. 
+        Update properties of a specific protocol. Use this endpoint to enable or disable a protocol in your project.
 
         Parameters
         ----------
@@ -4684,12 +4922,11 @@ class Project(Service):
             Protocol name. Can be one of: rest, graphql, websocket
         enabled : bool
             Protocol status.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4700,30 +4937,31 @@ class Project(Service):
         api_params = {}
         if protocol_id is None:
             raise AppwriteException('Missing required parameter: "protocol_id"')
-
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
         api_path = api_path.replace('{protocolId}', str(self._normalize_value(protocol_id)))
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def update_service(
         self,
         service_id: ProjectServiceId,
-        enabled: bool
+        enabled: bool,
     ) -> ProjectModel:
         """
-        Update properties of a specific service. Use this endpoint to enable or disable a service in your project. 
+        Update properties of a specific service. Use this endpoint to enable or disable a service in your project.
 
         Parameters
         ----------
@@ -4731,12 +4969,11 @@ class Project(Service):
             Service name. Can be one of: account, avatars, databases, tablesdb, locale, health, project, storage, teams, users, vcs, sites, functions, proxy, graphql, migrations, messaging, advisor, oauth2
         enabled : bool
             Service status.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4747,22 +4984,23 @@ class Project(Service):
         api_params = {}
         if service_id is None:
             raise AppwriteException('Missing required parameter: "service_id"')
-
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-
         api_path = api_path.replace('{serviceId}', str(self._normalize_value(service_id)))
-
         api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
-
 
     def update_smtp(
         self,
@@ -4775,7 +5013,7 @@ class Project(Service):
         reply_to_email: Optional[str] = None,
         reply_to_name: Optional[str] = None,
         secure: Optional[ProjectSMTPSecure] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> ProjectModel:
         """
         Update the SMTP configuration for your project. Use this endpoint to configure your project's SMTP provider with your custom settings for sending transactional emails.
@@ -4802,12 +5040,11 @@ class Project(Service):
             Configures if communication with SMTP server is encrypted. Allowed values are: tls, ssl. Leave empty for no encryption.
         enabled : Optional[bool]
             Enable or disable custom SMTP. Custom SMTP is useful for branding purposes, but also allows use of custom email templates.
-        
         Returns
         -------
         ProjectModel
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4816,7 +5053,6 @@ class Project(Service):
 
         api_path = '/project/smtp'
         api_params = {}
-
         if host is not None:
             api_params['host'] = self._normalize_value(host)
         if port is not None:
@@ -4838,32 +5074,35 @@ class Project(Service):
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ProjectModel)
 
-
     def create_smtp_test(
         self,
-        emails: List[str]
+        emails: List[str],
     ) -> Dict[str, Any]:
         """
-        Send a test email to verify SMTP configuration. 
+        Send a test email to verify SMTP configuration.
 
         Parameters
         ----------
         emails : List[str]
             Array of emails to send test email to. Maximum of 10 emails are allowed.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -4874,22 +5113,24 @@ class Project(Service):
         api_params = {}
         if emails is None:
             raise AppwriteException('Missing required parameter: "emails"')
-
-
         api_params['emails'] = self._normalize_value(emails)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_email_templates(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> EmailTemplateList:
         """
         Get a list of all custom email templates configured for the project. This endpoint returns an array of all configured email templates and their locales.
@@ -4900,12 +5141,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         EmailTemplateList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4914,19 +5154,22 @@ class Project(Service):
 
         api_path = '/project/templates/email'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=EmailTemplateList)
-
 
     def update_email_template(
         self,
@@ -4937,7 +5180,7 @@ class Project(Service):
         sender_name: Optional[str] = None,
         sender_email: Optional[str] = None,
         reply_to_email: Optional[str] = None,
-        reply_to_name: Optional[str] = None
+        reply_to_name: Optional[str] = None,
     ) -> EmailTemplate:
         """
         Update a custom email template for the specified locale and type. Use this endpoint to modify the content of your email templates.
@@ -4960,12 +5203,11 @@ class Project(Service):
             Reply to email. Pass an empty string to clear a previously set value.
         reply_to_name : Optional[str]
             Reply to name.
-        
         Returns
         -------
         EmailTemplate
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -4976,8 +5218,6 @@ class Project(Service):
         api_params = {}
         if template_id is None:
             raise AppwriteException('Missing required parameter: "template_id"')
-
-
         api_params['templateId'] = self._normalize_value(template_id)
         if locale is not None:
             api_params['locale'] = self._normalize_value(locale)
@@ -4994,19 +5234,23 @@ class Project(Service):
         if reply_to_name is not None:
             api_params['replyToName'] = self._normalize_value(reply_to_name)
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=EmailTemplate)
-
 
     def get_email_template(
         self,
         template_id: ProjectEmailTemplateId,
-        locale: Optional[ProjectEmailTemplateLocale] = None
+        locale: Optional[ProjectEmailTemplateLocale] = None,
     ) -> EmailTemplate:
         """
         Get a custom email template for the specified locale and type. This endpoint returns the template content, subject, and other configuration details.
@@ -5017,12 +5261,11 @@ class Project(Service):
             Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
         locale : Optional[ProjectEmailTemplateLocale]
             Custom email template locale. If left empty, the fallback locale (en) will be used.
-        
         Returns
         -------
         EmailTemplate
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -5033,25 +5276,27 @@ class Project(Service):
         api_params = {}
         if template_id is None:
             raise AppwriteException('Missing required parameter: "template_id"')
-
         api_path = api_path.replace('{templateId}', str(self._normalize_value(template_id)))
-
         if locale is not None:
             api_params['locale'] = self._normalize_value(locale)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=EmailTemplate)
-
 
     def get_usage(
         self,
         start_date: str,
         end_date: str,
-        period: Optional[ProjectUsageRange] = None
+        period: Optional[ProjectUsageRange] = None,
     ) -> UsageProject:
         """
         Get comprehensive usage statistics for your project. View metrics including network requests, bandwidth, storage, function executions, database usage, and user activity. Specify a time range with startDate and endDate, and optionally set the data granularity with period (1h or 1d). The response includes both total counts and detailed breakdowns by resource, along with historical data over the specified period.
@@ -5064,12 +5309,11 @@ class Project(Service):
             End date for the usage
         period : Optional[ProjectUsageRange]
             Period used
-        
         Returns
         -------
         UsageProject
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -5080,28 +5324,29 @@ class Project(Service):
         api_params = {}
         if start_date is None:
             raise AppwriteException('Missing required parameter: "start_date"')
-
         if end_date is None:
             raise AppwriteException('Missing required parameter: "end_date"')
-
-
         api_params['startDate'] = self._normalize_value(start_date)
         api_params['endDate'] = self._normalize_value(end_date)
         if period is not None:
             api_params['period'] = self._normalize_value(period)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=UsageProject)
-
 
     def list_variables(
         self,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> VariableList:
         """
         Get a list of all project environment variables.
@@ -5112,12 +5357,11 @@ class Project(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: key, resourceType, resourceId, secret
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         VariableList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -5126,26 +5370,29 @@ class Project(Service):
 
         api_path = '/project/variables'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=VariableList)
-
 
     def create_variable(
         self,
         variable_id: str,
         key: str,
         value: str,
-        secret: Optional[bool] = None
+        secret: Optional[bool] = None,
     ) -> Variable:
         """
         Create a new project environment variable. These variables can be accessed by all functions and sites in the project.
@@ -5155,17 +5402,16 @@ class Project(Service):
         variable_id : str
             Variable unique ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
         key : str
-            Variable key. Max length: 255 chars.
+            Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
         value : str
             Variable value. Max length: 8192 chars.
         secret : Optional[bool]
             Secret variables can be updated or deleted, but only projects can read them during build and runtime.
-        
         Returns
         -------
         Variable
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -5176,46 +5422,45 @@ class Project(Service):
         api_params = {}
         if variable_id is None:
             raise AppwriteException('Missing required parameter: "variable_id"')
-
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
-
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
-
         api_params['variableId'] = self._normalize_value(variable_id)
         api_params['key'] = self._normalize_value(key)
         api_params['value'] = self._normalize_value(value)
         if secret is not None:
             api_params['secret'] = self._normalize_value(secret)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Variable)
 
-
     def get_variable(
         self,
-        variable_id: str
+        variable_id: str,
     ) -> Variable:
         """
-        Get a variable by its unique ID. 
+        Get a variable by its unique ID.
 
         Parameters
         ----------
         variable_id : str
             Variable unique ID.
-        
         Returns
         -------
         Variable
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -5226,24 +5471,26 @@ class Project(Service):
         api_params = {}
         if variable_id is None:
             raise AppwriteException('Missing required parameter: "variable_id"')
-
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Variable)
-
 
     def update_variable(
         self,
         variable_id: str,
         key: Optional[str] = None,
         value: Optional[str] = None,
-        secret: Optional[bool] = None
+        secret: Optional[bool] = None,
     ) -> Variable:
         """
         Update variable by its unique ID.
@@ -5253,17 +5500,16 @@ class Project(Service):
         variable_id : str
             Variable unique ID.
         key : Optional[str]
-            Variable key. Max length: 255 chars.
+            Variable key. Letters, digits and underscores only, must not start with a digit. Max length: 255 chars.
         value : Optional[str]
             Variable value. Max length: 8192 chars.
         secret : Optional[bool]
             Secret variables can be updated or deleted, but only projects can read them during build and runtime.
-        
         Returns
         -------
         Variable
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -5274,9 +5520,7 @@ class Project(Service):
         api_params = {}
         if variable_id is None:
             raise AppwriteException('Missing required parameter: "variable_id"')
-
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
-
         if key is not None:
             api_params['key'] = self._normalize_value(key)
         if value is not None:
@@ -5284,32 +5528,35 @@ class Project(Service):
         if secret is not None:
             api_params['secret'] = self._normalize_value(secret)
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Variable)
 
-
     def delete_variable(
         self,
-        variable_id: str
+        variable_id: str,
     ) -> Dict[str, Any]:
         """
-        Delete a variable by its unique ID. 
+        Delete a variable by its unique ID.
 
         Parameters
         ----------
         variable_id : str
             Variable unique ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -5320,14 +5567,16 @@ class Project(Service):
         api_params = {}
         if variable_id is None:
             raise AppwriteException('Missing required parameter: "variable_id"')
-
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-

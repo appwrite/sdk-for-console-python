@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ConsoleKeyScope(AppwriteModel):
     """
     Console Key Scope
@@ -18,6 +19,7 @@ class ConsoleKeyScope(AppwriteModel):
     deprecated : bool
         Scope is deprecated.
     """
+
     id: str = Field(..., alias='$id')
     description: str = Field(..., alias='description')
     category: str = Field(..., alias='category')

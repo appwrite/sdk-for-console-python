@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class TemplateFramework(AppwriteModel):
     """
     Template Framework
@@ -28,6 +29,7 @@ class TemplateFramework(AppwriteModel):
     fallbackfile : str
         Fallback file for SPA. Only relevant for static serve runtime.
     """
+
     key: str = Field(..., alias='key')
     name: str = Field(..., alias='name')
     installcommand: str = Field(..., alias='installCommand')

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.waf_rule_action import WafRuleAction
 
+
 class WafRuleBypass(AppwriteModel):
     """
     WafRuleBypass
@@ -34,11 +35,12 @@ class WafRuleBypass(AppwriteModel):
         Evaluation priority. Lower values execute earlier.
     enabled : bool
         Whether the rule is active.
-    conditions : Dict[str, Any]
+    conditions : List[Any]
         List of conditions evaluated for this rule.
     config : Dict[str, Any]
         Action specific configuration.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
@@ -51,5 +53,5 @@ class WafRuleBypass(AppwriteModel):
     action: WafRuleAction = Field(..., alias='action')
     priority: float = Field(..., alias='priority')
     enabled: bool = Field(..., alias='enabled')
-    conditions: Dict[str, Any] = Field(..., alias='conditions')
+    conditions: List[Any] = Field(..., alias='conditions')
     config: Dict[str, Any] = Field(..., alias='config')

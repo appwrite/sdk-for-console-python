@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .provider_repository_runtime import ProviderRepositoryRuntime
 
+
 class ProviderRepositoryRuntimeList(AppwriteModel):
     """
     Runtime Provider Repositories List
@@ -17,6 +18,7 @@ class ProviderRepositoryRuntimeList(AppwriteModel):
     type : str
         Provider repository list type.
     """
+
     total: float = Field(..., alias='total')
     runtimeproviderrepositories: List[ProviderRepositoryRuntime] = Field(..., alias='runtimeProviderRepositories')
     type: str = Field(..., alias='type')

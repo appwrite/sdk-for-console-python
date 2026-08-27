@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DomainSuggestion(AppwriteModel):
     """
     DomainSuggestion
@@ -18,6 +19,7 @@ class DomainSuggestion(AppwriteModel):
     available : bool
         Is the domain available?
     """
+
     domain: str = Field(..., alias='domain')
     premium: bool = Field(..., alias='premium')
     price: Optional[float] = Field(default=None, alias='price')

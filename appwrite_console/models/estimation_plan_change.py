@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .plan_change_estimation_details import PlanChangeEstimationDetails
 from .plan_change_limits import PlanChangeLimits
 
+
 class EstimationPlanChange(AppwriteModel):
     """
     EstimationPlanChange
@@ -22,6 +23,7 @@ class EstimationPlanChange(AppwriteModel):
     limits : PlanChangeLimits
         Plan limits and compliance information
     """
+
     currentbillingplanid: str = Field(..., alias='currentBillingPlanId')
     targetbillingplanid: str = Field(..., alias='targetBillingPlanId')
     direction: str = Field(..., alias='direction')

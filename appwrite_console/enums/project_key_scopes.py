@@ -1,8 +1,10 @@
 from enum import Enum
 
+
 class ProjectKeyScopes(Enum):
     PROJECT_READ = "project.read"
     PROJECT_WRITE = "project.write"
+    USAGE_READ = "usage.read"
     KEYS_READ = "keys.read"
     KEYS_WRITE = "keys.write"
     PLATFORMS_READ = "platforms.read"
@@ -94,7 +96,6 @@ class ProjectKeyScopes(Enum):
     ARCHIVES_WRITE = "archives.write"
     RESTORATIONS_READ = "restorations.read"
     RESTORATIONS_WRITE = "restorations.write"
-    DEDICATEDDATABASES_EXECUTE = "dedicatedDatabases.execute"
     DOMAINS_READ = "domains.read"
     DOMAINS_WRITE = "domains.write"
     WAFRULES_READ = "wafRules.read"
@@ -106,4 +107,3 @@ class ProjectKeyScopes(Enum):
     OAUTH2_READ = "oauth2.read"
     OAUTH2_WRITE = "oauth2.write"
     OAUTH2_INTROSPECT = "oauth2.introspect"
-    USAGE_READ = "usage.read"

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Notification(AppwriteModel):
     """
     Notification
@@ -42,6 +43,7 @@ class Notification(AppwriteModel):
     lastseen : Optional[str]
         Most recent time the notification was viewed from a notification logo.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')

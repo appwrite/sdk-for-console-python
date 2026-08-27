@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseBackup(AppwriteModel):
     """
     Backup
@@ -44,6 +45,7 @@ class DedicatedDatabaseBackup(AppwriteModel):
     error : str
         Error message if backup failed.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     databaseid: str = Field(..., alias='databaseId')

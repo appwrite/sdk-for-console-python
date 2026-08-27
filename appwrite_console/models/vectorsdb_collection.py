@@ -6,6 +6,7 @@ from .attribute_object import AttributeObject
 from .attribute_vector import AttributeVector
 from .index import Index
 
+
 class VectorsdbCollection(AppwriteModel):
     """
     VectorsDB Collection
@@ -39,6 +40,7 @@ class VectorsdbCollection(AppwriteModel):
     dimension : float
         Embedding dimension.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
@@ -47,7 +49,12 @@ class VectorsdbCollection(AppwriteModel):
     name: str = Field(..., alias='name')
     enabled: bool = Field(..., alias='enabled')
     documentsecurity: bool = Field(..., alias='documentSecurity')
-    attributes: List[Union[AttributeObject, AttributeVector]] = Field(..., alias='attributes')
+    attributes: List[
+        Union[
+            AttributeObject,
+            AttributeVector,
+        ]
+    ] = Field(..., alias='attributes')
     indexes: List[Index] = Field(..., alias='indexes')
     bytesmax: float = Field(..., alias='bytesMax')
     bytesused: float = Field(..., alias='bytesUsed')

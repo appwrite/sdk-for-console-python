@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .usage_metric import UsageMetric
 
+
 class UsageEventList(AppwriteModel):
     """
     usageEventList
@@ -11,9 +12,10 @@ class UsageEventList(AppwriteModel):
     Attributes
     ----------
     interval : str
-        Time interval size (1h or 1d). Empty when the request omits `interval` — points then carry the request end time as their as-of marker.
+        Requested interval, or an empty string for a flat aggregate.
     metrics : List[UsageMetric]
-        One entry per requested metric, each carrying its own points[] time series (sums per bucket / dimension over time).
+        One series per requested event metric.
     """
+
     interval: str = Field(..., alias='interval')
     metrics: List[UsageMetric] = Field(..., alias='metrics')

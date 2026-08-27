@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from ..enums.domain_transfer_status_enum import DomainTransferStatusEnum
 from .dns_record import DnsRecord
 
+
 class Domain(AppwriteModel):
     """
     Domain
@@ -38,6 +39,7 @@ class Domain(AppwriteModel):
     dnsrecords : List[DnsRecord]
         Dns records
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')

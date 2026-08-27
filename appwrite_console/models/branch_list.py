@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .branch import Branch
 
+
 class BranchList(AppwriteModel):
     """
     Branches List
@@ -15,5 +16,6 @@ class BranchList(AppwriteModel):
     branches : List[Branch]
         List of branches.
     """
+
     total: float = Field(..., alias='total')
     branches: List[Branch] = Field(..., alias='branches')

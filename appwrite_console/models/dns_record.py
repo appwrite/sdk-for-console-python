@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DnsRecord(AppwriteModel):
     """
     DNSRecord
@@ -34,6 +35,7 @@ class DnsRecord(AppwriteModel):
     comment : str
         Comment for the DNS record.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class UsageResources(AppwriteModel):
     """
     Resource
@@ -26,6 +27,7 @@ class UsageResources(AppwriteModel):
     specification : str
         Dedicated database specification slug for per-database line items (e.g. s-2vcpu-2gb). Empty for other resources.
     """
+
     name: str = Field(..., alias='name')
     value: float = Field(..., alias='value')
     amount: float = Field(..., alias='amount')

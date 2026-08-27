@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class VcsNamespace(AppwriteModel):
     """
     VcsNamespace
@@ -20,6 +21,7 @@ class VcsNamespace(AppwriteModel):
     avatarurl : str
         Namespace avatar URL.
     """
+
     id: str = Field(..., alias='$id')
     name: str = Field(..., alias='name')
     path: str = Field(..., alias='path')

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseBranch(AppwriteModel):
     """
     Branch
@@ -22,7 +23,7 @@ class DedicatedDatabaseBranch(AppwriteModel):
     port : float
         Branch port. Null until the backing reports one.
     database : str
-        Database name the client sends for routing to the branch.
+        Advertised catalog the client connects to. MySQL/MariaDB use default; Postgres uses the routing label.
     username : str
         Database username. Shared with the parent database.
     password : str
@@ -34,6 +35,7 @@ class DedicatedDatabaseBranch(AppwriteModel):
     connectionstring : str
         Full connection string for the branch.
     """
+
     branchid: str = Field(..., alias='branchId')
     branchname: str = Field(..., alias='branchName')
     namespace: str = Field(..., alias='namespace')

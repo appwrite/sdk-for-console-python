@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .console_key_scope import ConsoleKeyScope
 
+
 class ConsoleKeyScopeList(AppwriteModel):
     """
     Console Key Scopes List
@@ -15,5 +16,6 @@ class ConsoleKeyScopeList(AppwriteModel):
     scopes : List[ConsoleKeyScope]
         List of key scopes, each with its ID and description.
     """
+
     total: float = Field(..., alias='total')
     scopes: List[ConsoleKeyScope] = Field(..., alias='scopes')

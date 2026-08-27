@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .usage_resources import UsageResources
 
+
 class Invoice(AppwriteModel):
     """
     Invoice
@@ -57,6 +58,7 @@ class Invoice(AppwriteModel):
     to : str
         End date of the invoice
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')

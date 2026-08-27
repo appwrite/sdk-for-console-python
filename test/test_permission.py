@@ -3,6 +3,7 @@ import unittest
 from appwrite_console.permission import Permission
 from appwrite_console.role import Role
 
+
 class TestPermissionMethods(unittest.TestCase):
 
     def test_read(self):

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class MigrationReport(AppwriteModel):
     """
     Migration Report
@@ -66,6 +67,7 @@ class MigrationReport(AppwriteModel):
     backup_policy : float
         Number of backup policies to be migrated.
     """
+
     user: float = Field(..., alias='user')
     team: float = Field(..., alias='team')
     database: float = Field(..., alias='database')

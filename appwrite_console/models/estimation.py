@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .estimation_item import EstimationItem
 
+
 class Estimation(AppwriteModel):
     """
     Estimation
@@ -27,6 +28,7 @@ class Estimation(AppwriteModel):
     trialenddate : Optional[str]
         Trial end date
     """
+
     amount: float = Field(..., alias='amount')
     grossamount: float = Field(..., alias='grossAmount')
     discount: float = Field(..., alias='discount')

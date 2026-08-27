@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseBackupStorage(AppwriteModel):
     """
     BackupStorageConfig
@@ -20,6 +21,7 @@ class DedicatedDatabaseBackupStorage(AppwriteModel):
     endpoint : str
         Custom endpoint for S3-compatible storage.
     """
+
     provider: str = Field(..., alias='provider')
     bucket: str = Field(..., alias='bucket')
     region: str = Field(..., alias='region')

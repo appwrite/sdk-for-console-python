@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .addon import Addon
 
+
 class AddonList(AppwriteModel):
     """
     Addons list
@@ -15,5 +16,6 @@ class AddonList(AppwriteModel):
     addons : List[Addon]
         List of addons.
     """
+
     total: float = Field(..., alias='total')
     addons: List[Addon] = Field(..., alias='addons')

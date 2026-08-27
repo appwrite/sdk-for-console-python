@@ -1,5 +1,27 @@
 # Change Log
 
+## 0.6.0
+
+* Breaking: `Execution.functionId` replaced by `resourceId` and `resourceType`
+* Breaking: `UsageEventMetric` and `UsageGaugeMetric` are plain string constants, not `Enum` members
+* Breaking: `list_events` and `list_gauges` take `metrics` as plain strings
+* Breaking: `UsageOrganizationProject` usage fields are single totals, not `List[Metric]`
+* Breaking: `conditions`, `resourceData`, `items`, `discounts`, `authorizationDetails` and `rows` are lists, not dicts
+* Breaking: Removed `ProjectKeyScopes.DEDICATEDDATABASES_EXECUTE`
+* Breaking: `Addon` enum renamed to `AddonKey`; `get_addon_price` takes `AddonKey`
+* Added: `huggingface` OAuth2 provider, `OAuth2HuggingFace` and `update_o_auth2_hugging_face`
+* Added: `avatars.get_photo` for Gravatar-backed profile photos
+* Added: `scopes` on `sites.create`, `sites.update` and `Site`
+* Added: `strategy` and `max_bucket_size` on WAF rate limit rules
+* Added: `bun-1.4` runtime and build runtime
+* Added: usage metrics for webhook events, phone auth, messages, per-service build mbSeconds and WAF challenges
+* Added: `BillingPlan.databaseComputeCredit` and `BillingPlan.supportsDedicatedDatabases`
+* Added: `Database.lifecycleState`, `Database.containerStatus` and `Database.error`
+* Added: `DatabaseMigration.changelogWatermark`, `replicating` on replicas and members, `DedicatedDatabaseBranchList.total`
+* Added: `_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES` and `_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION`
+* Fixed: chunked uploads only probe for prior progress when an `upload_id` is given
+* Updated: `Project.wafEnabled` and `UsageDataPoint.time` are optional
+
 ## 0.5.0
 
 * Breaking: `Preferences` serializes its keys at the top level, not nested under `data`

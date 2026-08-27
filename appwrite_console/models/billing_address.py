@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class BillingAddress(AppwriteModel):
     """
     Address
@@ -26,6 +27,7 @@ class BillingAddress(AppwriteModel):
     postalcode : str
         postal code
     """
+
     id: str = Field(..., alias='$id')
     userid: str = Field(..., alias='userId')
     streetaddress: str = Field(..., alias='streetAddress')

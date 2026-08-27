@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Credit(AppwriteModel):
     """
     Credit
@@ -32,6 +33,7 @@ class Credit(AppwriteModel):
     status : str
         Status of the credit. Can be one of `disabled`, `active` or `expired`.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')

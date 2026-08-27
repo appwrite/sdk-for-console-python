@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .metric import Metric
 from .usage_organization_project import UsageOrganizationProject
 
+
 class UsageOrganization(AppwriteModel):
     """
     Organization
@@ -72,6 +73,7 @@ class UsageOrganization(AppwriteModel):
     realtimebandwidthtotal : float
         Aggregated stats for total realtime bandwidth.
     """
+
     bandwidth: List[Metric] = Field(..., alias='bandwidth')
     users: List[Metric] = Field(..., alias='users')
     executions: List[Metric] = Field(..., alias='executions')

@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .template_framework import TemplateFramework
 from .template_variable import TemplateVariable
 
+
 class TemplateSite(AppwriteModel):
     """
     Template Site
@@ -38,6 +39,7 @@ class TemplateSite(AppwriteModel):
     variables : List[TemplateVariable]
         Site variables.
     """
+
     key: str = Field(..., alias='key')
     name: str = Field(..., alias='name')
     tagline: str = Field(..., alias='tagline')

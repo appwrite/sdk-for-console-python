@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .affiliate_referral import AffiliateReferral
 
+
 class AffiliateReferralList(AppwriteModel):
     """
     Affiliate referrals list
@@ -15,5 +16,6 @@ class AffiliateReferralList(AppwriteModel):
     referrals : List[AffiliateReferral]
         List of referrals.
     """
+
     total: float = Field(..., alias='total')
     referrals: List[AffiliateReferral] = Field(..., alias='referrals')

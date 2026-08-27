@@ -12,6 +12,7 @@ from ..enums.firebase_migration_resource import FirebaseMigrationResource
 from ..enums.n_host_migration_resource import NHostMigrationResource
 from ..enums.supabase_migration_resource import SupabaseMigrationResource
 
+
 class Migrations(Service):
 
     def __init__(self, client) -> None:
@@ -21,7 +22,7 @@ class Migrations(Service):
         self,
         queries: Optional[List[str]] = None,
         search: Optional[str] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> MigrationList:
         """
         List all migrations in the current project. This endpoint returns a list of all migrations including their status, progress, and any errors that occurred during the migration process.
@@ -34,12 +35,11 @@ class Migrations(Service):
             Search term to filter your list results. Max length: 256 chars.
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         MigrationList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -48,7 +48,6 @@ class Migrations(Service):
 
         api_path = '/migrations'
         api_params = {}
-
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -56,13 +55,17 @@ class Migrations(Service):
         if total is not None:
             api_params['total'] = self._normalize_value(total)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MigrationList)
-
 
     def create_appwrite_migration(
         self,
@@ -70,10 +73,10 @@ class Migrations(Service):
         endpoint: str,
         project_id: str,
         api_key: str,
-        on_duplicate: Optional[OnDuplicate] = None
+        on_duplicate: Optional[OnDuplicate] = None,
     ) -> Migration:
         """
-        Migrate data from another Appwrite project to your current project. This endpoint allows you to migrate resources like databases, collections, documents, users, and files from an existing Appwrite project. 
+        Migrate data from another Appwrite project to your current project. This endpoint allows you to migrate resources like databases, collections, documents, users, and files from an existing Appwrite project.
 
         Parameters
         ----------
@@ -87,12 +90,11 @@ class Migrations(Service):
             Source API Key
         on_duplicate : Optional[OnDuplicate]
             Behavior when a row with an existing $id is encountered. "fail" (default): abort on first conflict. "skip": silently ignore. "overwrite": replace existing row.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -103,17 +105,12 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if endpoint is None:
             raise AppwriteException('Missing required parameter: "endpoint"')
-
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if api_key is None:
             raise AppwriteException('Missing required parameter: "api_key"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['projectId'] = self._normalize_value(project_id)
@@ -121,21 +118,25 @@ class Migrations(Service):
         if on_duplicate is not None:
             api_params['onDuplicate'] = self._normalize_value(on_duplicate)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def get_appwrite_report(
         self,
         resources: List[AppwriteMigrationResource],
         endpoint: str,
         project_id: str,
-        key: str
+        key: str,
     ) -> MigrationReport:
         """
         Generate a report of the data in an Appwrite project before migrating. This endpoint analyzes the source project and returns information about the resources that can be migrated.
@@ -150,12 +151,11 @@ class Migrations(Service):
             Source's Project ID
         key : str
             Source's API Key
-        
         Returns
         -------
         MigrationReport
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -166,29 +166,28 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if endpoint is None:
             raise AppwriteException('Missing required parameter: "endpoint"')
-
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['projectID'] = self._normalize_value(project_id)
         api_params['key'] = self._normalize_value(key)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MigrationReport)
-
 
     def create_csv_export(
         self,
@@ -201,7 +200,7 @@ class Migrations(Service):
         enclosure: Optional[str] = None,
         escape: Optional[str] = None,
         header: Optional[bool] = None,
-        notify: Optional[bool] = None
+        notify: Optional[bool] = None,
     ) -> Migration:
         """
         Export documents to a CSV file from your Appwrite database. This endpoint allows you to export documents to a CSV file stored in a secure internal bucket. You'll receive an email with a download link when the export is complete.
@@ -228,12 +227,11 @@ class Migrations(Service):
             Whether to include the header row with column names. Default is true.
         notify : Optional[bool]
             Set to true to receive an email when the export is complete. Default is true.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -244,14 +242,10 @@ class Migrations(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
-
         if filename is None:
             raise AppwriteException('Missing required parameter: "filename"')
-
-
         api_params['databaseId'] = self._normalize_value(database_id)
         api_params['collectionId'] = self._normalize_value(collection_id)
         api_params['filename'] = self._normalize_value(filename)
@@ -270,14 +264,18 @@ class Migrations(Service):
         if notify is not None:
             api_params['notify'] = self._normalize_value(notify)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def create_csv_import(
         self,
@@ -286,7 +284,7 @@ class Migrations(Service):
         database_id: str,
         collection_id: str,
         internal_file: Optional[bool] = None,
-        on_duplicate: Optional[OnDuplicate] = None
+        on_duplicate: Optional[OnDuplicate] = None,
     ) -> Migration:
         """
         Import documents from a CSV file into your Appwrite database. This endpoint allows you to import documents from a CSV file uploaded to Appwrite Storage bucket.
@@ -305,12 +303,11 @@ class Migrations(Service):
             Is the file stored in an internal bucket?
         on_duplicate : Optional[OnDuplicate]
             Behavior when a row with an existing $id is encountered. "fail" (default): abort on first conflict. "skip": silently ignore. "overwrite": replace existing row.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -321,17 +318,12 @@ class Migrations(Service):
         api_params = {}
         if bucket_id is None:
             raise AppwriteException('Missing required parameter: "bucket_id"')
-
         if file_id is None:
             raise AppwriteException('Missing required parameter: "file_id"')
-
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
-
-
         api_params['bucketId'] = self._normalize_value(bucket_id)
         api_params['fileId'] = self._normalize_value(file_id)
         api_params['databaseId'] = self._normalize_value(database_id)
@@ -341,22 +333,26 @@ class Migrations(Service):
         if on_duplicate is not None:
             api_params['onDuplicate'] = self._normalize_value(on_duplicate)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def create_firebase_migration(
         self,
         resources: List[FirebaseMigrationResource],
-        service_account: str
+        service_account: str,
     ) -> Migration:
         """
-        Migrate data from a Firebase project to your Appwrite project. This endpoint allows you to migrate resources like authentication and other supported services from a Firebase project. 
+        Migrate data from a Firebase project to your Appwrite project. This endpoint allows you to migrate resources like authentication and other supported services from a Firebase project.
 
         Parameters
         ----------
@@ -364,12 +360,11 @@ class Migrations(Service):
             List of resources to migrate
         service_account : str
             JSON of the Firebase service account credentials
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -380,27 +375,28 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if service_account is None:
             raise AppwriteException('Missing required parameter: "service_account"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['serviceAccount'] = self._normalize_value(service_account)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def get_firebase_report(
         self,
         resources: List[FirebaseMigrationResource],
-        service_account: str
+        service_account: str,
     ) -> MigrationReport:
         """
         Generate a report of the data in a Firebase project before migrating. This endpoint analyzes the source project and returns information about the resources that can be migrated.
@@ -411,12 +407,11 @@ class Migrations(Service):
             List of resources to migrate
         service_account : str
             JSON of the Firebase service account credentials
-        
         Returns
         -------
         MigrationReport
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -427,21 +422,22 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if service_account is None:
             raise AppwriteException('Missing required parameter: "service_account"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['serviceAccount'] = self._normalize_value(service_account)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MigrationReport)
-
 
     def create_json_export(
         self,
@@ -450,11 +446,10 @@ class Migrations(Service):
         filename: str,
         columns: Optional[List[str]] = None,
         queries: Optional[List[str]] = None,
-        notify: Optional[bool] = None
+        notify: Optional[bool] = None,
     ) -> Migration:
         """
         Export documents to a JSON file from your Appwrite database. This endpoint allows you to export documents to a JSON file stored in a secure internal bucket. You'll receive an email with a download link when the export is complete.
-        
 
         Parameters
         ----------
@@ -470,12 +465,11 @@ class Migrations(Service):
             Array of query strings generated using the Query class provided by the SDK to filter documents to export. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long.
         notify : Optional[bool]
             Set to true to receive an email when the export is complete. Default is true.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -486,14 +480,10 @@ class Migrations(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
-
         if filename is None:
             raise AppwriteException('Missing required parameter: "filename"')
-
-
         api_params['databaseId'] = self._normalize_value(database_id)
         api_params['collectionId'] = self._normalize_value(collection_id)
         api_params['filename'] = self._normalize_value(filename)
@@ -504,14 +494,18 @@ class Migrations(Service):
         if notify is not None:
             api_params['notify'] = self._normalize_value(notify)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def create_json_import(
         self,
@@ -520,11 +514,10 @@ class Migrations(Service):
         database_id: str,
         collection_id: str,
         internal_file: Optional[bool] = None,
-        on_duplicate: Optional[OnDuplicate] = None
+        on_duplicate: Optional[OnDuplicate] = None,
     ) -> Migration:
         """
         Import documents from a JSON file into your Appwrite database. This endpoint allows you to import documents from a JSON file uploaded to Appwrite Storage bucket.
-        
 
         Parameters
         ----------
@@ -540,12 +533,11 @@ class Migrations(Service):
             Is the file stored in an internal bucket?
         on_duplicate : Optional[OnDuplicate]
             Behavior when a row with an existing $id is encountered. "fail" (default): abort on first conflict. "skip": silently ignore. "overwrite": replace existing row.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -556,17 +548,12 @@ class Migrations(Service):
         api_params = {}
         if bucket_id is None:
             raise AppwriteException('Missing required parameter: "bucket_id"')
-
         if file_id is None:
             raise AppwriteException('Missing required parameter: "file_id"')
-
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
-
-
         api_params['bucketId'] = self._normalize_value(bucket_id)
         api_params['fileId'] = self._normalize_value(file_id)
         api_params['databaseId'] = self._normalize_value(database_id)
@@ -576,14 +563,18 @@ class Migrations(Service):
         if on_duplicate is not None:
             api_params['onDuplicate'] = self._normalize_value(on_duplicate)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def create_n_host_migration(
         self,
@@ -594,10 +585,10 @@ class Migrations(Service):
         database: str,
         username: str,
         password: str,
-        port: Optional[float] = None
+        port: Optional[float] = None,
     ) -> Migration:
         """
-        Migrate data from an NHost project to your Appwrite project. This endpoint allows you to migrate resources like authentication, databases, and other supported services from an NHost project. 
+        Migrate data from an NHost project to your Appwrite project. This endpoint allows you to migrate resources like authentication, databases, and other supported services from an NHost project.
 
         Parameters
         ----------
@@ -617,12 +608,11 @@ class Migrations(Service):
             Source's Database Password
         port : Optional[float]
             Source's Database Port
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -633,26 +623,18 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if subdomain is None:
             raise AppwriteException('Missing required parameter: "subdomain"')
-
         if region is None:
             raise AppwriteException('Missing required parameter: "region"')
-
         if admin_secret is None:
             raise AppwriteException('Missing required parameter: "admin_secret"')
-
         if database is None:
             raise AppwriteException('Missing required parameter: "database"')
-
         if username is None:
             raise AppwriteException('Missing required parameter: "username"')
-
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['subdomain'] = self._normalize_value(subdomain)
         api_params['region'] = self._normalize_value(region)
@@ -663,14 +645,18 @@ class Migrations(Service):
         if port is not None:
             api_params['port'] = self._normalize_value(port)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def get_n_host_report(
         self,
@@ -681,10 +667,10 @@ class Migrations(Service):
         database: str,
         username: str,
         password: str,
-        port: Optional[float] = None
+        port: Optional[float] = None,
     ) -> MigrationReport:
         """
-        Generate a detailed report of the data in an NHost project before migrating. This endpoint analyzes the source project and returns information about the resources that can be migrated. 
+        Generate a detailed report of the data in an NHost project before migrating. This endpoint analyzes the source project and returns information about the resources that can be migrated.
 
         Parameters
         ----------
@@ -704,12 +690,11 @@ class Migrations(Service):
             Source's Database Password.
         port : Optional[float]
             Source's Database Port.
-        
         Returns
         -------
         MigrationReport
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -720,26 +705,18 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if subdomain is None:
             raise AppwriteException('Missing required parameter: "subdomain"')
-
         if region is None:
             raise AppwriteException('Missing required parameter: "region"')
-
         if admin_secret is None:
             raise AppwriteException('Missing required parameter: "admin_secret"')
-
         if database is None:
             raise AppwriteException('Missing required parameter: "database"')
-
         if username is None:
             raise AppwriteException('Missing required parameter: "username"')
-
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['subdomain'] = self._normalize_value(subdomain)
         api_params['region'] = self._normalize_value(region)
@@ -750,13 +727,17 @@ class Migrations(Service):
         if port is not None:
             api_params['port'] = self._normalize_value(port)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MigrationReport)
-
 
     def create_supabase_migration(
         self,
@@ -766,10 +747,10 @@ class Migrations(Service):
         database_host: str,
         username: str,
         password: str,
-        port: Optional[float] = None
+        port: Optional[float] = None,
     ) -> Migration:
         """
-        Migrate data from a Supabase project to your Appwrite project. This endpoint allows you to migrate resources like authentication, databases, and other supported services from a Supabase project. 
+        Migrate data from a Supabase project to your Appwrite project. This endpoint allows you to migrate resources like authentication, databases, and other supported services from a Supabase project.
 
         Parameters
         ----------
@@ -787,12 +768,11 @@ class Migrations(Service):
             Source's Database Password
         port : Optional[float]
             Source's Database Port
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -803,23 +783,16 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if endpoint is None:
             raise AppwriteException('Missing required parameter: "endpoint"')
-
         if api_key is None:
             raise AppwriteException('Missing required parameter: "api_key"')
-
         if database_host is None:
             raise AppwriteException('Missing required parameter: "database_host"')
-
         if username is None:
             raise AppwriteException('Missing required parameter: "username"')
-
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['apiKey'] = self._normalize_value(api_key)
@@ -829,14 +802,18 @@ class Migrations(Service):
         if port is not None:
             api_params['port'] = self._normalize_value(port)
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
-
 
     def get_supabase_report(
         self,
@@ -846,10 +823,10 @@ class Migrations(Service):
         database_host: str,
         username: str,
         password: str,
-        port: Optional[float] = None
+        port: Optional[float] = None,
     ) -> MigrationReport:
         """
-        Generate a report of the data in a Supabase project before migrating. This endpoint analyzes the source project and returns information about the resources that can be migrated. 
+        Generate a report of the data in a Supabase project before migrating. This endpoint analyzes the source project and returns information about the resources that can be migrated.
 
         Parameters
         ----------
@@ -867,12 +844,11 @@ class Migrations(Service):
             Source's Database Password.
         port : Optional[float]
             Source's Database Port.
-        
         Returns
         -------
         MigrationReport
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -883,23 +859,16 @@ class Migrations(Service):
         api_params = {}
         if resources is None:
             raise AppwriteException('Missing required parameter: "resources"')
-
         if endpoint is None:
             raise AppwriteException('Missing required parameter: "endpoint"')
-
         if api_key is None:
             raise AppwriteException('Missing required parameter: "api_key"')
-
         if database_host is None:
             raise AppwriteException('Missing required parameter: "database_host"')
-
         if username is None:
             raise AppwriteException('Missing required parameter: "username"')
-
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-
-
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['apiKey'] = self._normalize_value(api_key)
@@ -909,31 +878,34 @@ class Migrations(Service):
         if port is not None:
             api_params['port'] = self._normalize_value(port)
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=MigrationReport)
 
-
     def get(
         self,
-        migration_id: str
+        migration_id: str,
     ) -> Migration:
         """
-        Get a migration by its unique ID. This endpoint returns detailed information about a specific migration including its current status, progress, and any errors that occurred during the migration process. 
+        Get a migration by its unique ID. This endpoint returns detailed information about a specific migration including its current status, progress, and any errors that occurred during the migration process.
 
         Parameters
         ----------
         migration_id : str
             Migration unique ID.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -944,21 +916,23 @@ class Migrations(Service):
         api_params = {}
         if migration_id is None:
             raise AppwriteException('Missing required parameter: "migration_id"')
-
         api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
 
-
     def retry(
         self,
-        migration_id: str
+        migration_id: str,
     ) -> Migration:
         """
         Retry a failed migration. This endpoint allows you to retry a migration that has previously failed.
@@ -967,12 +941,11 @@ class Migrations(Service):
         ----------
         migration_id : str
             Migration unique ID.
-        
         Returns
         -------
         Migration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -983,36 +956,37 @@ class Migrations(Service):
         api_params = {}
         if migration_id is None:
             raise AppwriteException('Missing required parameter: "migration_id"')
-
         api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
 
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Migration)
 
-
     def delete(
         self,
-        migration_id: str
+        migration_id: str,
     ) -> Dict[str, Any]:
         """
-        Delete a migration by its unique ID. This endpoint allows you to remove a migration from your project's migration history. 
+        Delete a migration by its unique ID. This endpoint allows you to remove a migration from your project's migration history.
 
         Parameters
         ----------
         migration_id : str
             Migration ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -1023,14 +997,16 @@ class Migrations(Service):
         api_params = {}
         if migration_id is None:
             raise AppwriteException('Missing required parameter: "migration_id"')
-
         api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-

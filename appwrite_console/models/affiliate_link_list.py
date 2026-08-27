@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .affiliate_link import AffiliateLink
 
+
 class AffiliateLinkList(AppwriteModel):
     """
     Affiliate links list
@@ -15,5 +16,6 @@ class AffiliateLinkList(AppwriteModel):
     links : List[AffiliateLink]
         List of links.
     """
+
     total: float = Field(..., alias='total')
     links: List[AffiliateLink] = Field(..., alias='links')

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseOperation(AppwriteModel):
     """
     Operation
@@ -32,6 +33,7 @@ class DedicatedDatabaseOperation(AppwriteModel):
     errormessage : str
         Failure message if the operation failed.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     databaseid: str = Field(..., alias='databaseId')

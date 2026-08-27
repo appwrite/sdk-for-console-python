@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.attribute_status import AttributeStatus
 
+
 class AttributeVector(AppwriteModel):
     """
     AttributeVector
@@ -29,6 +30,7 @@ class AttributeVector(AppwriteModel):
     size : float
         Vector dimensions.
     """
+
     key: str = Field(..., alias='key')
     type: str = Field(..., alias='type')
     status: AttributeStatus = Field(..., alias='status')

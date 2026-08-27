@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .plan_change_resource_compliance import PlanChangeResourceCompliance
 from .plan_change_project_compliance import PlanChangeProjectCompliance
 
+
 class PlanChangeLimits(AppwriteModel):
     """
     PlanChangeLimits
@@ -26,6 +27,7 @@ class PlanChangeLimits(AppwriteModel):
     projectcompliance : List[PlanChangeProjectCompliance]
         Per-project compliance details. Populated for downgrades only.
     """
+
     canchangeplan: bool = Field(..., alias='canChangePlan')
     unsupportedaddons: List[Any] = Field(..., alias='unsupportedAddons')
     projects: PlanChangeResourceCompliance = Field(..., alias='projects')

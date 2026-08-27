@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .invoice import Invoice
 
+
 class InvoiceList(AppwriteModel):
     """
     Billing invoices list
@@ -15,5 +16,6 @@ class InvoiceList(AppwriteModel):
     invoices : List[Invoice]
         List of invoices.
     """
+
     total: float = Field(..., alias='total')
     invoices: List[Invoice] = Field(..., alias='invoices')

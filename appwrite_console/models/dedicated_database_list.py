@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .dedicated_database import DedicatedDatabase
 
+
 class DedicatedDatabaseList(AppwriteModel):
     """
     Dedicated databases list
@@ -15,5 +16,6 @@ class DedicatedDatabaseList(AppwriteModel):
     databases : List[DedicatedDatabase]
         List of databases.
     """
+
     total: float = Field(..., alias='total')
     databases: List[DedicatedDatabase] = Field(..., alias='databases')

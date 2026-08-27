@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .notification import Notification
 
+
 class NotificationList(AppwriteModel):
     """
     Notifications List
@@ -15,5 +16,6 @@ class NotificationList(AppwriteModel):
     notifications : List[Notification]
         List of notifications.
     """
+
     total: float = Field(..., alias='total')
     notifications: List[Notification] = Field(..., alias='notifications')

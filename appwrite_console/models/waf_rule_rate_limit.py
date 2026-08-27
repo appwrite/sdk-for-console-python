@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.waf_rule_action import WafRuleAction
 
+
 class WafRuleRateLimit(AppwriteModel):
     """
     WafRuleRateLimit
@@ -34,7 +35,7 @@ class WafRuleRateLimit(AppwriteModel):
         Evaluation priority. Lower values execute earlier.
     enabled : bool
         Whether the rule is active.
-    conditions : Dict[str, Any]
+    conditions : List[Any]
         List of conditions evaluated for this rule.
     config : Dict[str, Any]
         Action specific configuration.
@@ -44,7 +45,12 @@ class WafRuleRateLimit(AppwriteModel):
         Interval in seconds for the rate limit window.
     key : str
         Rate limit key: `ip` limits per client IP, `userId` limits per authenticated user.
+    strategy : str
+        Rate limit strategy: `fixedWindow`, `slidingWindow`, or `tokenBucket`.
+    maxbucketsize : float
+        Maximum burst capacity in tokens, applied by the `tokenBucket` strategy. The sustained refill rate is `limit / interval`. Defaults to `limit`.
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
@@ -57,8 +63,10 @@ class WafRuleRateLimit(AppwriteModel):
     action: WafRuleAction = Field(..., alias='action')
     priority: float = Field(..., alias='priority')
     enabled: bool = Field(..., alias='enabled')
-    conditions: Dict[str, Any] = Field(..., alias='conditions')
+    conditions: List[Any] = Field(..., alias='conditions')
     config: Dict[str, Any] = Field(..., alias='config')
     limit: float = Field(..., alias='limit')
     interval: float = Field(..., alias='interval')
     key: str = Field(..., alias='key')
+    strategy: str = Field(..., alias='strategy')
+    maxbucketsize: float = Field(..., alias='maxBucketSize')

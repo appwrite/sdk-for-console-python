@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .aggregation_breakdown import AggregationBreakdown
 from .usage_resources import UsageResources
 
+
 class AggregationTeam(AppwriteModel):
     """
     Team
@@ -70,6 +71,7 @@ class AggregationTeam(AppwriteModel):
     resources : List[UsageResources]
         Usage resources
     """
+
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .review import Review
 
+
 class Campaign(AppwriteModel):
     """
     Campaign
@@ -35,6 +36,7 @@ class Campaign(AppwriteModel):
     footer : Optional[bool]
         Is footer
     """
+
     id: str = Field(..., alias='$id')
     template: str = Field(..., alias='template')
     title: str = Field(..., alias='title')

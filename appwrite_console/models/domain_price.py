@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DomainPrice(AppwriteModel):
     """
     DomainPrice
@@ -22,6 +23,7 @@ class DomainPrice(AppwriteModel):
     premium : bool
         Whether the domain is a premium domain.
     """
+
     domain: str = Field(..., alias='domain')
     tld: str = Field(..., alias='tld')
     available: bool = Field(..., alias='available')
