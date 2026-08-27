@@ -19,6 +19,7 @@
 * Added: `Database.lifecycleState`, `Database.containerStatus` and `Database.error`
 * Added: `DatabaseMigration.changelogWatermark`, `replicating` on replicas and members, `DedicatedDatabaseBranchList.total`
 * Added: `_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES` and `_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION`
+* Fixed: `Addon` response model no longer shadowed by the `Addon` enum in `organizations`
 * Fixed: chunked uploads only probe for prior progress when an `upload_id` is given
 * Updated: `Project.wafEnabled` and `UsageDataPoint.time` are optional
 
