@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .vcs_content import VcsContent
 
+
 class VcsContentList(AppwriteModel):
     """
     VCS Content List
@@ -15,5 +16,12 @@ class VcsContentList(AppwriteModel):
     contents : List[VcsContent]
         List of contents.
     """
-    total: float = Field(..., alias='total')
-    contents: List[VcsContent] = Field(..., alias='contents')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    contents: List[VcsContent] = Field(
+        ...,
+        alias='contents',
+    )

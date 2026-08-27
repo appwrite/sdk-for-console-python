@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .invoice import Invoice
 
+
 class EstimationDeleteOrganization(AppwriteModel):
     """
     DeleteOrganization
@@ -13,4 +14,8 @@ class EstimationDeleteOrganization(AppwriteModel):
     unpaidinvoices : List[Invoice]
         List of unpaid invoices
     """
-    unpaidinvoices: List[Invoice] = Field(..., alias='unpaidInvoices')
+
+    unpaidinvoices: List[Invoice] = Field(
+        ...,
+        alias='unpaidInvoices',
+    )

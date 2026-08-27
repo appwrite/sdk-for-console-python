@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .postgres_extension import PostgresExtension
 
+
 class PostgresExtensionList(AppwriteModel):
     """
     Postgres extensions list
@@ -15,5 +16,12 @@ class PostgresExtensionList(AppwriteModel):
     extensions : List[PostgresExtension]
         List of extensions.
     """
-    total: float = Field(..., alias='total')
-    extensions: List[PostgresExtension] = Field(..., alias='extensions')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    extensions: List[PostgresExtension] = Field(
+        ...,
+        alias='extensions',
+    )

@@ -1,9 +1,12 @@
-from enum import Enum
-
-class UsageEventMetric(Enum):
+class UsageEventMetric:
     NETWORK_REQUESTS = "network.requests"
     NETWORK_INBOUND = "network.inbound"
     NETWORK_OUTBOUND = "network.outbound"
+    WEBHOOKS_EVENTS_SENT = "webhooks.events.sent"
+    WEBHOOKS_EVENTS_FAILED = "webhooks.events.failed"
+    AUTH_METHOD_PHONE = "auth.method.phone"
+    MESSAGES_SENT = "messages.sent"
+    MESSAGES_SMS_SENT = "messages.sms.sent"
     EXECUTIONS = "executions"
     EXECUTIONS_COMPUTE = "executions.compute"
     EXECUTIONS_MBSECONDS = "executions.mbSeconds"
@@ -20,6 +23,8 @@ class UsageEventMetric(Enum):
     BUILDS_COMPUTE_SUCCESS = "builds.compute.success"
     BUILDS_COMPUTE_FAILED = "builds.compute.failed"
     BUILDS_MBSECONDS = "builds.mbSeconds"
+    FUNCTIONS_BUILDS_MBSECONDS = "functions.builds.mbSeconds"
+    SITES_BUILDS_MBSECONDS = "sites.builds.mbSeconds"
     DATABASES_OPERATIONS_READS = "databases.operations.reads"
     DATABASES_OPERATIONS_WRITES = "databases.operations.writes"
     DOCUMENTSDB_DATABASES_OPERATIONS_READS = "documentsdb.databases.operations.reads"
@@ -39,6 +44,8 @@ class UsageEventMetric(Enum):
     WAF_REQUESTS_CHALLENGED = "waf.requests.challenged"
     WAF_REQUESTS_RATELIMITED = "waf.requests.rateLimited"
     WAF_REQUESTS_REDIRECTED = "waf.requests.redirected"
+    WAF_REQUESTS_CHALLENGESOLVED = "waf.requests.challengeSolved"
+    WAF_CHALLENGE_SOLVETIMEMS = "waf.challenge.solveTimeMs"
     AFFILIATES_CLICKS = "affiliates.clicks"
     AFFILIATES_SIGNUPS = "affiliates.signups"
     AFFILIATES_CONVERSIONS = "affiliates.conversions"

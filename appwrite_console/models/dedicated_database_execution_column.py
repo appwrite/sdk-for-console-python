@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseExecutionColumn(AppwriteModel):
     """
     ExecutionColumn
@@ -14,5 +15,12 @@ class DedicatedDatabaseExecutionColumn(AppwriteModel):
     type : str
         Engine-specific column type (e.g. int4, text, timestamptz).
     """
-    name: str = Field(..., alias='name')
-    type: str = Field(..., alias='type')
+
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )

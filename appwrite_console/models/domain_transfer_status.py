@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.domain_transfer_status_enum import DomainTransferStatusEnum
 
+
 class DomainTransferStatus(AppwriteModel):
     """
     domainTransferStatus
@@ -17,6 +18,16 @@ class DomainTransferStatus(AppwriteModel):
     timestamp : str
         Transfer status timestamp in ISO 8601 format.
     """
-    status: DomainTransferStatusEnum = Field(..., alias='status')
-    reason: str = Field(..., alias='reason')
-    timestamp: str = Field(..., alias='timestamp')
+
+    status: DomainTransferStatusEnum = Field(
+        ...,
+        alias='status',
+    )
+    reason: str = Field(
+        ...,
+        alias='reason',
+    )
+    timestamp: str = Field(
+        ...,
+        alias='timestamp',
+    )

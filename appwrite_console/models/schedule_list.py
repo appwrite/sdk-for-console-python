@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .schedule import Schedule
 
+
 class ScheduleList(AppwriteModel):
     """
     Schedules List
@@ -15,5 +16,12 @@ class ScheduleList(AppwriteModel):
     schedules : List[Schedule]
         List of schedules.
     """
-    total: float = Field(..., alias='total')
-    schedules: List[Schedule] = Field(..., alias='schedules')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    schedules: List[Schedule] = Field(
+        ...,
+        alias='schedules',
+    )

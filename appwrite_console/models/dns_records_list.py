@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .dns_record import DnsRecord
 
+
 class DnsRecordsList(AppwriteModel):
     """
     DNS records list
@@ -15,5 +16,12 @@ class DnsRecordsList(AppwriteModel):
     dnsrecords : List[DnsRecord]
         List of dnsRecords.
     """
-    total: float = Field(..., alias='total')
-    dnsrecords: List[DnsRecord] = Field(..., alias='dnsRecords')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    dnsrecords: List[DnsRecord] = Field(
+        ...,
+        alias='dnsRecords',
+    )

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class AffiliateLink(AppwriteModel):
     """
     AffiliateLink
@@ -22,9 +23,28 @@ class AffiliateLink(AppwriteModel):
     status : str
         Link status. Can be one of `active` or `disabled`.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    userid: str = Field(..., alias='userId')
-    name: str = Field(..., alias='name')
-    status: str = Field(..., alias='status')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )

@@ -22,6 +22,7 @@ from .column_longtext import ColumnLongtext
 from .column_string import ColumnString
 from .column_index import ColumnIndex
 
+
 class Table(AppwriteModel):
     """
     Table
@@ -53,15 +54,73 @@ class Table(AppwriteModel):
     bytesused : float
         Currently used row size in bytes based on defined columns.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    databaseid: str = Field(..., alias='databaseId')
-    name: str = Field(..., alias='name')
-    enabled: bool = Field(..., alias='enabled')
-    rowsecurity: bool = Field(..., alias='rowSecurity')
-    columns: List[Union[ColumnBoolean, ColumnBigint, ColumnInteger, ColumnFloat, ColumnEmail, ColumnEnum, ColumnUrl, ColumnIp, ColumnDatetime, ColumnRelationship, ColumnPoint, ColumnLine, ColumnPolygon, ColumnVarchar, ColumnText, ColumnMediumtext, ColumnLongtext, ColumnString]] = Field(..., alias='columns')
-    indexes: List[ColumnIndex] = Field(..., alias='indexes')
-    bytesmax: float = Field(..., alias='bytesMax')
-    bytesused: float = Field(..., alias='bytesUsed')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    databaseid: str = Field(
+        ...,
+        alias='databaseId',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    rowsecurity: bool = Field(
+        ...,
+        alias='rowSecurity',
+    )
+    columns: List[
+        Union[
+            ColumnBoolean,
+            ColumnBigint,
+            ColumnInteger,
+            ColumnFloat,
+            ColumnEmail,
+            ColumnEnum,
+            ColumnUrl,
+            ColumnIp,
+            ColumnDatetime,
+            ColumnRelationship,
+            ColumnPoint,
+            ColumnLine,
+            ColumnPolygon,
+            ColumnVarchar,
+            ColumnText,
+            ColumnMediumtext,
+            ColumnLongtext,
+            ColumnString,
+        ]
+    ] = Field(
+        ...,
+        alias='columns',
+    )
+    indexes: List[ColumnIndex] = Field(
+        ...,
+        alias='indexes',
+    )
+    bytesmax: float = Field(
+        ...,
+        alias='bytesMax',
+    )
+    bytesused: float = Field(
+        ...,
+        alias='bytesUsed',
+    )

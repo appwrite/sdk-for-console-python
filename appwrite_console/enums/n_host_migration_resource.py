@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class NHostMigrationResource(Enum):
     USER = "user"
     DATABASE = "database"

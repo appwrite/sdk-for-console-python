@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.attribute_status import AttributeStatus
 
+
 class AttributeBoolean(AppwriteModel):
     """
     AttributeBoolean
@@ -29,12 +30,40 @@ class AttributeBoolean(AppwriteModel):
     default : Optional[bool]
         Default value for attribute when not provided. Cannot be set when attribute is required.
     """
-    key: str = Field(..., alias='key')
-    type: str = Field(..., alias='type')
-    status: AttributeStatus = Field(..., alias='status')
-    error: str = Field(..., alias='error')
-    required: bool = Field(..., alias='required')
-    array: Optional[bool] = Field(default=None, alias='array')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    default: Optional[bool] = Field(default=None, alias='default')
+
+    key: str = Field(
+        ...,
+        alias='key',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    status: AttributeStatus = Field(
+        ...,
+        alias='status',
+    )
+    error: str = Field(
+        ...,
+        alias='error',
+    )
+    required: bool = Field(
+        ...,
+        alias='required',
+    )
+    array: Optional[bool] = Field(
+        default=None,
+        alias='array',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    default: Optional[bool] = Field(
+        default=None,
+        alias='default',
+    )

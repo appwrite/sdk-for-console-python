@@ -1,6 +1,4 @@
-from enum import Enum
-
-class UsageGaugeMetric(Enum):
+class UsageGaugeMetric:
     TEAMS = "teams"
     USERS = "users"
     MESSAGES = "messages"

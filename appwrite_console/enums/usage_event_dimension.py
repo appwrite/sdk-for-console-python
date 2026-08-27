@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class UsageEventDimension(Enum):
     PATH = "path"
     METHOD = "method"

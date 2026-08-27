@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2X(AppwriteModel):
     """
     OAuth2X
@@ -18,7 +19,20 @@ class OAuth2X(AppwriteModel):
     secretkey : str
         X OAuth2 secret key.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    customerkey: str = Field(..., alias='customerKey')
-    secretkey: str = Field(..., alias='secretKey')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    customerkey: str = Field(
+        ...,
+        alias='customerKey',
+    )
+    secretkey: str = Field(
+        ...,
+        alias='secretKey',
+    )

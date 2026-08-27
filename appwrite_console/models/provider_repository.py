@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ProviderRepository(AppwriteModel):
     """
     ProviderRepository
@@ -30,13 +31,44 @@ class ProviderRepository(AppwriteModel):
     variables : List[Any]
         Environment variables found in .env files
     """
-    id: str = Field(..., alias='id')
-    name: str = Field(..., alias='name')
-    organization: str = Field(..., alias='organization')
-    provider: str = Field(..., alias='provider')
-    private: bool = Field(..., alias='private')
-    defaultbranch: str = Field(..., alias='defaultBranch')
-    providerinstallationid: str = Field(..., alias='providerInstallationId')
-    authorized: bool = Field(..., alias='authorized')
-    pushedat: str = Field(..., alias='pushedAt')
-    variables: List[Any] = Field(..., alias='variables')
+
+    id: str = Field(
+        ...,
+        alias='id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    organization: str = Field(
+        ...,
+        alias='organization',
+    )
+    provider: str = Field(
+        ...,
+        alias='provider',
+    )
+    private: bool = Field(
+        ...,
+        alias='private',
+    )
+    defaultbranch: str = Field(
+        ...,
+        alias='defaultBranch',
+    )
+    providerinstallationid: str = Field(
+        ...,
+        alias='providerInstallationId',
+    )
+    authorized: bool = Field(
+        ...,
+        alias='authorized',
+    )
+    pushedat: str = Field(
+        ...,
+        alias='pushedAt',
+    )
+    variables: List[Any] = Field(
+        ...,
+        alias='variables',
+    )

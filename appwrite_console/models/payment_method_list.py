@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .payment_method import PaymentMethod
 
+
 class PaymentMethodList(AppwriteModel):
     """
     Payment methods list
@@ -15,5 +16,12 @@ class PaymentMethodList(AppwriteModel):
     paymentmethods : List[PaymentMethod]
         List of paymentMethods.
     """
-    total: float = Field(..., alias='total')
-    paymentmethods: List[PaymentMethod] = Field(..., alias='paymentMethods')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    paymentmethods: List[PaymentMethod] = Field(
+        ...,
+        alias='paymentMethods',
+    )

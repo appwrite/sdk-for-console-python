@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Roles(AppwriteModel):
     """
     Roles
@@ -14,5 +15,12 @@ class Roles(AppwriteModel):
     roles : List[Any]
         Array of roles assigned to current user.
     """
-    scopes: List[Any] = Field(..., alias='scopes')
-    roles: List[Any] = Field(..., alias='roles')
+
+    scopes: List[Any] = Field(
+        ...,
+        alias='scopes',
+    )
+    roles: List[Any] = Field(
+        ...,
+        alias='roles',
+    )

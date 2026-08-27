@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class AlgoSha(AppwriteModel):
     """
     AlgoSHA
@@ -12,4 +13,8 @@ class AlgoSha(AppwriteModel):
     type : str
         Algo type.
     """
-    type: str = Field(..., alias='type')
+
+    type: str = Field(
+        ...,
+        alias='type',
+    )

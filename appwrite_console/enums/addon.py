@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Addon(Enum):
     BAA = "baa"
     PREMIUMGEODB = "premiumgeodb"

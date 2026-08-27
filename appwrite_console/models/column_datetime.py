@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.column_status import ColumnStatus
 
+
 class ColumnDatetime(AppwriteModel):
     """
     ColumnDatetime
@@ -31,13 +32,44 @@ class ColumnDatetime(AppwriteModel):
     default : Optional[str]
         Default value for column when not provided. Only null is optional
     """
-    key: str = Field(..., alias='key')
-    type: str = Field(..., alias='type')
-    status: ColumnStatus = Field(..., alias='status')
-    error: str = Field(..., alias='error')
-    required: bool = Field(..., alias='required')
-    array: Optional[bool] = Field(default=None, alias='array')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    format: str = Field(..., alias='format')
-    default: Optional[str] = Field(default=None, alias='default')
+
+    key: str = Field(
+        ...,
+        alias='key',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    status: ColumnStatus = Field(
+        ...,
+        alias='status',
+    )
+    error: str = Field(
+        ...,
+        alias='error',
+    )
+    required: bool = Field(
+        ...,
+        alias='required',
+    )
+    array: Optional[bool] = Field(
+        default=None,
+        alias='array',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    format: str = Field(
+        ...,
+        alias='format',
+    )
+    default: Optional[str] = Field(
+        default=None,
+        alias='default',
+    )

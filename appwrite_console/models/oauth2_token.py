@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Oauth2Token(AppwriteModel):
     """
     OAuth2 Token
@@ -24,10 +25,32 @@ class Oauth2Token(AppwriteModel):
     id_token : Optional[str]
         OpenID Connect ID token. Returned when the `openid` scope is granted.
     """
-    access_token: str = Field(..., alias='access_token')
-    token_type: str = Field(..., alias='token_type')
-    expires_in: float = Field(..., alias='expires_in')
-    refresh_token: str = Field(..., alias='refresh_token')
-    scope: str = Field(..., alias='scope')
-    authorization_details: Optional[str] = Field(default=None, alias='authorization_details')
-    id_token: Optional[str] = Field(default=None, alias='id_token')
+
+    access_token: str = Field(
+        ...,
+        alias='access_token',
+    )
+    token_type: str = Field(
+        ...,
+        alias='token_type',
+    )
+    expires_in: float = Field(
+        ...,
+        alias='expires_in',
+    )
+    refresh_token: str = Field(
+        ...,
+        alias='refresh_token',
+    )
+    scope: str = Field(
+        ...,
+        alias='scope',
+    )
+    authorization_details: Optional[str] = Field(
+        default=None,
+        alias='authorization_details',
+    )
+    id_token: Optional[str] = Field(
+        default=None,
+        alias='id_token',
+    )

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .metric import Metric
 
+
 class UsagePresence(AppwriteModel):
     """
     UsagePresence
@@ -17,6 +18,16 @@ class UsagePresence(AppwriteModel):
     presences : List[Metric]
         Aggregated number of online users per period.
     """
-    range: str = Field(..., alias='range')
-    usersonlinetotal: float = Field(..., alias='usersOnlineTotal')
-    presences: List[Metric] = Field(..., alias='presences')
+
+    range: str = Field(
+        ...,
+        alias='range',
+    )
+    usersonlinetotal: float = Field(
+        ...,
+        alias='usersOnlineTotal',
+    )
+    presences: List[Metric] = Field(
+        ...,
+        alias='presences',
+    )

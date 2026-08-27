@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class AlgoScryptModified(AppwriteModel):
     """
     AlgoScryptModified
@@ -18,7 +19,20 @@ class AlgoScryptModified(AppwriteModel):
     signerkey : str
         Key used to compute hash.
     """
-    type: str = Field(..., alias='type')
-    salt: str = Field(..., alias='salt')
-    saltseparator: str = Field(..., alias='saltSeparator')
-    signerkey: str = Field(..., alias='signerKey')
+
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    salt: str = Field(
+        ...,
+        alias='salt',
+    )
+    saltseparator: str = Field(
+        ...,
+        alias='saltSeparator',
+    )
+    signerkey: str = Field(
+        ...,
+        alias='signerKey',
+    )

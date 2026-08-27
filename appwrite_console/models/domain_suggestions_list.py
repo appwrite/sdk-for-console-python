@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .domain_suggestion import DomainSuggestion
 
+
 class DomainSuggestionsList(AppwriteModel):
     """
     Domain suggestions list
@@ -15,5 +16,12 @@ class DomainSuggestionsList(AppwriteModel):
     suggestions : List[DomainSuggestion]
         List of suggestions.
     """
-    total: float = Field(..., alias='total')
-    suggestions: List[DomainSuggestion] = Field(..., alias='suggestions')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    suggestions: List[DomainSuggestion] = Field(
+        ...,
+        alias='suggestions',
+    )

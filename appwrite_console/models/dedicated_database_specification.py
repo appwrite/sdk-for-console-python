@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseSpecification(AppwriteModel):
     """
     Specification
@@ -28,12 +29,40 @@ class DedicatedDatabaseSpecification(AppwriteModel):
     enabled : bool
         Whether the specification is available on the current plan.
     """
-    slug: str = Field(..., alias='slug')
-    name: str = Field(..., alias='name')
-    price: float = Field(..., alias='price')
-    cpu: float = Field(..., alias='cpu')
-    memory: float = Field(..., alias='memory')
-    maxconnections: float = Field(..., alias='maxConnections')
-    includedstorage: float = Field(..., alias='includedStorage')
-    includedbandwidth: float = Field(..., alias='includedBandwidth')
-    enabled: bool = Field(..., alias='enabled')
+
+    slug: str = Field(
+        ...,
+        alias='slug',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    price: float = Field(
+        ...,
+        alias='price',
+    )
+    cpu: float = Field(
+        ...,
+        alias='cpu',
+    )
+    memory: float = Field(
+        ...,
+        alias='memory',
+    )
+    maxconnections: float = Field(
+        ...,
+        alias='maxConnections',
+    )
+    includedstorage: float = Field(
+        ...,
+        alias='includedStorage',
+    )
+    includedbandwidth: float = Field(
+        ...,
+        alias='includedBandwidth',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )

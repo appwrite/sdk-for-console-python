@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Log(AppwriteModel):
     """
     Log
@@ -54,25 +55,92 @@ class Log(AppwriteModel):
     countryname : str
         Country name.
     """
-    event: str = Field(..., alias='event')
-    userid: str = Field(..., alias='userId')
-    useremail: str = Field(..., alias='userEmail')
-    username: str = Field(..., alias='userName')
-    mode: str = Field(..., alias='mode')
-    usertype: str = Field(..., alias='userType')
-    ip: str = Field(..., alias='ip')
-    time: str = Field(..., alias='time')
-    oscode: str = Field(..., alias='osCode')
-    osname: str = Field(..., alias='osName')
-    osversion: str = Field(..., alias='osVersion')
-    clienttype: str = Field(..., alias='clientType')
-    clientcode: str = Field(..., alias='clientCode')
-    clientname: str = Field(..., alias='clientName')
-    clientversion: str = Field(..., alias='clientVersion')
-    clientengine: str = Field(..., alias='clientEngine')
-    clientengineversion: str = Field(..., alias='clientEngineVersion')
-    devicename: str = Field(..., alias='deviceName')
-    devicebrand: str = Field(..., alias='deviceBrand')
-    devicemodel: str = Field(..., alias='deviceModel')
-    countrycode: str = Field(..., alias='countryCode')
-    countryname: str = Field(..., alias='countryName')
+
+    event: str = Field(
+        ...,
+        alias='event',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    useremail: str = Field(
+        ...,
+        alias='userEmail',
+    )
+    username: str = Field(
+        ...,
+        alias='userName',
+    )
+    mode: str = Field(
+        ...,
+        alias='mode',
+    )
+    usertype: str = Field(
+        ...,
+        alias='userType',
+    )
+    ip: str = Field(
+        ...,
+        alias='ip',
+    )
+    time: str = Field(
+        ...,
+        alias='time',
+    )
+    oscode: str = Field(
+        ...,
+        alias='osCode',
+    )
+    osname: str = Field(
+        ...,
+        alias='osName',
+    )
+    osversion: str = Field(
+        ...,
+        alias='osVersion',
+    )
+    clienttype: str = Field(
+        ...,
+        alias='clientType',
+    )
+    clientcode: str = Field(
+        ...,
+        alias='clientCode',
+    )
+    clientname: str = Field(
+        ...,
+        alias='clientName',
+    )
+    clientversion: str = Field(
+        ...,
+        alias='clientVersion',
+    )
+    clientengine: str = Field(
+        ...,
+        alias='clientEngine',
+    )
+    clientengineversion: str = Field(
+        ...,
+        alias='clientEngineVersion',
+    )
+    devicename: str = Field(
+        ...,
+        alias='deviceName',
+    )
+    devicebrand: str = Field(
+        ...,
+        alias='deviceBrand',
+    )
+    devicemodel: str = Field(
+        ...,
+        alias='deviceModel',
+    )
+    countrycode: str = Field(
+        ...,
+        alias='countryCode',
+    )
+    countryname: str = Field(
+        ...,
+        alias='countryName',
+    )

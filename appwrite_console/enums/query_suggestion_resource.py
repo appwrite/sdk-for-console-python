@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class QuerySuggestionResource(Enum):
     ACTIVITIES = "activities"
     ACTIVITY_EVENTS = "activityevents"
@@ -84,13 +85,13 @@ class QuerySuggestionResource(Enum):
     FUNCTIONS = "functions"
     SITES = "sites"
     DEPLOYMENTS = "deployments"
+    EXECUTIONS = "executions"
     VARIABLES = "variables"
     MIGRATIONS = "migrations"
     RESOURCE_TOKENS = "resourcetokens"
     TRANSACTIONS = "transactions"
     TRANSACTION_LOGS = "transactionlogs"
     STATS = "stats"
-    EXECUTIONS = "executions"
     DEDICATED_DATABASES = "dedicateddatabases"
     DEDICATED_DATABASE_CONFIGS = "dedicateddatabaseconfigs"
     DEDICATED_DATABASE_RUNTIMES = "dedicateddatabaseruntimes"

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .vcs_namespace import VcsNamespace
 
+
 class VcsNamespaceList(AppwriteModel):
     """
     VCS Namespaces List
@@ -15,5 +16,12 @@ class VcsNamespaceList(AppwriteModel):
     namespaces : List[VcsNamespace]
         List of namespaces.
     """
-    total: float = Field(..., alias='total')
-    namespaces: List[VcsNamespace] = Field(..., alias='namespaces')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    namespaces: List[VcsNamespace] = Field(
+        ...,
+        alias='namespaces',
+    )

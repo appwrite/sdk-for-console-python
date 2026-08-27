@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.platform_type import PlatformType
 
+
 class PlatformWindows(AppwriteModel):
     """
     Platform Windows
@@ -23,9 +24,28 @@ class PlatformWindows(AppwriteModel):
     packageidentifiername : str
         Windows package identifier name.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    name: str = Field(..., alias='name')
-    type: PlatformType = Field(..., alias='type')
-    packageidentifiername: str = Field(..., alias='packageIdentifierName')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    type: PlatformType = Field(
+        ...,
+        alias='type',
+    )
+    packageidentifiername: str = Field(
+        ...,
+        alias='packageIdentifierName',
+    )

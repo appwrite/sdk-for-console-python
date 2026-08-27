@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2FusionAuth(AppwriteModel):
     """
     OAuth2FusionAuth
@@ -20,8 +21,24 @@ class OAuth2FusionAuth(AppwriteModel):
     endpoint : str
         FusionAuth OAuth2 endpoint domain.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    clientid: str = Field(..., alias='clientId')
-    clientsecret: str = Field(..., alias='clientSecret')
-    endpoint: str = Field(..., alias='endpoint')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    clientid: str = Field(
+        ...,
+        alias='clientId',
+    )
+    clientsecret: str = Field(
+        ...,
+        alias='clientSecret',
+    )
+    endpoint: str = Field(
+        ...,
+        alias='endpoint',
+    )

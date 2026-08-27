@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class FunctionTemplateUseCase(Enum):
     STARTER = "starter"
     DATABASES = "databases"

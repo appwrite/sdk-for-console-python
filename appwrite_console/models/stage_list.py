@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .stage import Stage
 
+
 class StageList(AppwriteModel):
     """
     Stages List
@@ -13,4 +14,8 @@ class StageList(AppwriteModel):
     stages : List[Stage]
         List of stages.
     """
-    stages: List[Stage] = Field(..., alias='stages')
+
+    stages: List[Stage] = Field(
+        ...,
+        alias='stages',
+    )

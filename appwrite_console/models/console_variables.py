@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ConsoleVariables(AppwriteModel):
     """
     Console Variables
@@ -29,6 +30,10 @@ class ConsoleVariables(AppwriteModel):
         Defines if VCS (Version Control System) is enabled.
     app_vcs_providers : List[Any]
         List of configured VCS providers.
+    app_vcs_providers_with_repository_creation : List[Any]
+        List of configured VCS providers that support repository creation.
+    app_vcs_providers_with_public_repositories : List[Any]
+        List of configured VCS providers that can host public repositories.
     app_domain_enabled : bool
         Defines if main domain is configured. If so, custom domains can be created.
     app_assistant_enabled : bool
@@ -66,31 +71,124 @@ class ConsoleVariables(AppwriteModel):
     app_console_email_verification : str
         Whether email verification for console users is required. Can be &quot;true&quot; or &quot;false&quot;.
     """
-    app_domain_target_cname: str = Field(..., alias='_APP_DOMAIN_TARGET_CNAME')
-    app_domain_target_a: str = Field(..., alias='_APP_DOMAIN_TARGET_A')
-    app_compute_build_timeout: float = Field(..., alias='_APP_COMPUTE_BUILD_TIMEOUT')
-    app_domain_target_aaaa: str = Field(..., alias='_APP_DOMAIN_TARGET_AAAA')
-    app_domain_target_caa: str = Field(..., alias='_APP_DOMAIN_TARGET_CAA')
-    app_storage_limit: float = Field(..., alias='_APP_STORAGE_LIMIT')
-    app_compute_size_limit: float = Field(..., alias='_APP_COMPUTE_SIZE_LIMIT')
-    app_usage_stats: str = Field(..., alias='_APP_USAGE_STATS')
-    app_vcs_enabled: bool = Field(..., alias='_APP_VCS_ENABLED')
-    app_vcs_providers: List[Any] = Field(..., alias='_APP_VCS_PROVIDERS')
-    app_domain_enabled: bool = Field(..., alias='_APP_DOMAIN_ENABLED')
-    app_assistant_enabled: bool = Field(..., alias='_APP_ASSISTANT_ENABLED')
-    app_domain_sites: str = Field(..., alias='_APP_DOMAIN_SITES')
-    app_domain_functions: str = Field(..., alias='_APP_DOMAIN_FUNCTIONS')
-    app_options_force_https: str = Field(..., alias='_APP_OPTIONS_FORCE_HTTPS')
-    app_domains_nameservers: str = Field(..., alias='_APP_DOMAINS_NAMESERVERS')
-    app_db_adapter: str = Field(..., alias='_APP_DB_ADAPTER')
-    supportforrelationships: bool = Field(..., alias='supportForRelationships')
-    supportforoperators: bool = Field(..., alias='supportForOperators')
-    supportforspatials: bool = Field(..., alias='supportForSpatials')
-    supportforspatialindexnull: bool = Field(..., alias='supportForSpatialIndexNull')
-    supportforfulltextwildcard: bool = Field(..., alias='supportForFulltextWildcard')
-    supportformultiplefulltextindexes: bool = Field(..., alias='supportForMultipleFulltextIndexes')
-    supportforattributeresizing: bool = Field(..., alias='supportForAttributeResizing')
-    supportforschemas: bool = Field(..., alias='supportForSchemas')
-    maxindexlength: float = Field(..., alias='maxIndexLength')
-    supportforintegerids: bool = Field(..., alias='supportForIntegerIds')
-    app_console_email_verification: str = Field(..., alias='_APP_CONSOLE_EMAIL_VERIFICATION')
+
+    app_domain_target_cname: str = Field(
+        ...,
+        alias='_APP_DOMAIN_TARGET_CNAME',
+    )
+    app_domain_target_a: str = Field(
+        ...,
+        alias='_APP_DOMAIN_TARGET_A',
+    )
+    app_compute_build_timeout: float = Field(
+        ...,
+        alias='_APP_COMPUTE_BUILD_TIMEOUT',
+    )
+    app_domain_target_aaaa: str = Field(
+        ...,
+        alias='_APP_DOMAIN_TARGET_AAAA',
+    )
+    app_domain_target_caa: str = Field(
+        ...,
+        alias='_APP_DOMAIN_TARGET_CAA',
+    )
+    app_storage_limit: float = Field(
+        ...,
+        alias='_APP_STORAGE_LIMIT',
+    )
+    app_compute_size_limit: float = Field(
+        ...,
+        alias='_APP_COMPUTE_SIZE_LIMIT',
+    )
+    app_usage_stats: str = Field(
+        ...,
+        alias='_APP_USAGE_STATS',
+    )
+    app_vcs_enabled: bool = Field(
+        ...,
+        alias='_APP_VCS_ENABLED',
+    )
+    app_vcs_providers: List[Any] = Field(
+        ...,
+        alias='_APP_VCS_PROVIDERS',
+    )
+    app_vcs_providers_with_repository_creation: List[Any] = Field(
+        ...,
+        alias='_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION',
+    )
+    app_vcs_providers_with_public_repositories: List[Any] = Field(
+        ...,
+        alias='_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES',
+    )
+    app_domain_enabled: bool = Field(
+        ...,
+        alias='_APP_DOMAIN_ENABLED',
+    )
+    app_assistant_enabled: bool = Field(
+        ...,
+        alias='_APP_ASSISTANT_ENABLED',
+    )
+    app_domain_sites: str = Field(
+        ...,
+        alias='_APP_DOMAIN_SITES',
+    )
+    app_domain_functions: str = Field(
+        ...,
+        alias='_APP_DOMAIN_FUNCTIONS',
+    )
+    app_options_force_https: str = Field(
+        ...,
+        alias='_APP_OPTIONS_FORCE_HTTPS',
+    )
+    app_domains_nameservers: str = Field(
+        ...,
+        alias='_APP_DOMAINS_NAMESERVERS',
+    )
+    app_db_adapter: str = Field(
+        ...,
+        alias='_APP_DB_ADAPTER',
+    )
+    supportforrelationships: bool = Field(
+        ...,
+        alias='supportForRelationships',
+    )
+    supportforoperators: bool = Field(
+        ...,
+        alias='supportForOperators',
+    )
+    supportforspatials: bool = Field(
+        ...,
+        alias='supportForSpatials',
+    )
+    supportforspatialindexnull: bool = Field(
+        ...,
+        alias='supportForSpatialIndexNull',
+    )
+    supportforfulltextwildcard: bool = Field(
+        ...,
+        alias='supportForFulltextWildcard',
+    )
+    supportformultiplefulltextindexes: bool = Field(
+        ...,
+        alias='supportForMultipleFulltextIndexes',
+    )
+    supportforattributeresizing: bool = Field(
+        ...,
+        alias='supportForAttributeResizing',
+    )
+    supportforschemas: bool = Field(
+        ...,
+        alias='supportForSchemas',
+    )
+    maxindexlength: float = Field(
+        ...,
+        alias='maxIndexLength',
+    )
+    supportforintegerids: bool = Field(
+        ...,
+        alias='supportForIntegerIds',
+    )
+    app_console_email_verification: str = Field(
+        ...,
+        alias='_APP_CONSOLE_EMAIL_VERIFICATION',
+    )

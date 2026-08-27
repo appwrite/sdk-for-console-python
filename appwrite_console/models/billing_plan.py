@@ -10,6 +10,7 @@ from ..enums.billing_plan_group import BillingPlanGroup
 from .program import Program
 from .billing_plan_dedicated_database_limits import BillingPlanDedicatedDatabaseLimits
 
+
 class BillingPlan(AppwriteModel):
     """
     billingPlan
@@ -122,6 +123,8 @@ class BillingPlan(AppwriteModel):
         Does plan support organization roles
     supportscredits : bool
         Does plan support credit
+    supportsdedicateddatabases : bool
+        Does plan support dedicated databases.
     supportsdisposableemailvalidation : bool
         Does plan support blocking disposable email addresses.
     supportscanonicalemailvalidation : bool
@@ -152,75 +155,293 @@ class BillingPlan(AppwriteModel):
         Group of this billing plan for variants
     program : Optional[Program]
         Details of the program this plan is a part of.
+    databasecomputecredit : float
+        Included monthly dedicated-database compute credit in USD. Resets each billing cycle with no roll-over.
     dedicateddatabases : Optional[BillingPlanDedicatedDatabaseLimits]
         Dedicated database limits available to this plan.
     """
-    id: str = Field(..., alias='$id')
-    name: str = Field(..., alias='name')
-    desc: str = Field(..., alias='desc')
-    order: float = Field(..., alias='order')
-    price: float = Field(..., alias='price')
-    trial: float = Field(..., alias='trial')
-    bandwidth: float = Field(..., alias='bandwidth')
-    storage: float = Field(..., alias='storage')
-    imagetransformations: float = Field(..., alias='imageTransformations')
-    screenshotsgenerated: float = Field(..., alias='screenshotsGenerated')
-    members: Optional[float] = Field(default=None, alias='members')
-    webhooks: float = Field(..., alias='webhooks')
-    wafrules: float = Field(..., alias='wafRules')
-    projects: float = Field(..., alias='projects')
-    platforms: float = Field(..., alias='platforms')
-    users: float = Field(..., alias='users')
-    teams: float = Field(..., alias='teams')
-    databases: float = Field(..., alias='databases')
-    databasesreads: float = Field(..., alias='databasesReads')
-    databaseswrites: float = Field(..., alias='databasesWrites')
-    databasesbatchsize: float = Field(..., alias='databasesBatchSize')
-    buckets: float = Field(..., alias='buckets')
-    filesize: float = Field(..., alias='fileSize')
-    functions: float = Field(..., alias='functions')
-    sites: float = Field(..., alias='sites')
-    executions: float = Field(..., alias='executions')
-    executionsretentioncount: float = Field(..., alias='executionsRetentionCount')
-    gbhours: float = Field(..., alias='GBHours')
-    realtime: float = Field(..., alias='realtime')
-    realtimemessages: float = Field(..., alias='realtimeMessages')
-    messages: float = Field(..., alias='messages')
-    topics: float = Field(..., alias='topics')
-    authphone: float = Field(..., alias='authPhone')
-    domains: float = Field(..., alias='domains')
-    activitylogs: Optional[float] = Field(default=None, alias='activityLogs')
-    usagelogs: float = Field(..., alias='usageLogs')
-    usagelogsintervals: Optional[List[Any]] = Field(default=None, alias='usageLogsIntervals')
-    projectinactivitydays: float = Field(..., alias='projectInactivityDays')
-    alertlimit: float = Field(..., alias='alertLimit')
-    usage: UsageBillingPlan = Field(..., alias='usage')
-    addons: BillingPlanAddon = Field(..., alias='addons')
-    budgetcapenabled: bool = Field(..., alias='budgetCapEnabled')
-    customsmtp: bool = Field(..., alias='customSmtp')
-    emailbranding: bool = Field(..., alias='emailBranding')
-    requirespaymentmethod: bool = Field(..., alias='requiresPaymentMethod')
-    requiresbillingaddress: bool = Field(..., alias='requiresBillingAddress')
-    isavailable: bool = Field(..., alias='isAvailable')
-    selfservice: bool = Field(..., alias='selfService')
-    premiumsupport: bool = Field(..., alias='premiumSupport')
-    budgeting: bool = Field(..., alias='budgeting')
-    supportsmocknumbers: bool = Field(..., alias='supportsMockNumbers')
-    supportsorganizationroles: bool = Field(..., alias='supportsOrganizationRoles')
-    supportscredits: bool = Field(..., alias='supportsCredits')
-    supportsdisposableemailvalidation: bool = Field(..., alias='supportsDisposableEmailValidation')
-    supportscanonicalemailvalidation: bool = Field(..., alias='supportsCanonicalEmailValidation')
-    supportsfreeemailvalidation: bool = Field(..., alias='supportsFreeEmailValidation')
-    supportscorporateemailvalidation: bool = Field(..., alias='supportsCorporateEmailValidation')
-    supportsprojectspecificroles: bool = Field(..., alias='supportsProjectSpecificRoles')
-    backupsenabled: Optional[bool] = Field(default=None, alias='backupsEnabled')
-    usageperproject: bool = Field(..., alias='usagePerProject')
-    supportedaddons: BillingPlanSupportedAddons = Field(..., alias='supportedAddons')
-    backuppolicies: Optional[float] = Field(default=None, alias='backupPolicies')
-    deploymentsize: float = Field(..., alias='deploymentSize')
-    buildsize: float = Field(..., alias='buildSize')
-    databasesallowencrypt: bool = Field(..., alias='databasesAllowEncrypt')
-    limits: Optional[BillingPlanLimits] = Field(default=None, alias='limits')
-    group: BillingPlanGroup = Field(..., alias='group')
-    program: Optional[Program] = Field(default=None, alias='program')
-    dedicateddatabases: Optional[BillingPlanDedicatedDatabaseLimits] = Field(default=None, alias='dedicatedDatabases')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    desc: str = Field(
+        ...,
+        alias='desc',
+    )
+    order: float = Field(
+        ...,
+        alias='order',
+    )
+    price: float = Field(
+        ...,
+        alias='price',
+    )
+    trial: float = Field(
+        ...,
+        alias='trial',
+    )
+    bandwidth: float = Field(
+        ...,
+        alias='bandwidth',
+    )
+    storage: float = Field(
+        ...,
+        alias='storage',
+    )
+    imagetransformations: float = Field(
+        ...,
+        alias='imageTransformations',
+    )
+    screenshotsgenerated: float = Field(
+        ...,
+        alias='screenshotsGenerated',
+    )
+    members: Optional[float] = Field(
+        default=None,
+        alias='members',
+    )
+    webhooks: float = Field(
+        ...,
+        alias='webhooks',
+    )
+    wafrules: float = Field(
+        ...,
+        alias='wafRules',
+    )
+    projects: float = Field(
+        ...,
+        alias='projects',
+    )
+    platforms: float = Field(
+        ...,
+        alias='platforms',
+    )
+    users: float = Field(
+        ...,
+        alias='users',
+    )
+    teams: float = Field(
+        ...,
+        alias='teams',
+    )
+    databases: float = Field(
+        ...,
+        alias='databases',
+    )
+    databasesreads: float = Field(
+        ...,
+        alias='databasesReads',
+    )
+    databaseswrites: float = Field(
+        ...,
+        alias='databasesWrites',
+    )
+    databasesbatchsize: float = Field(
+        ...,
+        alias='databasesBatchSize',
+    )
+    buckets: float = Field(
+        ...,
+        alias='buckets',
+    )
+    filesize: float = Field(
+        ...,
+        alias='fileSize',
+    )
+    functions: float = Field(
+        ...,
+        alias='functions',
+    )
+    sites: float = Field(
+        ...,
+        alias='sites',
+    )
+    executions: float = Field(
+        ...,
+        alias='executions',
+    )
+    executionsretentioncount: float = Field(
+        ...,
+        alias='executionsRetentionCount',
+    )
+    gbhours: float = Field(
+        ...,
+        alias='GBHours',
+    )
+    realtime: float = Field(
+        ...,
+        alias='realtime',
+    )
+    realtimemessages: float = Field(
+        ...,
+        alias='realtimeMessages',
+    )
+    messages: float = Field(
+        ...,
+        alias='messages',
+    )
+    topics: float = Field(
+        ...,
+        alias='topics',
+    )
+    authphone: float = Field(
+        ...,
+        alias='authPhone',
+    )
+    domains: float = Field(
+        ...,
+        alias='domains',
+    )
+    activitylogs: Optional[float] = Field(
+        default=None,
+        alias='activityLogs',
+    )
+    usagelogs: float = Field(
+        ...,
+        alias='usageLogs',
+    )
+    usagelogsintervals: Optional[List[Any]] = Field(
+        default=None,
+        alias='usageLogsIntervals',
+    )
+    projectinactivitydays: float = Field(
+        ...,
+        alias='projectInactivityDays',
+    )
+    alertlimit: float = Field(
+        ...,
+        alias='alertLimit',
+    )
+    usage: UsageBillingPlan = Field(
+        ...,
+        alias='usage',
+    )
+    addons: BillingPlanAddon = Field(
+        ...,
+        alias='addons',
+    )
+    budgetcapenabled: bool = Field(
+        ...,
+        alias='budgetCapEnabled',
+    )
+    customsmtp: bool = Field(
+        ...,
+        alias='customSmtp',
+    )
+    emailbranding: bool = Field(
+        ...,
+        alias='emailBranding',
+    )
+    requirespaymentmethod: bool = Field(
+        ...,
+        alias='requiresPaymentMethod',
+    )
+    requiresbillingaddress: bool = Field(
+        ...,
+        alias='requiresBillingAddress',
+    )
+    isavailable: bool = Field(
+        ...,
+        alias='isAvailable',
+    )
+    selfservice: bool = Field(
+        ...,
+        alias='selfService',
+    )
+    premiumsupport: bool = Field(
+        ...,
+        alias='premiumSupport',
+    )
+    budgeting: bool = Field(
+        ...,
+        alias='budgeting',
+    )
+    supportsmocknumbers: bool = Field(
+        ...,
+        alias='supportsMockNumbers',
+    )
+    supportsorganizationroles: bool = Field(
+        ...,
+        alias='supportsOrganizationRoles',
+    )
+    supportscredits: bool = Field(
+        ...,
+        alias='supportsCredits',
+    )
+    supportsdedicateddatabases: bool = Field(
+        ...,
+        alias='supportsDedicatedDatabases',
+    )
+    supportsdisposableemailvalidation: bool = Field(
+        ...,
+        alias='supportsDisposableEmailValidation',
+    )
+    supportscanonicalemailvalidation: bool = Field(
+        ...,
+        alias='supportsCanonicalEmailValidation',
+    )
+    supportsfreeemailvalidation: bool = Field(
+        ...,
+        alias='supportsFreeEmailValidation',
+    )
+    supportscorporateemailvalidation: bool = Field(
+        ...,
+        alias='supportsCorporateEmailValidation',
+    )
+    supportsprojectspecificroles: bool = Field(
+        ...,
+        alias='supportsProjectSpecificRoles',
+    )
+    backupsenabled: Optional[bool] = Field(
+        default=None,
+        alias='backupsEnabled',
+    )
+    usageperproject: bool = Field(
+        ...,
+        alias='usagePerProject',
+    )
+    supportedaddons: BillingPlanSupportedAddons = Field(
+        ...,
+        alias='supportedAddons',
+    )
+    backuppolicies: Optional[float] = Field(
+        default=None,
+        alias='backupPolicies',
+    )
+    deploymentsize: float = Field(
+        ...,
+        alias='deploymentSize',
+    )
+    buildsize: float = Field(
+        ...,
+        alias='buildSize',
+    )
+    databasesallowencrypt: bool = Field(
+        ...,
+        alias='databasesAllowEncrypt',
+    )
+    limits: Optional[BillingPlanLimits] = Field(
+        default=None,
+        alias='limits',
+    )
+    group: BillingPlanGroup = Field(
+        ...,
+        alias='group',
+    )
+    program: Optional[Program] = Field(
+        default=None,
+        alias='program',
+    )
+    databasecomputecredit: float = Field(
+        ...,
+        alias='databaseComputeCredit',
+    )
+    dedicateddatabases: Optional[BillingPlanDedicatedDatabaseLimits] = Field(
+        default=None,
+        alias='dedicatedDatabases',
+    )

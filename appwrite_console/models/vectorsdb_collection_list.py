@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .vectorsdb_collection import VectorsdbCollection
 
+
 class VectorsdbCollectionList(AppwriteModel):
     """
     VectorsDB Collections List
@@ -15,5 +16,12 @@ class VectorsdbCollectionList(AppwriteModel):
     collections : List[VectorsdbCollection]
         List of collections.
     """
-    total: float = Field(..., alias='total')
-    collections: List[VectorsdbCollection] = Field(..., alias='collections')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    collections: List[VectorsdbCollection] = Field(
+        ...,
+        alias='collections',
+    )

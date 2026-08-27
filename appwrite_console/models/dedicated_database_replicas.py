@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .dedicated_database_member import DedicatedDatabaseMember
 
+
 class DedicatedDatabaseReplicas(AppwriteModel):
     """
     Replicas
@@ -23,15 +24,40 @@ class DedicatedDatabaseReplicas(AppwriteModel):
     syncstandbycount : float
         Number of standbys registered with the primary for synchronous replication.
     syncstateconfirmed : Optional[bool]
-        Whether the reported sync state was read from the engine and corroborated. When false the engine was asked and the state was not corroborated, which happens two ways: the configuration probe did not answer, in which case the other sync fields carry no reading; or it answered and an active standby contradicted it or its replication stream could not be read, in which case the other sync fields do carry genuine engine readings. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one — draw no conclusion about replication from a response that omits it.
+        Whether the other sync fields are an engine reading rather than a recorded estimate. True when the primary answered what it is enforcing, including when that answer contradicted the record, in which case the contradicted values are replaced by the ones the engine reports. False when the reading could not be taken: the probe did not answer, there was no engine to ask, or the values describe a configuration change just applied rather than anything measured. Absent when no engine was asked at all, so an unprobed database is distinguishable from an unconfirmed one. False never means a standby was found lagging, because it is the absence of a reading rather than a negative one, so draw no conclusion about replication health from it or from a response that omits it.
     members : List[DedicatedDatabaseMember]
         Per-pod statuses for the primary and every replica.
     """
-    replicas: float = Field(..., alias='replicas')
-    syncmode: str = Field(..., alias='syncMode')
-    effectivesyncmode: Optional[str] = Field(default=None, alias='effectiveSyncMode')
-    syncdegraded: bool = Field(..., alias='syncDegraded')
-    syncacknowledgements: float = Field(..., alias='syncAcknowledgements')
-    syncstandbycount: float = Field(..., alias='syncStandbyCount')
-    syncstateconfirmed: Optional[bool] = Field(default=None, alias='syncStateConfirmed')
-    members: List[DedicatedDatabaseMember] = Field(..., alias='members')
+
+    replicas: float = Field(
+        ...,
+        alias='replicas',
+    )
+    syncmode: str = Field(
+        ...,
+        alias='syncMode',
+    )
+    effectivesyncmode: Optional[str] = Field(
+        default=None,
+        alias='effectiveSyncMode',
+    )
+    syncdegraded: bool = Field(
+        ...,
+        alias='syncDegraded',
+    )
+    syncacknowledgements: float = Field(
+        ...,
+        alias='syncAcknowledgements',
+    )
+    syncstandbycount: float = Field(
+        ...,
+        alias='syncStandbyCount',
+    )
+    syncstateconfirmed: Optional[bool] = Field(
+        default=None,
+        alias='syncStateConfirmed',
+    )
+    members: List[DedicatedDatabaseMember] = Field(
+        ...,
+        alias='members',
+    )

@@ -19,6 +19,7 @@ from ..models.dedicated_database_restoration_list import DedicatedDatabaseRestor
 from ..models.dedicated_database_restoration import DedicatedDatabaseRestoration
 from ..models.database_status import DatabaseStatus
 
+
 class Mongo(Service):
 
     def __init__(self, client) -> None:
@@ -26,7 +27,7 @@ class Mongo(Service):
 
     def list(
         self,
-        queries: Optional[List[str]] = None
+        queries: Optional[List[str]] = None,
     ) -> DedicatedDatabaseList:
         """
         List all dedicated databases. Results support pagination.
@@ -35,12 +36,11 @@ class Mongo(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings.
-        
         Returns
         -------
         DedicatedDatabaseList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -49,17 +49,22 @@ class Mongo(Service):
 
         api_path = '/mongo'
         api_params = {}
-
         if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
+            api_params['queries'] = self._normalize_value(
+                queries,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseList)
-
 
     def create(
         self,
@@ -76,7 +81,7 @@ class Mongo(Service):
         pitr_retention_days: Optional[float] = None,
         storage_autoscaling: Optional[bool] = None,
         storage_autoscaling_threshold_percent: Optional[float] = None,
-        storage_autoscaling_max_gb: Optional[float] = None
+        storage_autoscaling_max_gb: Optional[float] = None,
     ) -> DedicatedDatabase:
         """
         Create a new dedicated database with the chosen engine and configuration. Status will be 'provisioning' until the database is ready.
@@ -111,12 +116,11 @@ class Mongo(Service):
             Storage usage percentage (50-95) that triggers automatic expansion.
         storage_autoscaling_max_gb : Optional[float]
             Maximum storage size in GB for autoscaling. 0 means no limit.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -127,58 +131,86 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
-
-        api_params['databaseId'] = self._normalize_value(database_id)
-        api_params['name'] = self._normalize_value(name)
+        api_params['databaseId'] = self._normalize_value(
+            database_id,
+        )
+        api_params['name'] = self._normalize_value(
+            name,
+        )
         if version is not None:
-            api_params['version'] = self._normalize_value(version)
+            api_params['version'] = self._normalize_value(
+                version,
+            )
         if specification is not None:
-            api_params['specification'] = self._normalize_value(specification)
+            api_params['specification'] = self._normalize_value(
+                specification,
+            )
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(replicas)
+            api_params['replicas'] = self._normalize_value(
+                replicas,
+            )
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(sync_mode)
+            api_params['syncMode'] = self._normalize_value(
+                sync_mode,
+            )
         if network_idle_timeout_seconds is not None:
-            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(network_idle_timeout_seconds)
+            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(
+                network_idle_timeout_seconds,
+            )
         if network_ip_allowlist is not None:
-            api_params['networkIPAllowlist'] = self._normalize_value(network_ip_allowlist)
+            api_params['networkIPAllowlist'] = self._normalize_value(
+                network_ip_allowlist,
+            )
         if idle_timeout_minutes is not None:
-            api_params['idleTimeoutMinutes'] = self._normalize_value(idle_timeout_minutes)
+            api_params['idleTimeoutMinutes'] = self._normalize_value(
+                idle_timeout_minutes,
+            )
         if pitr is not None:
-            api_params['pitr'] = self._normalize_value(pitr)
+            api_params['pitr'] = self._normalize_value(
+                pitr,
+            )
         if pitr_retention_days is not None:
-            api_params['pitrRetentionDays'] = self._normalize_value(pitr_retention_days)
+            api_params['pitrRetentionDays'] = self._normalize_value(
+                pitr_retention_days,
+            )
         if storage_autoscaling is not None:
-            api_params['storageAutoscaling'] = self._normalize_value(storage_autoscaling)
+            api_params['storageAutoscaling'] = self._normalize_value(
+                storage_autoscaling,
+            )
         if storage_autoscaling_threshold_percent is not None:
-            api_params['storageAutoscalingThresholdPercent'] = self._normalize_value(storage_autoscaling_threshold_percent)
+            api_params['storageAutoscalingThresholdPercent'] = self._normalize_value(
+                storage_autoscaling_threshold_percent,
+            )
         if storage_autoscaling_max_gb is not None:
-            api_params['storageAutoscalingMaxGb'] = self._normalize_value(storage_autoscaling_max_gb)
+            api_params['storageAutoscalingMaxGb'] = self._normalize_value(
+                storage_autoscaling_max_gb,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
 
-
     def list_specifications(
-        self
+        self,
     ) -> DedicatedDatabaseSpecificationList:
         """
         List the dedicated database specifications available on the current plan. Each specification reports its resource limits, pricing, and whether it is enabled for the organization.
-
         Returns
         -------
         DedicatedDatabaseSpecificationList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -188,17 +220,21 @@ class Mongo(Service):
         api_path = '/mongo/specifications'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseSpecificationList)
 
-
     def get(
         self,
-        database_id: str
+        database_id: str,
     ) -> DedicatedDatabase:
         """
         Get a dedicated database by its unique ID. Returns the database configuration and current status.
@@ -207,12 +243,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -223,17 +258,19 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-
 
     def update(
         self,
@@ -257,7 +294,7 @@ class Mongo(Service):
         sql_api_allowed_statements: Optional[List[str]] = None,
         sql_api_max_rows: Optional[float] = None,
         sql_api_max_bytes: Optional[float] = None,
-        sql_api_timeout_seconds: Optional[float] = None
+        sql_api_timeout_seconds: Optional[float] = None,
     ) -> DedicatedDatabase:
         """
         Update a dedicated database configuration. All changes are applied with zero downtime. Specification changes (cpu, memory, storage) are handled via rolling cutover. Storage expansion is done online. All other settings are applied in-place.
@@ -306,12 +343,11 @@ class Mongo(Service):
             Maximum serialised SQL API result payload in bytes (1024-104857600).
         sql_api_timeout_seconds : Optional[float]
             Per-call SQL API execution timeout in seconds (1-300).
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -322,62 +358,104 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if name is not None:
-            api_params['name'] = self._normalize_value(name)
+            api_params['name'] = self._normalize_value(
+                name,
+            )
         if status is not None:
-            api_params['status'] = self._normalize_value(status)
+            api_params['status'] = self._normalize_value(
+                status,
+            )
         if specification is not None:
-            api_params['specification'] = self._normalize_value(specification)
+            api_params['specification'] = self._normalize_value(
+                specification,
+            )
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(replicas)
+            api_params['replicas'] = self._normalize_value(
+                replicas,
+            )
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(sync_mode)
+            api_params['syncMode'] = self._normalize_value(
+                sync_mode,
+            )
         if network_idle_timeout_seconds is not None:
-            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(network_idle_timeout_seconds)
+            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(
+                network_idle_timeout_seconds,
+            )
         if network_ip_allowlist is not None:
-            api_params['networkIPAllowlist'] = self._normalize_value(network_ip_allowlist)
+            api_params['networkIPAllowlist'] = self._normalize_value(
+                network_ip_allowlist,
+            )
         if idle_timeout_minutes is not None:
-            api_params['idleTimeoutMinutes'] = self._normalize_value(idle_timeout_minutes)
+            api_params['idleTimeoutMinutes'] = self._normalize_value(
+                idle_timeout_minutes,
+            )
         if pitr is not None:
-            api_params['pitr'] = self._normalize_value(pitr)
+            api_params['pitr'] = self._normalize_value(
+                pitr,
+            )
         if pitr_retention_days is not None:
-            api_params['pitrRetentionDays'] = self._normalize_value(pitr_retention_days)
+            api_params['pitrRetentionDays'] = self._normalize_value(
+                pitr_retention_days,
+            )
         if storage_autoscaling is not None:
-            api_params['storageAutoscaling'] = self._normalize_value(storage_autoscaling)
+            api_params['storageAutoscaling'] = self._normalize_value(
+                storage_autoscaling,
+            )
         if storage_autoscaling_threshold_percent is not None:
-            api_params['storageAutoscalingThresholdPercent'] = self._normalize_value(storage_autoscaling_threshold_percent)
+            api_params['storageAutoscalingThresholdPercent'] = self._normalize_value(
+                storage_autoscaling_threshold_percent,
+            )
         if storage_autoscaling_max_gb is not None:
-            api_params['storageAutoscalingMaxGb'] = self._normalize_value(storage_autoscaling_max_gb)
+            api_params['storageAutoscalingMaxGb'] = self._normalize_value(
+                storage_autoscaling_max_gb,
+            )
         if metrics_trace_sample_rate is not None:
-            api_params['metricsTraceSampleRate'] = self._normalize_value(metrics_trace_sample_rate)
+            api_params['metricsTraceSampleRate'] = self._normalize_value(
+                metrics_trace_sample_rate,
+            )
         if metrics_slow_query_log_threshold_ms is not None:
-            api_params['metricsSlowQueryLogThresholdMs'] = self._normalize_value(metrics_slow_query_log_threshold_ms)
+            api_params['metricsSlowQueryLogThresholdMs'] = self._normalize_value(
+                metrics_slow_query_log_threshold_ms,
+            )
         if sql_api_enabled is not None:
-            api_params['sqlApiEnabled'] = self._normalize_value(sql_api_enabled)
+            api_params['sqlApiEnabled'] = self._normalize_value(
+                sql_api_enabled,
+            )
         if sql_api_allowed_statements is not None:
-            api_params['sqlApiAllowedStatements'] = self._normalize_value(sql_api_allowed_statements)
+            api_params['sqlApiAllowedStatements'] = self._normalize_value(
+                sql_api_allowed_statements,
+            )
         if sql_api_max_rows is not None:
-            api_params['sqlApiMaxRows'] = self._normalize_value(sql_api_max_rows)
+            api_params['sqlApiMaxRows'] = self._normalize_value(
+                sql_api_max_rows,
+            )
         if sql_api_max_bytes is not None:
-            api_params['sqlApiMaxBytes'] = self._normalize_value(sql_api_max_bytes)
+            api_params['sqlApiMaxBytes'] = self._normalize_value(
+                sql_api_max_bytes,
+            )
         if sql_api_timeout_seconds is not None:
-            api_params['sqlApiTimeoutSeconds'] = self._normalize_value(sql_api_timeout_seconds)
+            api_params['sqlApiTimeoutSeconds'] = self._normalize_value(
+                sql_api_timeout_seconds,
+            )
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
 
-
     def delete(
         self,
-        database_id: str
+        database_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a dedicated database. This action is irreversible. The database status will be set to 'deleting' and all resources will be cleaned up. Deletion is allowed from any state, and repeating the call re-dispatches the cleanup.
@@ -386,12 +464,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -402,23 +479,25 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_backups(
         self,
         database_id: str,
-        queries: Optional[List[str]] = None
+        queries: Optional[List[str]] = None,
     ) -> DedicatedDatabaseBackupList:
         """
         List all backups for a dedicated database. Results can be filtered by status and type.
@@ -429,12 +508,11 @@ class Mongo(Service):
             Database ID.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: status, type, databaseId
-        
         Returns
         -------
         DedicatedDatabaseBackupList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -445,24 +523,28 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
+            api_params['queries'] = self._normalize_value(
+                queries,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseBackupList)
-
 
     def create_backup(
         self,
         database_id: str,
-        type: Optional[str] = None
+        type: Optional[str] = None,
     ) -> DedicatedDatabaseBackup:
         """
         Create a manual backup of a dedicated database. The backup will be created asynchronously and its status can be checked via the get backup endpoint.
@@ -473,12 +555,11 @@ class Mongo(Service):
             Database ID.
         type : Optional[str]
             Backup type: full or incremental.
-        
         Returns
         -------
         DedicatedDatabaseBackup
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -489,25 +570,29 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if type is not None:
-            api_params['type'] = self._normalize_value(type)
+            api_params['type'] = self._normalize_value(
+                type,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseBackup)
-
 
     def list_backup_policies(
         self,
         database_id: str,
-        queries: Optional[List[str]] = None
+        queries: Optional[List[str]] = None,
     ) -> BackupPolicyList:
         """
         List scheduled backup policies for a dedicated database.
@@ -518,12 +603,11 @@ class Mongo(Service):
             Database ID.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK.
-        
         Returns
         -------
         BackupPolicyList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -534,19 +618,23 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
+            api_params['queries'] = self._normalize_value(
+                queries,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=BackupPolicyList)
-
 
     def create_backup_policy(
         self,
@@ -556,7 +644,7 @@ class Mongo(Service):
         schedule: str,
         retention: float,
         type: Optional[str] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> BackupPolicy:
         """
         Create a scheduled backup policy for a dedicated database.
@@ -577,12 +665,11 @@ class Mongo(Service):
             Backup type: full or incremental.
         enabled : Optional[bool]
             Is policy enabled? When disabled, no backups will be taken.
-        
         Returns
         -------
         BackupPolicy
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -593,43 +680,53 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if policy_id is None:
             raise AppwriteException('Missing required parameter: "policy_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if schedule is None:
             raise AppwriteException('Missing required parameter: "schedule"')
-
         if retention is None:
             raise AppwriteException('Missing required parameter: "retention"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
-        api_params['policyId'] = self._normalize_value(policy_id)
-        api_params['name'] = self._normalize_value(name)
-        api_params['schedule'] = self._normalize_value(schedule)
-        api_params['retention'] = self._normalize_value(retention)
+        api_params['policyId'] = self._normalize_value(
+            policy_id,
+        )
+        api_params['name'] = self._normalize_value(
+            name,
+        )
+        api_params['schedule'] = self._normalize_value(
+            schedule,
+        )
+        api_params['retention'] = self._normalize_value(
+            retention,
+        )
         if type is not None:
-            api_params['type'] = self._normalize_value(type)
+            api_params['type'] = self._normalize_value(
+                type,
+            )
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(enabled)
+            api_params['enabled'] = self._normalize_value(
+                enabled,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=BackupPolicy)
-
 
     def get_backup_policy(
         self,
         database_id: str,
-        policy_id: str
+        policy_id: str,
     ) -> BackupPolicy:
         """
         Get a scheduled backup policy for a dedicated database.
@@ -640,12 +737,11 @@ class Mongo(Service):
             Database ID.
         policy_id : str
             Policy ID.
-        
         Returns
         -------
         BackupPolicy
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -656,21 +752,22 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if policy_id is None:
             raise AppwriteException('Missing required parameter: "policy_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{policyId}', str(self._normalize_value(policy_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=BackupPolicy)
-
 
     def update_backup_policy(
         self,
@@ -679,7 +776,7 @@ class Mongo(Service):
         name: Optional[str] = None,
         schedule: Optional[str] = None,
         retention: Optional[float] = None,
-        enabled: Optional[bool] = None
+        enabled: Optional[bool] = None,
     ) -> BackupPolicy:
         """
         Update a scheduled backup policy for a dedicated database.
@@ -698,12 +795,11 @@ class Mongo(Service):
             Days to keep backups before deletion.
         enabled : Optional[bool]
             Is policy enabled? When disabled, no backups will be taken.
-        
         Returns
         -------
         BackupPolicy
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -714,35 +810,44 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if policy_id is None:
             raise AppwriteException('Missing required parameter: "policy_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{policyId}', str(self._normalize_value(policy_id)))
-
         if name is not None:
-            api_params['name'] = self._normalize_value(name)
+            api_params['name'] = self._normalize_value(
+                name,
+            )
         if schedule is not None:
-            api_params['schedule'] = self._normalize_value(schedule)
+            api_params['schedule'] = self._normalize_value(
+                schedule,
+            )
         if retention is not None:
-            api_params['retention'] = self._normalize_value(retention)
+            api_params['retention'] = self._normalize_value(
+                retention,
+            )
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(enabled)
+            api_params['enabled'] = self._normalize_value(
+                enabled,
+            )
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=BackupPolicy)
-
 
     def delete_backup_policy(
         self,
         database_id: str,
-        policy_id: str
+        policy_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a scheduled backup policy for a dedicated database. Backups already taken by the policy are kept until their retention expires.
@@ -753,12 +858,11 @@ class Mongo(Service):
             Database ID.
         policy_id : str
             Policy ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -769,22 +873,23 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if policy_id is None:
             raise AppwriteException('Missing required parameter: "policy_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{policyId}', str(self._normalize_value(policy_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def update_backup_storage(
         self,
@@ -795,7 +900,7 @@ class Mongo(Service):
         secret_key: str,
         region: Optional[str] = None,
         prefix: Optional[str] = None,
-        endpoint: Optional[str] = None
+        endpoint: Optional[str] = None,
     ) -> DedicatedDatabaseBackupStorage:
         """
         Configure off-cluster backup storage for a dedicated database. Supports S3, GCS, and Azure Blob Storage destinations. Backups will be stored to the configured destination in addition to on-cluster storage.
@@ -818,12 +923,11 @@ class Mongo(Service):
             Object key prefix for backups.
         endpoint : Optional[str]
             Custom endpoint for S3-compatible storage (e.g. MinIO).
-        
         Returns
         -------
         DedicatedDatabaseBackupStorage
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -834,45 +938,57 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if provider is None:
             raise AppwriteException('Missing required parameter: "provider"')
-
         if bucket is None:
             raise AppwriteException('Missing required parameter: "bucket"')
-
         if access_key is None:
             raise AppwriteException('Missing required parameter: "access_key"')
-
         if secret_key is None:
             raise AppwriteException('Missing required parameter: "secret_key"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
-        api_params['provider'] = self._normalize_value(provider)
-        api_params['bucket'] = self._normalize_value(bucket)
+        api_params['provider'] = self._normalize_value(
+            provider,
+        )
+        api_params['bucket'] = self._normalize_value(
+            bucket,
+        )
         if region is not None:
-            api_params['region'] = self._normalize_value(region)
+            api_params['region'] = self._normalize_value(
+                region,
+            )
         if prefix is not None:
-            api_params['prefix'] = self._normalize_value(prefix)
+            api_params['prefix'] = self._normalize_value(
+                prefix,
+            )
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(endpoint)
-        api_params['accessKey'] = self._normalize_value(access_key)
-        api_params['secretKey'] = self._normalize_value(secret_key)
+            api_params['endpoint'] = self._normalize_value(
+                endpoint,
+            )
+        api_params['accessKey'] = self._normalize_value(
+            access_key,
+        )
+        api_params['secretKey'] = self._normalize_value(
+            secret_key,
+        )
 
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseBackupStorage)
-
 
     def get_backup(
         self,
         database_id: str,
-        backup_id: str
+        backup_id: str,
     ) -> DedicatedDatabaseBackup:
         """
         Get details of a specific database backup including its status, size, and timestamps.
@@ -883,12 +999,11 @@ class Mongo(Service):
             Database ID.
         backup_id : str
             Backup ID.
-        
         Returns
         -------
         DedicatedDatabaseBackup
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -899,26 +1014,27 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if backup_id is None:
             raise AppwriteException('Missing required parameter: "backup_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{backupId}', str(self._normalize_value(backup_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseBackup)
-
 
     def delete_backup(
         self,
         database_id: str,
-        backup_id: str
+        backup_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a database backup. This will permanently remove the backup from storage and cannot be undone.
@@ -929,12 +1045,11 @@ class Mongo(Service):
             Database ID.
         backup_id : str
             Backup ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -945,26 +1060,27 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if backup_id is None:
             raise AppwriteException('Missing required parameter: "backup_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{backupId}', str(self._normalize_value(backup_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
 
-
     def list_branches(
         self,
-        database_id: str
+        database_id: str,
     ) -> DedicatedDatabaseBranchList:
         """
         List all ephemeral branches for a dedicated database. Returns branch metadata including ID, name, namespace, and expiration time.
@@ -973,12 +1089,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         DedicatedDatabaseBranchList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -989,23 +1104,25 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseBranchList)
-
 
     def create_branch(
         self,
         database_id: str,
         branch_id: Optional[str] = None,
-        ttl: Optional[float] = None
+        ttl: Optional[float] = None,
     ) -> DedicatedDatabase:
         """
         Create an ephemeral database branch from the primary via PVC snapshot. The branch is a full copy of the database at the current point in time, useful for testing schema migrations or running experiments without affecting production data. Branches expire after the configured TTL (default 24 hours). The branch is created asynchronously.
@@ -1018,12 +1135,11 @@ class Mongo(Service):
             Branch ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
         ttl : Optional[float]
             Time-to-live in seconds before the branch expires. Min 300 (5 min), max 604800 (7 days). Default: 86400 (24h).
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1034,27 +1150,33 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if branch_id is not None:
-            api_params['branchId'] = self._normalize_value(branch_id)
+            api_params['branchId'] = self._normalize_value(
+                branch_id,
+            )
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(ttl)
+            api_params['ttl'] = self._normalize_value(
+                ttl,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-
 
     def delete_branch(
         self,
         database_id: str,
-        branch_id: str
+        branch_id: str,
     ) -> DedicatedDatabase:
         """
         Delete an ephemeral database branch. This removes the branch namespace, its PVC, and the associated VolumeSnapshot. The deletion runs asynchronously and is irreversible.
@@ -1065,12 +1187,11 @@ class Mongo(Service):
             Database ID.
         branch_id : str
             Branch ID.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1081,26 +1202,27 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if branch_id is None:
             raise AppwriteException('Missing required parameter: "branch_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{branchId}', str(self._normalize_value(branch_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
 
-
     def update_credentials(
         self,
-        database_id: str
+        database_id: str,
     ) -> DedicatedDatabase:
         """
         Rotate the primary connection credentials for a dedicated database. Generates a new password and updates the database atomically. Previous credentials stop working immediately. Returns the database with a refreshed connection string carrying the new password.
@@ -1109,12 +1231,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1125,26 +1246,28 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-
 
     def create_failover(
         self,
         database_id: str,
-        target_replica_id: Optional[str] = None
+        target_replica_id: Optional[str] = None,
     ) -> DedicatedDatabase:
         """
-        Trigger a manual failover for a dedicated database with high availability enabled. Promotes a replica to primary. The failover runs asynchronously; poll the database document for status updates. A database left mid-operation by a failover that did not finish also accepts this call as a repair, provided `targetReplicaId` names the member to promote.
+        Trigger a manual failover for a dedicated database with high availability enabled. Promotes a replica to primary. The failover runs asynchronously; poll the database document for status updates. A database left mid-operation also accepts this call as a repair once nothing is driving the operation it is stuck in. Repairing a failover that did not finish, a `failed` database, a stranded upgrade or migrate, or a stranded compute resize additionally requires `targetReplicaId` to name the member to promote, because the default target may be the member that operation already promoted.
 
         Parameters
         ----------
@@ -1152,12 +1275,11 @@ class Mongo(Service):
             Database ID.
         target_replica_id : Optional[str]
             Target replica ID to promote. If not specified, the healthiest replica is selected.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1168,26 +1290,30 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if target_replica_id is not None:
-            api_params['targetReplicaId'] = self._normalize_value(target_replica_id)
+            api_params['targetReplicaId'] = self._normalize_value(
+                target_replica_id,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-
 
     def update_maintenance(
         self,
         database_id: str,
         day: str,
-        hour_utc: float
+        hour_utc: float,
     ) -> DedicatedDatabase:
         """
         Update the maintenance window for a dedicated database. Maintenance operations like minor version upgrades will be performed during this window.
@@ -1200,12 +1326,11 @@ class Mongo(Service):
             Day of the week for the maintenance window. Allowed values: sun, mon, tue, wed, thu, fri, sat.
         hour_utc : float
             Hour in UTC (0-23) for maintenance window start.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1216,32 +1341,36 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if day is None:
             raise AppwriteException('Missing required parameter: "day"')
-
         if hour_utc is None:
             raise AppwriteException('Missing required parameter: "hour_utc"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
+        api_params['day'] = self._normalize_value(
+            day,
+        )
+        api_params['hourUtc'] = self._normalize_value(
+            hour_utc,
+        )
 
-        api_params['day'] = self._normalize_value(day)
-        api_params['hourUtc'] = self._normalize_value(hour_utc)
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-
 
     def create_migration(
         self,
         database_id: str,
         target_type: str,
-        specification: Optional[str] = None
+        specification: Optional[str] = None,
     ) -> DedicatedDatabase:
         """
         Migrate a database between shared and dedicated types. Shared to dedicated provisions an always-on dedicated instance; dedicated to shared converts to a serverless instance that scales to zero when idle. Data is copied to the target with a brief read-only window during cutover.
@@ -1254,12 +1383,11 @@ class Mongo(Service):
             Target database type to migrate to. Allowed values: shared (serverless, scales to zero when idle), dedicated (always-on with persistent resources).
         specification : Optional[str]
             Target specification to provision when migrating to dedicated. Ignored for shared. Defaults to the database's current specification.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1270,31 +1398,36 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if target_type is None:
             raise AppwriteException('Missing required parameter: "target_type"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
-        api_params['targetType'] = self._normalize_value(target_type)
+        api_params['targetType'] = self._normalize_value(
+            target_type,
+        )
         if specification is not None:
-            api_params['specification'] = self._normalize_value(specification)
+            api_params['specification'] = self._normalize_value(
+                specification,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-
 
     def list_operations(
         self,
         database_id: str,
         status: Optional[str] = None,
         limit: Optional[float] = None,
-        offset: Optional[float] = None
+        offset: Optional[float] = None,
     ) -> DedicatedDatabaseOperationList:
         """
         List the lifecycle operations recorded for a dedicated database, newest first. Every provision, update, restore, backup and replication action is recorded here with its outcome, including an attempt that was abandoned because another worker took over the database.
@@ -1309,12 +1442,11 @@ class Mongo(Service):
             Maximum number of operations to return.
         offset : Optional[float]
             Number of operations to skip.
-        
         Returns
         -------
         DedicatedDatabaseOperationList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1325,27 +1457,35 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if status is not None:
-            api_params['status'] = self._normalize_value(status)
+            api_params['status'] = self._normalize_value(
+                status,
+            )
         if limit is not None:
-            api_params['limit'] = self._normalize_value(limit)
+            api_params['limit'] = self._normalize_value(
+                limit,
+            )
         if offset is not None:
-            api_params['offset'] = self._normalize_value(offset)
+            api_params['offset'] = self._normalize_value(
+                offset,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseOperationList)
 
-
     def get_pitr(
         self,
-        database_id: str
+        database_id: str,
     ) -> DedicatedDatabasePITRWindows:
         """
         Get available point-in-time recovery windows for a dedicated database. Returns the earliest and latest recovery points.
@@ -1354,12 +1494,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         DedicatedDatabasePITRWindows
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1370,21 +1509,23 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabasePITRWindows)
 
-
     def get_replicas(
         self,
-        database_id: str
+        database_id: str,
     ) -> DedicatedDatabaseReplicas:
         """
         Get high availability status for a dedicated database. Returns replica statuses, replication lag, and sync mode.
@@ -1393,12 +1534,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         DedicatedDatabaseReplicas
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1409,17 +1549,19 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseReplicas)
-
 
     def list_restorations(
         self,
@@ -1427,7 +1569,7 @@ class Mongo(Service):
         status: Optional[str] = None,
         type: Optional[str] = None,
         limit: Optional[float] = None,
-        offset: Optional[float] = None
+        offset: Optional[float] = None,
     ) -> DedicatedDatabaseRestorationList:
         """
         List all restorations for a dedicated database. Results can be filtered by status and type.
@@ -1444,12 +1586,11 @@ class Mongo(Service):
             Maximum number of restorations to return.
         offset : Optional[float]
             Number of restorations to skip.
-        
         Returns
         -------
         DedicatedDatabaseRestorationList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1460,25 +1601,35 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if status is not None:
-            api_params['status'] = self._normalize_value(status)
+            api_params['status'] = self._normalize_value(
+                status,
+            )
         if type is not None:
-            api_params['type'] = self._normalize_value(type)
+            api_params['type'] = self._normalize_value(
+                type,
+            )
         if limit is not None:
-            api_params['limit'] = self._normalize_value(limit)
+            api_params['limit'] = self._normalize_value(
+                limit,
+            )
         if offset is not None:
-            api_params['offset'] = self._normalize_value(offset)
+            api_params['offset'] = self._normalize_value(
+                offset,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseRestorationList)
-
 
     def create_restoration(
         self,
@@ -1486,7 +1637,7 @@ class Mongo(Service):
         type: Optional[str] = None,
         backup_id: Optional[str] = None,
         target_database_id: Optional[str] = None,
-        target_time: Optional[str] = None
+        target_time: Optional[str] = None,
     ) -> DedicatedDatabaseRestoration:
         """
         Restore a database from a backup or to a specific point in time (PITR). For backup restoration, provide a backupId. For PITR, provide a targetTime as an ISO 8601 datetime. PITR requires the database to have PITR enabled and is only available for enterprise databases.
@@ -1503,12 +1654,11 @@ class Mongo(Service):
             Existing database ID to restore into. The target must be distinct, ready, and use the same engine and version.
         target_time : Optional[str]
             Target time for PITR (required for pitr type) as an [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) datetime.
-        
         Returns
         -------
         DedicatedDatabaseRestoration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1519,31 +1669,41 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-
         if type is not None:
-            api_params['type'] = self._normalize_value(type)
+            api_params['type'] = self._normalize_value(
+                type,
+            )
         if backup_id is not None:
-            api_params['backupId'] = self._normalize_value(backup_id)
+            api_params['backupId'] = self._normalize_value(
+                backup_id,
+            )
         if target_database_id is not None:
-            api_params['targetDatabaseId'] = self._normalize_value(target_database_id)
+            api_params['targetDatabaseId'] = self._normalize_value(
+                target_database_id,
+            )
         if target_time is not None:
-            api_params['targetTime'] = self._normalize_value(target_time)
+            api_params['targetTime'] = self._normalize_value(
+                target_time,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseRestoration)
-
 
     def get_restoration(
         self,
         database_id: str,
-        restoration_id: str
+        restoration_id: str,
     ) -> DedicatedDatabaseRestoration:
         """
         Get details of a specific database restoration including its status, type, and timestamps.
@@ -1554,12 +1714,11 @@ class Mongo(Service):
             Database ID.
         restoration_id : str
             Restoration ID.
-        
         Returns
         -------
         DedicatedDatabaseRestoration
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1570,25 +1729,26 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if restoration_id is None:
             raise AppwriteException('Missing required parameter: "restoration_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{restorationId}', str(self._normalize_value(restoration_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabaseRestoration)
 
-
     def get_status(
         self,
-        database_id: str
+        database_id: str,
     ) -> DatabaseStatus:
         """
         Get real-time health and status information for a dedicated database. Returns health status, readiness, uptime, connection info, replica status, and volume information.
@@ -1597,12 +1757,11 @@ class Mongo(Service):
         ----------
         database_id : str
             Database ID.
-        
         Returns
         -------
         DatabaseStatus
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1613,22 +1772,24 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DatabaseStatus)
-
 
     def create_upgrade(
         self,
         database_id: str,
-        target_version: str
+        target_version: str,
     ) -> DedicatedDatabase:
         """
         Upgrade a dedicated database to a new engine version. Uses blue-green deployment for zero-downtime cutover.
@@ -1639,12 +1800,11 @@ class Mongo(Service):
             Database ID.
         target_version : str
             Target engine version to upgrade to.
-        
         Returns
         -------
         DedicatedDatabase
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -1655,19 +1815,22 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if target_version is None:
             raise AppwriteException('Missing required parameter: "target_version"')
-
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
+        api_params['targetVersion'] = self._normalize_value(
+            target_version,
+        )
 
-        api_params['targetVersion'] = self._normalize_value(target_version)
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DedicatedDatabase)
-

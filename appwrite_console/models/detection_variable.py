@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DetectionVariable(AppwriteModel):
     """
     DetectionVariable
@@ -14,5 +15,12 @@ class DetectionVariable(AppwriteModel):
     value : str
         Value of environment variable
     """
-    name: str = Field(..., alias='name')
-    value: str = Field(..., alias='value')
+
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    value: str = Field(
+        ...,
+        alias='value',
+    )

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SupabaseMigrationResource(Enum):
     USER = "user"
     DATABASE = "database"

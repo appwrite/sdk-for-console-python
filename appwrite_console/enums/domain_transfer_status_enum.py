@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DomainTransferStatusEnum(Enum):
     TRANSFERRABLE = "transferrable"
     NOT_TRANSFERRABLE = "not_transferrable"

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Currency(AppwriteModel):
     """
     Currency
@@ -24,10 +25,32 @@ class Currency(AppwriteModel):
     nameplural : str
         Currency plural name
     """
-    symbol: str = Field(..., alias='symbol')
-    name: str = Field(..., alias='name')
-    symbolnative: str = Field(..., alias='symbolNative')
-    decimaldigits: float = Field(..., alias='decimalDigits')
-    rounding: float = Field(..., alias='rounding')
-    code: str = Field(..., alias='code')
-    nameplural: str = Field(..., alias='namePlural')
+
+    symbol: str = Field(
+        ...,
+        alias='symbol',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    symbolnative: str = Field(
+        ...,
+        alias='symbolNative',
+    )
+    decimaldigits: float = Field(
+        ...,
+        alias='decimalDigits',
+    )
+    rounding: float = Field(
+        ...,
+        alias='rounding',
+    )
+    code: str = Field(
+        ...,
+        alias='code',
+    )
+    nameplural: str = Field(
+        ...,
+        alias='namePlural',
+    )

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabase(AppwriteModel):
     """
     DedicatedDatabase
@@ -106,51 +107,196 @@ class DedicatedDatabase(AppwriteModel):
     error : str
         Error message if status is failed.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    projectid: str = Field(..., alias='projectId')
-    name: str = Field(..., alias='name')
-    api: str = Field(..., alias='api')
-    engine: str = Field(..., alias='engine')
-    version: str = Field(..., alias='version')
-    specification: str = Field(..., alias='specification')
-    backend: str = Field(..., alias='backend')
-    hostname: str = Field(..., alias='hostname')
-    connectionport: float = Field(..., alias='connectionPort')
-    connectionuser: str = Field(..., alias='connectionUser')
-    connectionpassword: str = Field(..., alias='connectionPassword')
-    connectionstring: str = Field(..., alias='connectionString')
-    ssl: bool = Field(..., alias='ssl')
-    status: str = Field(..., alias='status')
-    containerstatus: str = Field(..., alias='containerStatus')
-    lastaccessedat: Optional[str] = Field(default=None, alias='lastAccessedAt')
-    idleuntil: Optional[str] = Field(default=None, alias='idleUntil')
-    lifecyclestate: str = Field(..., alias='lifecycleState')
-    idletimeoutminutes: float = Field(..., alias='idleTimeoutMinutes')
-    cpu: float = Field(..., alias='cpu')
-    memory: float = Field(..., alias='memory')
-    storage: float = Field(..., alias='storage')
-    storageclass: str = Field(..., alias='storageClass')
-    storagemaxgb: float = Field(..., alias='storageMaxGb')
-    nodepool: str = Field(..., alias='nodePool')
-    replicas: float = Field(..., alias='replicas')
-    syncmode: str = Field(..., alias='syncMode')
-    networkmaxconnections: float = Field(..., alias='networkMaxConnections')
-    networkidletimeoutseconds: float = Field(..., alias='networkIdleTimeoutSeconds')
-    networkipallowlist: List[Any] = Field(..., alias='networkIPAllowlist')
-    backupenabled: bool = Field(..., alias='backupEnabled')
-    pitr: bool = Field(..., alias='pitr')
-    pitrretentiondays: float = Field(..., alias='pitrRetentionDays')
-    storageautoscaling: bool = Field(..., alias='storageAutoscaling')
-    storageautoscalingthresholdpercent: float = Field(..., alias='storageAutoscalingThresholdPercent')
-    storageautoscalingmaxgb: float = Field(..., alias='storageAutoscalingMaxGb')
-    maintenancewindowday: str = Field(..., alias='maintenanceWindowDay')
-    maintenancewindowhourutc: float = Field(..., alias='maintenanceWindowHourUtc')
-    metricsenabled: bool = Field(..., alias='metricsEnabled')
-    sqlapienabled: bool = Field(..., alias='sqlApiEnabled')
-    sqlapiallowedstatements: List[Any] = Field(..., alias='sqlApiAllowedStatements')
-    sqlapimaxrows: float = Field(..., alias='sqlApiMaxRows')
-    sqlapimaxbytes: float = Field(..., alias='sqlApiMaxBytes')
-    sqlapitimeoutseconds: float = Field(..., alias='sqlApiTimeoutSeconds')
-    error: str = Field(..., alias='error')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    projectid: str = Field(
+        ...,
+        alias='projectId',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    api: str = Field(
+        ...,
+        alias='api',
+    )
+    engine: str = Field(
+        ...,
+        alias='engine',
+    )
+    version: str = Field(
+        ...,
+        alias='version',
+    )
+    specification: str = Field(
+        ...,
+        alias='specification',
+    )
+    backend: str = Field(
+        ...,
+        alias='backend',
+    )
+    hostname: str = Field(
+        ...,
+        alias='hostname',
+    )
+    connectionport: float = Field(
+        ...,
+        alias='connectionPort',
+    )
+    connectionuser: str = Field(
+        ...,
+        alias='connectionUser',
+    )
+    connectionpassword: str = Field(
+        ...,
+        alias='connectionPassword',
+    )
+    connectionstring: str = Field(
+        ...,
+        alias='connectionString',
+    )
+    ssl: bool = Field(
+        ...,
+        alias='ssl',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    containerstatus: str = Field(
+        ...,
+        alias='containerStatus',
+    )
+    lastaccessedat: Optional[str] = Field(
+        default=None,
+        alias='lastAccessedAt',
+    )
+    idleuntil: Optional[str] = Field(
+        default=None,
+        alias='idleUntil',
+    )
+    lifecyclestate: str = Field(
+        ...,
+        alias='lifecycleState',
+    )
+    idletimeoutminutes: float = Field(
+        ...,
+        alias='idleTimeoutMinutes',
+    )
+    cpu: float = Field(
+        ...,
+        alias='cpu',
+    )
+    memory: float = Field(
+        ...,
+        alias='memory',
+    )
+    storage: float = Field(
+        ...,
+        alias='storage',
+    )
+    storageclass: str = Field(
+        ...,
+        alias='storageClass',
+    )
+    storagemaxgb: float = Field(
+        ...,
+        alias='storageMaxGb',
+    )
+    nodepool: str = Field(
+        ...,
+        alias='nodePool',
+    )
+    replicas: float = Field(
+        ...,
+        alias='replicas',
+    )
+    syncmode: str = Field(
+        ...,
+        alias='syncMode',
+    )
+    networkmaxconnections: float = Field(
+        ...,
+        alias='networkMaxConnections',
+    )
+    networkidletimeoutseconds: float = Field(
+        ...,
+        alias='networkIdleTimeoutSeconds',
+    )
+    networkipallowlist: List[Any] = Field(
+        ...,
+        alias='networkIPAllowlist',
+    )
+    backupenabled: bool = Field(
+        ...,
+        alias='backupEnabled',
+    )
+    pitr: bool = Field(
+        ...,
+        alias='pitr',
+    )
+    pitrretentiondays: float = Field(
+        ...,
+        alias='pitrRetentionDays',
+    )
+    storageautoscaling: bool = Field(
+        ...,
+        alias='storageAutoscaling',
+    )
+    storageautoscalingthresholdpercent: float = Field(
+        ...,
+        alias='storageAutoscalingThresholdPercent',
+    )
+    storageautoscalingmaxgb: float = Field(
+        ...,
+        alias='storageAutoscalingMaxGb',
+    )
+    maintenancewindowday: str = Field(
+        ...,
+        alias='maintenanceWindowDay',
+    )
+    maintenancewindowhourutc: float = Field(
+        ...,
+        alias='maintenanceWindowHourUtc',
+    )
+    metricsenabled: bool = Field(
+        ...,
+        alias='metricsEnabled',
+    )
+    sqlapienabled: bool = Field(
+        ...,
+        alias='sqlApiEnabled',
+    )
+    sqlapiallowedstatements: List[Any] = Field(
+        ...,
+        alias='sqlApiAllowedStatements',
+    )
+    sqlapimaxrows: float = Field(
+        ...,
+        alias='sqlApiMaxRows',
+    )
+    sqlapimaxbytes: float = Field(
+        ...,
+        alias='sqlApiMaxBytes',
+    )
+    sqlapitimeoutseconds: float = Field(
+        ...,
+        alias='sqlApiTimeoutSeconds',
+    )
+    error: str = Field(
+        ...,
+        alias='error',
+    )

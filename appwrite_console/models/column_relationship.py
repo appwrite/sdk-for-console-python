@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.column_status import ColumnStatus
 
+
 class ColumnRelationship(AppwriteModel):
     """
     ColumnRelationship
@@ -39,17 +40,60 @@ class ColumnRelationship(AppwriteModel):
     side : str
         Whether this is the parent or child side of the relationship
     """
-    key: str = Field(..., alias='key')
-    type: str = Field(..., alias='type')
-    status: ColumnStatus = Field(..., alias='status')
-    error: str = Field(..., alias='error')
-    required: bool = Field(..., alias='required')
-    array: Optional[bool] = Field(default=None, alias='array')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    relatedtable: str = Field(..., alias='relatedTable')
-    relationtype: str = Field(..., alias='relationType')
-    twoway: bool = Field(..., alias='twoWay')
-    twowaykey: str = Field(..., alias='twoWayKey')
-    ondelete: str = Field(..., alias='onDelete')
-    side: str = Field(..., alias='side')
+
+    key: str = Field(
+        ...,
+        alias='key',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    status: ColumnStatus = Field(
+        ...,
+        alias='status',
+    )
+    error: str = Field(
+        ...,
+        alias='error',
+    )
+    required: bool = Field(
+        ...,
+        alias='required',
+    )
+    array: Optional[bool] = Field(
+        default=None,
+        alias='array',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    relatedtable: str = Field(
+        ...,
+        alias='relatedTable',
+    )
+    relationtype: str = Field(
+        ...,
+        alias='relationType',
+    )
+    twoway: bool = Field(
+        ...,
+        alias='twoWay',
+    )
+    twowaykey: str = Field(
+        ...,
+        alias='twoWayKey',
+    )
+    ondelete: str = Field(
+        ...,
+        alias='onDelete',
+    )
+    side: str = Field(
+        ...,
+        alias='side',
+    )

@@ -186,6 +186,7 @@ from .o_auth2_podio import OAuth2Podio
 from .o_auth2_notion import OAuth2Notion
 from .o_auth2_salesforce import OAuth2Salesforce
 from .o_auth2_yahoo import OAuth2Yahoo
+from .o_auth2_hugging_face import OAuth2HuggingFace
 from .o_auth2_linkedin import OAuth2Linkedin
 from .o_auth2_disqus import OAuth2Disqus
 from .o_auth2_amazon import OAuth2Amazon
@@ -233,6 +234,10 @@ from .metric_breakdown import MetricBreakdown
 from .usage_users import UsageUsers
 from .usage_presence import UsagePresence
 from .usage_project import UsageProject
+from .usage_data_point import UsageDataPoint
+from .usage_metric import UsageMetric
+from .usage_event_list import UsageEventList
+from .usage_gauge_list import UsageGaugeList
 from .headers import Headers
 from .specification import Specification
 from .proxy_rule import ProxyRule
@@ -347,10 +352,6 @@ from .database_status_connections import DatabaseStatusConnections
 from .database_status_replica import DatabaseStatusReplica
 from .database_status_volume import DatabaseStatusVolume
 from .usage_billing_plan import UsageBillingPlan
-from .usage_data_point import UsageDataPoint
-from .usage_event_list import UsageEventList
-from .usage_gauge_list import UsageGaugeList
-from .usage_metric import UsageMetric
 from .usage_organization import UsageOrganization
 from .usage_organization_project import UsageOrganizationProject
 from .usage_resources import UsageResources
@@ -595,6 +596,7 @@ __all__ = [
     'OAuth2Notion',
     'OAuth2Salesforce',
     'OAuth2Yahoo',
+    'OAuth2HuggingFace',
     'OAuth2Linkedin',
     'OAuth2Disqus',
     'OAuth2Amazon',
@@ -642,6 +644,10 @@ __all__ = [
     'UsageUsers',
     'UsagePresence',
     'UsageProject',
+    'UsageDataPoint',
+    'UsageMetric',
+    'UsageEventList',
+    'UsageGaugeList',
     'Headers',
     'Specification',
     'ProxyRule',
@@ -756,10 +762,6 @@ __all__ = [
     'DatabaseStatusReplica',
     'DatabaseStatusVolume',
     'UsageBillingPlan',
-    'UsageDataPoint',
-    'UsageEventList',
-    'UsageGaugeList',
-    'UsageMetric',
     'UsageOrganization',
     'UsageOrganizationProject',
     'UsageResources',

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Stripe(AppwriteModel):
     """
     OAuth2Stripe
@@ -18,7 +19,20 @@ class OAuth2Stripe(AppwriteModel):
     apisecretkey : str
         Stripe OAuth2 API secret key.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    clientid: str = Field(..., alias='clientId')
-    apisecretkey: str = Field(..., alias='apiSecretKey')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    clientid: str = Field(
+        ...,
+        alias='clientId',
+    )
+    apisecretkey: str = Field(
+        ...,
+        alias='apiSecretKey',
+    )

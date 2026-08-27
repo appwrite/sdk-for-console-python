@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .template_function import TemplateFunction
 
+
 class TemplateFunctionList(AppwriteModel):
     """
     Function Templates List
@@ -15,5 +16,12 @@ class TemplateFunctionList(AppwriteModel):
     templates : List[TemplateFunction]
         List of templates.
     """
-    total: float = Field(..., alias='total')
-    templates: List[TemplateFunction] = Field(..., alias='templates')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    templates: List[TemplateFunction] = Field(
+        ...,
+        alias='templates',
+    )

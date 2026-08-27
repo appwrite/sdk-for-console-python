@@ -6,6 +6,7 @@ from .organization import Organization
 
 T = TypeVar('T')
 
+
 class OrganizationList(AppwriteModel, Generic[T]):
     """
     Organizations list
@@ -17,16 +18,20 @@ class OrganizationList(AppwriteModel, Generic[T]):
     teams : List[Organization[T]]
         List of teams.
     """
-    total: float = Field(..., alias='total')
-    teams: List[Organization[T]] = Field(..., alias='teams')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    teams: List[Organization[T]] = Field(
+        ...,
+        alias='teams',
+    )
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'OrganizationList[T]':
         """Create OrganizationList instance with typed data."""
         instance = cls.model_validate(data)
         if 'teams' in data and data['teams'] is not None:
-            instance.teams = [
-                Organization.with_data(row, model_type) 
-                for row in data['teams']
-            ]
+            instance.teams = [Organization.with_data(row, model_type) for row in data['teams']]
         return instance

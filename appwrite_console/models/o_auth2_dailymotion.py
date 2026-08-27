@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Dailymotion(AppwriteModel):
     """
     OAuth2Dailymotion
@@ -18,7 +19,20 @@ class OAuth2Dailymotion(AppwriteModel):
     apisecret : str
         Dailymotion OAuth2 API secret.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    apikey: str = Field(..., alias='apiKey')
-    apisecret: str = Field(..., alias='apiSecret')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    apikey: str = Field(
+        ...,
+        alias='apiKey',
+    )
+    apisecret: str = Field(
+        ...,
+        alias='apiSecret',
+    )

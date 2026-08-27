@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class File(AppwriteModel):
     """
     File
@@ -42,19 +43,68 @@ class File(AppwriteModel):
     compression : str
         Compression algorithm used for the file. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
     """
-    id: str = Field(..., alias='$id')
-    bucketid: str = Field(..., alias='bucketId')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    name: str = Field(..., alias='name')
-    folder: str = Field(..., alias='folder')
-    key: str = Field(..., alias='key')
-    signature: str = Field(..., alias='signature')
-    mimetype: str = Field(..., alias='mimeType')
-    sizeoriginal: float = Field(..., alias='sizeOriginal')
-    sizeactual: float = Field(..., alias='sizeActual')
-    chunkstotal: float = Field(..., alias='chunksTotal')
-    chunksuploaded: float = Field(..., alias='chunksUploaded')
-    encryption: bool = Field(..., alias='encryption')
-    compression: str = Field(..., alias='compression')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    bucketid: str = Field(
+        ...,
+        alias='bucketId',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    folder: str = Field(
+        ...,
+        alias='folder',
+    )
+    key: str = Field(
+        ...,
+        alias='key',
+    )
+    signature: str = Field(
+        ...,
+        alias='signature',
+    )
+    mimetype: str = Field(
+        ...,
+        alias='mimeType',
+    )
+    sizeoriginal: float = Field(
+        ...,
+        alias='sizeOriginal',
+    )
+    sizeactual: float = Field(
+        ...,
+        alias='sizeActual',
+    )
+    chunkstotal: float = Field(
+        ...,
+        alias='chunksTotal',
+    )
+    chunksuploaded: float = Field(
+        ...,
+        alias='chunksUploaded',
+    )
+    encryption: bool = Field(
+        ...,
+        alias='encryption',
+    )
+    compression: str = Field(
+        ...,
+        alias='compression',
+    )

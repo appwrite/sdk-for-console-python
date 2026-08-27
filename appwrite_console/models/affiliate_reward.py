@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class AffiliateReward(AppwriteModel):
     """
     AffiliateReward
@@ -30,13 +31,44 @@ class AffiliateReward(AppwriteModel):
     creditid : Optional[str]
         Credit document ID created when the reward was claimed.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    userid: str = Field(..., alias='userId')
-    linkid: str = Field(..., alias='linkId')
-    referralid: str = Field(..., alias='referralId')
-    amount: float = Field(..., alias='amount')
-    status: str = Field(..., alias='status')
-    teamid: Optional[str] = Field(default=None, alias='teamId')
-    creditid: Optional[str] = Field(default=None, alias='creditId')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    linkid: str = Field(
+        ...,
+        alias='linkId',
+    )
+    referralid: str = Field(
+        ...,
+        alias='referralId',
+    )
+    amount: float = Field(
+        ...,
+        alias='amount',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    teamid: Optional[str] = Field(
+        default=None,
+        alias='teamId',
+    )
+    creditid: Optional[str] = Field(
+        default=None,
+        alias='creditId',
+    )

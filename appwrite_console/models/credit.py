@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Credit(AppwriteModel):
     """
     Credit
@@ -32,14 +33,48 @@ class Credit(AppwriteModel):
     status : str
         Status of the credit. Can be one of `disabled`, `active` or `expired`.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    couponid: str = Field(..., alias='couponId')
-    userid: str = Field(..., alias='userId')
-    teamid: str = Field(..., alias='teamId')
-    credits: float = Field(..., alias='credits')
-    total: float = Field(..., alias='total')
-    expiration: str = Field(..., alias='expiration')
-    status: str = Field(..., alias='status')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    couponid: str = Field(
+        ...,
+        alias='couponId',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    teamid: str = Field(
+        ...,
+        alias='teamId',
+    )
+    credits: float = Field(
+        ...,
+        alias='credits',
+    )
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    expiration: str = Field(
+        ...,
+        alias='expiration',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )

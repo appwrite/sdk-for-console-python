@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseRestoration(AppwriteModel):
     """
     Restoration
@@ -34,15 +35,52 @@ class DedicatedDatabaseRestoration(AppwriteModel):
     error : str
         Error message if restoration failed.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    databaseid: str = Field(..., alias='databaseId')
-    sourcedatabaseid: str = Field(..., alias='sourceDatabaseId')
-    projectid: str = Field(..., alias='projectId')
-    backupid: str = Field(..., alias='backupId')
-    type: str = Field(..., alias='type')
-    status: str = Field(..., alias='status')
-    targettime: str = Field(..., alias='targetTime')
-    startedat: str = Field(..., alias='startedAt')
-    completedat: str = Field(..., alias='completedAt')
-    error: str = Field(..., alias='error')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    databaseid: str = Field(
+        ...,
+        alias='databaseId',
+    )
+    sourcedatabaseid: str = Field(
+        ...,
+        alias='sourceDatabaseId',
+    )
+    projectid: str = Field(
+        ...,
+        alias='projectId',
+    )
+    backupid: str = Field(
+        ...,
+        alias='backupId',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    targettime: str = Field(
+        ...,
+        alias='targetTime',
+    )
+    startedat: str = Field(
+        ...,
+        alias='startedAt',
+    )
+    completedat: str = Field(
+        ...,
+        alias='completedAt',
+    )
+    error: str = Field(
+        ...,
+        alias='error',
+    )

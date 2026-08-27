@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from ..enums.detection_framework_type import DetectionFrameworkType
 from .detection_variable import DetectionVariable
 
+
 class DetectionFramework(AppwriteModel):
     """
     DetectionFramework
@@ -24,9 +25,28 @@ class DetectionFramework(AppwriteModel):
     outputdirectory : str
         Site Output Directory
     """
-    type: DetectionFrameworkType = Field(..., alias='type')
-    variables: Optional[List[DetectionVariable]] = Field(default=None, alias='variables')
-    framework: str = Field(..., alias='framework')
-    installcommand: str = Field(..., alias='installCommand')
-    buildcommand: str = Field(..., alias='buildCommand')
-    outputdirectory: str = Field(..., alias='outputDirectory')
+
+    type: DetectionFrameworkType = Field(
+        ...,
+        alias='type',
+    )
+    variables: Optional[List[DetectionVariable]] = Field(
+        default=None,
+        alias='variables',
+    )
+    framework: str = Field(
+        ...,
+        alias='framework',
+    )
+    installcommand: str = Field(
+        ...,
+        alias='installCommand',
+    )
+    buildcommand: str = Field(
+        ...,
+        alias='buildCommand',
+    )
+    outputdirectory: str = Field(
+        ...,
+        alias='outputDirectory',
+    )

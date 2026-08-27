@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Addon(AppwriteModel):
     """
     Addon
@@ -30,13 +31,44 @@ class Addon(AppwriteModel):
     nextvalue : Optional[float]
         Value to apply at the start of the next billing cycle. Null means no change is scheduled. For toggle addons, 0 means the addon will be removed at the next cycle.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    key: str = Field(..., alias='key')
-    resourcetype: str = Field(..., alias='resourceType')
-    resourceid: str = Field(..., alias='resourceId')
-    status: str = Field(..., alias='status')
-    currentvalue: float = Field(..., alias='currentValue')
-    nextvalue: Optional[float] = Field(default=None, alias='nextValue')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    key: str = Field(
+        ...,
+        alias='key',
+    )
+    resourcetype: str = Field(
+        ...,
+        alias='resourceType',
+    )
+    resourceid: str = Field(
+        ...,
+        alias='resourceId',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    currentvalue: float = Field(
+        ...,
+        alias='currentValue',
+    )
+    nextvalue: Optional[float] = Field(
+        default=None,
+        alias='nextValue',
+    )

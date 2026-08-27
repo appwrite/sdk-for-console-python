@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from ..enums.domain_transfer_status_enum import DomainTransferStatusEnum
 from .dns_record import DnsRecord
 
+
 class Domain(AppwriteModel):
     """
     Domain
@@ -38,16 +39,56 @@ class Domain(AppwriteModel):
     dnsrecords : List[DnsRecord]
         Dns records
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    domain: str = Field(..., alias='domain')
-    registrar: str = Field(..., alias='registrar')
-    nameservers: str = Field(..., alias='nameservers')
-    expire: str = Field(..., alias='expire')
-    renewal: str = Field(..., alias='renewal')
-    autorenewal: bool = Field(..., alias='autoRenewal')
-    renewalprice: float = Field(..., alias='renewalPrice')
-    transferstatus: Optional[DomainTransferStatusEnum] = Field(default=None, alias='transferStatus')
-    teamid: str = Field(..., alias='teamId')
-    dnsrecords: List[DnsRecord] = Field(..., alias='dnsRecords')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    domain: str = Field(
+        ...,
+        alias='domain',
+    )
+    registrar: str = Field(
+        ...,
+        alias='registrar',
+    )
+    nameservers: str = Field(
+        ...,
+        alias='nameservers',
+    )
+    expire: str = Field(
+        ...,
+        alias='expire',
+    )
+    renewal: str = Field(
+        ...,
+        alias='renewal',
+    )
+    autorenewal: bool = Field(
+        ...,
+        alias='autoRenewal',
+    )
+    renewalprice: float = Field(
+        ...,
+        alias='renewalPrice',
+    )
+    transferstatus: Optional[DomainTransferStatusEnum] = Field(
+        default=None,
+        alias='transferStatus',
+    )
+    teamid: str = Field(
+        ...,
+        alias='teamId',
+    )
+    dnsrecords: List[DnsRecord] = Field(
+        ...,
+        alias='dnsRecords',
+    )

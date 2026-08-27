@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class MigrationReport(AppwriteModel):
     """
     Migration Report
@@ -66,31 +67,116 @@ class MigrationReport(AppwriteModel):
     backup_policy : float
         Number of backup policies to be migrated.
     """
-    user: float = Field(..., alias='user')
-    team: float = Field(..., alias='team')
-    database: float = Field(..., alias='database')
-    row: float = Field(..., alias='row')
-    file: float = Field(..., alias='file')
-    bucket: float = Field(..., alias='bucket')
-    function: float = Field(..., alias='function')
-    platform: float = Field(..., alias='platform')
-    api_key: float = Field(..., alias='api-key')
-    project_variable: float = Field(..., alias='project-variable')
-    webhook: float = Field(..., alias='webhook')
-    auth_methods: float = Field(..., alias='auth-methods')
-    project_protocols: float = Field(..., alias='project-protocols')
-    project_labels: float = Field(..., alias='project-labels')
-    project_services: float = Field(..., alias='project-services')
-    policies: float = Field(..., alias='policies')
-    smtp: float = Field(..., alias='smtp')
-    rule: float = Field(..., alias='rule')
-    project_email_template: float = Field(..., alias='project-email-template')
-    site: float = Field(..., alias='site')
-    provider: float = Field(..., alias='provider')
-    topic: float = Field(..., alias='topic')
-    subscriber: float = Field(..., alias='subscriber')
-    message: float = Field(..., alias='message')
-    size: float = Field(..., alias='size')
-    version: str = Field(..., alias='version')
-    oauth2_provider: float = Field(..., alias='oauth2-provider')
-    backup_policy: float = Field(..., alias='backup-policy')
+
+    user: float = Field(
+        ...,
+        alias='user',
+    )
+    team: float = Field(
+        ...,
+        alias='team',
+    )
+    database: float = Field(
+        ...,
+        alias='database',
+    )
+    row: float = Field(
+        ...,
+        alias='row',
+    )
+    file: float = Field(
+        ...,
+        alias='file',
+    )
+    bucket: float = Field(
+        ...,
+        alias='bucket',
+    )
+    function: float = Field(
+        ...,
+        alias='function',
+    )
+    platform: float = Field(
+        ...,
+        alias='platform',
+    )
+    api_key: float = Field(
+        ...,
+        alias='api-key',
+    )
+    project_variable: float = Field(
+        ...,
+        alias='project-variable',
+    )
+    webhook: float = Field(
+        ...,
+        alias='webhook',
+    )
+    auth_methods: float = Field(
+        ...,
+        alias='auth-methods',
+    )
+    project_protocols: float = Field(
+        ...,
+        alias='project-protocols',
+    )
+    project_labels: float = Field(
+        ...,
+        alias='project-labels',
+    )
+    project_services: float = Field(
+        ...,
+        alias='project-services',
+    )
+    policies: float = Field(
+        ...,
+        alias='policies',
+    )
+    smtp: float = Field(
+        ...,
+        alias='smtp',
+    )
+    rule: float = Field(
+        ...,
+        alias='rule',
+    )
+    project_email_template: float = Field(
+        ...,
+        alias='project-email-template',
+    )
+    site: float = Field(
+        ...,
+        alias='site',
+    )
+    provider: float = Field(
+        ...,
+        alias='provider',
+    )
+    topic: float = Field(
+        ...,
+        alias='topic',
+    )
+    subscriber: float = Field(
+        ...,
+        alias='subscriber',
+    )
+    message: float = Field(
+        ...,
+        alias='message',
+    )
+    size: float = Field(
+        ...,
+        alias='size',
+    )
+    version: str = Field(
+        ...,
+        alias='version',
+    )
+    oauth2_provider: float = Field(
+        ...,
+        alias='oauth2-provider',
+    )
+    backup_policy: float = Field(
+        ...,
+        alias='backup-policy',
+    )

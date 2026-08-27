@@ -13,6 +13,7 @@ from ..models.oauth2_project_list import Oauth2ProjectList
 from ..models.oauth2_reject import Oauth2Reject
 from ..models.oauth2_token import Oauth2Token
 
+
 class Oauth2(Service):
 
     def __init__(self, client) -> None:
@@ -22,7 +23,7 @@ class Oauth2(Service):
         self,
         grant_id: str,
         authorization_details: Optional[str] = None,
-        scope: Optional[str] = None
+        scope: Optional[str] = None,
     ) -> Oauth2Approve:
         """
         Approve an OAuth2 grant after the user gives consent. Returns the `redirectUrl` the end user should be sent to. The consent screen may optionally pass enriched `authorization_details` to record the concrete resources the user selected. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
@@ -35,12 +36,11 @@ class Oauth2(Service):
             Enriched `authorization_details` the user consented to, replacing what the client requested. Each entry must use a `type` the project accepts. Optional; omit to keep the originally requested details.
         scope : Optional[str]
             Space-separated scopes the user consented to. Must be a subset of the scopes originally requested; identity scopes such as `openid` are always retained. Optional; omit to keep the originally requested scopes.
-        
         Returns
         -------
         Oauth2Approve
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -51,22 +51,30 @@ class Oauth2(Service):
         api_params = {}
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
-        api_params['grant_id'] = self._normalize_value(grant_id)
+        api_params['grant_id'] = self._normalize_value(
+            grant_id,
+        )
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(authorization_details)
+            api_params['authorization_details'] = self._normalize_value(
+                authorization_details,
+            )
         if scope is not None:
-            api_params['scope'] = self._normalize_value(scope)
+            api_params['scope'] = self._normalize_value(
+                scope,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Approve)
-
 
     def authorize(
         self,
@@ -83,7 +91,7 @@ class Oauth2(Service):
         authorization_details: Optional[str] = None,
         resource: Optional[str] = None,
         audience: Optional[str] = None,
-        request_uri: Optional[str] = None
+        request_uri: Optional[str] = None,
     ) -> Oauth2Authorize:
         """
         Begin the OAuth2 authorization flow. When called without a session, the user is redirected to the consent screen without grant ID. When called with a session, the redirect URL includes param for grant ID. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
@@ -118,12 +126,11 @@ class Oauth2(Service):
             Compatibility alias for a single OAuth2 resource indicator URI.
         request_uri : Optional[str]
             OAuth2 authorization request handle returned by the pushed authorization request endpoint.
-        
         Returns
         -------
         Oauth2Authorize
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -133,42 +140,73 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/authorize'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if redirect_uri is not None:
-            api_params['redirect_uri'] = self._normalize_value(redirect_uri)
+            api_params['redirect_uri'] = self._normalize_value(
+                redirect_uri,
+            )
         if response_type is not None:
-            api_params['response_type'] = self._normalize_value(response_type)
+            api_params['response_type'] = self._normalize_value(
+                response_type,
+            )
         if scope is not None:
-            api_params['scope'] = self._normalize_value(scope)
+            api_params['scope'] = self._normalize_value(
+                scope,
+            )
         if state is not None:
-            api_params['state'] = self._normalize_value(state)
+            api_params['state'] = self._normalize_value(
+                state,
+            )
         if nonce is not None:
-            api_params['nonce'] = self._normalize_value(nonce)
+            api_params['nonce'] = self._normalize_value(
+                nonce,
+            )
         if code_challenge is not None:
-            api_params['code_challenge'] = self._normalize_value(code_challenge)
+            api_params['code_challenge'] = self._normalize_value(
+                code_challenge,
+            )
         if code_challenge_method is not None:
-            api_params['code_challenge_method'] = self._normalize_value(code_challenge_method)
+            api_params['code_challenge_method'] = self._normalize_value(
+                code_challenge_method,
+            )
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
+            api_params['prompt'] = self._normalize_value(
+                prompt,
+            )
         if max_age is not None:
-            api_params['max_age'] = self._normalize_value(max_age)
+            api_params['max_age'] = self._normalize_value(
+                max_age,
+            )
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(authorization_details)
+            api_params['authorization_details'] = self._normalize_value(
+                authorization_details,
+            )
         if resource is not None:
-            api_params['resource'] = self._normalize_value(resource)
+            api_params['resource'] = self._normalize_value(
+                resource,
+            )
         if audience is not None:
-            api_params['audience'] = self._normalize_value(audience)
+            api_params['audience'] = self._normalize_value(
+                audience,
+            )
         if request_uri is not None:
-            api_params['request_uri'] = self._normalize_value(request_uri)
+            api_params['request_uri'] = self._normalize_value(
+                request_uri,
+            )
 
-        response = self.client.call('get', api_path, {
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Authorize)
-
 
     def authorize_post(
         self,
@@ -185,7 +223,7 @@ class Oauth2(Service):
         authorization_details: Optional[str] = None,
         resource: Optional[str] = None,
         audience: Optional[str] = None,
-        request_uri: Optional[str] = None
+        request_uri: Optional[str] = None,
     ) -> Oauth2Authorize:
         """
         Begin the OAuth2 authorization flow. When called without a session, the user is redirected to the consent screen without grant ID. When called with a session, the redirect URL includes param for grant ID. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
@@ -220,12 +258,11 @@ class Oauth2(Service):
             Compatibility alias for a single OAuth2 resource indicator URI.
         request_uri : Optional[str]
             OAuth2 authorization request handle returned by the pushed authorization request endpoint.
-        
         Returns
         -------
         Oauth2Authorize
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -235,43 +272,74 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/authorize'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if redirect_uri is not None:
-            api_params['redirect_uri'] = self._normalize_value(redirect_uri)
+            api_params['redirect_uri'] = self._normalize_value(
+                redirect_uri,
+            )
         if response_type is not None:
-            api_params['response_type'] = self._normalize_value(response_type)
+            api_params['response_type'] = self._normalize_value(
+                response_type,
+            )
         if scope is not None:
-            api_params['scope'] = self._normalize_value(scope)
+            api_params['scope'] = self._normalize_value(
+                scope,
+            )
         if state is not None:
-            api_params['state'] = self._normalize_value(state)
+            api_params['state'] = self._normalize_value(
+                state,
+            )
         if nonce is not None:
-            api_params['nonce'] = self._normalize_value(nonce)
+            api_params['nonce'] = self._normalize_value(
+                nonce,
+            )
         if code_challenge is not None:
-            api_params['code_challenge'] = self._normalize_value(code_challenge)
+            api_params['code_challenge'] = self._normalize_value(
+                code_challenge,
+            )
         if code_challenge_method is not None:
-            api_params['code_challenge_method'] = self._normalize_value(code_challenge_method)
+            api_params['code_challenge_method'] = self._normalize_value(
+                code_challenge_method,
+            )
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
+            api_params['prompt'] = self._normalize_value(
+                prompt,
+            )
         if max_age is not None:
-            api_params['max_age'] = self._normalize_value(max_age)
+            api_params['max_age'] = self._normalize_value(
+                max_age,
+            )
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(authorization_details)
+            api_params['authorization_details'] = self._normalize_value(
+                authorization_details,
+            )
         if resource is not None:
-            api_params['resource'] = self._normalize_value(resource)
+            api_params['resource'] = self._normalize_value(
+                resource,
+            )
         if audience is not None:
-            api_params['audience'] = self._normalize_value(audience)
+            api_params['audience'] = self._normalize_value(
+                audience,
+            )
         if request_uri is not None:
-            api_params['request_uri'] = self._normalize_value(request_uri)
+            api_params['request_uri'] = self._normalize_value(
+                request_uri,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Authorize)
-
 
     def create_device_authorization(
         self,
@@ -279,7 +347,7 @@ class Oauth2(Service):
         scope: Optional[str] = None,
         authorization_details: Optional[str] = None,
         resource: Optional[str] = None,
-        audience: Optional[str] = None
+        audience: Optional[str] = None,
     ) -> Oauth2DeviceAuthorization:
         """
         Start the OAuth2 Device Authorization Grant. Returns the device code, user code, verification URL, expiration, and polling interval.
@@ -296,12 +364,11 @@ class Oauth2(Service):
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
-        
         Returns
         -------
         Oauth2DeviceAuthorization
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -311,29 +378,42 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/device_authorization'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if scope is not None:
-            api_params['scope'] = self._normalize_value(scope)
+            api_params['scope'] = self._normalize_value(
+                scope,
+            )
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(authorization_details)
+            api_params['authorization_details'] = self._normalize_value(
+                authorization_details,
+            )
         if resource is not None:
-            api_params['resource'] = self._normalize_value(resource)
+            api_params['resource'] = self._normalize_value(
+                resource,
+            )
         if audience is not None:
-            api_params['audience'] = self._normalize_value(audience)
+            api_params['audience'] = self._normalize_value(
+                audience,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2DeviceAuthorization)
 
-
     def create_grant(
         self,
-        user_code: str
+        user_code: str,
     ) -> Oauth2Grant:
         """
         Exchange a device flow user code for an OAuth2 grant. The authenticated user is bound to the pending grant. Pass the returned grant ID to the get grant endpoint to render the consent screen, then to the approve or reject endpoint to complete the flow.
@@ -342,12 +422,11 @@ class Oauth2(Service):
         ----------
         user_code : str
             User code displayed on the device.
-        
         Returns
         -------
         Oauth2Grant
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -358,22 +437,26 @@ class Oauth2(Service):
         api_params = {}
         if user_code is None:
             raise AppwriteException('Missing required parameter: "user_code"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_params['user_code'] = self._normalize_value(
+            user_code,
+        )
 
-        api_params['user_code'] = self._normalize_value(user_code)
-
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Grant)
 
-
     def get_grant(
         self,
-        grant_id: str
+        grant_id: str,
     ) -> Oauth2Grant:
         """
         Get an OAuth2 grant by its ID. Used by the consent screen to display the details of the authorization the user is being asked to approve. A grant can only be read by the user it belongs to, or by server SDK.
@@ -382,12 +465,11 @@ class Oauth2(Service):
         ----------
         grant_id : str
             Grant ID made during authorization, provided to consent screen in URL search params.
-        
         Returns
         -------
         Oauth2Grant
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -398,17 +480,19 @@ class Oauth2(Service):
         api_params = {}
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         api_path = api_path.replace('{grant_id}', str(self._normalize_value(grant_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Grant)
-
 
     def logout(
         self,
@@ -417,7 +501,7 @@ class Oauth2(Service):
         client_id: Optional[str] = None,
         post_logout_redirect_uri: Optional[str] = None,
         state: Optional[str] = None,
-        ui_locales: Optional[str] = None
+        ui_locales: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         OpenID Connect RP-Initiated Logout. Ends the user session and revokes the tokens issued to the app identified by the `id_token_hint`, then redirects the user to `post_logout_redirect_uri` when it matches a URI registered on the app.
@@ -436,12 +520,11 @@ class Oauth2(Service):
             Opaque value passed back unchanged in the `state` query param of the post-logout redirect.
         ui_locales : Optional[str]
             Preferred languages for any logout UI, as space-separated BCP47 tags. Accepted for OIDC compatibility.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -451,26 +534,41 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/logout'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if id_token_hint is not None:
-            api_params['id_token_hint'] = self._normalize_value(id_token_hint)
+            api_params['id_token_hint'] = self._normalize_value(
+                id_token_hint,
+            )
         if logout_hint is not None:
-            api_params['logout_hint'] = self._normalize_value(logout_hint)
+            api_params['logout_hint'] = self._normalize_value(
+                logout_hint,
+            )
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if post_logout_redirect_uri is not None:
-            api_params['post_logout_redirect_uri'] = self._normalize_value(post_logout_redirect_uri)
+            api_params['post_logout_redirect_uri'] = self._normalize_value(
+                post_logout_redirect_uri,
+            )
         if state is not None:
-            api_params['state'] = self._normalize_value(state)
+            api_params['state'] = self._normalize_value(
+                state,
+            )
         if ui_locales is not None:
-            api_params['ui_locales'] = self._normalize_value(ui_locales)
+            api_params['ui_locales'] = self._normalize_value(
+                ui_locales,
+            )
 
-        response = self.client.call('get', api_path, {
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def logout_post(
         self,
@@ -479,7 +577,7 @@ class Oauth2(Service):
         client_id: Optional[str] = None,
         post_logout_redirect_uri: Optional[str] = None,
         state: Optional[str] = None,
-        ui_locales: Optional[str] = None
+        ui_locales: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         OpenID Connect RP-Initiated Logout. Ends the user session and revokes the tokens issued to the app identified by the `id_token_hint`, then redirects the user to `post_logout_redirect_uri` when it matches a URI registered on the app.
@@ -498,12 +596,11 @@ class Oauth2(Service):
             Opaque value passed back unchanged in the `state` query param of the post-logout redirect.
         ui_locales : Optional[str]
             Preferred languages for any logout UI, as space-separated BCP47 tags. Accepted for OIDC compatibility.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -513,33 +610,48 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/logout'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if id_token_hint is not None:
-            api_params['id_token_hint'] = self._normalize_value(id_token_hint)
+            api_params['id_token_hint'] = self._normalize_value(
+                id_token_hint,
+            )
         if logout_hint is not None:
-            api_params['logout_hint'] = self._normalize_value(logout_hint)
+            api_params['logout_hint'] = self._normalize_value(
+                logout_hint,
+            )
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if post_logout_redirect_uri is not None:
-            api_params['post_logout_redirect_uri'] = self._normalize_value(post_logout_redirect_uri)
+            api_params['post_logout_redirect_uri'] = self._normalize_value(
+                post_logout_redirect_uri,
+            )
         if state is not None:
-            api_params['state'] = self._normalize_value(state)
+            api_params['state'] = self._normalize_value(
+                state,
+            )
         if ui_locales is not None:
-            api_params['ui_locales'] = self._normalize_value(ui_locales)
+            api_params['ui_locales'] = self._normalize_value(
+                ui_locales,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_organizations(
         self,
         limit: Optional[float] = None,
         offset: Optional[float] = None,
-        search: Optional[str] = None
+        search: Optional[str] = None,
     ) -> Oauth2OrganizationList:
         """
         List the organizations the OAuth2 access token can access. Resolves the token's `organization` authorization details, expanding the `*` wildcard into the concrete set of organizations the user can see.
@@ -552,12 +664,11 @@ class Oauth2(Service):
             Number of organizations to skip before returning results. Used for pagination.
         search : Optional[str]
             Search term to filter your list results. Max length: 256 chars.
-        
         Returns
         -------
         Oauth2OrganizationList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -567,20 +678,29 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/organizations'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if limit is not None:
-            api_params['limit'] = self._normalize_value(limit)
+            api_params['limit'] = self._normalize_value(
+                limit,
+            )
         if offset is not None:
-            api_params['offset'] = self._normalize_value(offset)
+            api_params['offset'] = self._normalize_value(
+                offset,
+            )
         if search is not None:
-            api_params['search'] = self._normalize_value(search)
+            api_params['search'] = self._normalize_value(
+                search,
+            )
 
-        response = self.client.call('get', api_path, {
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2OrganizationList)
-
 
     def create_par(
         self,
@@ -596,7 +716,7 @@ class Oauth2(Service):
         max_age: Optional[float] = None,
         authorization_details: Optional[str] = None,
         resource: Optional[str] = None,
-        audience: Optional[str] = None
+        audience: Optional[str] = None,
     ) -> Oauth2PAR:
         """
         Store an OAuth2 authorization request server-side and receive a short-lived request_uri handle for the authorize endpoint.
@@ -629,12 +749,11 @@ class Oauth2(Service):
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
-        
         Returns
         -------
         Oauth2PAR
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -645,52 +764,78 @@ class Oauth2(Service):
         api_params = {}
         if client_id is None:
             raise AppwriteException('Missing required parameter: "client_id"')
-
         if redirect_uri is None:
             raise AppwriteException('Missing required parameter: "redirect_uri"')
-
         if response_type is None:
             raise AppwriteException('Missing required parameter: "response_type"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
-        api_params['client_id'] = self._normalize_value(client_id)
-        api_params['redirect_uri'] = self._normalize_value(redirect_uri)
-        api_params['response_type'] = self._normalize_value(response_type)
+        api_params['client_id'] = self._normalize_value(
+            client_id,
+        )
+        api_params['redirect_uri'] = self._normalize_value(
+            redirect_uri,
+        )
+        api_params['response_type'] = self._normalize_value(
+            response_type,
+        )
         if scope is not None:
-            api_params['scope'] = self._normalize_value(scope)
+            api_params['scope'] = self._normalize_value(
+                scope,
+            )
         if state is not None:
-            api_params['state'] = self._normalize_value(state)
+            api_params['state'] = self._normalize_value(
+                state,
+            )
         if nonce is not None:
-            api_params['nonce'] = self._normalize_value(nonce)
+            api_params['nonce'] = self._normalize_value(
+                nonce,
+            )
         if code_challenge is not None:
-            api_params['code_challenge'] = self._normalize_value(code_challenge)
+            api_params['code_challenge'] = self._normalize_value(
+                code_challenge,
+            )
         if code_challenge_method is not None:
-            api_params['code_challenge_method'] = self._normalize_value(code_challenge_method)
+            api_params['code_challenge_method'] = self._normalize_value(
+                code_challenge_method,
+            )
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
+            api_params['prompt'] = self._normalize_value(
+                prompt,
+            )
         if max_age is not None:
-            api_params['max_age'] = self._normalize_value(max_age)
+            api_params['max_age'] = self._normalize_value(
+                max_age,
+            )
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(authorization_details)
+            api_params['authorization_details'] = self._normalize_value(
+                authorization_details,
+            )
         if resource is not None:
-            api_params['resource'] = self._normalize_value(resource)
+            api_params['resource'] = self._normalize_value(
+                resource,
+            )
         if audience is not None:
-            api_params['audience'] = self._normalize_value(audience)
+            api_params['audience'] = self._normalize_value(
+                audience,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2PAR)
-
 
     def list_projects(
         self,
         limit: Optional[float] = None,
         offset: Optional[float] = None,
-        search: Optional[str] = None
+        search: Optional[str] = None,
     ) -> Oauth2ProjectList:
         """
         List the projects the OAuth2 access token can access. Resolves the token's `project` authorization details, expanding the `*` wildcard into the concrete set of projects the user can see.
@@ -703,12 +848,11 @@ class Oauth2(Service):
             Number of projects to skip before returning results. Used for pagination.
         search : Optional[str]
             Search term to filter your list results. Max length: 256 chars.
-        
         Returns
         -------
         Oauth2ProjectList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -718,24 +862,33 @@ class Oauth2(Service):
         api_path = '/oauth2/{project_id}/projects'
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
         if limit is not None:
-            api_params['limit'] = self._normalize_value(limit)
+            api_params['limit'] = self._normalize_value(
+                limit,
+            )
         if offset is not None:
-            api_params['offset'] = self._normalize_value(offset)
+            api_params['offset'] = self._normalize_value(
+                offset,
+            )
         if search is not None:
-            api_params['search'] = self._normalize_value(search)
+            api_params['search'] = self._normalize_value(
+                search,
+            )
 
-        response = self.client.call('get', api_path, {
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2ProjectList)
 
-
     def reject(
         self,
-        grant_id: str
+        grant_id: str,
     ) -> Oauth2Reject:
         """
         Reject an OAuth2 grant when the user denies consent. Returns the `redirectUrl` the end user should be sent to with an `access_denied` error. You can pass Accept header of `application/json` to receive a JSON response instead of a redirect.
@@ -744,12 +897,11 @@ class Oauth2(Service):
         ----------
         grant_id : str
             Grant ID made during authorization, provided to consent screen in URL search params.
-        
         Returns
         -------
         Oauth2Reject
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -760,25 +912,29 @@ class Oauth2(Service):
         api_params = {}
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_params['grant_id'] = self._normalize_value(
+            grant_id,
+        )
 
-        api_params['grant_id'] = self._normalize_value(grant_id)
-
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Reject)
-
 
     def revoke(
         self,
         token: str,
         token_type_hint: Optional[str] = None,
         client_id: Optional[str] = None,
-        client_secret: Optional[str] = None
+        client_secret: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Revoke an OAuth2 access token or refresh token.
@@ -793,12 +949,11 @@ class Oauth2(Service):
             OAuth2 client ID. Either a registered app ID or an HTTPS client ID metadata document URL.
         client_secret : Optional[str]
             OAuth2 client secret. Required for confidential apps; omitted for public apps.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -809,24 +964,34 @@ class Oauth2(Service):
         api_params = {}
         if token is None:
             raise AppwriteException('Missing required parameter: "token"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
-        api_params['token'] = self._normalize_value(token)
+        api_params['token'] = self._normalize_value(
+            token,
+        )
         if token_type_hint is not None:
-            api_params['token_type_hint'] = self._normalize_value(token_type_hint)
+            api_params['token_type_hint'] = self._normalize_value(
+                token_type_hint,
+            )
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if client_secret is not None:
-            api_params['client_secret'] = self._normalize_value(client_secret)
+            api_params['client_secret'] = self._normalize_value(
+                client_secret,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def create_token(
         self,
@@ -839,7 +1004,7 @@ class Oauth2(Service):
         code_verifier: Optional[str] = None,
         redirect_uri: Optional[str] = None,
         resource: Optional[str] = None,
-        audience: Optional[str] = None
+        audience: Optional[str] = None,
     ) -> Oauth2Token:
         """
         Exchange an OAuth2 authorization code, refresh token, or device code for access and refresh tokens.
@@ -866,12 +1031,11 @@ class Oauth2(Service):
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
-        
         Returns
         -------
         Oauth2Token
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -882,33 +1046,55 @@ class Oauth2(Service):
         api_params = {}
         if grant_type is None:
             raise AppwriteException('Missing required parameter: "grant_type"')
-
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-
-        api_params['grant_type'] = self._normalize_value(grant_type)
+        api_params['grant_type'] = self._normalize_value(
+            grant_type,
+        )
         if code is not None:
-            api_params['code'] = self._normalize_value(code)
+            api_params['code'] = self._normalize_value(
+                code,
+            )
         if refresh_token is not None:
-            api_params['refresh_token'] = self._normalize_value(refresh_token)
+            api_params['refresh_token'] = self._normalize_value(
+                refresh_token,
+            )
         if device_code is not None:
-            api_params['device_code'] = self._normalize_value(device_code)
+            api_params['device_code'] = self._normalize_value(
+                device_code,
+            )
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(client_id)
+            api_params['client_id'] = self._normalize_value(
+                client_id,
+            )
         if client_secret is not None:
-            api_params['client_secret'] = self._normalize_value(client_secret)
+            api_params['client_secret'] = self._normalize_value(
+                client_secret,
+            )
         if code_verifier is not None:
-            api_params['code_verifier'] = self._normalize_value(code_verifier)
+            api_params['code_verifier'] = self._normalize_value(
+                code_verifier,
+            )
         if redirect_uri is not None:
-            api_params['redirect_uri'] = self._normalize_value(redirect_uri)
+            api_params['redirect_uri'] = self._normalize_value(
+                redirect_uri,
+            )
         if resource is not None:
-            api_params['resource'] = self._normalize_value(resource)
+            api_params['resource'] = self._normalize_value(
+                resource,
+            )
         if audience is not None:
-            api_params['audience'] = self._normalize_value(audience)
+            api_params['audience'] = self._normalize_value(
+                audience,
+            )
 
-        response = self.client.call('post', api_path, {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Oauth2Token)
-

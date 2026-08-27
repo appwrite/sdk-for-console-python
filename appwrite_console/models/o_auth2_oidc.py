@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.o_auth2_oidc_prompt import OAuth2OidcPrompt
 
+
 class OAuth2Oidc(AppwriteModel):
     """
     OAuth2Oidc
@@ -31,13 +32,44 @@ class OAuth2Oidc(AppwriteModel):
     maxage : Optional[float]
         Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    clientid: str = Field(..., alias='clientId')
-    clientsecret: str = Field(..., alias='clientSecret')
-    wellknownurl: str = Field(..., alias='wellKnownURL')
-    authorizationurl: str = Field(..., alias='authorizationURL')
-    tokenurl: str = Field(..., alias='tokenURL')
-    userinfourl: str = Field(..., alias='userInfoURL')
-    prompt: List[OAuth2OidcPrompt] = Field(..., alias='prompt')
-    maxage: Optional[float] = Field(default=None, alias='maxAge')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    clientid: str = Field(
+        ...,
+        alias='clientId',
+    )
+    clientsecret: str = Field(
+        ...,
+        alias='clientSecret',
+    )
+    wellknownurl: str = Field(
+        ...,
+        alias='wellKnownURL',
+    )
+    authorizationurl: str = Field(
+        ...,
+        alias='authorizationURL',
+    )
+    tokenurl: str = Field(
+        ...,
+        alias='tokenURL',
+    )
+    userinfourl: str = Field(
+        ...,
+        alias='userInfoURL',
+    )
+    prompt: List[OAuth2OidcPrompt] = Field(
+        ...,
+        alias='prompt',
+    )
+    maxage: Optional[float] = Field(
+        default=None,
+        alias='maxAge',
+    )

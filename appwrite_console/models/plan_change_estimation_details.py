@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class PlanChangeEstimationDetails(AppwriteModel):
     """
     PlanChangeEstimationDetails
@@ -23,17 +24,45 @@ class PlanChangeEstimationDetails(AppwriteModel):
         Total amount before discounts and credits
     nextinvoicedate : str
         Next invoice date
-    items : Dict[str, Any]
+    items : List[Any]
         Line items breakdown
-    discounts : Dict[str, Any]
+    discounts : List[Any]
         Applied discounts breakdown
     """
-    currency: str = Field(..., alias='currency')
-    grossamount: float = Field(..., alias='grossAmount')
-    credits: float = Field(..., alias='credits')
-    organizationcredits: float = Field(..., alias='organizationCredits')
-    discount: float = Field(..., alias='discount')
-    amount: float = Field(..., alias='amount')
-    nextinvoicedate: str = Field(..., alias='nextInvoiceDate')
-    items: Dict[str, Any] = Field(..., alias='items')
-    discounts: Dict[str, Any] = Field(..., alias='discounts')
+
+    currency: str = Field(
+        ...,
+        alias='currency',
+    )
+    grossamount: float = Field(
+        ...,
+        alias='grossAmount',
+    )
+    credits: float = Field(
+        ...,
+        alias='credits',
+    )
+    organizationcredits: float = Field(
+        ...,
+        alias='organizationCredits',
+    )
+    discount: float = Field(
+        ...,
+        alias='discount',
+    )
+    amount: float = Field(
+        ...,
+        alias='amount',
+    )
+    nextinvoicedate: str = Field(
+        ...,
+        alias='nextInvoiceDate',
+    )
+    items: List[Any] = Field(
+        ...,
+        alias='items',
+    )
+    discounts: List[Any] = Field(
+        ...,
+        alias='discounts',
+    )

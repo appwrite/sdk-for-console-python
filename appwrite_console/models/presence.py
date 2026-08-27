@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Presence(AppwriteModel):
     """
     Presence
@@ -28,12 +29,40 @@ class Presence(AppwriteModel):
     metadata : Optional[Dict[str, Any]]
         Presence metadata.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    userid: str = Field(..., alias='userId')
-    status: Optional[str] = Field(default=None, alias='status')
-    source: str = Field(..., alias='source')
-    expiresat: Optional[str] = Field(default=None, alias='expiresAt')
-    metadata: Optional[Dict[str, Any]] = Field(default=None, alias='metadata')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    status: Optional[str] = Field(
+        default=None,
+        alias='status',
+    )
+    source: str = Field(
+        ...,
+        alias='source',
+    )
+    expiresat: Optional[str] = Field(
+        default=None,
+        alias='expiresAt',
+    )
+    metadata: Optional[Dict[str, Any]] = Field(
+        default=None,
+        alias='metadata',
+    )

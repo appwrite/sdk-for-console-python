@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .insight_cta import InsightCTA
 
+
 class Insight(AppwriteModel):
     """
     Insight
@@ -45,20 +46,72 @@ class Insight(AppwriteModel):
     dismissedby : Optional[str]
         User ID that dismissed the insight. Empty when not dismissed.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    reportid: str = Field(..., alias='reportId')
-    type: str = Field(..., alias='type')
-    severity: str = Field(..., alias='severity')
-    status: str = Field(..., alias='status')
-    resourcetype: str = Field(..., alias='resourceType')
-    resourceid: str = Field(..., alias='resourceId')
-    parentresourcetype: str = Field(..., alias='parentResourceType')
-    parentresourceid: str = Field(..., alias='parentResourceId')
-    title: str = Field(..., alias='title')
-    summary: str = Field(..., alias='summary')
-    ctas: List[InsightCTA] = Field(..., alias='ctas')
-    analyzedat: Optional[str] = Field(default=None, alias='analyzedAt')
-    dismissedat: Optional[str] = Field(default=None, alias='dismissedAt')
-    dismissedby: Optional[str] = Field(default=None, alias='dismissedBy')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    reportid: str = Field(
+        ...,
+        alias='reportId',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    severity: str = Field(
+        ...,
+        alias='severity',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    resourcetype: str = Field(
+        ...,
+        alias='resourceType',
+    )
+    resourceid: str = Field(
+        ...,
+        alias='resourceId',
+    )
+    parentresourcetype: str = Field(
+        ...,
+        alias='parentResourceType',
+    )
+    parentresourceid: str = Field(
+        ...,
+        alias='parentResourceId',
+    )
+    title: str = Field(
+        ...,
+        alias='title',
+    )
+    summary: str = Field(
+        ...,
+        alias='summary',
+    )
+    ctas: List[InsightCTA] = Field(
+        ...,
+        alias='ctas',
+    )
+    analyzedat: Optional[str] = Field(
+        default=None,
+        alias='analyzedAt',
+    )
+    dismissedat: Optional[str] = Field(
+        default=None,
+        alias='dismissedAt',
+    )
+    dismissedby: Optional[str] = Field(
+        default=None,
+        alias='dismissedBy',
+    )

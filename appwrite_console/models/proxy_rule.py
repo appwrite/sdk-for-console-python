@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from ..enums.proxy_rule_deployment_resource_type import ProxyRuleDeploymentResourceType
 from ..enums.proxy_rule_status import ProxyRuleStatus
 
+
 class ProxyRule(AppwriteModel):
     """
     Rule
@@ -42,18 +43,64 @@ class ProxyRule(AppwriteModel):
     renewat : str
         Certificate auto-renewal date in ISO 8601 format.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    domain: str = Field(..., alias='domain')
-    type: str = Field(..., alias='type')
-    trigger: str = Field(..., alias='trigger')
-    redirecturl: str = Field(..., alias='redirectUrl')
-    redirectstatuscode: float = Field(..., alias='redirectStatusCode')
-    deploymentid: str = Field(..., alias='deploymentId')
-    deploymentresourcetype: Optional[ProxyRuleDeploymentResourceType] = Field(default=None, alias='deploymentResourceType')
-    deploymentresourceid: str = Field(..., alias='deploymentResourceId')
-    deploymentvcsproviderbranch: str = Field(..., alias='deploymentVcsProviderBranch')
-    status: ProxyRuleStatus = Field(..., alias='status')
-    logs: str = Field(..., alias='logs')
-    renewat: str = Field(..., alias='renewAt')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    domain: str = Field(
+        ...,
+        alias='domain',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    trigger: str = Field(
+        ...,
+        alias='trigger',
+    )
+    redirecturl: str = Field(
+        ...,
+        alias='redirectUrl',
+    )
+    redirectstatuscode: float = Field(
+        ...,
+        alias='redirectStatusCode',
+    )
+    deploymentid: str = Field(
+        ...,
+        alias='deploymentId',
+    )
+    deploymentresourcetype: Optional[ProxyRuleDeploymentResourceType] = Field(
+        default=None,
+        alias='deploymentResourceType',
+    )
+    deploymentresourceid: str = Field(
+        ...,
+        alias='deploymentResourceId',
+    )
+    deploymentvcsproviderbranch: str = Field(
+        ...,
+        alias='deploymentVcsProviderBranch',
+    )
+    status: ProxyRuleStatus = Field(
+        ...,
+        alias='status',
+    )
+    logs: str = Field(
+        ...,
+        alias='logs',
+    )
+    renewat: str = Field(
+        ...,
+        alias='renewAt',
+    )

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class BackupPolicy(AppwriteModel):
     """
     backup
@@ -34,15 +35,52 @@ class BackupPolicy(AppwriteModel):
     enabled : bool
         Is this policy enabled.
     """
-    id: str = Field(..., alias='$id')
-    name: str = Field(..., alias='name')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    services: List[Any] = Field(..., alias='services')
-    resources: List[Any] = Field(..., alias='resources')
-    resourceid: Optional[str] = Field(default=None, alias='resourceId')
-    resourcetype: Optional[str] = Field(default=None, alias='resourceType')
-    retention: float = Field(..., alias='retention')
-    schedule: str = Field(..., alias='schedule')
-    type: str = Field(..., alias='type')
-    enabled: bool = Field(..., alias='enabled')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    services: List[Any] = Field(
+        ...,
+        alias='services',
+    )
+    resources: List[Any] = Field(
+        ...,
+        alias='resources',
+    )
+    resourceid: Optional[str] = Field(
+        default=None,
+        alias='resourceId',
+    )
+    resourcetype: Optional[str] = Field(
+        default=None,
+        alias='resourceType',
+    )
+    retention: float = Field(
+        ...,
+        alias='retention',
+    )
+    schedule: str = Field(
+        ...,
+        alias='schedule',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )

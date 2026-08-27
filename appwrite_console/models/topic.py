@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Topic(AppwriteModel):
     """
     Topic
@@ -26,11 +27,36 @@ class Topic(AppwriteModel):
     subscribe : List[Any]
         Subscribe permissions.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    name: str = Field(..., alias='name')
-    emailtotal: float = Field(..., alias='emailTotal')
-    smstotal: float = Field(..., alias='smsTotal')
-    pushtotal: float = Field(..., alias='pushTotal')
-    subscribe: List[Any] = Field(..., alias='subscribe')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    emailtotal: float = Field(
+        ...,
+        alias='emailTotal',
+    )
+    smstotal: float = Field(
+        ...,
+        alias='smsTotal',
+    )
+    pushtotal: float = Field(
+        ...,
+        alias='pushTotal',
+    )
+    subscribe: List[Any] = Field(
+        ...,
+        alias='subscribe',
+    )

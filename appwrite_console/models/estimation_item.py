@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class EstimationItem(AppwriteModel):
     """
     Item
@@ -14,5 +15,12 @@ class EstimationItem(AppwriteModel):
     value : float
         Gross payable amount
     """
-    label: str = Field(..., alias='label')
-    value: float = Field(..., alias='value')
+
+    label: str = Field(
+        ...,
+        alias='label',
+    )
+    value: float = Field(
+        ...,
+        alias='value',
+    )

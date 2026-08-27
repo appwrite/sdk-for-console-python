@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Branch(AppwriteModel):
     """
     Branch
@@ -12,4 +13,8 @@ class Branch(AppwriteModel):
     name : str
         Branch Name.
     """
-    name: str = Field(..., alias='name')
+
+    name: str = Field(
+        ...,
+        alias='name',
+    )

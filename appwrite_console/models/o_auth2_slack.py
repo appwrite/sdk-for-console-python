@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Slack(AppwriteModel):
     """
     OAuth2Slack
@@ -18,7 +19,20 @@ class OAuth2Slack(AppwriteModel):
     clientsecret : str
         Slack OAuth2 client secret.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    clientid: str = Field(..., alias='clientId')
-    clientsecret: str = Field(..., alias='clientSecret')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    clientid: str = Field(
+        ...,
+        alias='clientId',
+    )
+    clientsecret: str = Field(
+        ...,
+        alias='clientSecret',
+    )

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .domain import Domain
 
+
 class DomainsList(AppwriteModel):
     """
     Domains list
@@ -15,5 +16,12 @@ class DomainsList(AppwriteModel):
     domains : List[Domain]
         List of domains.
     """
-    total: float = Field(..., alias='total')
-    domains: List[Domain] = Field(..., alias='domains')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    domains: List[Domain] = Field(
+        ...,
+        alias='domains',
+    )

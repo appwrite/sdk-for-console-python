@@ -6,6 +6,7 @@ from .row import Row
 
 T = TypeVar('T')
 
+
 class RowList(AppwriteModel, Generic[T]):
     """
     Rows List
@@ -17,16 +18,20 @@ class RowList(AppwriteModel, Generic[T]):
     rows : List[Row[T]]
         List of rows.
     """
-    total: float = Field(..., alias='total')
-    rows: List[Row[T]] = Field(..., alias='rows')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    rows: List[Row[T]] = Field(
+        ...,
+        alias='rows',
+    )
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'RowList[T]':
         """Create RowList instance with typed data."""
         instance = cls.model_validate(data)
         if 'rows' in data and data['rows'] is not None:
-            instance.rows = [
-                Row.with_data(row, model_type) 
-                for row in data['rows']
-            ]
+            instance.rows = [Row.with_data(row, model_type) for row in data['rows']]
         return instance

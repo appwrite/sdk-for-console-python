@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class BillingLimits(AppwriteModel):
     """
     Limits
@@ -26,11 +27,36 @@ class BillingLimits(AppwriteModel):
     budgetlimit : Optional[float]
         Budget limit percentage
     """
-    bandwidth: Optional[float] = Field(default=None, alias='bandwidth')
-    storage: Optional[float] = Field(default=None, alias='storage')
-    users: Optional[float] = Field(default=None, alias='users')
-    executions: Optional[float] = Field(default=None, alias='executions')
-    gbhours: Optional[float] = Field(default=None, alias='GBHours')
-    imagetransformations: Optional[float] = Field(default=None, alias='imageTransformations')
-    authphone: Optional[float] = Field(default=None, alias='authPhone')
-    budgetlimit: Optional[float] = Field(default=None, alias='budgetLimit')
+
+    bandwidth: Optional[float] = Field(
+        default=None,
+        alias='bandwidth',
+    )
+    storage: Optional[float] = Field(
+        default=None,
+        alias='storage',
+    )
+    users: Optional[float] = Field(
+        default=None,
+        alias='users',
+    )
+    executions: Optional[float] = Field(
+        default=None,
+        alias='executions',
+    )
+    gbhours: Optional[float] = Field(
+        default=None,
+        alias='GBHours',
+    )
+    imagetransformations: Optional[float] = Field(
+        default=None,
+        alias='imageTransformations',
+    )
+    authphone: Optional[float] = Field(
+        default=None,
+        alias='authPhone',
+    )
+    budgetlimit: Optional[float] = Field(
+        default=None,
+        alias='budgetLimit',
+    )

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Session(AppwriteModel):
     """
     Session
@@ -68,32 +69,120 @@ class Session(AppwriteModel):
     mfaupdatedat : str
         Most recent date in ISO 8601 format when the session successfully passed MFA challenge.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    userid: str = Field(..., alias='userId')
-    expire: str = Field(..., alias='expire')
-    provider: str = Field(..., alias='provider')
-    provideruid: str = Field(..., alias='providerUid')
-    provideraccesstoken: str = Field(..., alias='providerAccessToken')
-    provideraccesstokenexpiry: str = Field(..., alias='providerAccessTokenExpiry')
-    providerrefreshtoken: str = Field(..., alias='providerRefreshToken')
-    ip: str = Field(..., alias='ip')
-    oscode: str = Field(..., alias='osCode')
-    osname: str = Field(..., alias='osName')
-    osversion: str = Field(..., alias='osVersion')
-    clienttype: str = Field(..., alias='clientType')
-    clientcode: str = Field(..., alias='clientCode')
-    clientname: str = Field(..., alias='clientName')
-    clientversion: str = Field(..., alias='clientVersion')
-    clientengine: str = Field(..., alias='clientEngine')
-    clientengineversion: str = Field(..., alias='clientEngineVersion')
-    devicename: str = Field(..., alias='deviceName')
-    devicebrand: str = Field(..., alias='deviceBrand')
-    devicemodel: str = Field(..., alias='deviceModel')
-    countrycode: str = Field(..., alias='countryCode')
-    countryname: str = Field(..., alias='countryName')
-    current: bool = Field(..., alias='current')
-    factors: List[Any] = Field(..., alias='factors')
-    secret: str = Field(..., alias='secret')
-    mfaupdatedat: str = Field(..., alias='mfaUpdatedAt')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    expire: str = Field(
+        ...,
+        alias='expire',
+    )
+    provider: str = Field(
+        ...,
+        alias='provider',
+    )
+    provideruid: str = Field(
+        ...,
+        alias='providerUid',
+    )
+    provideraccesstoken: str = Field(
+        ...,
+        alias='providerAccessToken',
+    )
+    provideraccesstokenexpiry: str = Field(
+        ...,
+        alias='providerAccessTokenExpiry',
+    )
+    providerrefreshtoken: str = Field(
+        ...,
+        alias='providerRefreshToken',
+    )
+    ip: str = Field(
+        ...,
+        alias='ip',
+    )
+    oscode: str = Field(
+        ...,
+        alias='osCode',
+    )
+    osname: str = Field(
+        ...,
+        alias='osName',
+    )
+    osversion: str = Field(
+        ...,
+        alias='osVersion',
+    )
+    clienttype: str = Field(
+        ...,
+        alias='clientType',
+    )
+    clientcode: str = Field(
+        ...,
+        alias='clientCode',
+    )
+    clientname: str = Field(
+        ...,
+        alias='clientName',
+    )
+    clientversion: str = Field(
+        ...,
+        alias='clientVersion',
+    )
+    clientengine: str = Field(
+        ...,
+        alias='clientEngine',
+    )
+    clientengineversion: str = Field(
+        ...,
+        alias='clientEngineVersion',
+    )
+    devicename: str = Field(
+        ...,
+        alias='deviceName',
+    )
+    devicebrand: str = Field(
+        ...,
+        alias='deviceBrand',
+    )
+    devicemodel: str = Field(
+        ...,
+        alias='deviceModel',
+    )
+    countrycode: str = Field(
+        ...,
+        alias='countryCode',
+    )
+    countryname: str = Field(
+        ...,
+        alias='countryName',
+    )
+    current: bool = Field(
+        ...,
+        alias='current',
+    )
+    factors: List[Any] = Field(
+        ...,
+        alias='factors',
+    )
+    secret: str = Field(
+        ...,
+        alias='secret',
+    )
+    mfaupdatedat: str = Field(
+        ...,
+        alias='mfaUpdatedAt',
+    )

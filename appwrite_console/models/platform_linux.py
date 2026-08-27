@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from ..enums.platform_type import PlatformType
 
+
 class PlatformLinux(AppwriteModel):
     """
     Platform Linux
@@ -23,9 +24,28 @@ class PlatformLinux(AppwriteModel):
     packagename : str
         Linux package name.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    name: str = Field(..., alias='name')
-    type: PlatformType = Field(..., alias='type')
-    packagename: str = Field(..., alias='packageName')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    type: PlatformType = Field(
+        ...,
+        alias='type',
+    )
+    packagename: str = Field(
+        ...,
+        alias='packageName',
+    )

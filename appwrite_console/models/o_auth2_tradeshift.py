@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Tradeshift(AppwriteModel):
     """
     OAuth2Tradeshift
@@ -18,7 +19,20 @@ class OAuth2Tradeshift(AppwriteModel):
     oauth2clientsecret : str
         Tradeshift OAuth2 client secret.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    oauth2clientid: str = Field(..., alias='oauth2ClientId')
-    oauth2clientsecret: str = Field(..., alias='oauth2ClientSecret')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    oauth2clientid: str = Field(
+        ...,
+        alias='oauth2ClientId',
+    )
+    oauth2clientsecret: str = Field(
+        ...,
+        alias='oauth2ClientSecret',
+    )

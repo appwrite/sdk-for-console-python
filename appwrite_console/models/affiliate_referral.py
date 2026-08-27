@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class AffiliateReferral(AppwriteModel):
     """
     AffiliateReferral
@@ -30,13 +31,44 @@ class AffiliateReferral(AppwriteModel):
     convertedat : Optional[str]
         Conversion time in ISO 8601 format.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    linkid: str = Field(..., alias='linkId')
-    referredusermaskedid: str = Field(..., alias='referredUserMaskedId')
-    referredusercountry: str = Field(..., alias='referredUserCountry')
-    status: str = Field(..., alias='status')
-    attributedat: str = Field(..., alias='attributedAt')
-    expiresat: str = Field(..., alias='expiresAt')
-    convertedat: Optional[str] = Field(default=None, alias='convertedAt')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    linkid: str = Field(
+        ...,
+        alias='linkId',
+    )
+    referredusermaskedid: str = Field(
+        ...,
+        alias='referredUserMaskedId',
+    )
+    referredusercountry: str = Field(
+        ...,
+        alias='referredUserCountry',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    attributedat: str = Field(
+        ...,
+        alias='attributedAt',
+    )
+    expiresat: str = Field(
+        ...,
+        alias='expiresAt',
+    )
+    convertedat: Optional[str] = Field(
+        default=None,
+        alias='convertedAt',
+    )

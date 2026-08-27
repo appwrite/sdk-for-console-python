@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .console_o_auth2_provider_parameter import ConsoleOAuth2ProviderParameter
 
+
 class ConsoleOAuth2Provider(AppwriteModel):
     """
     Console OAuth2 Provider
@@ -15,5 +16,12 @@ class ConsoleOAuth2Provider(AppwriteModel):
     parameters : List[ConsoleOAuth2ProviderParameter]
         List of parameters required to configure this OAuth2 provider.
     """
-    id: str = Field(..., alias='$id')
-    parameters: List[ConsoleOAuth2ProviderParameter] = Field(..., alias='parameters')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    parameters: List[ConsoleOAuth2ProviderParameter] = Field(
+        ...,
+        alias='parameters',
+    )

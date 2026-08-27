@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .estimation_item import EstimationItem
 
+
 class EstimationUpdatePlan(AppwriteModel):
     """
     UpdatePlan
@@ -29,12 +30,40 @@ class EstimationUpdatePlan(AppwriteModel):
     organizationcredits : float
         Organization&#039;s existing credits
     """
-    amount: float = Field(..., alias='amount')
-    grossamount: float = Field(..., alias='grossAmount')
-    discount: float = Field(..., alias='discount')
-    credits: float = Field(..., alias='credits')
-    items: List[EstimationItem] = Field(..., alias='items')
-    discounts: List[EstimationItem] = Field(..., alias='discounts')
-    trialdays: float = Field(..., alias='trialDays')
-    trialenddate: Optional[str] = Field(default=None, alias='trialEndDate')
-    organizationcredits: float = Field(..., alias='organizationCredits')
+
+    amount: float = Field(
+        ...,
+        alias='amount',
+    )
+    grossamount: float = Field(
+        ...,
+        alias='grossAmount',
+    )
+    discount: float = Field(
+        ...,
+        alias='discount',
+    )
+    credits: float = Field(
+        ...,
+        alias='credits',
+    )
+    items: List[EstimationItem] = Field(
+        ...,
+        alias='items',
+    )
+    discounts: List[EstimationItem] = Field(
+        ...,
+        alias='discounts',
+    )
+    trialdays: float = Field(
+        ...,
+        alias='trialDays',
+    )
+    trialenddate: Optional[str] = Field(
+        default=None,
+        alias='trialEndDate',
+    )
+    organizationcredits: float = Field(
+        ...,
+        alias='organizationCredits',
+    )

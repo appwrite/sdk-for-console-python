@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .additional_resource import AdditionalResource
 
+
 class UsageBillingPlan(AppwriteModel):
     """
     usageBillingPlan
@@ -33,14 +34,48 @@ class UsageBillingPlan(AppwriteModel):
     credits : Optional[AdditionalResource]
         Credits additional resources
     """
-    bandwidth: AdditionalResource = Field(..., alias='bandwidth')
-    executions: AdditionalResource = Field(..., alias='executions')
-    member: Optional[AdditionalResource] = Field(default=None, alias='member')
-    realtime: AdditionalResource = Field(..., alias='realtime')
-    realtimemessages: AdditionalResource = Field(..., alias='realtimeMessages')
-    realtimebandwidth: Optional[AdditionalResource] = Field(default=None, alias='realtimeBandwidth')
-    storage: AdditionalResource = Field(..., alias='storage')
-    users: AdditionalResource = Field(..., alias='users')
-    gbhours: AdditionalResource = Field(..., alias='GBHours')
-    imagetransformations: AdditionalResource = Field(..., alias='imageTransformations')
-    credits: Optional[AdditionalResource] = Field(default=None, alias='credits')
+
+    bandwidth: AdditionalResource = Field(
+        ...,
+        alias='bandwidth',
+    )
+    executions: AdditionalResource = Field(
+        ...,
+        alias='executions',
+    )
+    member: Optional[AdditionalResource] = Field(
+        default=None,
+        alias='member',
+    )
+    realtime: AdditionalResource = Field(
+        ...,
+        alias='realtime',
+    )
+    realtimemessages: AdditionalResource = Field(
+        ...,
+        alias='realtimeMessages',
+    )
+    realtimebandwidth: Optional[AdditionalResource] = Field(
+        default=None,
+        alias='realtimeBandwidth',
+    )
+    storage: AdditionalResource = Field(
+        ...,
+        alias='storage',
+    )
+    users: AdditionalResource = Field(
+        ...,
+        alias='users',
+    )
+    gbhours: AdditionalResource = Field(
+        ...,
+        alias='GBHours',
+    )
+    imagetransformations: AdditionalResource = Field(
+        ...,
+        alias='imageTransformations',
+    )
+    credits: Optional[AdditionalResource] = Field(
+        default=None,
+        alias='credits',
+    )

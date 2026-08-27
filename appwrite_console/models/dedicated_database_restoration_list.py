@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .dedicated_database_restoration import DedicatedDatabaseRestoration
 
+
 class DedicatedDatabaseRestorationList(AppwriteModel):
     """
     Dedicated database restorations list
@@ -15,5 +16,12 @@ class DedicatedDatabaseRestorationList(AppwriteModel):
     restorations : List[DedicatedDatabaseRestoration]
         List of restorations.
     """
-    total: float = Field(..., alias='total')
-    restorations: List[DedicatedDatabaseRestoration] = Field(..., alias='restorations')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    restorations: List[DedicatedDatabaseRestoration] = Field(
+        ...,
+        alias='restorations',
+    )

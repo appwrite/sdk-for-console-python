@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Zoom(AppwriteModel):
     """
     OAuth2Zoom
@@ -18,7 +19,20 @@ class OAuth2Zoom(AppwriteModel):
     clientsecret : str
         Zoom OAuth2 client secret.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    clientid: str = Field(..., alias='clientId')
-    clientsecret: str = Field(..., alias='clientSecret')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    clientid: str = Field(
+        ...,
+        alias='clientId',
+    )
+    clientsecret: str = Field(
+        ...,
+        alias='clientSecret',
+    )

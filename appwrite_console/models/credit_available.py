@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class CreditAvailable(AppwriteModel):
     """
     CreditAvailable
@@ -12,4 +13,8 @@ class CreditAvailable(AppwriteModel):
     available : float
         Total available credits for the organization.
     """
-    available: float = Field(..., alias='available')
+
+    available: float = Field(
+        ...,
+        alias='available',
+    )

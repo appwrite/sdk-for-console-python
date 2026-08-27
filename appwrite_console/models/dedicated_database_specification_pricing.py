@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class DedicatedDatabaseSpecificationPricing(AppwriteModel):
     """
     SpecificationPricing
@@ -18,7 +19,20 @@ class DedicatedDatabaseSpecificationPricing(AppwriteModel):
     pitrrate : float
         Point-in-time recovery price as a fraction of the specification cost.
     """
-    storageoveragerate: float = Field(..., alias='storageOverageRate')
-    bandwidthoveragerate: float = Field(..., alias='bandwidthOverageRate')
-    replicarate: float = Field(..., alias='replicaRate')
-    pitrrate: float = Field(..., alias='pitrRate')
+
+    storageoveragerate: float = Field(
+        ...,
+        alias='storageOverageRate',
+    )
+    bandwidthoveragerate: float = Field(
+        ...,
+        alias='bandwidthOverageRate',
+    )
+    replicarate: float = Field(
+        ...,
+        alias='replicaRate',
+    )
+    pitrrate: float = Field(
+        ...,
+        alias='pitrRate',
+    )

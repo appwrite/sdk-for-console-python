@@ -16,6 +16,7 @@ from ..models.stage import Stage
 from ..enums.status import Status
 from ..models.project import Project
 
+
 class Projects(Service):
 
     def __init__(self, client) -> None:
@@ -23,22 +24,20 @@ class Projects(Service):
 
     def list_addons(
         self,
-        project_id: str
+        project_id: str,
     ) -> AddonList:
         """
         List all billing addons for a project.
-        
 
         Parameters
         ----------
         project_id : str
             Project ID
-        
         Returns
         -------
         AddonList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -49,36 +48,36 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=AddonList)
 
-
     def create_premium_geo_db_addon(
         self,
-        project_id: str
+        project_id: str,
     ) -> Addon:
         """
         Create a Premium Geo DB addon for a project.
-        
 
         Parameters
         ----------
         project_id : str
             Project ID
-        
         Returns
         -------
         Addon
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -89,27 +88,28 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Addon)
-
 
     def get_addon(
         self,
         project_id: str,
-        addon_id: str
+        addon_id: str,
     ) -> Addon:
         """
         Get the details of a billing addon for a project.
-        
 
         Parameters
         ----------
@@ -117,12 +117,11 @@ class Projects(Service):
             Project ID
         addon_id : str
             Addon ID
-        
         Returns
         -------
         Addon
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -133,30 +132,30 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if addon_id is None:
             raise AppwriteException('Missing required parameter: "addon_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Addon)
-
 
     def delete_addon(
         self,
         project_id: str,
-        addon_id: str
+        addon_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a billing addon for a project.
-        
 
         Parameters
         ----------
@@ -164,12 +163,11 @@ class Projects(Service):
             Project ID
         addon_id : str
             Addon ID
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -180,31 +178,31 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if addon_id is None:
             raise AppwriteException('Missing required parameter: "addon_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def confirm_addon_payment(
         self,
         project_id: str,
-        addon_id: str
+        addon_id: str,
     ) -> Addon:
         """
         Confirm payment for a billing addon for a project.
-        
 
         Parameters
         ----------
@@ -212,12 +210,11 @@ class Projects(Service):
             Project ID
         addon_id : str
             Addon ID
-        
         Returns
         -------
         Addon
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -228,31 +225,31 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if addon_id is None:
             raise AppwriteException('Missing required parameter: "addon_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Addon)
-
 
     def get_addon_price(
         self,
         project_id: str,
-        addon: str
+        addon: str,
     ) -> AddonPrice:
         """
         Get the price details for a billing addon for a project, including the prorated amount for the remaining days in the current billing cycle.
-        
 
         Parameters
         ----------
@@ -260,12 +257,11 @@ class Projects(Service):
             Project ID
         addon : str
             Addon key identifier (e.g. premiumGeoDB).
-        
         Returns
         -------
         AddonPrice
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -276,40 +272,39 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if addon is None:
             raise AppwriteException('Missing required parameter: "addon"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addon}', str(self._normalize_value(addon)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=AddonPrice)
 
-
     def update_console_access(
         self,
-        project_id: str
+        project_id: str,
     ) -> Dict[str, Any]:
         """
         Record console access to a project. This endpoint updates the last accessed timestamp for the project to track console activity.
-        
 
         Parameters
         ----------
         project_id : str
             Project ID
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -320,23 +315,25 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_dev_keys(
         self,
         project_id: str,
-        queries: Optional[List[str]] = None
+        queries: Optional[List[str]] = None,
     ) -> DevKeyList:
         """
         List all the project\'s dev keys. Dev keys are project specific and allow you to bypass rate limits and get better error logging during development.'
@@ -347,12 +344,11 @@ class Projects(Service):
             Project unique ID.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: accessedAt, expire
-        
         Returns
         -------
         DevKeyList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -363,24 +359,28 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-
         if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
+            api_params['queries'] = self._normalize_value(
+                queries,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DevKeyList)
-
 
     def get_dev_key(
         self,
         project_id: str,
-        key_id: str
+        key_id: str,
     ) -> DevKey:
         """
         Get a project\'s dev key by its unique ID. Dev keys are project specific and allow you to bypass rate limits and get better error logging during development.
@@ -391,12 +391,11 @@ class Projects(Service):
             Project unique ID.
         key_id : str
             Key unique ID.
-        
         Returns
         -------
         DevKey
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -407,28 +406,29 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DevKey)
-
 
     def update_dev_key(
         self,
         project_id: str,
         key_id: str,
         name: str,
-        expire: str
+        expire: str,
     ) -> DevKey:
         """
         Update a project\'s dev key by its unique ID. Use this endpoint to update a project\'s dev key name or expiration time.'
@@ -443,12 +443,11 @@ class Projects(Service):
             Key name. Max length: 128 chars.
         expire : str
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        
         Returns
         -------
         DevKey
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -459,35 +458,38 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-
         if expire is None:
             raise AppwriteException('Missing required parameter: "expire"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
+        api_params['name'] = self._normalize_value(
+            name,
+        )
+        api_params['expire'] = self._normalize_value(
+            expire,
+        )
 
-        api_params['name'] = self._normalize_value(name)
-        api_params['expire'] = self._normalize_value(expire)
-
-        response = self.client.call('put', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'put',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DevKey)
-
 
     def delete_dev_key(
         self,
         project_id: str,
-        key_id: str
+        key_id: str,
     ) -> Dict[str, Any]:
         """
         Delete a project\'s dev key by its unique ID. Once deleted, the key will no longer allow bypassing of rate limits and better logging of errors.
@@ -498,12 +500,11 @@ class Projects(Service):
             Project unique ID.
         key_id : str
             Key unique ID.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -514,27 +515,28 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if key_id is None:
             raise AppwriteException('Missing required parameter: "key_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
 
-
-        response = self.client.call('delete', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def list_schedules(
         self,
         project_id: str,
         queries: Optional[List[str]] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> ScheduleList:
         """
         Get a list of all the project's schedules. You can use the query params to filter your results.
@@ -547,12 +549,11 @@ class Projects(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: resourceType, resourceId, projectId, schedule, active, region
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         ScheduleList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -563,21 +564,27 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-
         if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
+            api_params['queries'] = self._normalize_value(
+                queries,
+            )
         if total is not None:
-            api_params['total'] = self._normalize_value(total)
+            api_params['total'] = self._normalize_value(
+                total,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ScheduleList)
-
 
     def create_schedule(
         self,
@@ -586,7 +593,7 @@ class Projects(Service):
         resource_id: str,
         schedule: str,
         active: Optional[bool] = None,
-        data: Optional[Dict[str, Any]] = None
+        data: Optional[Dict[str, Any]] = None,
     ) -> Schedule:
         """
         Create a new schedule for a resource.
@@ -605,12 +612,11 @@ class Projects(Service):
             Whether the schedule is active.
         data : Optional[Dict[str, Any]]
             Schedule data as a JSON string. Used to store resource-specific context needed for execution.
-        
         Returns
         -------
         Schedule
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -621,39 +627,48 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if resource_type is None:
             raise AppwriteException('Missing required parameter: "resource_type"')
-
         if resource_id is None:
             raise AppwriteException('Missing required parameter: "resource_id"')
-
         if schedule is None:
             raise AppwriteException('Missing required parameter: "schedule"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-
-        api_params['resourceType'] = self._normalize_value(resource_type)
-        api_params['resourceId'] = self._normalize_value(resource_id)
-        api_params['schedule'] = self._normalize_value(schedule)
+        api_params['resourceType'] = self._normalize_value(
+            resource_type,
+        )
+        api_params['resourceId'] = self._normalize_value(
+            resource_id,
+        )
+        api_params['schedule'] = self._normalize_value(
+            schedule,
+        )
         if active is not None:
-            api_params['active'] = self._normalize_value(active)
+            api_params['active'] = self._normalize_value(
+                active,
+            )
         if data is not None:
-            api_params['data'] = self._normalize_value(data)
+            api_params['data'] = self._normalize_value(
+                data,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Schedule)
-
 
     def get_schedule(
         self,
         project_id: str,
-        schedule_id: str
+        schedule_id: str,
     ) -> Schedule:
         """
         Get a schedule by its unique ID.
@@ -664,12 +679,11 @@ class Projects(Service):
             Project unique ID.
         schedule_id : str
             Schedule ID.
-        
         Returns
         -------
         Schedule
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -680,40 +694,39 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if schedule_id is None:
             raise AppwriteException('Missing required parameter: "schedule_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{scheduleId}', str(self._normalize_value(schedule_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Schedule)
 
-
     def list_stages(
         self,
-        project_id: str
+        project_id: str,
     ) -> StageList:
         """
         Get the onboarding stages for the current project, including each stage’s SDK method key and status (for example pending, completed, or skipped).
-        
 
         Parameters
         ----------
         project_id : str
             Project unique ID.
-        
         Returns
         -------
         StageList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -724,27 +737,28 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=StageList)
-
 
     def update_stage(
         self,
         project_id: str,
         stage_id: str,
-        skip: Optional[bool] = None
+        skip: Optional[bool] = None,
     ) -> Stage:
         """
         Update an onboarding stage for the current project. Use this endpoint to skip a stage or leave it unchanged without performing the related API action.
-        
 
         Parameters
         ----------
@@ -754,12 +768,11 @@ class Projects(Service):
             SDK method key (namespace.method).
         skip : Optional[bool]
             Mark the stage as skipped.
-        
         Returns
         -------
         Stage
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -770,33 +783,35 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if stage_id is None:
             raise AppwriteException('Missing required parameter: "stage_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{stageId}', str(self._normalize_value(stage_id)))
-
         if skip is not None:
-            api_params['skip'] = self._normalize_value(skip)
+            api_params['skip'] = self._normalize_value(
+                skip,
+            )
 
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Stage)
-
 
     def update_status(
         self,
         project_id: str,
-        status: Status
+        status: Status,
     ) -> Dict[str, Any]:
         """
         Update the status of a project. Can be used to archive/restore projects, and to restore paused projects. When restoring a paused project, the console fingerprint header must be provided and the project must not be blocked for any reason other than inactivity.
-        
 
         Parameters
         ----------
@@ -804,12 +819,11 @@ class Projects(Service):
             Project ID
         status : Status
             New status for the project
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -820,27 +834,30 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_params['status'] = self._normalize_value(
+            status,
+        )
 
-        api_params['status'] = self._normalize_value(status)
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def update_team(
         self,
         project_id: str,
-        team_id: str
+        team_id: str,
     ) -> Project:
         """
         Update the team ID of a project allowing for it to be transferred to another team.
@@ -851,12 +868,11 @@ class Projects(Service):
             Project unique ID.
         team_id : str
             Team ID of the team to transfer project to.
-        
         Returns
         -------
         Project
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -867,19 +883,22 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
-
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
-
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_params['teamId'] = self._normalize_value(
+            team_id,
+        )
 
-        api_params['teamId'] = self._normalize_value(team_id)
-
-        response = self.client.call('patch', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Project)
-

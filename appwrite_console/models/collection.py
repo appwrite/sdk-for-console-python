@@ -22,6 +22,7 @@ from .attribute_longtext import AttributeLongtext
 from .attribute_string import AttributeString
 from .index import Index
 
+
 class Collection(AppwriteModel):
     """
     Collection
@@ -53,15 +54,73 @@ class Collection(AppwriteModel):
     bytesused : float
         Currently used document size in bytes based on defined attributes.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    databaseid: str = Field(..., alias='databaseId')
-    name: str = Field(..., alias='name')
-    enabled: bool = Field(..., alias='enabled')
-    documentsecurity: bool = Field(..., alias='documentSecurity')
-    attributes: List[Union[AttributeBoolean, AttributeBigint, AttributeInteger, AttributeFloat, AttributeEmail, AttributeEnum, AttributeUrl, AttributeIp, AttributeDatetime, AttributeRelationship, AttributePoint, AttributeLine, AttributePolygon, AttributeVarchar, AttributeText, AttributeMediumtext, AttributeLongtext, AttributeString]] = Field(..., alias='attributes')
-    indexes: List[Index] = Field(..., alias='indexes')
-    bytesmax: float = Field(..., alias='bytesMax')
-    bytesused: float = Field(..., alias='bytesUsed')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    databaseid: str = Field(
+        ...,
+        alias='databaseId',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    documentsecurity: bool = Field(
+        ...,
+        alias='documentSecurity',
+    )
+    attributes: List[
+        Union[
+            AttributeBoolean,
+            AttributeBigint,
+            AttributeInteger,
+            AttributeFloat,
+            AttributeEmail,
+            AttributeEnum,
+            AttributeUrl,
+            AttributeIp,
+            AttributeDatetime,
+            AttributeRelationship,
+            AttributePoint,
+            AttributeLine,
+            AttributePolygon,
+            AttributeVarchar,
+            AttributeText,
+            AttributeMediumtext,
+            AttributeLongtext,
+            AttributeString,
+        ]
+    ] = Field(
+        ...,
+        alias='attributes',
+    )
+    indexes: List[Index] = Field(
+        ...,
+        alias='indexes',
+    )
+    bytesmax: float = Field(
+        ...,
+        alias='bytesMax',
+    )
+    bytesused: float = Field(
+        ...,
+        alias='bytesUsed',
+    )

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class MfaChallengeSecret(AppwriteModel):
     """
     MFA Challenge Secret
@@ -20,8 +21,24 @@ class MfaChallengeSecret(AppwriteModel):
     code : str
         Challenge code to be delivered to the end user through a custom channel.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    userid: str = Field(..., alias='userId')
-    expire: str = Field(..., alias='expire')
-    code: str = Field(..., alias='code')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    expire: str = Field(
+        ...,
+        alias='expire',
+    )
+    code: str = Field(
+        ...,
+        alias='code',
+    )

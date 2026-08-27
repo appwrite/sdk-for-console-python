@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Salesforce(AppwriteModel):
     """
     OAuth2Salesforce
@@ -18,7 +19,20 @@ class OAuth2Salesforce(AppwriteModel):
     customersecret : str
         Salesforce OAuth2 consumer secret.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    customerkey: str = Field(..., alias='customerKey')
-    customersecret: str = Field(..., alias='customerSecret')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    customerkey: str = Field(
+        ...,
+        alias='customerKey',
+    )
+    customersecret: str = Field(
+        ...,
+        alias='customerSecret',
+    )

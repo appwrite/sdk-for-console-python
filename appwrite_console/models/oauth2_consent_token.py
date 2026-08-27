@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Oauth2ConsentToken(AppwriteModel):
     """
     OAuth2 Consent Token
@@ -32,14 +33,48 @@ class Oauth2ConsentToken(AppwriteModel):
     expire : str
         Expiration time of the current access token of this family in ISO 8601 format.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    consentid: str = Field(..., alias='consentId')
-    userid: str = Field(..., alias='userId')
-    appid: str = Field(..., alias='appId')
-    cimdurl: str = Field(..., alias='cimdUrl')
-    scopes: List[Any] = Field(..., alias='scopes')
-    resources: List[Any] = Field(..., alias='resources')
-    authorizationdetails: str = Field(..., alias='authorizationDetails')
-    expire: str = Field(..., alias='expire')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    consentid: str = Field(
+        ...,
+        alias='consentId',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    appid: str = Field(
+        ...,
+        alias='appId',
+    )
+    cimdurl: str = Field(
+        ...,
+        alias='cimdUrl',
+    )
+    scopes: List[Any] = Field(
+        ...,
+        alias='scopes',
+    )
+    resources: List[Any] = Field(
+        ...,
+        alias='resources',
+    )
+    authorizationdetails: str = Field(
+        ...,
+        alias='authorizationDetails',
+    )
+    expire: str = Field(
+        ...,
+        alias='expire',
+    )

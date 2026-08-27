@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .template_runtime import TemplateRuntime
 from .template_variable import TemplateVariable
 
+
 class TemplateFunction(AppwriteModel):
     """
     Template Function
@@ -46,20 +47,72 @@ class TemplateFunction(AppwriteModel):
     scopes : List[Any]
         Function scopes.
     """
-    icon: str = Field(..., alias='icon')
-    id: str = Field(..., alias='id')
-    name: str = Field(..., alias='name')
-    tagline: str = Field(..., alias='tagline')
-    permissions: List[Any] = Field(..., alias='permissions')
-    events: List[Any] = Field(..., alias='events')
-    cron: str = Field(..., alias='cron')
-    timeout: float = Field(..., alias='timeout')
-    usecases: List[Any] = Field(..., alias='useCases')
-    runtimes: List[TemplateRuntime] = Field(..., alias='runtimes')
-    instructions: str = Field(..., alias='instructions')
-    vcsprovider: str = Field(..., alias='vcsProvider')
-    providerrepositoryid: str = Field(..., alias='providerRepositoryId')
-    providerowner: str = Field(..., alias='providerOwner')
-    providerversion: str = Field(..., alias='providerVersion')
-    variables: List[TemplateVariable] = Field(..., alias='variables')
-    scopes: List[Any] = Field(..., alias='scopes')
+
+    icon: str = Field(
+        ...,
+        alias='icon',
+    )
+    id: str = Field(
+        ...,
+        alias='id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    tagline: str = Field(
+        ...,
+        alias='tagline',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='permissions',
+    )
+    events: List[Any] = Field(
+        ...,
+        alias='events',
+    )
+    cron: str = Field(
+        ...,
+        alias='cron',
+    )
+    timeout: float = Field(
+        ...,
+        alias='timeout',
+    )
+    usecases: List[Any] = Field(
+        ...,
+        alias='useCases',
+    )
+    runtimes: List[TemplateRuntime] = Field(
+        ...,
+        alias='runtimes',
+    )
+    instructions: str = Field(
+        ...,
+        alias='instructions',
+    )
+    vcsprovider: str = Field(
+        ...,
+        alias='vcsProvider',
+    )
+    providerrepositoryid: str = Field(
+        ...,
+        alias='providerRepositoryId',
+    )
+    providerowner: str = Field(
+        ...,
+        alias='providerOwner',
+    )
+    providerversion: str = Field(
+        ...,
+        alias='providerVersion',
+    )
+    variables: List[TemplateVariable] = Field(
+        ...,
+        alias='variables',
+    )
+    scopes: List[Any] = Field(
+        ...,
+        alias='scopes',
+    )

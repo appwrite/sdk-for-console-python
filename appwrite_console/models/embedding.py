@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Embedding(AppwriteModel):
     """
     Embedding
@@ -18,7 +19,20 @@ class Embedding(AppwriteModel):
     error : str
         Error message if embedding generation fails. Empty string if no error.
     """
-    model: str = Field(..., alias='model')
-    dimension: float = Field(..., alias='dimension')
-    embedding: List[Any] = Field(..., alias='embedding')
-    error: str = Field(..., alias='error')
+
+    model: str = Field(
+        ...,
+        alias='model',
+    )
+    dimension: float = Field(
+        ...,
+        alias='dimension',
+    )
+    embedding: List[Any] = Field(
+        ...,
+        alias='embedding',
+    )
+    error: str = Field(
+        ...,
+        alias='error',
+    )

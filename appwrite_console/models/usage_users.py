@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .metric import Metric
 
+
 class UsageUsers(AppwriteModel):
     """
     UsageUsers
@@ -21,8 +22,24 @@ class UsageUsers(AppwriteModel):
     sessions : List[Metric]
         Aggregated number of active sessions  per period.
     """
-    range: str = Field(..., alias='range')
-    userstotal: float = Field(..., alias='usersTotal')
-    sessionstotal: float = Field(..., alias='sessionsTotal')
-    users: List[Metric] = Field(..., alias='users')
-    sessions: List[Metric] = Field(..., alias='sessions')
+
+    range: str = Field(
+        ...,
+        alias='range',
+    )
+    userstotal: float = Field(
+        ...,
+        alias='usersTotal',
+    )
+    sessionstotal: float = Field(
+        ...,
+        alias='sessionsTotal',
+    )
+    users: List[Metric] = Field(
+        ...,
+        alias='users',
+    )
+    sessions: List[Metric] = Field(
+        ...,
+        alias='sessions',
+    )

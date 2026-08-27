@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class MetricBreakdown(AppwriteModel):
     """
     Metric Breakdown
@@ -18,7 +19,20 @@ class MetricBreakdown(AppwriteModel):
     estimate : Optional[float]
         The estimated value of this metric at the end of the period.
     """
-    resourceid: Optional[str] = Field(default=None, alias='resourceId')
-    name: str = Field(..., alias='name')
-    value: float = Field(..., alias='value')
-    estimate: Optional[float] = Field(default=None, alias='estimate')
+
+    resourceid: Optional[str] = Field(
+        default=None,
+        alias='resourceId',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    value: float = Field(
+        ...,
+        alias='value',
+    )
+    estimate: Optional[float] = Field(
+        default=None,
+        alias='estimate',
+    )

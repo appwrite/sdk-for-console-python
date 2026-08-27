@@ -83,6 +83,7 @@ from ..enums.index_status import IndexStatus
 from ..enums.detection_framework_type import DetectionFrameworkType
 from ..enums.detection_runtime_type import DetectionRuntimeType
 from ..enums.deployment_status import DeploymentStatus
+from ..enums.execution_resource_type import ExecutionResourceType
 from ..enums.execution_trigger import ExecutionTrigger
 from ..enums.execution_status import ExecutionStatus
 from ..enums.o_auth2_google_prompt import OAuth2GooglePrompt
@@ -95,6 +96,7 @@ from ..enums.billing_plan_group import BillingPlanGroup
 from ..enums.domain_transfer_status_enum import DomainTransferStatusEnum
 from ..enums.domain_purchase_status import DomainPurchaseStatus
 from ..enums.waf_rule_action import WafRuleAction
+
 
 class ValueClassEncoder(json.JSONEncoder):
     def default(self, o):
@@ -348,6 +350,9 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, DeploymentStatus):
+            return o.value
+
+        if isinstance(o, ExecutionResourceType):
             return o.value
 
         if isinstance(o, ExecutionTrigger):

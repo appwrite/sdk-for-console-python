@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class BillingPlanDedicatedDatabaseLimits(AppwriteModel):
     """
     dedicatedDatabaseLimits
@@ -48,22 +49,80 @@ class BillingPlanDedicatedDatabaseLimits(AppwriteModel):
     allowedsyncmodes : Optional[List[Any]]
         Replica synchronization modes available for dedicated databases.
     """
-    mincpu: Optional[float] = Field(default=None, alias='minCpu')
-    maxcpu: Optional[float] = Field(default=None, alias='maxCpu')
-    minmemorymb: Optional[float] = Field(default=None, alias='minMemoryMb')
-    maxmemorymb: Optional[float] = Field(default=None, alias='maxMemoryMb')
-    minstoragegb: Optional[float] = Field(default=None, alias='minStorageGb')
-    maxstoragegb: Optional[float] = Field(default=None, alias='maxStorageGb')
-    maxreplicas: Optional[float] = Field(default=None, alias='maxReplicas')
-    maxconnections: Optional[float] = Field(default=None, alias='maxConnections')
-    maxipallowlistsize: Optional[float] = Field(default=None, alias='maxIpAllowlistSize')
-    maxextensions: Optional[float] = Field(default=None, alias='maxExtensions')
-    maxbackupretentiondays: Optional[float] = Field(default=None, alias='maxBackupRetentionDays')
-    maxpitrretentiondays: Optional[float] = Field(default=None, alias='maxPitrRetentionDays')
-    maxsqlapimaxrows: Optional[float] = Field(default=None, alias='maxSqlApiMaxRows')
-    maxsqlapimaxbytes: Optional[float] = Field(default=None, alias='maxSqlApiMaxBytes')
-    maxsqlapitimeoutseconds: Optional[float] = Field(default=None, alias='maxSqlApiTimeoutSeconds')
-    maxsqlapiallowedstatements: Optional[float] = Field(default=None, alias='maxSqlApiAllowedStatements')
-    allowedsqlstatements: Optional[List[Any]] = Field(default=None, alias='allowedSqlStatements')
-    allowedstorageclasses: Optional[List[Any]] = Field(default=None, alias='allowedStorageClasses')
-    allowedsyncmodes: Optional[List[Any]] = Field(default=None, alias='allowedSyncModes')
+
+    mincpu: Optional[float] = Field(
+        default=None,
+        alias='minCpu',
+    )
+    maxcpu: Optional[float] = Field(
+        default=None,
+        alias='maxCpu',
+    )
+    minmemorymb: Optional[float] = Field(
+        default=None,
+        alias='minMemoryMb',
+    )
+    maxmemorymb: Optional[float] = Field(
+        default=None,
+        alias='maxMemoryMb',
+    )
+    minstoragegb: Optional[float] = Field(
+        default=None,
+        alias='minStorageGb',
+    )
+    maxstoragegb: Optional[float] = Field(
+        default=None,
+        alias='maxStorageGb',
+    )
+    maxreplicas: Optional[float] = Field(
+        default=None,
+        alias='maxReplicas',
+    )
+    maxconnections: Optional[float] = Field(
+        default=None,
+        alias='maxConnections',
+    )
+    maxipallowlistsize: Optional[float] = Field(
+        default=None,
+        alias='maxIpAllowlistSize',
+    )
+    maxextensions: Optional[float] = Field(
+        default=None,
+        alias='maxExtensions',
+    )
+    maxbackupretentiondays: Optional[float] = Field(
+        default=None,
+        alias='maxBackupRetentionDays',
+    )
+    maxpitrretentiondays: Optional[float] = Field(
+        default=None,
+        alias='maxPitrRetentionDays',
+    )
+    maxsqlapimaxrows: Optional[float] = Field(
+        default=None,
+        alias='maxSqlApiMaxRows',
+    )
+    maxsqlapimaxbytes: Optional[float] = Field(
+        default=None,
+        alias='maxSqlApiMaxBytes',
+    )
+    maxsqlapitimeoutseconds: Optional[float] = Field(
+        default=None,
+        alias='maxSqlApiTimeoutSeconds',
+    )
+    maxsqlapiallowedstatements: Optional[float] = Field(
+        default=None,
+        alias='maxSqlApiAllowedStatements',
+    )
+    allowedsqlstatements: Optional[List[Any]] = Field(
+        default=None,
+        alias='allowedSqlStatements',
+    )
+    allowedstorageclasses: Optional[List[Any]] = Field(
+        default=None,
+        alias='allowedStorageClasses',
+    )
+    allowedsyncmodes: Optional[List[Any]] = Field(
+        default=None,
+        alias='allowedSyncModes',
+    )

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class AppwriteMigrationResource(Enum):
     USER = "user"
     TEAM = "team"

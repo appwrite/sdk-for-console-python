@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class MfaRecoveryCodes(AppwriteModel):
     """
     MFA Recovery Codes
@@ -12,4 +13,8 @@ class MfaRecoveryCodes(AppwriteModel):
     recoverycodes : List[Any]
         Recovery codes.
     """
-    recoverycodes: List[Any] = Field(..., alias='recoveryCodes')
+
+    recoverycodes: List[Any] = Field(
+        ...,
+        alias='recoveryCodes',
+    )

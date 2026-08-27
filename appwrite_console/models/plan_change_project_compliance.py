@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .plan_change_resource_compliance import PlanChangeResourceCompliance
 
+
 class PlanChangeProjectCompliance(AppwriteModel):
     """
     PlanChangeProjectCompliance
@@ -21,8 +22,24 @@ class PlanChangeProjectCompliance(AppwriteModel):
     error : Optional[str]
         Failure reason when compliance could not be evaluated. Present only when the project DB or Regions API was unreachable; in that case `isCompliant` is false (fail closed) and `resources` is empty.
     """
-    id: str = Field(..., alias='$id')
-    name: str = Field(..., alias='name')
-    iscompliant: bool = Field(..., alias='isCompliant')
-    resources: List[PlanChangeResourceCompliance] = Field(..., alias='resources')
-    error: Optional[str] = Field(default=None, alias='error')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    iscompliant: bool = Field(
+        ...,
+        alias='isCompliant',
+    )
+    resources: List[PlanChangeResourceCompliance] = Field(
+        ...,
+        alias='resources',
+    )
+    error: Optional[str] = Field(
+        default=None,
+        alias='error',
+    )

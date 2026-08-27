@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ConsoleRegion(AppwriteModel):
     """
     Region
@@ -22,9 +23,28 @@ class ConsoleRegion(AppwriteModel):
     flag : str
         Region flag code.
     """
-    id: str = Field(..., alias='$id')
-    name: str = Field(..., alias='name')
-    available: Optional[bool] = Field(default=None, alias='available')
-    disabled: bool = Field(..., alias='disabled')
-    default: bool = Field(..., alias='default')
-    flag: str = Field(..., alias='flag')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    available: Optional[bool] = Field(
+        default=None,
+        alias='available',
+    )
+    disabled: bool = Field(
+        ...,
+        alias='disabled',
+    )
+    default: bool = Field(
+        ...,
+        alias='default',
+    )
+    flag: str = Field(
+        ...,
+        alias='flag',
+    )

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .app_secret import AppSecret
 
+
 class App(AppwriteModel):
     """
     App
@@ -63,29 +64,108 @@ class App(AppwriteModel):
     secrets : List[AppSecret]
         List of application secrets.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    name: str = Field(..., alias='name')
-    description: str = Field(..., alias='description')
-    clienturi: str = Field(..., alias='clientUri')
-    logouri: str = Field(..., alias='logoUri')
-    privacypolicyurl: str = Field(..., alias='privacyPolicyUrl')
-    termsurl: str = Field(..., alias='termsUrl')
-    contacts: List[Any] = Field(..., alias='contacts')
-    tagline: str = Field(..., alias='tagline')
-    tags: List[Any] = Field(..., alias='tags')
-    labels: List[Any] = Field(..., alias='labels')
-    images: List[Any] = Field(..., alias='images')
-    supporturl: str = Field(..., alias='supportUrl')
-    datadeletionurl: str = Field(..., alias='dataDeletionUrl')
-    redirecturis: List[Any] = Field(..., alias='redirectUris')
-    postlogoutredirecturis: List[Any] = Field(..., alias='postLogoutRedirectUris')
-    enabled: bool = Field(..., alias='enabled')
-    type: str = Field(..., alias='type')
-    deviceflow: bool = Field(..., alias='deviceFlow')
-    teamid: str = Field(..., alias='teamId')
-    userid: str = Field(..., alias='userId')
-    installationscopes: List[Any] = Field(..., alias='installationScopes')
-    installationredirecturl: str = Field(..., alias='installationRedirectUrl')
-    secrets: List[AppSecret] = Field(..., alias='secrets')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    description: str = Field(
+        ...,
+        alias='description',
+    )
+    clienturi: str = Field(
+        ...,
+        alias='clientUri',
+    )
+    logouri: str = Field(
+        ...,
+        alias='logoUri',
+    )
+    privacypolicyurl: str = Field(
+        ...,
+        alias='privacyPolicyUrl',
+    )
+    termsurl: str = Field(
+        ...,
+        alias='termsUrl',
+    )
+    contacts: List[Any] = Field(
+        ...,
+        alias='contacts',
+    )
+    tagline: str = Field(
+        ...,
+        alias='tagline',
+    )
+    tags: List[Any] = Field(
+        ...,
+        alias='tags',
+    )
+    labels: List[Any] = Field(
+        ...,
+        alias='labels',
+    )
+    images: List[Any] = Field(
+        ...,
+        alias='images',
+    )
+    supporturl: str = Field(
+        ...,
+        alias='supportUrl',
+    )
+    datadeletionurl: str = Field(
+        ...,
+        alias='dataDeletionUrl',
+    )
+    redirecturis: List[Any] = Field(
+        ...,
+        alias='redirectUris',
+    )
+    postlogoutredirecturis: List[Any] = Field(
+        ...,
+        alias='postLogoutRedirectUris',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    type: str = Field(
+        ...,
+        alias='type',
+    )
+    deviceflow: bool = Field(
+        ...,
+        alias='deviceFlow',
+    )
+    teamid: str = Field(
+        ...,
+        alias='teamId',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    installationscopes: List[Any] = Field(
+        ...,
+        alias='installationScopes',
+    )
+    installationredirecturl: str = Field(
+        ...,
+        alias='installationRedirectUrl',
+    )
+    secrets: List[AppSecret] = Field(
+        ...,
+        alias='secrets',
+    )

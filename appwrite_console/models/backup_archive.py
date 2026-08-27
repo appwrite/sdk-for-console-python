@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class BackupArchive(AppwriteModel):
     """
     Archive
@@ -34,15 +35,52 @@ class BackupArchive(AppwriteModel):
     resourcetype : Optional[str]
         The resource type to backup. Set only if this archive should backup a single resource.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    policyid: str = Field(..., alias='policyId')
-    size: float = Field(..., alias='size')
-    status: str = Field(..., alias='status')
-    startedat: str = Field(..., alias='startedAt')
-    migrationid: str = Field(..., alias='migrationId')
-    services: List[Any] = Field(..., alias='services')
-    resources: List[Any] = Field(..., alias='resources')
-    resourceid: Optional[str] = Field(default=None, alias='resourceId')
-    resourcetype: Optional[str] = Field(default=None, alias='resourceType')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    policyid: str = Field(
+        ...,
+        alias='policyId',
+    )
+    size: float = Field(
+        ...,
+        alias='size',
+    )
+    status: str = Field(
+        ...,
+        alias='status',
+    )
+    startedat: str = Field(
+        ...,
+        alias='startedAt',
+    )
+    migrationid: str = Field(
+        ...,
+        alias='migrationId',
+    )
+    services: List[Any] = Field(
+        ...,
+        alias='services',
+    )
+    resources: List[Any] = Field(
+        ...,
+        alias='resources',
+    )
+    resourceid: Optional[str] = Field(
+        default=None,
+        alias='resourceId',
+    )
+    resourcetype: Optional[str] = Field(
+        default=None,
+        alias='resourceType',
+    )

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .framework_adapter import FrameworkAdapter
 
+
 class Framework(AppwriteModel):
     """
     Framework
@@ -21,8 +22,24 @@ class Framework(AppwriteModel):
     adapters : List[FrameworkAdapter]
         List of supported adapters.
     """
-    key: str = Field(..., alias='key')
-    name: str = Field(..., alias='name')
-    buildruntime: str = Field(..., alias='buildRuntime')
-    runtimes: List[Any] = Field(..., alias='runtimes')
-    adapters: List[FrameworkAdapter] = Field(..., alias='adapters')
+
+    key: str = Field(
+        ...,
+        alias='key',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    buildruntime: str = Field(
+        ...,
+        alias='buildRuntime',
+    )
+    runtimes: List[Any] = Field(
+        ...,
+        alias='runtimes',
+    )
+    adapters: List[FrameworkAdapter] = Field(
+        ...,
+        alias='adapters',
+    )

@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class MfaFactors(AppwriteModel):
     """
     MFAFactors
@@ -20,8 +21,24 @@ class MfaFactors(AppwriteModel):
     custom : bool
         Can custom factor be used for MFA challenge for this account.
     """
-    totp: bool = Field(..., alias='totp')
-    phone: bool = Field(..., alias='phone')
-    email: bool = Field(..., alias='email')
-    recoverycode: bool = Field(..., alias='recoveryCode')
-    custom: bool = Field(..., alias='custom')
+
+    totp: bool = Field(
+        ...,
+        alias='totp',
+    )
+    phone: bool = Field(
+        ...,
+        alias='phone',
+    )
+    email: bool = Field(
+        ...,
+        alias='email',
+    )
+    recoverycode: bool = Field(
+        ...,
+        alias='recoveryCode',
+    )
+    custom: bool = Field(
+        ...,
+        alias='custom',
+    )

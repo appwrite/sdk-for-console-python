@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .waf_rule import WafRule
 
+
 class WafRuleList(AppwriteModel):
     """
     WAF rule list
@@ -15,5 +16,12 @@ class WafRuleList(AppwriteModel):
     rules : List[WafRule]
         List of rules.
     """
-    total: float = Field(..., alias='total')
-    rules: List[WafRule] = Field(..., alias='rules')
+
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    rules: List[WafRule] = Field(
+        ...,
+        alias='rules',
+    )

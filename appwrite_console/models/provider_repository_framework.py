@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class ProviderRepositoryFramework(AppwriteModel):
     """
     ProviderRepositoryFramework
@@ -32,14 +33,48 @@ class ProviderRepositoryFramework(AppwriteModel):
     framework : str
         Auto-detected framework. Empty if type is not &quot;framework&quot;.
     """
-    id: str = Field(..., alias='id')
-    name: str = Field(..., alias='name')
-    organization: str = Field(..., alias='organization')
-    provider: str = Field(..., alias='provider')
-    private: bool = Field(..., alias='private')
-    defaultbranch: str = Field(..., alias='defaultBranch')
-    providerinstallationid: str = Field(..., alias='providerInstallationId')
-    authorized: bool = Field(..., alias='authorized')
-    pushedat: str = Field(..., alias='pushedAt')
-    variables: List[Any] = Field(..., alias='variables')
-    framework: str = Field(..., alias='framework')
+
+    id: str = Field(
+        ...,
+        alias='id',
+    )
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    organization: str = Field(
+        ...,
+        alias='organization',
+    )
+    provider: str = Field(
+        ...,
+        alias='provider',
+    )
+    private: bool = Field(
+        ...,
+        alias='private',
+    )
+    defaultbranch: str = Field(
+        ...,
+        alias='defaultBranch',
+    )
+    providerinstallationid: str = Field(
+        ...,
+        alias='providerInstallationId',
+    )
+    authorized: bool = Field(
+        ...,
+        alias='authorized',
+    )
+    pushedat: str = Field(
+        ...,
+        alias='pushedAt',
+    )
+    variables: List[Any] = Field(
+        ...,
+        alias='variables',
+    )
+    framework: str = Field(
+        ...,
+        alias='framework',
+    )

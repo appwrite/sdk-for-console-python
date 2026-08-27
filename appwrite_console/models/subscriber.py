@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .target import Target
 
+
 class Subscriber(AppwriteModel):
     """
     Subscriber
@@ -29,12 +30,40 @@ class Subscriber(AppwriteModel):
     providertype : str
         The target provider type. Can be one of the following: `email`, `sms` or `push`.
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    targetid: str = Field(..., alias='targetId')
-    target: Target = Field(..., alias='target')
-    userid: str = Field(..., alias='userId')
-    username: str = Field(..., alias='userName')
-    topicid: str = Field(..., alias='topicId')
-    providertype: str = Field(..., alias='providerType')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    targetid: str = Field(
+        ...,
+        alias='targetId',
+    )
+    target: Target = Field(
+        ...,
+        alias='target',
+    )
+    userid: str = Field(
+        ...,
+        alias='userId',
+    )
+    username: str = Field(
+        ...,
+        alias='userName',
+    )
+    topicid: str = Field(
+        ...,
+        alias='topicId',
+    )
+    providertype: str = Field(
+        ...,
+        alias='providerType',
+    )

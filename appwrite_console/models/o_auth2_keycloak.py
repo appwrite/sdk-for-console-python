@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class OAuth2Keycloak(AppwriteModel):
     """
     OAuth2Keycloak
@@ -22,9 +23,28 @@ class OAuth2Keycloak(AppwriteModel):
     realmname : str
         Keycloak OAuth2 realm name.
     """
-    id: str = Field(..., alias='$id')
-    enabled: bool = Field(..., alias='enabled')
-    clientid: str = Field(..., alias='clientId')
-    clientsecret: str = Field(..., alias='clientSecret')
-    endpoint: str = Field(..., alias='endpoint')
-    realmname: str = Field(..., alias='realmName')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    enabled: bool = Field(
+        ...,
+        alias='enabled',
+    )
+    clientid: str = Field(
+        ...,
+        alias='clientId',
+    )
+    clientsecret: str = Field(
+        ...,
+        alias='clientSecret',
+    )
+    endpoint: str = Field(
+        ...,
+        alias='endpoint',
+    )
+    realmname: str = Field(
+        ...,
+        alias='realmName',
+    )

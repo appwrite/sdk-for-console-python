@@ -26,6 +26,7 @@ from ..models.console_variables import ConsoleVariables
 
 T = TypeVar('T')
 
+
 class Console(Service):
 
     def __init__(self, client) -> None:
@@ -33,7 +34,7 @@ class Console(Service):
 
     def get_campaign(
         self,
-        campaign_id: str
+        campaign_id: str,
     ) -> Campaign:
         """
         Receive the details of a campaign using its ID.
@@ -42,12 +43,11 @@ class Console(Service):
         ----------
         campaign_id : str
             ID of the campaign
-        
         Returns
         -------
         Campaign
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -58,21 +58,23 @@ class Console(Service):
         api_params = {}
         if campaign_id is None:
             raise AppwriteException('Missing required parameter: "campaign_id"')
-
         api_path = api_path.replace('{campaignId}', str(self._normalize_value(campaign_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Campaign)
 
-
     def get_coupon(
         self,
-        coupon_id: str
+        coupon_id: str,
     ) -> Coupon:
         """
         Get the details of a coupon using it's coupon ID.
@@ -81,12 +83,11 @@ class Console(Service):
         ----------
         coupon_id : str
             ID of the coupon
-        
         Returns
         -------
         Coupon
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -97,27 +98,28 @@ class Console(Service):
         api_params = {}
         if coupon_id is None:
             raise AppwriteException('Missing required parameter: "coupon_id"')
-
         api_path = api_path.replace('{couponId}', str(self._normalize_value(coupon_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Coupon)
-
 
     def list_databases(
         self,
         queries: Optional[List[str]] = None,
         search: Optional[str] = None,
-        total: Optional[bool] = None
+        total: Optional[bool] = None,
     ) -> DatabaseList:
         """
         Get a list of all the project's databases. You can use the query params to filter your results. This returns every database across all types and product APIs in a single call.
-        
 
         Parameters
         ----------
@@ -127,12 +129,11 @@ class Console(Service):
             Search term to filter your list results. Max length: 256 chars.
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
-        
         Returns
         -------
         DatabaseList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -141,33 +142,41 @@ class Console(Service):
 
         api_path = '/console/databases'
         api_params = {}
-
         if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
+            api_params['queries'] = self._normalize_value(
+                queries,
+            )
         if search is not None:
-            api_params['search'] = self._normalize_value(search)
+            api_params['search'] = self._normalize_value(
+                search,
+            )
         if total is not None:
-            api_params['total'] = self._normalize_value(total)
+            api_params['total'] = self._normalize_value(
+                total,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=DatabaseList)
 
-
     def list_o_auth2_providers(
-        self
+        self,
     ) -> ConsoleOAuth2ProviderList:
         """
         List all OAuth2 providers supported by the Appwrite server, along with the parameters required to configure each provider. The response excludes mock providers but includes sandbox providers.
-
         Returns
         -------
         ConsoleOAuth2ProviderList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -177,17 +186,21 @@ class Console(Service):
         api_path = '/console/oauth2-providers'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ConsoleOAuth2ProviderList)
 
-
     def get_plans(
         self,
-        platform: Optional[Platform] = None
+        platform: Optional[Platform] = None,
     ) -> BillingPlanList:
         """
         Return a list of all available plans.
@@ -196,12 +209,11 @@ class Console(Service):
         ----------
         platform : Optional[Platform]
             Platform type
-        
         Returns
         -------
         BillingPlanList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -210,21 +222,26 @@ class Console(Service):
 
         api_path = '/console/plans'
         api_params = {}
-
         if platform is not None:
-            api_params['platform'] = self._normalize_value(platform)
+            api_params['platform'] = self._normalize_value(
+                platform,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=BillingPlanList)
 
-
     def get_plan(
         self,
-        plan_id: str
+        plan_id: str,
     ) -> BillingPlan:
         """
         Get the details of a plan using its plan ID.
@@ -233,12 +250,11 @@ class Console(Service):
         ----------
         plan_id : str
             Plan id
-        
         Returns
         -------
         BillingPlan
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -249,30 +265,30 @@ class Console(Service):
         api_params = {}
         if plan_id is None:
             raise AppwriteException('Missing required parameter: "plan_id"')
-
         api_path = api_path.replace('{planId}', str(self._normalize_value(plan_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=BillingPlan)
 
-
     def list_postgres_extensions(
-        self
+        self,
     ) -> PostgresExtensionList:
         """
         Get the catalog of Postgres extensions that can be installed on a dedicated Postgres database.
-        
-
         Returns
         -------
         PostgresExtensionList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -282,17 +298,21 @@ class Console(Service):
         api_path = '/console/postgres-extensions'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=PostgresExtensionList)
 
-
     def get_program(
         self,
-        program_id: str
+        program_id: str,
     ) -> Program:
         """
         Receive the details of a program using its ID.
@@ -301,12 +321,11 @@ class Console(Service):
         ----------
         program_id : str
             ID of the program
-        
         Returns
         -------
         Program
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -317,22 +336,24 @@ class Console(Service):
         api_params = {}
         if program_id is None:
             raise AppwriteException('Missing required parameter: "program_id"')
-
         api_path = api_path.replace('{programId}', str(self._normalize_value(program_id)))
 
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=Program)
-
 
     def create_program_membership(
         self,
         program_id: str,
-        model_type: Type[T] = dict
+        model_type: Type[T] = dict,
     ) -> Organization[T]:
         """
         Create a new membership for an account to a program.
@@ -341,15 +362,14 @@ class Console(Service):
         ----------
         program_id : str
             ID of the program
-        
         model_type : Type[T], optional
             Pydantic model class for the user-defined data. Defaults to dict for backward compatibility.
-        
+
         Returns
         -------
         Organization[T]
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -360,30 +380,31 @@ class Console(Service):
         api_params = {}
         if program_id is None:
             raise AppwriteException('Missing required parameter: "program_id"')
-
         api_path = api_path.replace('{programId}', str(self._normalize_value(program_id)))
 
-
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return Organization.with_data(response, model_type)
 
-
     def list_regions(
-        self
+        self,
     ) -> ConsoleRegionList:
         """
         Get all available regions for the console.
-
         Returns
         -------
         ConsoleRegionList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -393,18 +414,22 @@ class Console(Service):
         api_path = '/console/regions'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ConsoleRegionList)
-
 
     def get_resource(
         self,
         value: str,
-        type: ConsoleResourceType
+        type: ConsoleResourceType,
     ) -> Dict[str, Any]:
         """
         Check if a resource ID is available.
@@ -415,12 +440,11 @@ class Console(Service):
             Resource value.
         type : ConsoleResourceType
             Resource type.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -431,32 +455,36 @@ class Console(Service):
         api_params = {}
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
+        api_params['value'] = self._normalize_value(
+            value,
+        )
+        api_params['type'] = self._normalize_value(
+            type,
+        )
 
-
-        api_params['value'] = self._normalize_value(value)
-        api_params['type'] = self._normalize_value(type)
-
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+            },
+            api_params,
+        )
 
         return response
 
-
     def list_organization_scopes(
-        self
+        self,
     ) -> ConsoleKeyScopeList:
         """
         List all scopes available for organization API keys, along with a description for each scope.
-
         Returns
         -------
         ConsoleKeyScopeList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -466,25 +494,28 @@ class Console(Service):
         api_path = '/console/scopes/organization'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ConsoleKeyScopeList)
 
-
     def list_project_scopes(
-        self
+        self,
     ) -> ConsoleKeyScopeList:
         """
         List all scopes available for project API keys, along with a description for each scope.
-
         Returns
         -------
         ConsoleKeyScopeList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -494,13 +525,17 @@ class Console(Service):
         api_path = '/console/scopes/project'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ConsoleKeyScopeList)
-
 
     def create_source(
         self,
@@ -508,7 +543,7 @@ class Console(Service):
         referrer: Optional[str] = None,
         utm_source: Optional[str] = None,
         utm_campaign: Optional[str] = None,
-        utm_medium: Optional[str] = None
+        utm_medium: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Create a new source.
@@ -525,12 +560,11 @@ class Console(Service):
             Utm campaign
         utm_medium : Optional[str]
             Utm medium
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -539,26 +573,39 @@ class Console(Service):
 
         api_path = '/console/sources'
         api_params = {}
-
         if ref is not None:
-            api_params['ref'] = self._normalize_value(ref)
+            api_params['ref'] = self._normalize_value(
+                ref,
+            )
         if referrer is not None:
-            api_params['referrer'] = self._normalize_value(referrer)
+            api_params['referrer'] = self._normalize_value(
+                referrer,
+            )
         if utm_source is not None:
-            api_params['utmSource'] = self._normalize_value(utm_source)
+            api_params['utmSource'] = self._normalize_value(
+                utm_source,
+            )
         if utm_campaign is not None:
-            api_params['utmCampaign'] = self._normalize_value(utm_campaign)
+            api_params['utmCampaign'] = self._normalize_value(
+                utm_campaign,
+            )
         if utm_medium is not None:
-            api_params['utmMedium'] = self._normalize_value(utm_medium)
+            api_params['utmMedium'] = self._normalize_value(
+                utm_medium,
+            )
 
-        response = self.client.call('post', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'content-type': 'application/json',
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def suggest_columns(
         self,
@@ -566,7 +613,7 @@ class Console(Service):
         table_id: str,
         context: Optional[str] = None,
         min: Optional[float] = None,
-        max: Optional[float] = None
+        max: Optional[float] = None,
     ) -> ColumnList:
         """
         Suggests column names and their size limits based on the provided table name. The API will also analyze other tables in the same database to provide context-aware suggestions, ensuring consistency across schema design. Users may optionally provide custom context to further refine the suggestions.
@@ -583,12 +630,11 @@ class Console(Service):
             Minimum number of suggestions to generate.
         max : Optional[float]
             Maximum number of suggestions to generate.
-        
         Returns
         -------
         ColumnList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -599,34 +645,45 @@ class Console(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
-
-
-        api_params['databaseId'] = self._normalize_value(database_id)
-        api_params['tableId'] = self._normalize_value(table_id)
+        api_params['databaseId'] = self._normalize_value(
+            database_id,
+        )
+        api_params['tableId'] = self._normalize_value(
+            table_id,
+        )
         if context is not None:
-            api_params['context'] = self._normalize_value(context)
+            api_params['context'] = self._normalize_value(
+                context,
+            )
         if min is not None:
-            api_params['min'] = self._normalize_value(min)
+            api_params['min'] = self._normalize_value(
+                min,
+            )
         if max is not None:
-            api_params['max'] = self._normalize_value(max)
+            api_params['max'] = self._normalize_value(
+                max,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ColumnList)
-
 
     def suggest_indexes(
         self,
         database_id: str,
         table_id: str,
         min: Optional[float] = None,
-        max: Optional[float] = None
+        max: Optional[float] = None,
     ) -> ColumnIndexList:
         """
         Suggests database indexes for table columns based on the provided table structure and existing columns. The API will also analyze the table's column types, names, and patterns to recommend optimal indexes that improve query performance for common database operations like filtering, sorting, and searching.
@@ -641,12 +698,11 @@ class Console(Service):
             Minimum number of suggestions to generate.
         max : Optional[float]
             Maximum number of suggestions to generate.
-        
         Returns
         -------
         ColumnIndexList
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -657,36 +713,44 @@ class Console(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
-
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
-
-
-        api_params['databaseId'] = self._normalize_value(database_id)
-        api_params['tableId'] = self._normalize_value(table_id)
+        api_params['databaseId'] = self._normalize_value(
+            database_id,
+        )
+        api_params['tableId'] = self._normalize_value(
+            table_id,
+        )
         if min is not None:
-            api_params['min'] = self._normalize_value(min)
+            api_params['min'] = self._normalize_value(
+                min,
+            )
         if max is not None:
-            api_params['max'] = self._normalize_value(max)
+            api_params['max'] = self._normalize_value(
+                max,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ColumnIndexList)
-
 
     def suggest_queries(
         self,
         resource: QuerySuggestionResource,
         input: str,
         database_id: Optional[str] = None,
-        table_id: Optional[str] = None
+        table_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
         Suggest valid Appwrite query JSON objects for a supported list resource from free-text user intent. The endpoint picks a validator based on `resource` — for system resources it uses the static validator and its allowed attributes, and for user-owned table rows it loads the table schema and validates against those attributes at request time. The returned queries are guaranteed to parse and pass the relevant queries validator.
-        
 
         Parameters
         ----------
@@ -698,12 +762,11 @@ class Console(Service):
             Database ID. Required when resource is `tables` or `rows`.
         table_id : Optional[str]
             Table ID. Required when resource is `rows`.
-        
         Returns
         -------
         Dict[str, Any]
             API response as a dictionary
-        
+
         Raises
         ------
         AppwriteException
@@ -714,30 +777,39 @@ class Console(Service):
         api_params = {}
         if resource is None:
             raise AppwriteException('Missing required parameter: "resource"')
-
         if input is None:
             raise AppwriteException('Missing required parameter: "input"')
-
-
-        api_params['resource'] = self._normalize_value(resource)
-        api_params['input'] = self._normalize_value(input)
+        api_params['resource'] = self._normalize_value(
+            resource,
+        )
+        api_params['input'] = self._normalize_value(
+            input,
+        )
         if database_id is not None:
-            api_params['databaseId'] = self._normalize_value(database_id)
+            api_params['databaseId'] = self._normalize_value(
+                database_id,
+            )
         if table_id is not None:
-            api_params['tableId'] = self._normalize_value(table_id)
+            api_params['tableId'] = self._normalize_value(
+                table_id,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return response
-
 
     def get_email_template(
         self,
         template_id: ProjectEmailTemplateId,
-        locale: Optional[ProjectEmailTemplateLocale] = None
+        locale: Optional[ProjectEmailTemplateLocale] = None,
     ) -> EmailTemplate:
         """
         Get the Appwrite built-in default email template for the specified type and locale. Always returns the unmodified default, ignoring any custom project overrides.
@@ -748,12 +820,11 @@ class Console(Service):
             Email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
         locale : Optional[ProjectEmailTemplateLocale]
             Template locale. If left empty, the fallback locale (en) will be used.
-        
         Returns
         -------
         EmailTemplate
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -764,31 +835,34 @@ class Console(Service):
         api_params = {}
         if template_id is None:
             raise AppwriteException('Missing required parameter: "template_id"')
-
         api_path = api_path.replace('{templateId}', str(self._normalize_value(template_id)))
-
         if locale is not None:
-            api_params['locale'] = self._normalize_value(locale)
+            api_params['locale'] = self._normalize_value(
+                locale,
+            )
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=EmailTemplate)
 
-
     def variables(
-        self
+        self,
     ) -> ConsoleVariables:
         """
         Get all Environment Variables that are relevant for the console.
-
         Returns
         -------
         ConsoleVariables
             API response as a typed Pydantic model
-        
+
         Raises
         ------
         AppwriteException
@@ -798,10 +872,14 @@ class Console(Service):
         api_path = '/console/variables'
         api_params = {}
 
-        response = self.client.call('get', api_path, {
-            'X-Appwrite-Project': self.client.get_config('project'),
-            'accept': 'application/json',
-        }, api_params)
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
 
         return self._parse_response(response, model=ConsoleVariables)
-

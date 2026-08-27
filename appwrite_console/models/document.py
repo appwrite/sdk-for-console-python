@@ -7,6 +7,7 @@ T = TypeVar('T')
 
 _PAYLOAD_ADAPTER = TypeAdapter(Dict[str, Any])
 
+
 class Document(AppwriteModel, Generic[T]):
     """
     Document
@@ -28,18 +29,48 @@ class Document(AppwriteModel, Generic[T]):
     permissions : List[Any]
         Document permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     """
-    id: str = Field(..., alias='$id')
-    sequence: str = Field(..., alias='$sequence')
-    collectionid: str = Field(..., alias='$collectionId')
-    databaseid: str = Field(..., alias='$databaseId')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    sequence: str = Field(
+        ...,
+        alias='$sequence',
+    )
+    collectionid: str = Field(
+        ...,
+        alias='$collectionId',
+    )
+    databaseid: str = Field(
+        ...,
+        alias='$databaseId',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'Document[T]':
         """Create Document instance with typed data."""
-        internal_aliases = {'$id', '$sequence', '$collectionId', '$databaseId', '$createdAt', '$updatedAt', '$permissions'}
+        internal_aliases = {
+            '$id',
+            '$sequence',
+            '$collectionId',
+            '$databaseId',
+            '$createdAt',
+            '$updatedAt',
+            '$permissions',
+        }
         internal_fields = {k: v for k, v in data.items() if k in internal_aliases}
         user_data = {k: v for k, v in data.items() if k not in internal_aliases and k != 'data'}
         nested = data.get('data')

@@ -4,6 +4,7 @@ from pydantic import Field, PrivateAttr
 from .base_model import AppwriteModel
 from .credit import Credit
 
+
 class CreditList(AppwriteModel):
     """
     CreditList
@@ -17,6 +18,16 @@ class CreditList(AppwriteModel):
     available : float
         Total available credit balance in USD
     """
-    credits: List[Credit] = Field(..., alias='credits')
-    total: float = Field(..., alias='total')
-    available: float = Field(..., alias='available')
+
+    credits: List[Credit] = Field(
+        ...,
+        alias='credits',
+    )
+    total: float = Field(
+        ...,
+        alias='total',
+    )
+    available: float = Field(
+        ...,
+        alias='available',
+    )

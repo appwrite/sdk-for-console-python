@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .metric import Metric
 from .metric_breakdown import MetricBreakdown
 
+
 class UsageProject(AppwriteModel):
     """
     Project
@@ -148,71 +149,276 @@ class UsageProject(AppwriteModel):
     realtimebandwidth : List[Metric]
         Aggregated consumed Realtime bandwidth (in bytes) per period.
     """
-    executionstotal: float = Field(..., alias='executionsTotal')
-    documentstotal: float = Field(..., alias='documentsTotal')
-    documentsdbdocumentstotal: float = Field(..., alias='documentsdbDocumentsTotal')
-    rowstotal: float = Field(..., alias='rowsTotal')
-    databasestotal: float = Field(..., alias='databasesTotal')
-    documentsdbtotal: float = Field(..., alias='documentsdbTotal')
-    databasesstoragetotal: float = Field(..., alias='databasesStorageTotal')
-    documentsdbdatabasesstoragetotal: float = Field(..., alias='documentsdbDatabasesStorageTotal')
-    userstotal: float = Field(..., alias='usersTotal')
-    filesstoragetotal: float = Field(..., alias='filesStorageTotal')
-    functionsstoragetotal: float = Field(..., alias='functionsStorageTotal')
-    buildsstoragetotal: float = Field(..., alias='buildsStorageTotal')
-    deploymentsstoragetotal: float = Field(..., alias='deploymentsStorageTotal')
-    bucketstotal: float = Field(..., alias='bucketsTotal')
-    executionsmbsecondstotal: float = Field(..., alias='executionsMbSecondsTotal')
-    buildsmbsecondstotal: float = Field(..., alias='buildsMbSecondsTotal')
-    databasesreadstotal: float = Field(..., alias='databasesReadsTotal')
-    databaseswritestotal: float = Field(..., alias='databasesWritesTotal')
-    documentsdbdatabasesreadstotal: float = Field(..., alias='documentsdbDatabasesReadsTotal')
-    documentsdbdatabaseswritestotal: float = Field(..., alias='documentsdbDatabasesWritesTotal')
-    requests: List[Metric] = Field(..., alias='requests')
-    network: List[Metric] = Field(..., alias='network')
-    users: List[Metric] = Field(..., alias='users')
-    executions: List[Metric] = Field(..., alias='executions')
-    authphonetotal: float = Field(..., alias='authPhoneTotal')
-    authphoneestimate: float = Field(..., alias='authPhoneEstimate')
-    authphonecountrybreakdown: List[MetricBreakdown] = Field(..., alias='authPhoneCountryBreakdown')
-    databasesreads: List[Metric] = Field(..., alias='databasesReads')
-    databaseswrites: List[Metric] = Field(..., alias='databasesWrites')
-    documentsdbdatabasesreads: List[Metric] = Field(..., alias='documentsdbDatabasesReads')
-    documentsdbdatabaseswrites: List[Metric] = Field(..., alias='documentsdbDatabasesWrites')
-    documentsdbdatabasesstorage: List[Metric] = Field(..., alias='documentsdbDatabasesStorage')
-    imagetransformations: List[Metric] = Field(..., alias='imageTransformations')
-    imagetransformationstotal: float = Field(..., alias='imageTransformationsTotal')
-    vectorsdbdatabasestotal: float = Field(..., alias='vectorsdbDatabasesTotal')
-    vectorsdbcollectionstotal: float = Field(..., alias='vectorsdbCollectionsTotal')
-    vectorsdbdocumentstotal: float = Field(..., alias='vectorsdbDocumentsTotal')
-    vectorsdbdatabasesstoragetotal: float = Field(..., alias='vectorsdbDatabasesStorageTotal')
-    vectorsdbdatabasesreadstotal: float = Field(..., alias='vectorsdbDatabasesReadsTotal')
-    vectorsdbdatabaseswritestotal: float = Field(..., alias='vectorsdbDatabasesWritesTotal')
-    vectorsdbdatabases: List[Metric] = Field(..., alias='vectorsdbDatabases')
-    vectorsdbcollections: List[Metric] = Field(..., alias='vectorsdbCollections')
-    vectorsdbdocuments: List[Metric] = Field(..., alias='vectorsdbDocuments')
-    vectorsdbdatabasesstorage: List[Metric] = Field(..., alias='vectorsdbDatabasesStorage')
-    vectorsdbdatabasesreads: List[Metric] = Field(..., alias='vectorsdbDatabasesReads')
-    vectorsdbdatabaseswrites: List[Metric] = Field(..., alias='vectorsdbDatabasesWrites')
-    embeddingstext: List[Metric] = Field(..., alias='embeddingsText')
-    embeddingstexttokens: List[Metric] = Field(..., alias='embeddingsTextTokens')
-    embeddingstextduration: List[Metric] = Field(..., alias='embeddingsTextDuration')
-    embeddingstexterrors: List[Metric] = Field(..., alias='embeddingsTextErrors')
-    embeddingstexttotal: float = Field(..., alias='embeddingsTextTotal')
-    embeddingstexttokenstotal: float = Field(..., alias='embeddingsTextTokensTotal')
-    embeddingstextdurationtotal: float = Field(..., alias='embeddingsTextDurationTotal')
-    embeddingstexterrorstotal: float = Field(..., alias='embeddingsTextErrorsTotal')
-    functionsexecutions: List[Metric] = Field(..., alias='functionsExecutions')
-    functionsexecutionstotal: float = Field(..., alias='functionsExecutionsTotal')
-    sitesexecutions: List[Metric] = Field(..., alias='sitesExecutions')
-    sitesexecutionstotal: float = Field(..., alias='sitesExecutionsTotal')
-    networktotal: float = Field(..., alias='networkTotal')
-    backupsstoragetotal: float = Field(..., alias='backupsStorageTotal')
-    screenshotsgenerated: List[Metric] = Field(..., alias='screenshotsGenerated')
-    screenshotsgeneratedtotal: float = Field(..., alias='screenshotsGeneratedTotal')
-    realtimeconnectionstotal: float = Field(..., alias='realtimeConnectionsTotal')
-    realtimemessagestotal: float = Field(..., alias='realtimeMessagesTotal')
-    realtimebandwidthtotal: float = Field(..., alias='realtimeBandwidthTotal')
-    realtimeconnections: List[Metric] = Field(..., alias='realtimeConnections')
-    realtimemessages: List[Metric] = Field(..., alias='realtimeMessages')
-    realtimebandwidth: List[Metric] = Field(..., alias='realtimeBandwidth')
+
+    executionstotal: float = Field(
+        ...,
+        alias='executionsTotal',
+    )
+    documentstotal: float = Field(
+        ...,
+        alias='documentsTotal',
+    )
+    documentsdbdocumentstotal: float = Field(
+        ...,
+        alias='documentsdbDocumentsTotal',
+    )
+    rowstotal: float = Field(
+        ...,
+        alias='rowsTotal',
+    )
+    databasestotal: float = Field(
+        ...,
+        alias='databasesTotal',
+    )
+    documentsdbtotal: float = Field(
+        ...,
+        alias='documentsdbTotal',
+    )
+    databasesstoragetotal: float = Field(
+        ...,
+        alias='databasesStorageTotal',
+    )
+    documentsdbdatabasesstoragetotal: float = Field(
+        ...,
+        alias='documentsdbDatabasesStorageTotal',
+    )
+    userstotal: float = Field(
+        ...,
+        alias='usersTotal',
+    )
+    filesstoragetotal: float = Field(
+        ...,
+        alias='filesStorageTotal',
+    )
+    functionsstoragetotal: float = Field(
+        ...,
+        alias='functionsStorageTotal',
+    )
+    buildsstoragetotal: float = Field(
+        ...,
+        alias='buildsStorageTotal',
+    )
+    deploymentsstoragetotal: float = Field(
+        ...,
+        alias='deploymentsStorageTotal',
+    )
+    bucketstotal: float = Field(
+        ...,
+        alias='bucketsTotal',
+    )
+    executionsmbsecondstotal: float = Field(
+        ...,
+        alias='executionsMbSecondsTotal',
+    )
+    buildsmbsecondstotal: float = Field(
+        ...,
+        alias='buildsMbSecondsTotal',
+    )
+    databasesreadstotal: float = Field(
+        ...,
+        alias='databasesReadsTotal',
+    )
+    databaseswritestotal: float = Field(
+        ...,
+        alias='databasesWritesTotal',
+    )
+    documentsdbdatabasesreadstotal: float = Field(
+        ...,
+        alias='documentsdbDatabasesReadsTotal',
+    )
+    documentsdbdatabaseswritestotal: float = Field(
+        ...,
+        alias='documentsdbDatabasesWritesTotal',
+    )
+    requests: List[Metric] = Field(
+        ...,
+        alias='requests',
+    )
+    network: List[Metric] = Field(
+        ...,
+        alias='network',
+    )
+    users: List[Metric] = Field(
+        ...,
+        alias='users',
+    )
+    executions: List[Metric] = Field(
+        ...,
+        alias='executions',
+    )
+    authphonetotal: float = Field(
+        ...,
+        alias='authPhoneTotal',
+    )
+    authphoneestimate: float = Field(
+        ...,
+        alias='authPhoneEstimate',
+    )
+    authphonecountrybreakdown: List[MetricBreakdown] = Field(
+        ...,
+        alias='authPhoneCountryBreakdown',
+    )
+    databasesreads: List[Metric] = Field(
+        ...,
+        alias='databasesReads',
+    )
+    databaseswrites: List[Metric] = Field(
+        ...,
+        alias='databasesWrites',
+    )
+    documentsdbdatabasesreads: List[Metric] = Field(
+        ...,
+        alias='documentsdbDatabasesReads',
+    )
+    documentsdbdatabaseswrites: List[Metric] = Field(
+        ...,
+        alias='documentsdbDatabasesWrites',
+    )
+    documentsdbdatabasesstorage: List[Metric] = Field(
+        ...,
+        alias='documentsdbDatabasesStorage',
+    )
+    imagetransformations: List[Metric] = Field(
+        ...,
+        alias='imageTransformations',
+    )
+    imagetransformationstotal: float = Field(
+        ...,
+        alias='imageTransformationsTotal',
+    )
+    vectorsdbdatabasestotal: float = Field(
+        ...,
+        alias='vectorsdbDatabasesTotal',
+    )
+    vectorsdbcollectionstotal: float = Field(
+        ...,
+        alias='vectorsdbCollectionsTotal',
+    )
+    vectorsdbdocumentstotal: float = Field(
+        ...,
+        alias='vectorsdbDocumentsTotal',
+    )
+    vectorsdbdatabasesstoragetotal: float = Field(
+        ...,
+        alias='vectorsdbDatabasesStorageTotal',
+    )
+    vectorsdbdatabasesreadstotal: float = Field(
+        ...,
+        alias='vectorsdbDatabasesReadsTotal',
+    )
+    vectorsdbdatabaseswritestotal: float = Field(
+        ...,
+        alias='vectorsdbDatabasesWritesTotal',
+    )
+    vectorsdbdatabases: List[Metric] = Field(
+        ...,
+        alias='vectorsdbDatabases',
+    )
+    vectorsdbcollections: List[Metric] = Field(
+        ...,
+        alias='vectorsdbCollections',
+    )
+    vectorsdbdocuments: List[Metric] = Field(
+        ...,
+        alias='vectorsdbDocuments',
+    )
+    vectorsdbdatabasesstorage: List[Metric] = Field(
+        ...,
+        alias='vectorsdbDatabasesStorage',
+    )
+    vectorsdbdatabasesreads: List[Metric] = Field(
+        ...,
+        alias='vectorsdbDatabasesReads',
+    )
+    vectorsdbdatabaseswrites: List[Metric] = Field(
+        ...,
+        alias='vectorsdbDatabasesWrites',
+    )
+    embeddingstext: List[Metric] = Field(
+        ...,
+        alias='embeddingsText',
+    )
+    embeddingstexttokens: List[Metric] = Field(
+        ...,
+        alias='embeddingsTextTokens',
+    )
+    embeddingstextduration: List[Metric] = Field(
+        ...,
+        alias='embeddingsTextDuration',
+    )
+    embeddingstexterrors: List[Metric] = Field(
+        ...,
+        alias='embeddingsTextErrors',
+    )
+    embeddingstexttotal: float = Field(
+        ...,
+        alias='embeddingsTextTotal',
+    )
+    embeddingstexttokenstotal: float = Field(
+        ...,
+        alias='embeddingsTextTokensTotal',
+    )
+    embeddingstextdurationtotal: float = Field(
+        ...,
+        alias='embeddingsTextDurationTotal',
+    )
+    embeddingstexterrorstotal: float = Field(
+        ...,
+        alias='embeddingsTextErrorsTotal',
+    )
+    functionsexecutions: List[Metric] = Field(
+        ...,
+        alias='functionsExecutions',
+    )
+    functionsexecutionstotal: float = Field(
+        ...,
+        alias='functionsExecutionsTotal',
+    )
+    sitesexecutions: List[Metric] = Field(
+        ...,
+        alias='sitesExecutions',
+    )
+    sitesexecutionstotal: float = Field(
+        ...,
+        alias='sitesExecutionsTotal',
+    )
+    networktotal: float = Field(
+        ...,
+        alias='networkTotal',
+    )
+    backupsstoragetotal: float = Field(
+        ...,
+        alias='backupsStorageTotal',
+    )
+    screenshotsgenerated: List[Metric] = Field(
+        ...,
+        alias='screenshotsGenerated',
+    )
+    screenshotsgeneratedtotal: float = Field(
+        ...,
+        alias='screenshotsGeneratedTotal',
+    )
+    realtimeconnectionstotal: float = Field(
+        ...,
+        alias='realtimeConnectionsTotal',
+    )
+    realtimemessagestotal: float = Field(
+        ...,
+        alias='realtimeMessagesTotal',
+    )
+    realtimebandwidthtotal: float = Field(
+        ...,
+        alias='realtimeBandwidthTotal',
+    )
+    realtimeconnections: List[Metric] = Field(
+        ...,
+        alias='realtimeConnections',
+    )
+    realtimemessages: List[Metric] = Field(
+        ...,
+        alias='realtimeMessages',
+    )
+    realtimebandwidth: List[Metric] = Field(
+        ...,
+        alias='realtimeBandwidth',
+    )

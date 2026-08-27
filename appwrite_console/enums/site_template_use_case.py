@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SiteTemplateUseCase(Enum):
     PORTFOLIO = "portfolio"
     STARTER = "starter"

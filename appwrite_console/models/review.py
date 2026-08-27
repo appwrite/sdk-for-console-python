@@ -3,6 +3,7 @@ from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
 
+
 class Review(AppwriteModel):
     """
     Review
@@ -18,7 +19,20 @@ class Review(AppwriteModel):
     review : str
         Review
     """
-    name: str = Field(..., alias='name')
-    image: str = Field(..., alias='image')
-    description: str = Field(..., alias='description')
-    review: str = Field(..., alias='review')
+
+    name: str = Field(
+        ...,
+        alias='name',
+    )
+    image: str = Field(
+        ...,
+        alias='image',
+    )
+    description: str = Field(
+        ...,
+        alias='description',
+    )
+    review: str = Field(
+        ...,
+        alias='review',
+    )

@@ -5,6 +5,7 @@ from .base_model import AppwriteModel
 from .aggregation_breakdown import AggregationBreakdown
 from .usage_resources import UsageResources
 
+
 class AggregationTeam(AppwriteModel):
     """
     Team
@@ -70,32 +71,120 @@ class AggregationTeam(AppwriteModel):
     resources : List[UsageResources]
         Usage resources
     """
-    id: str = Field(..., alias='$id')
-    createdat: str = Field(..., alias='$createdAt')
-    updatedat: str = Field(..., alias='$updatedAt')
-    permissions: List[Any] = Field(..., alias='$permissions')
-    xfrom: str = Field(..., alias='from')
-    to: str = Field(..., alias='to')
-    usagestorage: float = Field(..., alias='usageStorage')
-    usagetotalstorage: float = Field(..., alias='usageTotalStorage')
-    usagefilesstorage: float = Field(..., alias='usageFilesStorage')
-    usagedeploymentsstorage: float = Field(..., alias='usageDeploymentsStorage')
-    usagebuildsstorage: float = Field(..., alias='usageBuildsStorage')
-    usagedatabasesstorage: float = Field(..., alias='usageDatabasesStorage')
-    usageusers: float = Field(..., alias='usageUsers')
-    usageexecutions: float = Field(..., alias='usageExecutions')
-    usagebandwidth: float = Field(..., alias='usageBandwidth')
-    usagerealtime: float = Field(..., alias='usageRealtime')
-    usagerealtimemessages: float = Field(..., alias='usageRealtimeMessages')
-    usagerealtimebandwidth: float = Field(..., alias='usageRealtimeBandwidth')
-    additionalmembers: float = Field(..., alias='additionalMembers')
-    additionalmemberamount: float = Field(..., alias='additionalMemberAmount')
-    additionalstorageamount: float = Field(..., alias='additionalStorageAmount')
-    additionalusersamount: float = Field(..., alias='additionalUsersAmount')
-    additionalexecutionsamount: float = Field(..., alias='additionalExecutionsAmount')
-    additionalbandwidthamount: float = Field(..., alias='additionalBandwidthAmount')
-    additionalrealtimeamount: float = Field(..., alias='additionalRealtimeAmount')
-    plan: str = Field(..., alias='plan')
-    amount: float = Field(..., alias='amount')
-    breakdown: List[AggregationBreakdown] = Field(..., alias='breakdown')
-    resources: List[UsageResources] = Field(..., alias='resources')
+
+    id: str = Field(
+        ...,
+        alias='$id',
+    )
+    createdat: str = Field(
+        ...,
+        alias='$createdAt',
+    )
+    updatedat: str = Field(
+        ...,
+        alias='$updatedAt',
+    )
+    permissions: List[Any] = Field(
+        ...,
+        alias='$permissions',
+    )
+    xfrom: str = Field(
+        ...,
+        alias='from',
+    )
+    to: str = Field(
+        ...,
+        alias='to',
+    )
+    usagestorage: float = Field(
+        ...,
+        alias='usageStorage',
+    )
+    usagetotalstorage: float = Field(
+        ...,
+        alias='usageTotalStorage',
+    )
+    usagefilesstorage: float = Field(
+        ...,
+        alias='usageFilesStorage',
+    )
+    usagedeploymentsstorage: float = Field(
+        ...,
+        alias='usageDeploymentsStorage',
+    )
+    usagebuildsstorage: float = Field(
+        ...,
+        alias='usageBuildsStorage',
+    )
+    usagedatabasesstorage: float = Field(
+        ...,
+        alias='usageDatabasesStorage',
+    )
+    usageusers: float = Field(
+        ...,
+        alias='usageUsers',
+    )
+    usageexecutions: float = Field(
+        ...,
+        alias='usageExecutions',
+    )
+    usagebandwidth: float = Field(
+        ...,
+        alias='usageBandwidth',
+    )
+    usagerealtime: float = Field(
+        ...,
+        alias='usageRealtime',
+    )
+    usagerealtimemessages: float = Field(
+        ...,
+        alias='usageRealtimeMessages',
+    )
+    usagerealtimebandwidth: float = Field(
+        ...,
+        alias='usageRealtimeBandwidth',
+    )
+    additionalmembers: float = Field(
+        ...,
+        alias='additionalMembers',
+    )
+    additionalmemberamount: float = Field(
+        ...,
+        alias='additionalMemberAmount',
+    )
+    additionalstorageamount: float = Field(
+        ...,
+        alias='additionalStorageAmount',
+    )
+    additionalusersamount: float = Field(
+        ...,
+        alias='additionalUsersAmount',
+    )
+    additionalexecutionsamount: float = Field(
+        ...,
+        alias='additionalExecutionsAmount',
+    )
+    additionalbandwidthamount: float = Field(
+        ...,
+        alias='additionalBandwidthAmount',
+    )
+    additionalrealtimeamount: float = Field(
+        ...,
+        alias='additionalRealtimeAmount',
+    )
+    plan: str = Field(
+        ...,
+        alias='plan',
+    )
+    amount: float = Field(
+        ...,
+        alias='amount',
+    )
+    breakdown: List[AggregationBreakdown] = Field(
+        ...,
+        alias='breakdown',
+    )
+    resources: List[UsageResources] = Field(
+        ...,
+        alias='resources',
+    )
