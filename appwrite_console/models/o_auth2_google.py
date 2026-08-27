@@ -23,23 +23,8 @@ class OAuth2Google(AppwriteModel):
         Google OAuth2 prompt values.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    prompt: List[OAuth2GooglePrompt] = Field(
-        ...,
-        alias='prompt',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    clientsecret: str = Field(..., alias='clientSecret')
+    prompt: List[OAuth2GooglePrompt] = Field(..., alias='prompt')

@@ -17,11 +17,5 @@ class LogList(AppwriteModel):
         List of logs.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    logs: List[Log] = Field(
-        ...,
-        alias='logs',
-    )
+    total: float = Field(..., alias='total')
+    logs: List[Log] = Field(..., alias='logs')

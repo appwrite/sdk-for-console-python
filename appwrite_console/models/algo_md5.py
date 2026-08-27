@@ -14,7 +14,4 @@ class AlgoMd5(AppwriteModel):
         Algo type.
     """
 
-    type: str = Field(
-        ...,
-        alias='type',
-    )
+    type: str = Field(..., alias='type')

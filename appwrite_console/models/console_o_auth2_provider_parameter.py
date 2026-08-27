@@ -20,19 +20,7 @@ class ConsoleOAuth2ProviderParameter(AppwriteModel):
         Optional hint for this parameter, typically calling out a common wrong value. Empty string when no hint is set.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    example: str = Field(
-        ...,
-        alias='example',
-    )
-    hint: str = Field(
-        ...,
-        alias='hint',
-    )
+    id: str = Field(..., alias='$id')
+    name: str = Field(..., alias='name')
+    example: str = Field(..., alias='example')
+    hint: str = Field(..., alias='hint')

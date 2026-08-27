@@ -20,19 +20,7 @@ class OAuth2Dropbox(AppwriteModel):
         Dropbox OAuth2 app secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    appkey: str = Field(
-        ...,
-        alias='appKey',
-    )
-    appsecret: str = Field(
-        ...,
-        alias='appSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    appkey: str = Field(..., alias='appKey')
+    appsecret: str = Field(..., alias='appSecret')

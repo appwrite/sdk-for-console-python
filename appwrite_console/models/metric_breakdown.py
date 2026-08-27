@@ -20,19 +20,7 @@ class MetricBreakdown(AppwriteModel):
         The estimated value of this metric at the end of the period.
     """
 
-    resourceid: Optional[str] = Field(
-        default=None,
-        alias='resourceId',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    value: float = Field(
-        ...,
-        alias='value',
-    )
-    estimate: Optional[float] = Field(
-        default=None,
-        alias='estimate',
-    )
+    resourceid: Optional[str] = Field(default=None, alias='resourceId')
+    name: str = Field(..., alias='name')
+    value: float = Field(..., alias='value')
+    estimate: Optional[float] = Field(default=None, alias='estimate')

@@ -17,11 +17,5 @@ class PostgresExtensionList(AppwriteModel):
         List of extensions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    extensions: List[PostgresExtension] = Field(
-        ...,
-        alias='extensions',
-    )
+    total: float = Field(..., alias='total')
+    extensions: List[PostgresExtension] = Field(..., alias='extensions')

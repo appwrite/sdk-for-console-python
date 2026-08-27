@@ -17,11 +17,5 @@ class AffiliateRewardList(AppwriteModel):
         List of rewards.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    rewards: List[AffiliateReward] = Field(
-        ...,
-        alias='rewards',
-    )
+    total: float = Field(..., alias='total')
+    rewards: List[AffiliateReward] = Field(..., alias='rewards')

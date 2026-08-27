@@ -17,11 +17,5 @@ class CountryList(AppwriteModel):
         List of countries.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    countries: List[Country] = Field(
-        ...,
-        alias='countries',
-    )
+    total: float = Field(..., alias='total')
+    countries: List[Country] = Field(..., alias='countries')

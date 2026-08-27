@@ -18,15 +18,6 @@ class Oauth2Project(AppwriteModel):
         API endpoint of the region the project is deployed in. Empty when the region has no public hostname configured.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    region: str = Field(
-        ...,
-        alias='region',
-    )
-    endpoint: str = Field(
-        ...,
-        alias='endpoint',
-    )
+    id: str = Field(..., alias='$id')
+    region: str = Field(..., alias='region')
+    endpoint: str = Field(..., alias='endpoint')

@@ -16,11 +16,5 @@ class DetectionVariable(AppwriteModel):
         Value of environment variable
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    value: str = Field(
-        ...,
-        alias='value',
-    )
+    name: str = Field(..., alias='name')
+    value: str = Field(..., alias='value')

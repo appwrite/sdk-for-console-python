@@ -17,11 +17,5 @@ class DedicatedDatabaseBranchList(AppwriteModel):
         List of branches.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    branches: List[DedicatedDatabaseBranch] = Field(
-        ...,
-        alias='branches',
-    )
+    total: float = Field(..., alias='total')
+    branches: List[DedicatedDatabaseBranch] = Field(..., alias='branches')

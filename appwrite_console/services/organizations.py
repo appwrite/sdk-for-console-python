@@ -70,13 +70,9 @@ class Organizations(Service):
         api_path = '/organizations'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
 
         response = self.client.call(
             'get',
@@ -154,43 +150,23 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['billingPlan'] = self._normalize_value(
-            billing_plan,
-        )
+        api_params['organizationId'] = self._normalize_value(organization_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['billingPlan'] = self._normalize_value(billing_plan)
         if payment_method_id is not None:
-            api_params['paymentMethodId'] = self._normalize_value(
-                payment_method_id,
-            )
+            api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
         if billing_address_id is not None:
-            api_params['billingAddressId'] = self._normalize_value(
-                billing_address_id,
-            )
+            api_params['billingAddressId'] = self._normalize_value(billing_address_id)
         if invites is not None:
-            api_params['invites'] = self._normalize_value(
-                invites,
-            )
+            api_params['invites'] = self._normalize_value(invites)
         if coupon_id is not None:
-            api_params['couponId'] = self._normalize_value(
-                coupon_id,
-            )
+            api_params['couponId'] = self._normalize_value(coupon_id)
         if tax_id is not None:
-            api_params['taxId'] = self._normalize_value(
-                tax_id,
-            )
+            api_params['taxId'] = self._normalize_value(tax_id)
         if budget is not None:
-            api_params['budget'] = self._normalize_value(
-                budget,
-            )
+            api_params['budget'] = self._normalize_value(budget)
         if platform is not None:
-            api_params['platform'] = self._normalize_value(
-                platform,
-            )
+            api_params['platform'] = self._normalize_value(platform)
 
         response = self.client.call(
             'post',
@@ -243,25 +219,15 @@ class Organizations(Service):
         api_params = {}
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
-        api_params['billingPlan'] = self._normalize_value(
-            billing_plan,
-        )
+        api_params['billingPlan'] = self._normalize_value(billing_plan)
         if payment_method_id is not None:
-            api_params['paymentMethodId'] = self._normalize_value(
-                payment_method_id,
-            )
+            api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
         if invites is not None:
-            api_params['invites'] = self._normalize_value(
-                invites,
-            )
+            api_params['invites'] = self._normalize_value(invites)
         if coupon_id is not None:
-            api_params['couponId'] = self._normalize_value(
-                coupon_id,
-            )
+            api_params['couponId'] = self._normalize_value(coupon_id)
         if platform is not None:
-            api_params['platform'] = self._normalize_value(
-                platform,
-            )
+            api_params['platform'] = self._normalize_value(platform)
 
         response = self.client.call(
             'patch',
@@ -656,9 +622,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -712,13 +676,9 @@ class Organizations(Service):
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         api_path = api_path.replace('{aggregationId}', str(self._normalize_value(aggregation_id)))
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
 
         response = self.client.call(
             'get',
@@ -768,9 +728,7 @@ class Organizations(Service):
         if billing_address_id is None:
             raise AppwriteException('Missing required parameter: "billing_address_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['billingAddressId'] = self._normalize_value(
-            billing_address_id,
-        )
+        api_params['billingAddressId'] = self._normalize_value(billing_address_id)
 
         response = self.client.call(
             'patch',
@@ -908,9 +866,7 @@ class Organizations(Service):
         if billing_email is None:
             raise AppwriteException('Missing required parameter: "billing_email"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['billingEmail'] = self._normalize_value(
-            billing_email,
-        )
+        api_params['billingEmail'] = self._normalize_value(billing_email)
 
         response = self.client.call(
             'patch',
@@ -962,13 +918,9 @@ class Organizations(Service):
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['budget'] = self._normalize_value(
-            budget,
-        )
+        api_params['budget'] = self._normalize_value(budget)
         if alerts is not None:
-            api_params['alerts'] = self._normalize_value(
-                alerts,
-            )
+            api_params['alerts'] = self._normalize_value(alerts)
 
         response = self.client.call(
             'patch',
@@ -1014,9 +966,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -1062,9 +1012,7 @@ class Organizations(Service):
         if coupon_id is None:
             raise AppwriteException('Missing required parameter: "coupon_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['couponId'] = self._normalize_value(
-            coupon_id,
-        )
+        api_params['couponId'] = self._normalize_value(coupon_id)
 
         response = self.client.call(
             'post',
@@ -1244,17 +1192,11 @@ class Organizations(Service):
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['billingPlan'] = self._normalize_value(
-            billing_plan,
-        )
+        api_params['billingPlan'] = self._normalize_value(billing_plan)
         if invites is not None:
-            api_params['invites'] = self._normalize_value(
-                invites,
-            )
+            api_params['invites'] = self._normalize_value(invites)
         if coupon_id is not None:
-            api_params['couponId'] = self._normalize_value(
-                coupon_id,
-            )
+            api_params['couponId'] = self._normalize_value(coupon_id)
 
         response = self.client.call(
             'patch',
@@ -1316,18 +1258,10 @@ class Organizations(Service):
         if to_plan_id is None:
             raise AppwriteException('Missing required parameter: "to_plan_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['reason'] = self._normalize_value(
-            reason,
-        )
-        api_params['message'] = self._normalize_value(
-            message,
-        )
-        api_params['fromPlanId'] = self._normalize_value(
-            from_plan_id,
-        )
-        api_params['toPlanId'] = self._normalize_value(
-            to_plan_id,
-        )
+        api_params['reason'] = self._normalize_value(reason)
+        api_params['message'] = self._normalize_value(message)
+        api_params['fromPlanId'] = self._normalize_value(from_plan_id)
+        api_params['toPlanId'] = self._normalize_value(to_plan_id)
 
         response = self.client.call(
             'post',
@@ -1373,9 +1307,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -1519,9 +1451,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "payment_method_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
-        api_params['paymentMethodId'] = self._normalize_value(
-            payment_method_id,
-        )
+        api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
         response = self.client.call(
             'post',
@@ -1665,9 +1595,7 @@ class Organizations(Service):
         if payment_method_id is None:
             raise AppwriteException('Missing required parameter: "payment_method_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['paymentMethodId'] = self._normalize_value(
-            payment_method_id,
-        )
+        api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
         response = self.client.call(
             'patch',
@@ -1763,9 +1691,7 @@ class Organizations(Service):
         if payment_method_id is None:
             raise AppwriteException('Missing required parameter: "payment_method_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['paymentMethodId'] = self._normalize_value(
-            payment_method_id,
-        )
+        api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
         response = self.client.call(
             'patch',
@@ -1965,33 +1891,19 @@ class Organizations(Service):
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['billingPlan'] = self._normalize_value(
-            billing_plan,
-        )
+        api_params['billingPlan'] = self._normalize_value(billing_plan)
         if payment_method_id is not None:
-            api_params['paymentMethodId'] = self._normalize_value(
-                payment_method_id,
-            )
+            api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
         if billing_address_id is not None:
-            api_params['billingAddressId'] = self._normalize_value(
-                billing_address_id,
-            )
+            api_params['billingAddressId'] = self._normalize_value(billing_address_id)
         if invites is not None:
-            api_params['invites'] = self._normalize_value(
-                invites,
-            )
+            api_params['invites'] = self._normalize_value(invites)
         if coupon_id is not None:
-            api_params['couponId'] = self._normalize_value(
-                coupon_id,
-            )
+            api_params['couponId'] = self._normalize_value(coupon_id)
         if tax_id is not None:
-            api_params['taxId'] = self._normalize_value(
-                tax_id,
-            )
+            api_params['taxId'] = self._normalize_value(tax_id)
         if budget is not None:
-            api_params['budget'] = self._normalize_value(
-                budget,
-            )
+            api_params['budget'] = self._normalize_value(budget)
 
         response = self.client.call(
             'patch',
@@ -2089,17 +2001,11 @@ class Organizations(Service):
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['billingPlan'] = self._normalize_value(
-            billing_plan,
-        )
+        api_params['billingPlan'] = self._normalize_value(billing_plan)
         if invites is not None:
-            api_params['invites'] = self._normalize_value(
-                invites,
-            )
+            api_params['invites'] = self._normalize_value(invites)
         if coupon_id is not None:
-            api_params['couponId'] = self._normalize_value(
-                coupon_id,
-            )
+            api_params['couponId'] = self._normalize_value(coupon_id)
 
         response = self.client.call(
             'post',
@@ -2185,9 +2091,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if project_id is not None:
-            api_params['projectId'] = self._normalize_value(
-                project_id,
-            )
+            api_params['projectId'] = self._normalize_value(project_id)
 
         response = self.client.call(
             'get',
@@ -2235,9 +2139,7 @@ class Organizations(Service):
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
-        api_params['taxId'] = self._normalize_value(
-            tax_id,
-        )
+        api_params['taxId'] = self._normalize_value(tax_id)
 
         response = self.client.call(
             'patch',
@@ -2286,13 +2188,9 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if start_date is not None:
-            api_params['startDate'] = self._normalize_value(
-                start_date,
-            )
+            api_params['startDate'] = self._normalize_value(start_date)
         if end_date is not None:
-            api_params['endDate'] = self._normalize_value(
-                end_date,
-            )
+            api_params['endDate'] = self._normalize_value(end_date)
 
         response = self.client.call(
             'get',
@@ -2341,9 +2239,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if invites is not None:
-            api_params['invites'] = self._normalize_value(
-                invites,
-            )
+            api_params['invites'] = self._normalize_value(invites)
 
         response = self.client.call(
             'patch',

@@ -30,39 +30,12 @@ class Key(AppwriteModel):
         List of SDK user agents that used this key.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    expire: str = Field(
-        ...,
-        alias='expire',
-    )
-    scopes: List[Any] = Field(
-        ...,
-        alias='scopes',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    accessedat: str = Field(
-        ...,
-        alias='accessedAt',
-    )
-    sdks: List[Any] = Field(
-        ...,
-        alias='sdks',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    expire: str = Field(..., alias='expire')
+    scopes: List[Any] = Field(..., alias='scopes')
+    secret: str = Field(..., alias='secret')
+    accessedat: str = Field(..., alias='accessedAt')
+    sdks: List[Any] = Field(..., alias='sdks')

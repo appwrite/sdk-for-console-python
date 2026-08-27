@@ -17,11 +17,5 @@ class ProjectService(AppwriteModel):
         Service status.
     """
 
-    id: ProjectServiceId = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: ProjectServiceId = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

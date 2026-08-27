@@ -16,11 +16,5 @@ class PolicyPasswordPersonalData(AppwriteModel):
         Whether password personal data policy is enabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

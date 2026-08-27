@@ -17,11 +17,5 @@ class ConsoleOAuth2Provider(AppwriteModel):
         List of parameters required to configure this OAuth2 provider.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    parameters: List[ConsoleOAuth2ProviderParameter] = Field(
-        ...,
-        alias='parameters',
-    )
+    id: str = Field(..., alias='$id')
+    parameters: List[ConsoleOAuth2ProviderParameter] = Field(..., alias='parameters')

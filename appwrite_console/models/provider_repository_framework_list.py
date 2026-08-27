@@ -19,15 +19,6 @@ class ProviderRepositoryFrameworkList(AppwriteModel):
         Provider repository list type.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    frameworkproviderrepositories: List[ProviderRepositoryFramework] = Field(
-        ...,
-        alias='frameworkProviderRepositories',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
+    total: float = Field(..., alias='total')
+    frameworkproviderrepositories: List[ProviderRepositoryFramework] = Field(..., alias='frameworkProviderRepositories')
+    type: str = Field(..., alias='type')

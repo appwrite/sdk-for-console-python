@@ -16,11 +16,5 @@ class PolicySessionDuration(AppwriteModel):
         Session duration in seconds.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    duration: float = Field(
-        ...,
-        alias='duration',
-    )
+    id: str = Field(..., alias='$id')
+    duration: float = Field(..., alias='duration')

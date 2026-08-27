@@ -17,11 +17,5 @@ class ActivityEventList(AppwriteModel):
         List of events.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    events: List[ActivityEvent] = Field(
-        ...,
-        alias='events',
-    )
+    total: float = Field(..., alias='total')
+    events: List[ActivityEvent] = Field(..., alias='events')

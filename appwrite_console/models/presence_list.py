@@ -17,11 +17,5 @@ class PresenceList(AppwriteModel):
         List of presences.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    presences: List[Presence] = Field(
-        ...,
-        alias='presences',
-    )
+    total: float = Field(..., alias='total')
+    presences: List[Presence] = Field(..., alias='presences')

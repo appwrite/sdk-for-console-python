@@ -22,23 +22,8 @@ class DedicatedDatabaseMember(AppwriteModel):
         Replication lag in seconds. Null when the lag is not known: a primary has none to report, and a member the backend has not probed has none yet. Also null against `replicating: true`, for a member that is streaming but whose engine printed no numeric lag.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    role: str = Field(
-        ...,
-        alias='role',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    replicating: Optional[bool] = Field(
-        default=None,
-        alias='replicating',
-    )
-    lagseconds: Optional[float] = Field(
-        default=None,
-        alias='lagSeconds',
-    )
+    id: str = Field(..., alias='$id')
+    role: str = Field(..., alias='role')
+    status: str = Field(..., alias='status')
+    replicating: Optional[bool] = Field(default=None, alias='replicating')
+    lagseconds: Optional[float] = Field(default=None, alias='lagSeconds')

@@ -17,11 +17,5 @@ class AggregationTeamList(AppwriteModel):
         List of aggregations.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    aggregations: List[AggregationTeam] = Field(
-        ...,
-        alias='aggregations',
-    )
+    total: float = Field(..., alias='total')
+    aggregations: List[AggregationTeam] = Field(..., alias='aggregations')

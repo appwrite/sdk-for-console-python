@@ -17,11 +17,5 @@ class AddonList(AppwriteModel):
         List of addons.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    addons: List[Addon] = Field(
-        ...,
-        alias='addons',
-    )
+    total: float = Field(..., alias='total')
+    addons: List[Addon] = Field(..., alias='addons')

@@ -17,11 +17,5 @@ class InvoiceList(AppwriteModel):
         List of invoices.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    invoices: List[Invoice] = Field(
-        ...,
-        alias='invoices',
-    )
+    total: float = Field(..., alias='total')
+    invoices: List[Invoice] = Field(..., alias='invoices')

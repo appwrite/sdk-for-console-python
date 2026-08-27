@@ -15,7 +15,4 @@ class EstimationDeleteOrganization(AppwriteModel):
         List of unpaid invoices
     """
 
-    unpaidinvoices: List[Invoice] = Field(
-        ...,
-        alias='unpaidInvoices',
-    )
+    unpaidinvoices: List[Invoice] = Field(..., alias='unpaidInvoices')

@@ -20,19 +20,7 @@ class OAuth2Linkedin(AppwriteModel):
         LinkedIn OAuth2 primary client secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    primaryclientsecret: str = Field(
-        ...,
-        alias='primaryClientSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    primaryclientsecret: str = Field(..., alias='primaryClientSecret')

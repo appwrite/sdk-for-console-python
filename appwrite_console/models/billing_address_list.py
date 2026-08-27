@@ -17,11 +17,5 @@ class BillingAddressList(AppwriteModel):
         List of billingAddresses.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    billingaddresses: List[BillingAddress] = Field(
-        ...,
-        alias='billingAddresses',
-    )
+    total: float = Field(..., alias='total')
+    billingaddresses: List[BillingAddress] = Field(..., alias='billingAddresses')

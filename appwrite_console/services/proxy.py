@@ -52,16 +52,10 @@ class Proxy(Service):
             raise AppwriteException('Missing required parameter: "domain"')
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['type'] = self._normalize_value(type)
         if reference is not None:
-            api_params['reference'] = self._normalize_value(
-                reference,
-            )
+            api_params['reference'] = self._normalize_value(reference)
 
         response = self.client.call(
             'post',
@@ -104,13 +98,9 @@ class Proxy(Service):
         api_path = '/proxy/rules'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -152,9 +142,7 @@ class Proxy(Service):
         api_params = {}
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
+        api_params['domain'] = self._normalize_value(domain)
 
         response = self.client.call(
             'post',
@@ -205,16 +193,10 @@ class Proxy(Service):
             raise AppwriteException('Missing required parameter: "domain"')
         if function_id is None:
             raise AppwriteException('Missing required parameter: "function_id"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
-        api_params['functionId'] = self._normalize_value(
-            function_id,
-        )
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['functionId'] = self._normalize_value(function_id)
         if branch is not None:
-            api_params['branch'] = self._normalize_value(
-                branch,
-            )
+            api_params['branch'] = self._normalize_value(branch)
 
         response = self.client.call(
             'post',
@@ -277,21 +259,11 @@ class Proxy(Service):
             raise AppwriteException('Missing required parameter: "resource_id"')
         if resource_type is None:
             raise AppwriteException('Missing required parameter: "resource_type"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
-        api_params['url'] = self._normalize_value(
-            url,
-        )
-        api_params['statusCode'] = self._normalize_value(
-            status_code,
-        )
-        api_params['resourceId'] = self._normalize_value(
-            resource_id,
-        )
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['url'] = self._normalize_value(url)
+        api_params['statusCode'] = self._normalize_value(status_code)
+        api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['resourceType'] = self._normalize_value(resource_type)
 
         response = self.client.call(
             'post',
@@ -342,16 +314,10 @@ class Proxy(Service):
             raise AppwriteException('Missing required parameter: "domain"')
         if site_id is None:
             raise AppwriteException('Missing required parameter: "site_id"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
-        api_params['siteId'] = self._normalize_value(
-            site_id,
-        )
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['siteId'] = self._normalize_value(site_id)
         if branch is not None:
-            api_params['branch'] = self._normalize_value(
-                branch,
-            )
+            api_params['branch'] = self._normalize_value(branch)
 
         response = self.client.call(
             'post',

@@ -15,7 +15,4 @@ class StageList(AppwriteModel):
         List of stages.
     """
 
-    stages: List[Stage] = Field(
-        ...,
-        alias='stages',
-    )
+    stages: List[Stage] = Field(..., alias='stages')

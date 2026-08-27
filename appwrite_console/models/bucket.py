@@ -40,59 +40,17 @@ class Bucket(AppwriteModel):
         Total size of this bucket in bytes.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    filesecurity: bool = Field(
-        ...,
-        alias='fileSecurity',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    maximumfilesize: float = Field(
-        ...,
-        alias='maximumFileSize',
-    )
-    allowedfileextensions: List[Any] = Field(
-        ...,
-        alias='allowedFileExtensions',
-    )
-    compression: str = Field(
-        ...,
-        alias='compression',
-    )
-    encryption: bool = Field(
-        ...,
-        alias='encryption',
-    )
-    antivirus: bool = Field(
-        ...,
-        alias='antivirus',
-    )
-    transformations: bool = Field(
-        ...,
-        alias='transformations',
-    )
-    totalsize: float = Field(
-        ...,
-        alias='totalSize',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    filesecurity: bool = Field(..., alias='fileSecurity')
+    name: str = Field(..., alias='name')
+    enabled: bool = Field(..., alias='enabled')
+    maximumfilesize: float = Field(..., alias='maximumFileSize')
+    allowedfileextensions: List[Any] = Field(..., alias='allowedFileExtensions')
+    compression: str = Field(..., alias='compression')
+    encryption: bool = Field(..., alias='encryption')
+    antivirus: bool = Field(..., alias='antivirus')
+    transformations: bool = Field(..., alias='transformations')
+    totalsize: float = Field(..., alias='totalSize')

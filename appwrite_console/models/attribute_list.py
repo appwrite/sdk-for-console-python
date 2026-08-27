@@ -34,10 +34,7 @@ class AttributeList(AppwriteModel):
         List of attributes.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    total: float = Field(..., alias='total')
     attributes: List[
         Union[
             AttributeBoolean,
@@ -59,7 +56,4 @@ class AttributeList(AppwriteModel):
             AttributeLongtext,
             AttributeString,
         ]
-    ] = Field(
-        ...,
-        alias='attributes',
-    )
+    ] = Field(..., alias='attributes')

@@ -22,23 +22,8 @@ class FrameworkAdapter(AppwriteModel):
         Name of fallback file to use instead of 404 page. If null, Appwrite 404 page will be displayed.
     """
 
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    installcommand: str = Field(
-        ...,
-        alias='installCommand',
-    )
-    buildcommand: str = Field(
-        ...,
-        alias='buildCommand',
-    )
-    outputdirectory: str = Field(
-        ...,
-        alias='outputDirectory',
-    )
-    fallbackfile: str = Field(
-        ...,
-        alias='fallbackFile',
-    )
+    key: str = Field(..., alias='key')
+    installcommand: str = Field(..., alias='installCommand')
+    buildcommand: str = Field(..., alias='buildCommand')
+    outputdirectory: str = Field(..., alias='outputDirectory')
+    fallbackfile: str = Field(..., alias='fallbackFile')

@@ -17,11 +17,5 @@ class UsageEventList(AppwriteModel):
         One series per requested event metric.
     """
 
-    interval: str = Field(
-        ...,
-        alias='interval',
-    )
-    metrics: List[UsageMetric] = Field(
-        ...,
-        alias='metrics',
-    )
+    interval: str = Field(..., alias='interval')
+    metrics: List[UsageMetric] = Field(..., alias='metrics')

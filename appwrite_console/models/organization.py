@@ -87,146 +87,41 @@ class Organization(AppwriteModel, Generic[T]):
         Selected projects
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    prefs: Preferences[T] = Field(
-        ...,
-        alias='prefs',
-    )
-    billingbudget: Optional[float] = Field(
-        default=None,
-        alias='billingBudget',
-    )
-    budgetalerts: List[Any] = Field(
-        ...,
-        alias='budgetAlerts',
-    )
-    billingplan: str = Field(
-        ...,
-        alias='billingPlan',
-    )
-    billingplanid: str = Field(
-        ...,
-        alias='billingPlanId',
-    )
-    billingplandetails: BillingPlan = Field(
-        ...,
-        alias='billingPlanDetails',
-    )
-    billingemail: str = Field(
-        ...,
-        alias='billingEmail',
-    )
-    billingstartdate: str = Field(
-        ...,
-        alias='billingStartDate',
-    )
-    billingcurrentinvoicedate: str = Field(
-        ...,
-        alias='billingCurrentInvoiceDate',
-    )
-    billingnextinvoicedate: str = Field(
-        ...,
-        alias='billingNextInvoiceDate',
-    )
-    billingtrialstartdate: Optional[str] = Field(
-        default=None,
-        alias='billingTrialStartDate',
-    )
-    billingtrialdays: float = Field(
-        ...,
-        alias='billingTrialDays',
-    )
-    billingaggregationid: str = Field(
-        ...,
-        alias='billingAggregationId',
-    )
-    billinginvoiceid: str = Field(
-        ...,
-        alias='billingInvoiceId',
-    )
-    paymentmethodid: str = Field(
-        ...,
-        alias='paymentMethodId',
-    )
-    billingaddressid: Optional[str] = Field(
-        default=None,
-        alias='billingAddressId',
-    )
-    backuppaymentmethodid: Optional[str] = Field(
-        default=None,
-        alias='backupPaymentMethodId',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    remarks: Optional[str] = Field(
-        default=None,
-        alias='remarks',
-    )
-    agreementbaa: Optional[str] = Field(
-        default=None,
-        alias='agreementBAA',
-    )
-    programmanagername: Optional[str] = Field(
-        default=None,
-        alias='programManagerName',
-    )
-    programmanagercalendar: Optional[str] = Field(
-        default=None,
-        alias='programManagerCalendar',
-    )
-    programdiscordchannelname: Optional[str] = Field(
-        default=None,
-        alias='programDiscordChannelName',
-    )
-    programdiscordchannelurl: Optional[str] = Field(
-        default=None,
-        alias='programDiscordChannelUrl',
-    )
-    billinglimits: Optional[BillingLimits] = Field(
-        default=None,
-        alias='billingLimits',
-    )
-    billingplandowngrade: Optional[str] = Field(
-        default=None,
-        alias='billingPlanDowngrade',
-    )
-    billingtaxid: Optional[str] = Field(
-        default=None,
-        alias='billingTaxId',
-    )
-    markedfordeletion: bool = Field(
-        ...,
-        alias='markedForDeletion',
-    )
-    platform: str = Field(
-        ...,
-        alias='platform',
-    )
-    projects: List[Any] = Field(
-        ...,
-        alias='projects',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    total: float = Field(..., alias='total')
+    prefs: Preferences[T] = Field(..., alias='prefs')
+    billingbudget: Optional[float] = Field(default=None, alias='billingBudget')
+    budgetalerts: List[Any] = Field(..., alias='budgetAlerts')
+    billingplan: str = Field(..., alias='billingPlan')
+    billingplanid: str = Field(..., alias='billingPlanId')
+    billingplandetails: BillingPlan = Field(..., alias='billingPlanDetails')
+    billingemail: str = Field(..., alias='billingEmail')
+    billingstartdate: str = Field(..., alias='billingStartDate')
+    billingcurrentinvoicedate: str = Field(..., alias='billingCurrentInvoiceDate')
+    billingnextinvoicedate: str = Field(..., alias='billingNextInvoiceDate')
+    billingtrialstartdate: Optional[str] = Field(default=None, alias='billingTrialStartDate')
+    billingtrialdays: float = Field(..., alias='billingTrialDays')
+    billingaggregationid: str = Field(..., alias='billingAggregationId')
+    billinginvoiceid: str = Field(..., alias='billingInvoiceId')
+    paymentmethodid: str = Field(..., alias='paymentMethodId')
+    billingaddressid: Optional[str] = Field(default=None, alias='billingAddressId')
+    backuppaymentmethodid: Optional[str] = Field(default=None, alias='backupPaymentMethodId')
+    status: str = Field(..., alias='status')
+    remarks: Optional[str] = Field(default=None, alias='remarks')
+    agreementbaa: Optional[str] = Field(default=None, alias='agreementBAA')
+    programmanagername: Optional[str] = Field(default=None, alias='programManagerName')
+    programmanagercalendar: Optional[str] = Field(default=None, alias='programManagerCalendar')
+    programdiscordchannelname: Optional[str] = Field(default=None, alias='programDiscordChannelName')
+    programdiscordchannelurl: Optional[str] = Field(default=None, alias='programDiscordChannelUrl')
+    billinglimits: Optional[BillingLimits] = Field(default=None, alias='billingLimits')
+    billingplandowngrade: Optional[str] = Field(default=None, alias='billingPlanDowngrade')
+    billingtaxid: Optional[str] = Field(default=None, alias='billingTaxId')
+    markedfordeletion: bool = Field(..., alias='markedForDeletion')
+    platform: str = Field(..., alias='platform')
+    projects: List[Any] = Field(..., alias='projects')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'Organization[T]':

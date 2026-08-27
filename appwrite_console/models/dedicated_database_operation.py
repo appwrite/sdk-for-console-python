@@ -34,47 +34,14 @@ class DedicatedDatabaseOperation(AppwriteModel):
         Failure message if the operation failed.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='databaseId',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    attempts: float = Field(
-        ...,
-        alias='attempts',
-    )
-    requestedat: Optional[str] = Field(
-        default=None,
-        alias='requestedAt',
-    )
-    startedat: Optional[str] = Field(
-        default=None,
-        alias='startedAt',
-    )
-    completedat: Optional[str] = Field(
-        default=None,
-        alias='completedAt',
-    )
-    errorcode: str = Field(
-        ...,
-        alias='errorCode',
-    )
-    errormessage: str = Field(
-        ...,
-        alias='errorMessage',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    databaseid: str = Field(..., alias='databaseId')
+    type: str = Field(..., alias='type')
+    status: str = Field(..., alias='status')
+    attempts: float = Field(..., alias='attempts')
+    requestedat: Optional[str] = Field(default=None, alias='requestedAt')
+    startedat: Optional[str] = Field(default=None, alias='startedAt')
+    completedat: Optional[str] = Field(default=None, alias='completedAt')
+    errorcode: str = Field(..., alias='errorCode')
+    errormessage: str = Field(..., alias='errorMessage')

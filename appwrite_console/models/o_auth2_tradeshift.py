@@ -20,19 +20,7 @@ class OAuth2Tradeshift(AppwriteModel):
         Tradeshift OAuth2 client secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    oauth2clientid: str = Field(
-        ...,
-        alias='oauth2ClientId',
-    )
-    oauth2clientsecret: str = Field(
-        ...,
-        alias='oauth2ClientSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    oauth2clientid: str = Field(..., alias='oauth2ClientId')
+    oauth2clientsecret: str = Field(..., alias='oauth2ClientSecret')

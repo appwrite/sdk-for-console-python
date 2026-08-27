@@ -17,11 +17,5 @@ class SessionList(AppwriteModel):
         List of sessions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    sessions: List[Session] = Field(
-        ...,
-        alias='sessions',
-    )
+    total: float = Field(..., alias='total')
+    sessions: List[Session] = Field(..., alias='sessions')

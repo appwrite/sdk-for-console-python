@@ -16,11 +16,5 @@ class PolicyPasswordHistory(AppwriteModel):
         Password history length. A value of 0 means the policy is disabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    id: str = Field(..., alias='$id')
+    total: float = Field(..., alias='total')

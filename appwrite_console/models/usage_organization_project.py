@@ -52,83 +52,23 @@ class UsageOrganizationProject(AppwriteModel):
         Aggregated stats for realtime bandwidth.
     """
 
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
-    bandwidth: float = Field(
-        ...,
-        alias='bandwidth',
-    )
-    users: float = Field(
-        ...,
-        alias='users',
-    )
-    executions: float = Field(
-        ...,
-        alias='executions',
-    )
-    databasesreads: float = Field(
-        ...,
-        alias='databasesReads',
-    )
-    databaseswrites: float = Field(
-        ...,
-        alias='databasesWrites',
-    )
-    executionsmbseconds: float = Field(
-        ...,
-        alias='executionsMBSeconds',
-    )
-    buildsmbseconds: float = Field(
-        ...,
-        alias='buildsMBSeconds',
-    )
-    storage: float = Field(
-        ...,
-        alias='storage',
-    )
-    authphonetotal: float = Field(
-        ...,
-        alias='authPhoneTotal',
-    )
-    authphoneestimate: float = Field(
-        ...,
-        alias='authPhoneEstimate',
-    )
-    databasesreadstotal: float = Field(
-        ...,
-        alias='databasesReadsTotal',
-    )
-    databaseswritestotal: float = Field(
-        ...,
-        alias='databasesWritesTotal',
-    )
-    imagetransformations: float = Field(
-        ...,
-        alias='imageTransformations',
-    )
-    imagetransformationstotal: float = Field(
-        ...,
-        alias='imageTransformationsTotal',
-    )
-    screenshotsgenerated: float = Field(
-        ...,
-        alias='screenshotsGenerated',
-    )
-    screenshotsgeneratedtotal: float = Field(
-        ...,
-        alias='screenshotsGeneratedTotal',
-    )
-    realtimeconnections: float = Field(
-        ...,
-        alias='realtimeConnections',
-    )
-    realtimemessages: float = Field(
-        ...,
-        alias='realtimeMessages',
-    )
-    realtimebandwidth: float = Field(
-        ...,
-        alias='realtimeBandwidth',
-    )
+    projectid: str = Field(..., alias='projectId')
+    bandwidth: float = Field(..., alias='bandwidth')
+    users: float = Field(..., alias='users')
+    executions: float = Field(..., alias='executions')
+    databasesreads: float = Field(..., alias='databasesReads')
+    databaseswrites: float = Field(..., alias='databasesWrites')
+    executionsmbseconds: float = Field(..., alias='executionsMBSeconds')
+    buildsmbseconds: float = Field(..., alias='buildsMBSeconds')
+    storage: float = Field(..., alias='storage')
+    authphonetotal: float = Field(..., alias='authPhoneTotal')
+    authphoneestimate: float = Field(..., alias='authPhoneEstimate')
+    databasesreadstotal: float = Field(..., alias='databasesReadsTotal')
+    databaseswritestotal: float = Field(..., alias='databasesWritesTotal')
+    imagetransformations: float = Field(..., alias='imageTransformations')
+    imagetransformationstotal: float = Field(..., alias='imageTransformationsTotal')
+    screenshotsgenerated: float = Field(..., alias='screenshotsGenerated')
+    screenshotsgeneratedtotal: float = Field(..., alias='screenshotsGeneratedTotal')
+    realtimeconnections: float = Field(..., alias='realtimeConnections')
+    realtimemessages: float = Field(..., alias='realtimeMessages')
+    realtimebandwidth: float = Field(..., alias='realtimeBandwidth')

@@ -17,11 +17,5 @@ class SpecificationList(AppwriteModel):
         List of specifications.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    specifications: List[Specification] = Field(
-        ...,
-        alias='specifications',
-    )
+    total: float = Field(..., alias='total')
+    specifications: List[Specification] = Field(..., alias='specifications')

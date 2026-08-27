@@ -52,83 +52,23 @@ class PaymentMethod(AppwriteModel):
         True when payment method has failed to process multiple times.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    providermethodid: str = Field(
-        ...,
-        alias='providerMethodId',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    provideruserid: str = Field(
-        ...,
-        alias='providerUserId',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    expirymonth: float = Field(
-        ...,
-        alias='expiryMonth',
-    )
-    expiryyear: float = Field(
-        ...,
-        alias='expiryYear',
-    )
-    last4: str = Field(
-        ...,
-        alias='last4',
-    )
-    brand: str = Field(
-        ...,
-        alias='brand',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    mandateid: str = Field(
-        ...,
-        alias='mandateId',
-    )
-    country: str = Field(
-        ...,
-        alias='country',
-    )
-    state: str = Field(
-        ...,
-        alias='state',
-    )
-    lasterror: str = Field(
-        ...,
-        alias='lastError',
-    )
-    default: bool = Field(
-        ...,
-        alias='default',
-    )
-    expired: bool = Field(
-        ...,
-        alias='expired',
-    )
-    failed: bool = Field(
-        ...,
-        alias='failed',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    providermethodid: str = Field(..., alias='providerMethodId')
+    clientsecret: str = Field(..., alias='clientSecret')
+    provideruserid: str = Field(..., alias='providerUserId')
+    userid: str = Field(..., alias='userId')
+    expirymonth: float = Field(..., alias='expiryMonth')
+    expiryyear: float = Field(..., alias='expiryYear')
+    last4: str = Field(..., alias='last4')
+    brand: str = Field(..., alias='brand')
+    name: str = Field(..., alias='name')
+    mandateid: str = Field(..., alias='mandateId')
+    country: str = Field(..., alias='country')
+    state: str = Field(..., alias='state')
+    lasterror: str = Field(..., alias='lastError')
+    default: bool = Field(..., alias='default')
+    expired: bool = Field(..., alias='expired')
+    failed: bool = Field(..., alias='failed')

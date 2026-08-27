@@ -20,19 +20,7 @@ class OAuth2Facebook(AppwriteModel):
         Facebook OAuth2 app secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    appid: str = Field(
-        ...,
-        alias='appId',
-    )
-    appsecret: str = Field(
-        ...,
-        alias='appSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    appid: str = Field(..., alias='appId')
+    appsecret: str = Field(..., alias='appSecret')

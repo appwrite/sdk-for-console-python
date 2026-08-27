@@ -17,11 +17,5 @@ class AffiliateLinkList(AppwriteModel):
         List of links.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    links: List[AffiliateLink] = Field(
-        ...,
-        alias='links',
-    )
+    total: float = Field(..., alias='total')
+    links: List[AffiliateLink] = Field(..., alias='links')

@@ -33,43 +33,13 @@ class DomainPurchase(AppwriteModel):
         Currency code.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    domainid: str = Field(
-        ...,
-        alias='domainId',
-    )
-    domain: str = Field(
-        ...,
-        alias='domain',
-    )
-    organizationid: str = Field(
-        ...,
-        alias='organizationId',
-    )
-    status: DomainPurchaseStatus = Field(
-        ...,
-        alias='status',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    amount: float = Field(
-        ...,
-        alias='amount',
-    )
-    currency: str = Field(
-        ...,
-        alias='currency',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    domainid: str = Field(..., alias='domainId')
+    domain: str = Field(..., alias='domain')
+    organizationid: str = Field(..., alias='organizationId')
+    status: DomainPurchaseStatus = Field(..., alias='status')
+    clientsecret: str = Field(..., alias='clientSecret')
+    amount: float = Field(..., alias='amount')
+    currency: str = Field(..., alias='currency')

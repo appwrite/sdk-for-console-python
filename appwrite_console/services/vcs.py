@@ -64,16 +64,10 @@ class Vcs(Service):
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_params['providerRepositoryId'] = self._normalize_value(
-            provider_repository_id,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
+        api_params['providerRepositoryId'] = self._normalize_value(provider_repository_id)
+        api_params['type'] = self._normalize_value(type)
         if provider_root_directory is not None:
-            api_params['providerRootDirectory'] = self._normalize_value(
-                provider_root_directory,
-            )
+            api_params['providerRootDirectory'] = self._normalize_value(provider_root_directory)
 
         response = self.client.call(
             'post',
@@ -137,17 +131,11 @@ class Vcs(Service):
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_params['type'] = self._normalize_value(
-            type,
-        )
+        api_params['type'] = self._normalize_value(type)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -209,16 +197,10 @@ class Vcs(Service):
         if private is None:
             raise AppwriteException('Missing required parameter: "private"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['private'] = self._normalize_value(
-            private,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['private'] = self._normalize_value(private)
         if provider_namespace is not None:
-            api_params['providerNamespace'] = self._normalize_value(
-                provider_namespace,
-            )
+            api_params['providerNamespace'] = self._normalize_value(provider_namespace)
 
         response = self.client.call(
             'post',
@@ -319,13 +301,9 @@ class Vcs(Service):
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -379,13 +357,9 @@ class Vcs(Service):
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
         if provider_root_directory is not None:
-            api_params['providerRootDirectory'] = self._normalize_value(
-                provider_root_directory,
-            )
+            api_params['providerRootDirectory'] = self._normalize_value(provider_root_directory)
         if provider_reference is not None:
-            api_params['providerReference'] = self._normalize_value(
-                provider_reference,
-            )
+            api_params['providerReference'] = self._normalize_value(provider_reference)
 
         response = self.client.call(
             'get',
@@ -437,9 +411,7 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "provider_pull_request_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{repositoryId}', str(self._normalize_value(repository_id)))
-        api_params['providerPullRequestId'] = self._normalize_value(
-            provider_pull_request_id,
-        )
+        api_params['providerPullRequestId'] = self._normalize_value(provider_pull_request_id)
 
         response = self.client.call(
             'patch',
@@ -485,17 +457,11 @@ class Vcs(Service):
         api_path = '/vcs/installations'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -623,13 +589,9 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',

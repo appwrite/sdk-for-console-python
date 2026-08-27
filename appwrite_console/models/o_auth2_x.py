@@ -20,19 +20,7 @@ class OAuth2X(AppwriteModel):
         X OAuth2 secret key.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    customerkey: str = Field(
-        ...,
-        alias='customerKey',
-    )
-    secretkey: str = Field(
-        ...,
-        alias='secretKey',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    customerkey: str = Field(..., alias='customerKey')
+    secretkey: str = Field(..., alias='secretKey')

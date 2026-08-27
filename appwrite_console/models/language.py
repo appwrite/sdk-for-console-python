@@ -18,15 +18,6 @@ class Language(AppwriteModel):
         Language native name.
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    code: str = Field(
-        ...,
-        alias='code',
-    )
-    nativename: str = Field(
-        ...,
-        alias='nativeName',
-    )
+    name: str = Field(..., alias='name')
+    code: str = Field(..., alias='code')
+    nativename: str = Field(..., alias='nativeName')

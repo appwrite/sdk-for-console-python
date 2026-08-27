@@ -79,17 +79,11 @@ class Databases(Service):
         api_path = '/databases'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -140,16 +134,10 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -192,9 +180,7 @@ class Databases(Service):
         api_path = '/databases/transactions'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -236,9 +222,7 @@ class Databases(Service):
         api_path = '/databases/transactions'
         api_params = {}
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'post',
@@ -333,13 +317,9 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if commit is not None:
-            api_params['commit'] = self._normalize_value(
-                commit,
-            )
+            api_params['commit'] = self._normalize_value(commit)
         if rollback is not None:
-            api_params['rollback'] = self._normalize_value(
-                rollback,
-            )
+            api_params['rollback'] = self._normalize_value(rollback)
 
         response = self.client.call(
             'patch',
@@ -431,9 +411,7 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if operations is not None:
-            api_params['operations'] = self._normalize_value(
-                operations,
-            )
+            api_params['operations'] = self._normalize_value(operations)
 
         response = self.client.call(
             'post',
@@ -528,13 +506,9 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'put',
@@ -632,17 +606,11 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -711,32 +679,18 @@ class Databases(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['collectionId'] = self._normalize_value(
-            collection_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['collectionId'] = self._normalize_value(collection_id)
+        api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if document_security is not None:
-            api_params['documentSecurity'] = self._normalize_value(
-                document_security,
-            )
+            api_params['documentSecurity'] = self._normalize_value(document_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if attributes is not None:
-            api_params['attributes'] = self._normalize_value(
-                attributes,
-            )
+            api_params['attributes'] = self._normalize_value(attributes)
         if indexes is not None:
-            api_params['indexes'] = self._normalize_value(
-                indexes,
-            )
+            api_params['indexes'] = self._normalize_value(indexes)
 
         response = self.client.call(
             'post',
@@ -852,25 +806,15 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if document_security is not None:
-            api_params['documentSecurity'] = self._normalize_value(
-                document_security,
-            )
+            api_params['documentSecurity'] = self._normalize_value(document_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if purge is not None:
-            api_params['purge'] = self._normalize_value(
-                purge,
-            )
+            api_params['purge'] = self._normalize_value(purge)
 
         response = self.client.call(
             'put',
@@ -977,13 +921,9 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1055,28 +995,16 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1150,24 +1078,14 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+            api_params['max'] = self._normalize_value(max)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1234,20 +1152,12 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1315,16 +1225,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1391,20 +1295,12 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1472,16 +1368,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1548,20 +1438,12 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1629,16 +1511,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1710,23 +1586,13 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['elements'] = self._normalize_value(
-            elements,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['elements'] = self._normalize_value(elements)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1799,19 +1665,11 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['elements'] = self._normalize_value(
-            elements,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['elements'] = self._normalize_value(elements)
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1884,28 +1742,16 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1979,24 +1825,14 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+            api_params['max'] = self._normalize_value(max)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2069,28 +1905,16 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2164,24 +1988,14 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+            api_params['max'] = self._normalize_value(max)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2248,20 +2062,12 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2329,16 +2135,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2402,16 +2202,10 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
 
         response = self.client.call(
             'post',
@@ -2479,17 +2273,11 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2559,24 +2347,14 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -2644,16 +2422,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2723,24 +2495,14 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -2808,16 +2570,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2881,16 +2637,10 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
 
         response = self.client.call(
             'post',
@@ -2958,17 +2708,11 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3032,16 +2776,10 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
 
         response = self.client.call(
             'post',
@@ -3109,17 +2847,11 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3192,28 +2924,16 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "type"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['relatedCollectionId'] = self._normalize_value(
-            related_collection_id,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
+        api_params['relatedCollectionId'] = self._normalize_value(related_collection_id)
+        api_params['type'] = self._normalize_value(type)
         if two_way is not None:
-            api_params['twoWay'] = self._normalize_value(
-                two_way,
-            )
+            api_params['twoWay'] = self._normalize_value(two_way)
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if two_way_key is not None:
-            api_params['twoWayKey'] = self._normalize_value(
-                two_way_key,
-            )
+            api_params['twoWayKey'] = self._normalize_value(two_way_key)
         if on_delete is not None:
-            api_params['onDelete'] = self._normalize_value(
-                on_delete,
-            )
+            api_params['onDelete'] = self._normalize_value(on_delete)
 
         response = self.client.call(
             'post',
@@ -3277,13 +2997,9 @@ class Databases(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
         if on_delete is not None:
-            api_params['onDelete'] = self._normalize_value(
-                on_delete,
-            )
+            api_params['onDelete'] = self._normalize_value(on_delete)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3358,27 +3074,15 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['size'] = self._normalize_value(
-            size,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['size'] = self._normalize_value(size)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3449,20 +3153,12 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if size is not None:
-            api_params['size'] = self._normalize_value(
-                size,
-            )
+            api_params['size'] = self._normalize_value(size)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3532,24 +3228,14 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3617,16 +3303,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3693,20 +3373,12 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -3774,16 +3446,10 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3858,27 +3524,15 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['size'] = self._normalize_value(
-            size,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['size'] = self._normalize_value(size)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3949,20 +3603,12 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if size is not None:
-            api_params['size'] = self._normalize_value(
-                size,
-            )
+            api_params['size'] = self._normalize_value(size)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -4183,21 +3829,13 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'get',
@@ -4267,20 +3905,12 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "data"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['documentId'] = self._normalize_value(
-            document_id,
-        )
-        api_params['data'] = self._normalize_value(
-            data,
-        )
+        api_params['documentId'] = self._normalize_value(document_id)
+        api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'post',
@@ -4343,13 +3973,9 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "documents"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['documents'] = self._normalize_value(
-            documents,
-        )
+        api_params['documents'] = self._normalize_value(documents)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'post',
@@ -4412,13 +4038,9 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "documents"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['documents'] = self._normalize_value(
-            documents,
-        )
+        api_params['documents'] = self._normalize_value(documents)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'put',
@@ -4483,17 +4105,11 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -4555,13 +4171,9 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'delete',
@@ -4629,13 +4241,9 @@ class Databases(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'get',
@@ -4705,17 +4313,11 @@ class Databases(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'put',
@@ -4786,17 +4388,11 @@ class Databases(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -4857,9 +4453,7 @@ class Databases(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'delete',
@@ -4935,17 +4529,11 @@ class Databases(Service):
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         api_path = api_path.replace('{attribute}', str(self._normalize_value(attribute)))
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
+            api_params['value'] = self._normalize_value(value)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -5022,17 +4610,11 @@ class Databases(Service):
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         api_path = api_path.replace('{attribute}', str(self._normalize_value(attribute)))
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
+            api_params['value'] = self._normalize_value(value)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -5090,13 +4672,9 @@ class Databases(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -5168,23 +4746,13 @@ class Databases(Service):
             raise AppwriteException('Missing required parameter: "attributes"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
-        api_params['attributes'] = self._normalize_value(
-            attributes,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['type'] = self._normalize_value(type)
+        api_params['attributes'] = self._normalize_value(attributes)
         if orders is not None:
-            api_params['orders'] = self._normalize_value(
-                orders,
-            )
+            api_params['orders'] = self._normalize_value(orders)
         if lengths is not None:
-            api_params['lengths'] = self._normalize_value(
-                lengths,
-            )
+            api_params['lengths'] = self._normalize_value(lengths)
 
         response = self.client.call(
             'post',

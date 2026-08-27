@@ -49,17 +49,11 @@ class Storage(Service):
         api_path = '/storage/buckets'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -131,48 +125,26 @@ class Storage(Service):
             raise AppwriteException('Missing required parameter: "bucket_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['bucketId'] = self._normalize_value(
-            bucket_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['bucketId'] = self._normalize_value(bucket_id)
+        api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if file_security is not None:
-            api_params['fileSecurity'] = self._normalize_value(
-                file_security,
-            )
+            api_params['fileSecurity'] = self._normalize_value(file_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if maximum_file_size is not None:
-            api_params['maximumFileSize'] = self._normalize_value(
-                maximum_file_size,
-            )
+            api_params['maximumFileSize'] = self._normalize_value(maximum_file_size)
         if allowed_file_extensions is not None:
-            api_params['allowedFileExtensions'] = self._normalize_value(
-                allowed_file_extensions,
-            )
+            api_params['allowedFileExtensions'] = self._normalize_value(allowed_file_extensions)
         if compression is not None:
-            api_params['compression'] = self._normalize_value(
-                compression,
-            )
+            api_params['compression'] = self._normalize_value(compression)
         if encryption is not None:
-            api_params['encryption'] = self._normalize_value(
-                encryption,
-            )
+            api_params['encryption'] = self._normalize_value(encryption)
         if antivirus is not None:
-            api_params['antivirus'] = self._normalize_value(
-                antivirus,
-            )
+            api_params['antivirus'] = self._normalize_value(antivirus)
         if transformations is not None:
-            api_params['transformations'] = self._normalize_value(
-                transformations,
-            )
+            api_params['transformations'] = self._normalize_value(transformations)
 
         response = self.client.call(
             'post',
@@ -286,45 +258,25 @@ class Storage(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if file_security is not None:
-            api_params['fileSecurity'] = self._normalize_value(
-                file_security,
-            )
+            api_params['fileSecurity'] = self._normalize_value(file_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if maximum_file_size is not None:
-            api_params['maximumFileSize'] = self._normalize_value(
-                maximum_file_size,
-            )
+            api_params['maximumFileSize'] = self._normalize_value(maximum_file_size)
         if allowed_file_extensions is not None:
-            api_params['allowedFileExtensions'] = self._normalize_value(
-                allowed_file_extensions,
-            )
+            api_params['allowedFileExtensions'] = self._normalize_value(allowed_file_extensions)
         if compression is not None:
-            api_params['compression'] = self._normalize_value(
-                compression,
-            )
+            api_params['compression'] = self._normalize_value(compression)
         if encryption is not None:
-            api_params['encryption'] = self._normalize_value(
-                encryption,
-            )
+            api_params['encryption'] = self._normalize_value(encryption)
         if antivirus is not None:
-            api_params['antivirus'] = self._normalize_value(
-                antivirus,
-            )
+            api_params['antivirus'] = self._normalize_value(antivirus)
         if transformations is not None:
-            api_params['transformations'] = self._normalize_value(
-                transformations,
-            )
+            api_params['transformations'] = self._normalize_value(transformations)
 
         response = self.client.call(
             'put',
@@ -416,17 +368,11 @@ class Storage(Service):
             raise AppwriteException('Missing required parameter: "bucket_id"')
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -493,20 +439,12 @@ class Storage(Service):
         if file is None:
             raise AppwriteException('Missing required parameter: "file"')
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
-        api_params['fileId'] = self._normalize_value(
-            file_id,
-        )
-        api_params['file'] = self._normalize_value(
-            file,
-        )
+        api_params['fileId'] = self._normalize_value(file_id)
+        api_params['file'] = self._normalize_value(file)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if folder is not None:
-            api_params['folder'] = self._normalize_value(
-                folder,
-            )
+            api_params['folder'] = self._normalize_value(folder)
 
         param_name = 'file'
 
@@ -614,13 +552,9 @@ class Storage(Service):
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
 
         response = self.client.call(
             'put',
@@ -718,9 +652,7 @@ class Storage(Service):
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if token is not None:
-            api_params['token'] = self._normalize_value(
-                token,
-            )
+            api_params['token'] = self._normalize_value(token)
 
         response = self.client.call(
             'get',
@@ -804,53 +736,29 @@ class Storage(Service):
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if gravity is not None:
-            api_params['gravity'] = self._normalize_value(
-                gravity,
-            )
+            api_params['gravity'] = self._normalize_value(gravity)
         if quality is not None:
-            api_params['quality'] = self._normalize_value(
-                quality,
-            )
+            api_params['quality'] = self._normalize_value(quality)
         if border_width is not None:
-            api_params['borderWidth'] = self._normalize_value(
-                border_width,
-            )
+            api_params['borderWidth'] = self._normalize_value(border_width)
         if border_color is not None:
-            api_params['borderColor'] = self._normalize_value(
-                border_color,
-            )
+            api_params['borderColor'] = self._normalize_value(border_color)
         if border_radius is not None:
-            api_params['borderRadius'] = self._normalize_value(
-                border_radius,
-            )
+            api_params['borderRadius'] = self._normalize_value(border_radius)
         if opacity is not None:
-            api_params['opacity'] = self._normalize_value(
-                opacity,
-            )
+            api_params['opacity'] = self._normalize_value(opacity)
         if rotation is not None:
-            api_params['rotation'] = self._normalize_value(
-                rotation,
-            )
+            api_params['rotation'] = self._normalize_value(rotation)
         if background is not None:
-            api_params['background'] = self._normalize_value(
-                background,
-            )
+            api_params['background'] = self._normalize_value(background)
         if output is not None:
-            api_params['output'] = self._normalize_value(
-                output,
-            )
+            api_params['output'] = self._normalize_value(output)
         if token is not None:
-            api_params['token'] = self._normalize_value(
-                token,
-            )
+            api_params['token'] = self._normalize_value(token)
 
         response = self.client.call(
             'get',
@@ -901,9 +809,7 @@ class Storage(Service):
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if token is not None:
-            api_params['token'] = self._normalize_value(
-                token,
-            )
+            api_params['token'] = self._normalize_value(token)
 
         response = self.client.call(
             'get',

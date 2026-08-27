@@ -52,13 +52,9 @@ class Tokens(Service):
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -109,9 +105,7 @@ class Tokens(Service):
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if expire is not None:
-            api_params['expire'] = self._normalize_value(
-                expire,
-            )
+            api_params['expire'] = self._normalize_value(expire)
 
         response = self.client.call(
             'post',
@@ -197,9 +191,7 @@ class Tokens(Service):
             raise AppwriteException('Missing required parameter: "token_id"')
         api_path = api_path.replace('{tokenId}', str(self._normalize_value(token_id)))
         if expire is not None:
-            api_params['expire'] = self._normalize_value(
-                expire,
-            )
+            api_params['expire'] = self._normalize_value(expire)
 
         response = self.client.call(
             'patch',

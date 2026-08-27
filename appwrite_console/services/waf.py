@@ -48,17 +48,11 @@ class Waf(Service):
         api_path = '/waf/rules'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -123,35 +117,19 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "resource_type"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['ruleId'] = self._normalize_value(
-            rule_id,
-        )
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
+        api_params['ruleId'] = self._normalize_value(rule_id)
+        api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+            api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'post',
@@ -215,33 +193,19 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
-            api_params['resourceType'] = self._normalize_value(
-                resource_type,
-            )
+            api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'patch',
@@ -316,47 +280,25 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "resource_type"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['ruleId'] = self._normalize_value(
-            rule_id,
-        )
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
+        api_params['ruleId'] = self._normalize_value(rule_id)
+        api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+            api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if challenge_type is not None:
-            api_params['challengeType'] = self._normalize_value(
-                challenge_type,
-            )
+            api_params['challengeType'] = self._normalize_value(challenge_type)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
         if difficulty is not None:
-            api_params['difficulty'] = self._normalize_value(
-                difficulty,
-            )
+            api_params['difficulty'] = self._normalize_value(difficulty)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'post',
@@ -429,45 +371,25 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
-            api_params['resourceType'] = self._normalize_value(
-                resource_type,
-            )
+            api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if challenge_type is not None:
-            api_params['challengeType'] = self._normalize_value(
-                challenge_type,
-            )
+            api_params['challengeType'] = self._normalize_value(challenge_type)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
         if difficulty is not None:
-            api_params['difficulty'] = self._normalize_value(
-                difficulty,
-            )
+            api_params['difficulty'] = self._normalize_value(difficulty)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'patch',
@@ -533,35 +455,19 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "resource_type"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['ruleId'] = self._normalize_value(
-            rule_id,
-        )
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
+        api_params['ruleId'] = self._normalize_value(rule_id)
+        api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+            api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'post',
@@ -625,33 +531,19 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
-            api_params['resourceType'] = self._normalize_value(
-                resource_type,
-            )
+            api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'patch',
@@ -736,53 +628,27 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "limit"')
         if interval is None:
             raise AppwriteException('Missing required parameter: "interval"')
-        api_params['ruleId'] = self._normalize_value(
-            rule_id,
-        )
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
+        api_params['ruleId'] = self._normalize_value(rule_id)
+        api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+            api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
-        api_params['limit'] = self._normalize_value(
-            limit,
-        )
-        api_params['interval'] = self._normalize_value(
-            interval,
-        )
+            api_params['description'] = self._normalize_value(description)
+        api_params['limit'] = self._normalize_value(limit)
+        api_params['interval'] = self._normalize_value(interval)
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if strategy is not None:
-            api_params['strategy'] = self._normalize_value(
-                strategy,
-            )
+            api_params['strategy'] = self._normalize_value(strategy)
         if max_bucket_size is not None:
-            api_params['maxBucketSize'] = self._normalize_value(
-                max_bucket_size,
-            )
+            api_params['maxBucketSize'] = self._normalize_value(max_bucket_size)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'post',
@@ -858,49 +724,27 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
-            api_params['resourceType'] = self._normalize_value(
-                resource_type,
-            )
+            api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if interval is not None:
-            api_params['interval'] = self._normalize_value(
-                interval,
-            )
+            api_params['interval'] = self._normalize_value(interval)
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if max_bucket_size is not None:
-            api_params['maxBucketSize'] = self._normalize_value(
-                max_bucket_size,
-            )
+            api_params['maxBucketSize'] = self._normalize_value(max_bucket_size)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'patch',
@@ -976,41 +820,21 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "location"')
         if status_code is None:
             raise AppwriteException('Missing required parameter: "status_code"')
-        api_params['ruleId'] = self._normalize_value(
-            rule_id,
-        )
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
+        api_params['ruleId'] = self._normalize_value(rule_id)
+        api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+            api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
-        api_params['location'] = self._normalize_value(
-            location,
-        )
-        api_params['statusCode'] = self._normalize_value(
-            status_code,
-        )
+            api_params['description'] = self._normalize_value(description)
+        api_params['location'] = self._normalize_value(location)
+        api_params['statusCode'] = self._normalize_value(status_code)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'post',
@@ -1080,41 +904,23 @@ class Waf(Service):
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
-            api_params['resourceType'] = self._normalize_value(
-                resource_type,
-            )
+            api_params['resourceType'] = self._normalize_value(resource_type)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if location is not None:
-            api_params['location'] = self._normalize_value(
-                location,
-            )
+            api_params['location'] = self._normalize_value(location)
         if status_code is not None:
-            api_params['statusCode'] = self._normalize_value(
-                status_code,
-            )
+            api_params['statusCode'] = self._normalize_value(status_code)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if conditions is not None:
-            api_params['conditions'] = self._normalize_value(
-                conditions,
-            )
+            api_params['conditions'] = self._normalize_value(conditions)
 
         response = self.client.call(
             'patch',

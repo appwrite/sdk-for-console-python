@@ -76,45 +76,25 @@ class Usage(Service):
         api_params = {}
         if metrics is None:
             raise AppwriteException('Missing required parameter: "metrics"')
-        api_params['metrics'] = self._normalize_value(
-            metrics,
-        )
+        api_params['metrics'] = self._normalize_value(metrics)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if interval is not None:
-            api_params['interval'] = self._normalize_value(
-                interval,
-            )
+            api_params['interval'] = self._normalize_value(interval)
         if dimensions is not None:
-            api_params['dimensions'] = self._normalize_value(
-                dimensions,
-            )
+            api_params['dimensions'] = self._normalize_value(dimensions)
         if start_at is not None:
-            api_params['startAt'] = self._normalize_value(
-                start_at,
-            )
+            api_params['startAt'] = self._normalize_value(start_at)
         if end_at is not None:
-            api_params['endAt'] = self._normalize_value(
-                end_at,
-            )
+            api_params['endAt'] = self._normalize_value(end_at)
         if order_by is not None:
-            api_params['orderBy'] = self._normalize_value(
-                order_by,
-            )
+            api_params['orderBy'] = self._normalize_value(order_by)
         if order_dir is not None:
-            api_params['orderDir'] = self._normalize_value(
-                order_dir,
-            )
+            api_params['orderDir'] = self._normalize_value(order_dir)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
 
         response = self.client.call(
             'get',
@@ -194,49 +174,27 @@ class Usage(Service):
         api_params = {}
         if metrics is None:
             raise AppwriteException('Missing required parameter: "metrics"')
-        api_params['metrics'] = self._normalize_value(
-            metrics,
-        )
+        api_params['metrics'] = self._normalize_value(metrics)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if interval is not None:
-            api_params['interval'] = self._normalize_value(
-                interval,
-            )
+            api_params['interval'] = self._normalize_value(interval)
         if dimensions is not None:
-            api_params['dimensions'] = self._normalize_value(
-                dimensions,
-            )
+            api_params['dimensions'] = self._normalize_value(dimensions)
         if start_at is not None:
-            api_params['startAt'] = self._normalize_value(
-                start_at,
-            )
+            api_params['startAt'] = self._normalize_value(start_at)
         if end_at is not None:
-            api_params['endAt'] = self._normalize_value(
-                end_at,
-            )
+            api_params['endAt'] = self._normalize_value(end_at)
         if order_by is not None:
-            api_params['orderBy'] = self._normalize_value(
-                order_by,
-            )
+            api_params['orderBy'] = self._normalize_value(order_by)
         if order_dir is not None:
-            api_params['orderDir'] = self._normalize_value(
-                order_dir,
-            )
+            api_params['orderDir'] = self._normalize_value(order_dir)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
         if aggregate is not None:
-            api_params['aggregate'] = self._normalize_value(
-                aggregate,
-            )
+            api_params['aggregate'] = self._normalize_value(aggregate)
 
         response = self.client.call(
             'get',

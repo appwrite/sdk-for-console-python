@@ -14,7 +14,4 @@ class Oauth2Organization(AppwriteModel):
         Organization ID.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
+    id: str = Field(..., alias='$id')

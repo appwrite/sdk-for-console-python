@@ -37,51 +37,15 @@ class Report(AppwriteModel):
         Time the report was analyzed in ISO 8601 format.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    appid: str = Field(
-        ...,
-        alias='appId',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    title: str = Field(
-        ...,
-        alias='title',
-    )
-    summary: str = Field(
-        ...,
-        alias='summary',
-    )
-    targettype: str = Field(
-        ...,
-        alias='targetType',
-    )
-    target: str = Field(
-        ...,
-        alias='target',
-    )
-    categories: List[Any] = Field(
-        ...,
-        alias='categories',
-    )
-    insights: List[Insight] = Field(
-        ...,
-        alias='insights',
-    )
-    analyzedat: Optional[str] = Field(
-        default=None,
-        alias='analyzedAt',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    appid: str = Field(..., alias='appId')
+    type: str = Field(..., alias='type')
+    title: str = Field(..., alias='title')
+    summary: str = Field(..., alias='summary')
+    targettype: str = Field(..., alias='targetType')
+    target: str = Field(..., alias='target')
+    categories: List[Any] = Field(..., alias='categories')
+    insights: List[Insight] = Field(..., alias='insights')
+    analyzedat: Optional[str] = Field(default=None, alias='analyzedAt')

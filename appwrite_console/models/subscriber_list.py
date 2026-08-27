@@ -17,11 +17,5 @@ class SubscriberList(AppwriteModel):
         List of subscribers.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    subscribers: List[Subscriber] = Field(
-        ...,
-        alias='subscribers',
-    )
+    total: float = Field(..., alias='total')
+    subscribers: List[Subscriber] = Field(..., alias='subscribers')

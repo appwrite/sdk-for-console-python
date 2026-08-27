@@ -55,38 +55,14 @@ class Table(AppwriteModel):
         Currently used row size in bytes based on defined columns.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='databaseId',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    rowsecurity: bool = Field(
-        ...,
-        alias='rowSecurity',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    databaseid: str = Field(..., alias='databaseId')
+    name: str = Field(..., alias='name')
+    enabled: bool = Field(..., alias='enabled')
+    rowsecurity: bool = Field(..., alias='rowSecurity')
     columns: List[
         Union[
             ColumnBoolean,
@@ -108,19 +84,7 @@ class Table(AppwriteModel):
             ColumnLongtext,
             ColumnString,
         ]
-    ] = Field(
-        ...,
-        alias='columns',
-    )
-    indexes: List[ColumnIndex] = Field(
-        ...,
-        alias='indexes',
-    )
-    bytesmax: float = Field(
-        ...,
-        alias='bytesMax',
-    )
-    bytesused: float = Field(
-        ...,
-        alias='bytesUsed',
-    )
+    ] = Field(..., alias='columns')
+    indexes: List[ColumnIndex] = Field(..., alias='indexes')
+    bytesmax: float = Field(..., alias='bytesMax')
+    bytesused: float = Field(..., alias='bytesUsed')

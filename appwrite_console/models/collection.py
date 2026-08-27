@@ -55,38 +55,14 @@ class Collection(AppwriteModel):
         Currently used document size in bytes based on defined attributes.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='databaseId',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    documentsecurity: bool = Field(
-        ...,
-        alias='documentSecurity',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    databaseid: str = Field(..., alias='databaseId')
+    name: str = Field(..., alias='name')
+    enabled: bool = Field(..., alias='enabled')
+    documentsecurity: bool = Field(..., alias='documentSecurity')
     attributes: List[
         Union[
             AttributeBoolean,
@@ -108,19 +84,7 @@ class Collection(AppwriteModel):
             AttributeLongtext,
             AttributeString,
         ]
-    ] = Field(
-        ...,
-        alias='attributes',
-    )
-    indexes: List[Index] = Field(
-        ...,
-        alias='indexes',
-    )
-    bytesmax: float = Field(
-        ...,
-        alias='bytesMax',
-    )
-    bytesused: float = Field(
-        ...,
-        alias='bytesUsed',
-    )
+    ] = Field(..., alias='attributes')
+    indexes: List[Index] = Field(..., alias='indexes')
+    bytesmax: float = Field(..., alias='bytesMax')
+    bytesused: float = Field(..., alias='bytesUsed')

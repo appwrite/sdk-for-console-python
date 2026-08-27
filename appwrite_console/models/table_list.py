@@ -17,11 +17,5 @@ class TableList(AppwriteModel):
         List of tables.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    tables: List[Table] = Field(
-        ...,
-        alias='tables',
-    )
+    total: float = Field(..., alias='total')
+    tables: List[Table] = Field(..., alias='tables')

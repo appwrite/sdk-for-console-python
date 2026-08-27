@@ -22,23 +22,8 @@ class AppScope(AppwriteModel):
         Whether the scope is deprecated. Deprecated scopes can still be requested but should not be offered for new grants.
     """
 
-    value: str = Field(
-        ...,
-        alias='value',
-    )
-    description: str = Field(
-        ...,
-        alias='description',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    category: str = Field(
-        ...,
-        alias='category',
-    )
-    deprecated: bool = Field(
-        ...,
-        alias='deprecated',
-    )
+    value: str = Field(..., alias='value')
+    description: str = Field(..., alias='description')
+    type: str = Field(..., alias='type')
+    category: str = Field(..., alias='category')
+    deprecated: bool = Field(..., alias='deprecated')

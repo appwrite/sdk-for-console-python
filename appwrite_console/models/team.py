@@ -27,30 +27,12 @@ class Team(AppwriteModel, Generic[T]):
         Team preferences as a key-value object
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    prefs: Preferences[T] = Field(
-        ...,
-        alias='prefs',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    total: float = Field(..., alias='total')
+    prefs: Preferences[T] = Field(..., alias='prefs')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'Team[T]':

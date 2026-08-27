@@ -16,11 +16,5 @@ class EstimationItem(AppwriteModel):
         Gross payable amount
     """
 
-    label: str = Field(
-        ...,
-        alias='label',
-    )
-    value: float = Field(
-        ...,
-        alias='value',
-    )
+    label: str = Field(..., alias='label')
+    value: float = Field(..., alias='value')

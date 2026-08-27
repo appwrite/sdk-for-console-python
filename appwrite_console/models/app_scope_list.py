@@ -17,11 +17,5 @@ class AppScopeList(AppwriteModel):
         List of scopes.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    scopes: List[AppScope] = Field(
-        ...,
-        alias='scopes',
-    )
+    total: float = Field(..., alias='total')
+    scopes: List[AppScope] = Field(..., alias='scopes')

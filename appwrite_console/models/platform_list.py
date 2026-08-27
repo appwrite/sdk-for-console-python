@@ -21,10 +21,7 @@ class PlatformList(AppwriteModel):
         List of platforms.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    total: float = Field(..., alias='total')
     platforms: List[
         Union[
             PlatformWeb,
@@ -33,7 +30,4 @@ class PlatformList(AppwriteModel):
             PlatformWindows,
             PlatformLinux,
         ]
-    ] = Field(
-        ...,
-        alias='platforms',
-    )
+    ] = Field(..., alias='platforms')

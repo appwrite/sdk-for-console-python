@@ -14,7 +14,4 @@ class Oauth2Reject(AppwriteModel):
         URL the end user should be redirected to after the grant is rejected, carrying an `access_denied` error.
     """
 
-    redirecturl: str = Field(
-        ...,
-        alias='redirectUrl',
-    )
+    redirecturl: str = Field(..., alias='redirectUrl')

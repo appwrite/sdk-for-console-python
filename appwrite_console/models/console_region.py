@@ -24,27 +24,9 @@ class ConsoleRegion(AppwriteModel):
         Region flag code.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    available: Optional[bool] = Field(
-        default=None,
-        alias='available',
-    )
-    disabled: bool = Field(
-        ...,
-        alias='disabled',
-    )
-    default: bool = Field(
-        ...,
-        alias='default',
-    )
-    flag: str = Field(
-        ...,
-        alias='flag',
-    )
+    id: str = Field(..., alias='$id')
+    name: str = Field(..., alias='name')
+    available: Optional[bool] = Field(default=None, alias='available')
+    disabled: bool = Field(..., alias='disabled')
+    default: bool = Field(..., alias='default')
+    flag: str = Field(..., alias='flag')

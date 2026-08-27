@@ -32,43 +32,13 @@ class ColumnIndex(AppwriteModel):
         Index orders.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    error: str = Field(
-        ...,
-        alias='error',
-    )
-    columns: List[Any] = Field(
-        ...,
-        alias='columns',
-    )
-    lengths: List[Any] = Field(
-        ...,
-        alias='lengths',
-    )
-    orders: Optional[List[Any]] = Field(
-        default=None,
-        alias='orders',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    key: str = Field(..., alias='key')
+    type: str = Field(..., alias='type')
+    status: str = Field(..., alias='status')
+    error: str = Field(..., alias='error')
+    columns: List[Any] = Field(..., alias='columns')
+    lengths: List[Any] = Field(..., alias='lengths')
+    orders: Optional[List[Any]] = Field(default=None, alias='orders')

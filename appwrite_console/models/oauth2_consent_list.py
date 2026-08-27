@@ -17,11 +17,5 @@ class Oauth2ConsentList(AppwriteModel):
         List of consents.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    consents: List[Oauth2Consent] = Field(
-        ...,
-        alias='consents',
-    )
+    total: float = Field(..., alias='total')
+    consents: List[Oauth2Consent] = Field(..., alias='consents')

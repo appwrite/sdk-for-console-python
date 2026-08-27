@@ -22,23 +22,8 @@ class OAuth2Microsoft(AppwriteModel):
         Microsoft Entra ID tenant identifier. Use &#039;common&#039;, &#039;organizations&#039;, &#039;consumers&#039; or a specific tenant ID.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    applicationid: str = Field(
-        ...,
-        alias='applicationId',
-    )
-    applicationsecret: str = Field(
-        ...,
-        alias='applicationSecret',
-    )
-    tenant: str = Field(
-        ...,
-        alias='tenant',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    applicationid: str = Field(..., alias='applicationId')
+    applicationsecret: str = Field(..., alias='applicationSecret')
+    tenant: str = Field(..., alias='tenant')

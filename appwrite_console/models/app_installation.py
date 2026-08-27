@@ -32,43 +32,13 @@ class AppInstallation(AppwriteModel):
         Time an access token was last issued for the installation in ISO 8601 format. Null if never used.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    appid: str = Field(
-        ...,
-        alias='appId',
-    )
-    teamid: str = Field(
-        ...,
-        alias='teamId',
-    )
-    scopes: List[Any] = Field(
-        ...,
-        alias='scopes',
-    )
-    authorizationdetails: List[Any] = Field(
-        ...,
-        alias='authorizationDetails',
-    )
-    createdbyid: str = Field(
-        ...,
-        alias='createdById',
-    )
-    createdbyname: str = Field(
-        ...,
-        alias='createdByName',
-    )
-    lastaccessedat: Optional[str] = Field(
-        default=None,
-        alias='lastAccessedAt',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    appid: str = Field(..., alias='appId')
+    teamid: str = Field(..., alias='teamId')
+    scopes: List[Any] = Field(..., alias='scopes')
+    authorizationdetails: List[Any] = Field(..., alias='authorizationDetails')
+    createdbyid: str = Field(..., alias='createdById')
+    createdbyname: str = Field(..., alias='createdByName')
+    lastaccessedat: Optional[str] = Field(default=None, alias='lastAccessedAt')

@@ -48,75 +48,21 @@ class Locale(AppwriteModel):
         Registered organization of the IP
     """
 
-    ip: str = Field(
-        ...,
-        alias='ip',
-    )
-    countrycode: str = Field(
-        ...,
-        alias='countryCode',
-    )
-    country: str = Field(
-        ...,
-        alias='country',
-    )
-    continentcode: str = Field(
-        ...,
-        alias='continentCode',
-    )
-    continent: str = Field(
-        ...,
-        alias='continent',
-    )
-    eu: bool = Field(
-        ...,
-        alias='eu',
-    )
-    currency: str = Field(
-        ...,
-        alias='currency',
-    )
-    city: Optional[str] = Field(
-        default=None,
-        alias='city',
-    )
-    timezone: Optional[str] = Field(
-        default=None,
-        alias='timeZone',
-    )
-    postalcode: Optional[str] = Field(
-        default=None,
-        alias='postalCode',
-    )
-    latitude: Optional[float] = Field(
-        default=None,
-        alias='latitude',
-    )
-    longitude: Optional[float] = Field(
-        default=None,
-        alias='longitude',
-    )
-    autonomoussystemnumber: Optional[str] = Field(
-        default=None,
-        alias='autonomousSystemNumber',
-    )
-    autonomoussystemorganization: Optional[str] = Field(
-        default=None,
-        alias='autonomousSystemOrganization',
-    )
-    isp: Optional[str] = Field(
-        default=None,
-        alias='isp',
-    )
-    connectiontype: Optional[str] = Field(
-        default=None,
-        alias='connectionType',
-    )
-    connectionusagetype: Optional[str] = Field(
-        default=None,
-        alias='connectionUsageType',
-    )
-    connectionorganization: Optional[str] = Field(
-        default=None,
-        alias='connectionOrganization',
-    )
+    ip: str = Field(..., alias='ip')
+    countrycode: str = Field(..., alias='countryCode')
+    country: str = Field(..., alias='country')
+    continentcode: str = Field(..., alias='continentCode')
+    continent: str = Field(..., alias='continent')
+    eu: bool = Field(..., alias='eu')
+    currency: str = Field(..., alias='currency')
+    city: Optional[str] = Field(default=None, alias='city')
+    timezone: Optional[str] = Field(default=None, alias='timeZone')
+    postalcode: Optional[str] = Field(default=None, alias='postalCode')
+    latitude: Optional[float] = Field(default=None, alias='latitude')
+    longitude: Optional[float] = Field(default=None, alias='longitude')
+    autonomoussystemnumber: Optional[str] = Field(default=None, alias='autonomousSystemNumber')
+    autonomoussystemorganization: Optional[str] = Field(default=None, alias='autonomousSystemOrganization')
+    isp: Optional[str] = Field(default=None, alias='isp')
+    connectiontype: Optional[str] = Field(default=None, alias='connectionType')
+    connectionusagetype: Optional[str] = Field(default=None, alias='connectionUsageType')
+    connectionorganization: Optional[str] = Field(default=None, alias='connectionOrganization')

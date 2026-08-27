@@ -20,19 +20,7 @@ class MfaChallenge(AppwriteModel):
         Token expiration date in ISO 8601 format.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    expire: str = Field(
-        ...,
-        alias='expire',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    userid: str = Field(..., alias='userId')
+    expire: str = Field(..., alias='expire')

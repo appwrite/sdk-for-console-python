@@ -37,9 +37,7 @@ class Activities(Service):
         api_path = '/activities/events'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',

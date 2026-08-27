@@ -17,11 +17,5 @@ class DeploymentList(AppwriteModel):
         List of deployments.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    deployments: List[Deployment] = Field(
-        ...,
-        alias='deployments',
-    )
+    total: float = Field(..., alias='total')
+    deployments: List[Deployment] = Field(..., alias='deployments')

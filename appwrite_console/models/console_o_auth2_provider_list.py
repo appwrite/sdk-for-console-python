@@ -17,11 +17,5 @@ class ConsoleOAuth2ProviderList(AppwriteModel):
         List of OAuth2 providers, each with the parameters required to configure it.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    oauth2providers: List[ConsoleOAuth2Provider] = Field(
-        ...,
-        alias='oAuth2Providers',
-    )
+    total: float = Field(..., alias='total')
+    oauth2providers: List[ConsoleOAuth2Provider] = Field(..., alias='oAuth2Providers')

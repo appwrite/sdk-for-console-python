@@ -25,27 +25,9 @@ class DedicatedDatabaseExecution(AppwriteModel):
         Serialised payload size in bytes.
     """
 
-    rows: List[Any] = Field(
-        ...,
-        alias='rows',
-    )
-    rowcount: float = Field(
-        ...,
-        alias='rowCount',
-    )
-    columns: List[DedicatedDatabaseExecutionColumn] = Field(
-        ...,
-        alias='columns',
-    )
-    durationms: float = Field(
-        ...,
-        alias='durationMs',
-    )
-    truncated: bool = Field(
-        ...,
-        alias='truncated',
-    )
-    bytes: float = Field(
-        ...,
-        alias='bytes',
-    )
+    rows: List[Any] = Field(..., alias='rows')
+    rowcount: float = Field(..., alias='rowCount')
+    columns: List[DedicatedDatabaseExecutionColumn] = Field(..., alias='columns')
+    durationms: float = Field(..., alias='durationMs')
+    truncated: bool = Field(..., alias='truncated')
+    bytes: float = Field(..., alias='bytes')

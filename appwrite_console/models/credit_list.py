@@ -19,15 +19,6 @@ class CreditList(AppwriteModel):
         Total available credit balance in USD
     """
 
-    credits: List[Credit] = Field(
-        ...,
-        alias='credits',
-    )
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    available: float = Field(
-        ...,
-        alias='available',
-    )
+    credits: List[Credit] = Field(..., alias='credits')
+    total: float = Field(..., alias='total')
+    available: float = Field(..., alias='available')

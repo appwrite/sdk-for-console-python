@@ -17,11 +17,5 @@ class BucketList(AppwriteModel):
         List of buckets.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    buckets: List[Bucket] = Field(
-        ...,
-        alias='buckets',
-    )
+    total: float = Field(..., alias='total')
+    buckets: List[Bucket] = Field(..., alias='buckets')

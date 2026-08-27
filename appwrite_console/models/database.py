@@ -46,63 +46,18 @@ class Database(AppwriteModel):
         Database backup archives.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    type: DatabaseType = Field(
-        ...,
-        alias='type',
-    )
-    status: Optional[DatabaseStatus] = Field(
-        default=None,
-        alias='status',
-    )
-    engine: Optional[str] = Field(
-        default=None,
-        alias='engine',
-    )
-    specification: Optional[str] = Field(
-        default=None,
-        alias='specification',
-    )
-    replicas: Optional[float] = Field(
-        default=None,
-        alias='replicas',
-    )
-    error: Optional[str] = Field(
-        default=None,
-        alias='error',
-    )
-    containerstatus: Optional[str] = Field(
-        default=None,
-        alias='containerStatus',
-    )
-    lifecyclestate: Optional[str] = Field(
-        default=None,
-        alias='lifecycleState',
-    )
-    policies: Optional[List[BackupPolicy]] = Field(
-        default=None,
-        alias='policies',
-    )
-    archives: Optional[List[BackupArchive]] = Field(
-        default=None,
-        alias='archives',
-    )
+    id: str = Field(..., alias='$id')
+    name: str = Field(..., alias='name')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    enabled: bool = Field(..., alias='enabled')
+    type: DatabaseType = Field(..., alias='type')
+    status: Optional[DatabaseStatus] = Field(default=None, alias='status')
+    engine: Optional[str] = Field(default=None, alias='engine')
+    specification: Optional[str] = Field(default=None, alias='specification')
+    replicas: Optional[float] = Field(default=None, alias='replicas')
+    error: Optional[str] = Field(default=None, alias='error')
+    containerstatus: Optional[str] = Field(default=None, alias='containerStatus')
+    lifecyclestate: Optional[str] = Field(default=None, alias='lifecycleState')
+    policies: Optional[List[BackupPolicy]] = Field(default=None, alias='policies')
+    archives: Optional[List[BackupArchive]] = Field(default=None, alias='archives')

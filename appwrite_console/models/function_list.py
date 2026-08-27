@@ -17,11 +17,5 @@ class FunctionList(AppwriteModel):
         List of functions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    functions: List[Function] = Field(
-        ...,
-        alias='functions',
-    )
+    total: float = Field(..., alias='total')
+    functions: List[Function] = Field(..., alias='functions')

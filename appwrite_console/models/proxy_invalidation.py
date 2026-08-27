@@ -20,19 +20,7 @@ class ProxyInvalidation(AppwriteModel):
         Invalidation status.
     """
 
-    domain: str = Field(
-        ...,
-        alias='domain',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    reference: str = Field(
-        ...,
-        alias='reference',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
+    domain: str = Field(..., alias='domain')
+    type: str = Field(..., alias='type')
+    reference: str = Field(..., alias='reference')
+    status: str = Field(..., alias='status')

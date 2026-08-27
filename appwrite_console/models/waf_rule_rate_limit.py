@@ -51,79 +51,22 @@ class WafRuleRateLimit(AppwriteModel):
         Maximum burst capacity in tokens, applied by the `tokenBucket` strategy. The sustained refill rate is `limit / interval`. Defaults to `limit`.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    description: str = Field(
-        ...,
-        alias='description',
-    )
-    teamid: str = Field(
-        ...,
-        alias='teamId',
-    )
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    action: WafRuleAction = Field(
-        ...,
-        alias='action',
-    )
-    priority: float = Field(
-        ...,
-        alias='priority',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    conditions: List[Any] = Field(
-        ...,
-        alias='conditions',
-    )
-    config: Dict[str, Any] = Field(
-        ...,
-        alias='config',
-    )
-    limit: float = Field(
-        ...,
-        alias='limit',
-    )
-    interval: float = Field(
-        ...,
-        alias='interval',
-    )
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    strategy: str = Field(
-        ...,
-        alias='strategy',
-    )
-    maxbucketsize: float = Field(
-        ...,
-        alias='maxBucketSize',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    description: str = Field(..., alias='description')
+    teamid: str = Field(..., alias='teamId')
+    projectid: str = Field(..., alias='projectId')
+    resourcetype: str = Field(..., alias='resourceType')
+    resourceid: str = Field(..., alias='resourceId')
+    action: WafRuleAction = Field(..., alias='action')
+    priority: float = Field(..., alias='priority')
+    enabled: bool = Field(..., alias='enabled')
+    conditions: List[Any] = Field(..., alias='conditions')
+    config: Dict[str, Any] = Field(..., alias='config')
+    limit: float = Field(..., alias='limit')
+    interval: float = Field(..., alias='interval')
+    key: str = Field(..., alias='key')
+    strategy: str = Field(..., alias='strategy')
+    maxbucketsize: float = Field(..., alias='maxBucketSize')

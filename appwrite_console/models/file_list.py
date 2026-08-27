@@ -17,11 +17,5 @@ class FileList(AppwriteModel):
         List of files.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    files: List[File] = Field(
-        ...,
-        alias='files',
-    )
+    total: float = Field(..., alias='total')
+    files: List[File] = Field(..., alias='files')

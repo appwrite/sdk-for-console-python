@@ -17,11 +17,5 @@ class WafRuleList(AppwriteModel):
         List of rules.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    rules: List[WafRule] = Field(
-        ...,
-        alias='rules',
-    )
+    total: float = Field(..., alias='total')
+    rules: List[WafRule] = Field(..., alias='rules')

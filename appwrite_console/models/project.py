@@ -110,154 +110,46 @@ class Project(AppwriteModel):
         OAuth2 server discovery URL
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    teamid: str = Field(
-        ...,
-        alias='teamId',
-    )
-    region: str = Field(
-        ...,
-        alias='region',
-    )
-    devkeys: List[DevKey] = Field(
-        ...,
-        alias='devKeys',
-    )
-    smtpenabled: bool = Field(
-        ...,
-        alias='smtpEnabled',
-    )
-    smtpsendername: str = Field(
-        ...,
-        alias='smtpSenderName',
-    )
-    smtpsenderemail: str = Field(
-        ...,
-        alias='smtpSenderEmail',
-    )
-    smtpreplytoname: str = Field(
-        ...,
-        alias='smtpReplyToName',
-    )
-    smtpreplytoemail: str = Field(
-        ...,
-        alias='smtpReplyToEmail',
-    )
-    smtphost: str = Field(
-        ...,
-        alias='smtpHost',
-    )
-    smtpport: float = Field(
-        ...,
-        alias='smtpPort',
-    )
-    smtpusername: str = Field(
-        ...,
-        alias='smtpUsername',
-    )
-    smtppassword: str = Field(
-        ...,
-        alias='smtpPassword',
-    )
-    smtpsecure: str = Field(
-        ...,
-        alias='smtpSecure',
-    )
-    pingcount: float = Field(
-        ...,
-        alias='pingCount',
-    )
-    pingedat: str = Field(
-        ...,
-        alias='pingedAt',
-    )
-    labels: List[Any] = Field(
-        ...,
-        alias='labels',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    onboarding: Dict[str, Any] = Field(
-        ...,
-        alias='onboarding',
-    )
-    authmethods: List[ProjectAuthMethod] = Field(
-        ...,
-        alias='authMethods',
-    )
-    services: List[ProjectService] = Field(
-        ...,
-        alias='services',
-    )
-    protocols: List[ProjectProtocol] = Field(
-        ...,
-        alias='protocols',
-    )
-    blocks: List[Block] = Field(
-        ...,
-        alias='blocks',
-    )
-    consoleaccessedat: str = Field(
-        ...,
-        alias='consoleAccessedAt',
-    )
-    wafenabled: Optional[bool] = Field(
-        default=None,
-        alias='wafEnabled',
-    )
-    billinglimits: Optional[BillingLimits] = Field(
-        default=None,
-        alias='billingLimits',
-    )
-    oauth2serverenabled: Optional[bool] = Field(
-        default=None,
-        alias='oAuth2ServerEnabled',
-    )
-    oauth2serverauthorizationurl: Optional[str] = Field(
-        default=None,
-        alias='oAuth2ServerAuthorizationUrl',
-    )
-    oauth2serverscopes: Optional[List[Any]] = Field(
-        default=None,
-        alias='oAuth2ServerScopes',
-    )
-    oauth2serverdefaultscopes: Optional[List[Any]] = Field(
-        default=None,
-        alias='oAuth2ServerDefaultScopes',
-    )
-    oauth2serverinstallationscopes: Optional[List[Any]] = Field(
-        default=None,
-        alias='oAuth2ServerInstallationScopes',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    teamid: str = Field(..., alias='teamId')
+    region: str = Field(..., alias='region')
+    devkeys: List[DevKey] = Field(..., alias='devKeys')
+    smtpenabled: bool = Field(..., alias='smtpEnabled')
+    smtpsendername: str = Field(..., alias='smtpSenderName')
+    smtpsenderemail: str = Field(..., alias='smtpSenderEmail')
+    smtpreplytoname: str = Field(..., alias='smtpReplyToName')
+    smtpreplytoemail: str = Field(..., alias='smtpReplyToEmail')
+    smtphost: str = Field(..., alias='smtpHost')
+    smtpport: float = Field(..., alias='smtpPort')
+    smtpusername: str = Field(..., alias='smtpUsername')
+    smtppassword: str = Field(..., alias='smtpPassword')
+    smtpsecure: str = Field(..., alias='smtpSecure')
+    pingcount: float = Field(..., alias='pingCount')
+    pingedat: str = Field(..., alias='pingedAt')
+    labels: List[Any] = Field(..., alias='labels')
+    status: str = Field(..., alias='status')
+    onboarding: Dict[str, Any] = Field(..., alias='onboarding')
+    authmethods: List[ProjectAuthMethod] = Field(..., alias='authMethods')
+    services: List[ProjectService] = Field(..., alias='services')
+    protocols: List[ProjectProtocol] = Field(..., alias='protocols')
+    blocks: List[Block] = Field(..., alias='blocks')
+    consoleaccessedat: str = Field(..., alias='consoleAccessedAt')
+    wafenabled: Optional[bool] = Field(default=None, alias='wafEnabled')
+    billinglimits: Optional[BillingLimits] = Field(default=None, alias='billingLimits')
+    oauth2serverenabled: Optional[bool] = Field(default=None, alias='oAuth2ServerEnabled')
+    oauth2serverauthorizationurl: Optional[str] = Field(default=None, alias='oAuth2ServerAuthorizationUrl')
+    oauth2serverscopes: Optional[List[Any]] = Field(default=None, alias='oAuth2ServerScopes')
+    oauth2serverdefaultscopes: Optional[List[Any]] = Field(default=None, alias='oAuth2ServerDefaultScopes')
+    oauth2serverinstallationscopes: Optional[List[Any]] = Field(default=None, alias='oAuth2ServerInstallationScopes')
     oauth2serverauthorizationdetailstypes: Optional[List[Any]] = Field(
         default=None,
         alias='oAuth2ServerAuthorizationDetailsTypes',
     )
-    oauth2serveraccesstokenduration: Optional[float] = Field(
-        default=None,
-        alias='oAuth2ServerAccessTokenDuration',
-    )
-    oauth2serverrefreshtokenduration: Optional[float] = Field(
-        default=None,
-        alias='oAuth2ServerRefreshTokenDuration',
-    )
+    oauth2serveraccesstokenduration: Optional[float] = Field(default=None, alias='oAuth2ServerAccessTokenDuration')
+    oauth2serverrefreshtokenduration: Optional[float] = Field(default=None, alias='oAuth2ServerRefreshTokenDuration')
     oauth2serverpublicaccesstokenduration: Optional[float] = Field(
         default=None,
         alias='oAuth2ServerPublicAccessTokenDuration',
@@ -270,27 +162,9 @@ class Project(AppwriteModel):
         default=None,
         alias='oAuth2ServerInstallationAccessTokenDuration',
     )
-    oauth2serverconfidentialpkce: Optional[bool] = Field(
-        default=None,
-        alias='oAuth2ServerConfidentialPkce',
-    )
-    oauth2serververificationurl: Optional[str] = Field(
-        default=None,
-        alias='oAuth2ServerVerificationUrl',
-    )
-    oauth2serverusercodelength: Optional[float] = Field(
-        default=None,
-        alias='oAuth2ServerUserCodeLength',
-    )
-    oauth2serverusercodeformat: Optional[str] = Field(
-        default=None,
-        alias='oAuth2ServerUserCodeFormat',
-    )
-    oauth2serverdevicecodeduration: Optional[float] = Field(
-        default=None,
-        alias='oAuth2ServerDeviceCodeDuration',
-    )
-    oauth2serverdiscoveryurl: Optional[str] = Field(
-        default=None,
-        alias='oAuth2ServerDiscoveryUrl',
-    )
+    oauth2serverconfidentialpkce: Optional[bool] = Field(default=None, alias='oAuth2ServerConfidentialPkce')
+    oauth2serververificationurl: Optional[str] = Field(default=None, alias='oAuth2ServerVerificationUrl')
+    oauth2serverusercodelength: Optional[float] = Field(default=None, alias='oAuth2ServerUserCodeLength')
+    oauth2serverusercodeformat: Optional[str] = Field(default=None, alias='oAuth2ServerUserCodeFormat')
+    oauth2serverdevicecodeduration: Optional[float] = Field(default=None, alias='oAuth2ServerDeviceCodeDuration')
+    oauth2serverdiscoveryurl: Optional[str] = Field(default=None, alias='oAuth2ServerDiscoveryUrl')

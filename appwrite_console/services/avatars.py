@@ -56,17 +56,11 @@ class Avatars(Service):
             raise AppwriteException('Missing required parameter: "code"')
         api_path = api_path.replace('{code}', str(self._normalize_value(code)))
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if quality is not None:
-            api_params['quality'] = self._normalize_value(
-                quality,
-            )
+            api_params['quality'] = self._normalize_value(quality)
 
         response = self.client.call(
             'get',
@@ -119,17 +113,11 @@ class Avatars(Service):
             raise AppwriteException('Missing required parameter: "code"')
         api_path = api_path.replace('{code}', str(self._normalize_value(code)))
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if quality is not None:
-            api_params['quality'] = self._normalize_value(
-                quality,
-            )
+            api_params['quality'] = self._normalize_value(quality)
 
         response = self.client.call(
             'get',
@@ -171,9 +159,7 @@ class Avatars(Service):
         api_params = {}
         if url is None:
             raise AppwriteException('Missing required parameter: "url"')
-        api_params['url'] = self._normalize_value(
-            url,
-        )
+        api_params['url'] = self._normalize_value(url)
 
         response = self.client.call(
             'get',
@@ -226,17 +212,11 @@ class Avatars(Service):
             raise AppwriteException('Missing required parameter: "code"')
         api_path = api_path.replace('{code}', str(self._normalize_value(code)))
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if quality is not None:
-            api_params['quality'] = self._normalize_value(
-                quality,
-            )
+            api_params['quality'] = self._normalize_value(quality)
 
         response = self.client.call(
             'get',
@@ -286,17 +266,11 @@ class Avatars(Service):
         api_params = {}
         if url is None:
             raise AppwriteException('Missing required parameter: "url"')
-        api_params['url'] = self._normalize_value(
-            url,
-        )
+        api_params['url'] = self._normalize_value(url)
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
 
         response = self.client.call(
             'get',
@@ -348,21 +322,13 @@ class Avatars(Service):
         api_path = '/avatars/initials'
         api_params = {}
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if background is not None:
-            api_params['background'] = self._normalize_value(
-                background,
-            )
+            api_params['background'] = self._normalize_value(background)
 
         response = self.client.call(
             'get',
@@ -424,37 +390,21 @@ class Avatars(Service):
         api_path = '/avatars/photo'
         api_params = {}
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if quality is not None:
-            api_params['quality'] = self._normalize_value(
-                quality,
-            )
+            api_params['quality'] = self._normalize_value(quality)
         if output is not None:
-            api_params['output'] = self._normalize_value(
-                output,
-            )
+            api_params['output'] = self._normalize_value(output)
         if rating is not None:
-            api_params['rating'] = self._normalize_value(
-                rating,
-            )
+            api_params['rating'] = self._normalize_value(rating)
         if user_id is not None:
-            api_params['userId'] = self._normalize_value(
-                user_id,
-            )
+            api_params['userId'] = self._normalize_value(user_id)
         if email_hash is not None:
-            api_params['emailHash'] = self._normalize_value(
-                email_hash,
-            )
+            api_params['emailHash'] = self._normalize_value(email_hash)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'get',
@@ -503,21 +453,13 @@ class Avatars(Service):
         api_params = {}
         if text is None:
             raise AppwriteException('Missing required parameter: "text"')
-        api_params['text'] = self._normalize_value(
-            text,
-        )
+        api_params['text'] = self._normalize_value(text)
         if size is not None:
-            api_params['size'] = self._normalize_value(
-                size,
-            )
+            api_params['size'] = self._normalize_value(size)
         if margin is not None:
-            api_params['margin'] = self._normalize_value(
-                margin,
-            )
+            api_params['margin'] = self._normalize_value(margin)
         if download is not None:
-            api_params['download'] = self._normalize_value(
-                download,
-            )
+            api_params['download'] = self._normalize_value(download)
 
         response = self.client.call(
             'get',
@@ -618,85 +560,45 @@ class Avatars(Service):
         api_params = {}
         if url is None:
             raise AppwriteException('Missing required parameter: "url"')
-        api_params['url'] = self._normalize_value(
-            url,
-        )
+        api_params['url'] = self._normalize_value(url)
         if headers is not None:
-            api_params['headers'] = self._normalize_value(
-                headers,
-            )
+            api_params['headers'] = self._normalize_value(headers)
         if viewport_width is not None:
-            api_params['viewportWidth'] = self._normalize_value(
-                viewport_width,
-            )
+            api_params['viewportWidth'] = self._normalize_value(viewport_width)
         if viewport_height is not None:
-            api_params['viewportHeight'] = self._normalize_value(
-                viewport_height,
-            )
+            api_params['viewportHeight'] = self._normalize_value(viewport_height)
         if scale is not None:
-            api_params['scale'] = self._normalize_value(
-                scale,
-            )
+            api_params['scale'] = self._normalize_value(scale)
         if theme is not None:
-            api_params['theme'] = self._normalize_value(
-                theme,
-            )
+            api_params['theme'] = self._normalize_value(theme)
         if user_agent is not None:
-            api_params['userAgent'] = self._normalize_value(
-                user_agent,
-            )
+            api_params['userAgent'] = self._normalize_value(user_agent)
         if fullpage is not None:
-            api_params['fullpage'] = self._normalize_value(
-                fullpage,
-            )
+            api_params['fullpage'] = self._normalize_value(fullpage)
         if locale is not None:
-            api_params['locale'] = self._normalize_value(
-                locale,
-            )
+            api_params['locale'] = self._normalize_value(locale)
         if timezone is not None:
-            api_params['timezone'] = self._normalize_value(
-                timezone,
-            )
+            api_params['timezone'] = self._normalize_value(timezone)
         if latitude is not None:
-            api_params['latitude'] = self._normalize_value(
-                latitude,
-            )
+            api_params['latitude'] = self._normalize_value(latitude)
         if longitude is not None:
-            api_params['longitude'] = self._normalize_value(
-                longitude,
-            )
+            api_params['longitude'] = self._normalize_value(longitude)
         if accuracy is not None:
-            api_params['accuracy'] = self._normalize_value(
-                accuracy,
-            )
+            api_params['accuracy'] = self._normalize_value(accuracy)
         if touch is not None:
-            api_params['touch'] = self._normalize_value(
-                touch,
-            )
+            api_params['touch'] = self._normalize_value(touch)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if sleep is not None:
-            api_params['sleep'] = self._normalize_value(
-                sleep,
-            )
+            api_params['sleep'] = self._normalize_value(sleep)
         if width is not None:
-            api_params['width'] = self._normalize_value(
-                width,
-            )
+            api_params['width'] = self._normalize_value(width)
         if height is not None:
-            api_params['height'] = self._normalize_value(
-                height,
-            )
+            api_params['height'] = self._normalize_value(height)
         if quality is not None:
-            api_params['quality'] = self._normalize_value(
-                quality,
-            )
+            api_params['quality'] = self._normalize_value(quality)
         if output is not None:
-            api_params['output'] = self._normalize_value(
-                output,
-            )
+            api_params['output'] = self._normalize_value(output)
 
         response = self.client.call(
             'get',

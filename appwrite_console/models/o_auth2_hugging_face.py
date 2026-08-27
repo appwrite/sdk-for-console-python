@@ -20,19 +20,7 @@ class OAuth2HuggingFace(AppwriteModel):
         Hugging Face OAuth2 client secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    clientsecret: str = Field(..., alias='clientSecret')

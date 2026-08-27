@@ -17,11 +17,5 @@ class DedicatedDatabaseBackupList(AppwriteModel):
         List of backups.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    backups: List[DedicatedDatabaseBackup] = Field(
-        ...,
-        alias='backups',
-    )
+    total: float = Field(..., alias='total')
+    backups: List[DedicatedDatabaseBackup] = Field(..., alias='backups')

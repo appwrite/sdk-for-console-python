@@ -19,14 +19,8 @@ class UserList(AppwriteModel, Generic[T]):
         List of users.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    users: List[User[T]] = Field(
-        ...,
-        alias='users',
-    )
+    total: float = Field(..., alias='total')
+    users: List[User[T]] = Field(..., alias='users')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'UserList[T]':

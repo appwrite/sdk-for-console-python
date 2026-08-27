@@ -20,19 +20,7 @@ class OAuth2Paypal(AppwriteModel):
         PayPal OAuth2 secret key.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    secretkey: str = Field(
-        ...,
-        alias='secretKey',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    secretkey: str = Field(..., alias='secretKey')

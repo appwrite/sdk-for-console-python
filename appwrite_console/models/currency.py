@@ -26,31 +26,10 @@ class Currency(AppwriteModel):
         Currency plural name
     """
 
-    symbol: str = Field(
-        ...,
-        alias='symbol',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    symbolnative: str = Field(
-        ...,
-        alias='symbolNative',
-    )
-    decimaldigits: float = Field(
-        ...,
-        alias='decimalDigits',
-    )
-    rounding: float = Field(
-        ...,
-        alias='rounding',
-    )
-    code: str = Field(
-        ...,
-        alias='code',
-    )
-    nameplural: str = Field(
-        ...,
-        alias='namePlural',
-    )
+    symbol: str = Field(..., alias='symbol')
+    name: str = Field(..., alias='name')
+    symbolnative: str = Field(..., alias='symbolNative')
+    decimaldigits: float = Field(..., alias='decimalDigits')
+    rounding: float = Field(..., alias='rounding')
+    code: str = Field(..., alias='code')
+    nameplural: str = Field(..., alias='namePlural')

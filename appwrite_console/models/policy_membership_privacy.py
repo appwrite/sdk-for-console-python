@@ -26,31 +26,10 @@ class PolicyMembershipPrivacy(AppwriteModel):
         Whether user last access time is visible in memberships.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    userid: bool = Field(
-        ...,
-        alias='userId',
-    )
-    useremail: bool = Field(
-        ...,
-        alias='userEmail',
-    )
-    userphone: bool = Field(
-        ...,
-        alias='userPhone',
-    )
-    username: bool = Field(
-        ...,
-        alias='userName',
-    )
-    usermfa: bool = Field(
-        ...,
-        alias='userMFA',
-    )
-    useraccessedat: bool = Field(
-        ...,
-        alias='userAccessedAt',
-    )
+    id: str = Field(..., alias='$id')
+    userid: bool = Field(..., alias='userId')
+    useremail: bool = Field(..., alias='userEmail')
+    userphone: bool = Field(..., alias='userPhone')
+    username: bool = Field(..., alias='userName')
+    usermfa: bool = Field(..., alias='userMFA')
+    useraccessedat: bool = Field(..., alias='userAccessedAt')

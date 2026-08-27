@@ -17,11 +17,5 @@ class Oauth2ProjectList(AppwriteModel):
         List of projects.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    projects: List[Oauth2Project] = Field(
-        ...,
-        alias='projects',
-    )
+    total: float = Field(..., alias='total')
+    projects: List[Oauth2Project] = Field(..., alias='projects')

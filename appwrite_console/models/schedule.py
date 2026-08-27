@@ -34,47 +34,14 @@ class Schedule(AppwriteModel):
         The region where the schedule is deployed.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    resourceupdatedat: str = Field(
-        ...,
-        alias='resourceUpdatedAt',
-    )
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
-    schedule: str = Field(
-        ...,
-        alias='schedule',
-    )
-    data: Dict[str, Any] = Field(
-        ...,
-        alias='data',
-    )
-    active: bool = Field(
-        ...,
-        alias='active',
-    )
-    region: str = Field(
-        ...,
-        alias='region',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    resourcetype: str = Field(..., alias='resourceType')
+    resourceid: str = Field(..., alias='resourceId')
+    resourceupdatedat: str = Field(..., alias='resourceUpdatedAt')
+    projectid: str = Field(..., alias='projectId')
+    schedule: str = Field(..., alias='schedule')
+    data: Dict[str, Any] = Field(..., alias='data')
+    active: bool = Field(..., alias='active')
+    region: str = Field(..., alias='region')

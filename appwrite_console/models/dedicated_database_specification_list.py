@@ -20,15 +20,6 @@ class DedicatedDatabaseSpecificationList(AppwriteModel):
         Overage and add-on pricing shared across all specifications.
     """
 
-    specifications: List[DedicatedDatabaseSpecification] = Field(
-        ...,
-        alias='specifications',
-    )
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    pricing: DedicatedDatabaseSpecificationPricing = Field(
-        ...,
-        alias='pricing',
-    )
+    specifications: List[DedicatedDatabaseSpecification] = Field(..., alias='specifications')
+    total: float = Field(..., alias='total')
+    pricing: DedicatedDatabaseSpecificationPricing = Field(..., alias='pricing')

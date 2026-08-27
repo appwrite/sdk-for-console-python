@@ -17,11 +17,5 @@ class InsightList(AppwriteModel):
         List of insights.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    insights: List[Insight] = Field(
-        ...,
-        alias='insights',
-    )
+    total: float = Field(..., alias='total')
+    insights: List[Insight] = Field(..., alias='insights')

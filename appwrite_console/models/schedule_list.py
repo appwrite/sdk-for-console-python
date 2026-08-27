@@ -17,11 +17,5 @@ class ScheduleList(AppwriteModel):
         List of schedules.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    schedules: List[Schedule] = Field(
-        ...,
-        alias='schedules',
-    )
+    total: float = Field(..., alias='total')
+    schedules: List[Schedule] = Field(..., alias='schedules')

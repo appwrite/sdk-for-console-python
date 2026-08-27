@@ -17,11 +17,5 @@ class PhoneList(AppwriteModel):
         List of phones.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    phones: List[Phone] = Field(
-        ...,
-        alias='phones',
-    )
+    total: float = Field(..., alias='total')
+    phones: List[Phone] = Field(..., alias='phones')

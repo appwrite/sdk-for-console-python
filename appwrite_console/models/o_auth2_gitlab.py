@@ -22,23 +22,8 @@ class OAuth2Gitlab(AppwriteModel):
         GitLab OAuth2 endpoint URL. Defaults to https://gitlab.com for self-hosted instances.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    applicationid: str = Field(
-        ...,
-        alias='applicationId',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    endpoint: str = Field(
-        ...,
-        alias='endpoint',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    applicationid: str = Field(..., alias='applicationId')
+    secret: str = Field(..., alias='secret')
+    endpoint: str = Field(..., alias='endpoint')

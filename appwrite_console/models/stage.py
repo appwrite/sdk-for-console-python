@@ -22,23 +22,8 @@ class Stage(AppwriteModel):
         Actor type when the stage was recorded.
     """
 
-    id: str = Field(
-        ...,
-        alias='id',
-    )
-    sdk: str = Field(
-        ...,
-        alias='sdk',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    at: str = Field(
-        ...,
-        alias='at',
-    )
-    actortype: str = Field(
-        ...,
-        alias='actorType',
-    )
+    id: str = Field(..., alias='id')
+    sdk: str = Field(..., alias='sdk')
+    status: str = Field(..., alias='status')
+    at: str = Field(..., alias='at')
+    actortype: str = Field(..., alias='actorType')

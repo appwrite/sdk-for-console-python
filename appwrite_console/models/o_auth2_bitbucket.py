@@ -20,19 +20,7 @@ class OAuth2Bitbucket(AppwriteModel):
         Bitbucket OAuth2 secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    key: str = Field(..., alias='key')
+    secret: str = Field(..., alias='secret')

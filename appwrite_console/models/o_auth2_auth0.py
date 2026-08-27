@@ -22,23 +22,8 @@ class OAuth2Auth0(AppwriteModel):
         Auth0 OAuth2 endpoint domain.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    endpoint: str = Field(
-        ...,
-        alias='endpoint',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    clientsecret: str = Field(..., alias='clientSecret')
+    endpoint: str = Field(..., alias='endpoint')

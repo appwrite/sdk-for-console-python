@@ -16,11 +16,5 @@ class Oauth2PAR(AppwriteModel):
         Lifetime of the authorization request handle in seconds.
     """
 
-    request_uri: str = Field(
-        ...,
-        alias='request_uri',
-    )
-    expires_in: float = Field(
-        ...,
-        alias='expires_in',
-    )
+    request_uri: str = Field(..., alias='request_uri')
+    expires_in: float = Field(..., alias='expires_in')

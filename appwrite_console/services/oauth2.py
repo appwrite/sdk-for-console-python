@@ -52,17 +52,11 @@ class Oauth2(Service):
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_params['grant_id'] = self._normalize_value(
-            grant_id,
-        )
+        api_params['grant_id'] = self._normalize_value(grant_id)
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorization_details'] = self._normalize_value(authorization_details)
         if scope is not None:
-            api_params['scope'] = self._normalize_value(
-                scope,
-            )
+            api_params['scope'] = self._normalize_value(scope)
 
         response = self.client.call(
             'post',
@@ -141,61 +135,33 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if redirect_uri is not None:
-            api_params['redirect_uri'] = self._normalize_value(
-                redirect_uri,
-            )
+            api_params['redirect_uri'] = self._normalize_value(redirect_uri)
         if response_type is not None:
-            api_params['response_type'] = self._normalize_value(
-                response_type,
-            )
+            api_params['response_type'] = self._normalize_value(response_type)
         if scope is not None:
-            api_params['scope'] = self._normalize_value(
-                scope,
-            )
+            api_params['scope'] = self._normalize_value(scope)
         if state is not None:
-            api_params['state'] = self._normalize_value(
-                state,
-            )
+            api_params['state'] = self._normalize_value(state)
         if nonce is not None:
-            api_params['nonce'] = self._normalize_value(
-                nonce,
-            )
+            api_params['nonce'] = self._normalize_value(nonce)
         if code_challenge is not None:
-            api_params['code_challenge'] = self._normalize_value(
-                code_challenge,
-            )
+            api_params['code_challenge'] = self._normalize_value(code_challenge)
         if code_challenge_method is not None:
-            api_params['code_challenge_method'] = self._normalize_value(
-                code_challenge_method,
-            )
+            api_params['code_challenge_method'] = self._normalize_value(code_challenge_method)
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(
-                prompt,
-            )
+            api_params['prompt'] = self._normalize_value(prompt)
         if max_age is not None:
-            api_params['max_age'] = self._normalize_value(
-                max_age,
-            )
+            api_params['max_age'] = self._normalize_value(max_age)
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorization_details'] = self._normalize_value(authorization_details)
         if resource is not None:
-            api_params['resource'] = self._normalize_value(
-                resource,
-            )
+            api_params['resource'] = self._normalize_value(resource)
         if audience is not None:
-            api_params['audience'] = self._normalize_value(
-                audience,
-            )
+            api_params['audience'] = self._normalize_value(audience)
         if request_uri is not None:
-            api_params['request_uri'] = self._normalize_value(
-                request_uri,
-            )
+            api_params['request_uri'] = self._normalize_value(request_uri)
 
         response = self.client.call(
             'get',
@@ -273,61 +239,33 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if redirect_uri is not None:
-            api_params['redirect_uri'] = self._normalize_value(
-                redirect_uri,
-            )
+            api_params['redirect_uri'] = self._normalize_value(redirect_uri)
         if response_type is not None:
-            api_params['response_type'] = self._normalize_value(
-                response_type,
-            )
+            api_params['response_type'] = self._normalize_value(response_type)
         if scope is not None:
-            api_params['scope'] = self._normalize_value(
-                scope,
-            )
+            api_params['scope'] = self._normalize_value(scope)
         if state is not None:
-            api_params['state'] = self._normalize_value(
-                state,
-            )
+            api_params['state'] = self._normalize_value(state)
         if nonce is not None:
-            api_params['nonce'] = self._normalize_value(
-                nonce,
-            )
+            api_params['nonce'] = self._normalize_value(nonce)
         if code_challenge is not None:
-            api_params['code_challenge'] = self._normalize_value(
-                code_challenge,
-            )
+            api_params['code_challenge'] = self._normalize_value(code_challenge)
         if code_challenge_method is not None:
-            api_params['code_challenge_method'] = self._normalize_value(
-                code_challenge_method,
-            )
+            api_params['code_challenge_method'] = self._normalize_value(code_challenge_method)
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(
-                prompt,
-            )
+            api_params['prompt'] = self._normalize_value(prompt)
         if max_age is not None:
-            api_params['max_age'] = self._normalize_value(
-                max_age,
-            )
+            api_params['max_age'] = self._normalize_value(max_age)
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorization_details'] = self._normalize_value(authorization_details)
         if resource is not None:
-            api_params['resource'] = self._normalize_value(
-                resource,
-            )
+            api_params['resource'] = self._normalize_value(resource)
         if audience is not None:
-            api_params['audience'] = self._normalize_value(
-                audience,
-            )
+            api_params['audience'] = self._normalize_value(audience)
         if request_uri is not None:
-            api_params['request_uri'] = self._normalize_value(
-                request_uri,
-            )
+            api_params['request_uri'] = self._normalize_value(request_uri)
 
         response = self.client.call(
             'post',
@@ -379,25 +317,15 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if scope is not None:
-            api_params['scope'] = self._normalize_value(
-                scope,
-            )
+            api_params['scope'] = self._normalize_value(scope)
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorization_details'] = self._normalize_value(authorization_details)
         if resource is not None:
-            api_params['resource'] = self._normalize_value(
-                resource,
-            )
+            api_params['resource'] = self._normalize_value(resource)
         if audience is not None:
-            api_params['audience'] = self._normalize_value(
-                audience,
-            )
+            api_params['audience'] = self._normalize_value(audience)
 
         response = self.client.call(
             'post',
@@ -438,9 +366,7 @@ class Oauth2(Service):
         if user_code is None:
             raise AppwriteException('Missing required parameter: "user_code"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_params['user_code'] = self._normalize_value(
-            user_code,
-        )
+        api_params['user_code'] = self._normalize_value(user_code)
 
         response = self.client.call(
             'post',
@@ -535,29 +461,17 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if id_token_hint is not None:
-            api_params['id_token_hint'] = self._normalize_value(
-                id_token_hint,
-            )
+            api_params['id_token_hint'] = self._normalize_value(id_token_hint)
         if logout_hint is not None:
-            api_params['logout_hint'] = self._normalize_value(
-                logout_hint,
-            )
+            api_params['logout_hint'] = self._normalize_value(logout_hint)
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if post_logout_redirect_uri is not None:
-            api_params['post_logout_redirect_uri'] = self._normalize_value(
-                post_logout_redirect_uri,
-            )
+            api_params['post_logout_redirect_uri'] = self._normalize_value(post_logout_redirect_uri)
         if state is not None:
-            api_params['state'] = self._normalize_value(
-                state,
-            )
+            api_params['state'] = self._normalize_value(state)
         if ui_locales is not None:
-            api_params['ui_locales'] = self._normalize_value(
-                ui_locales,
-            )
+            api_params['ui_locales'] = self._normalize_value(ui_locales)
 
         response = self.client.call(
             'get',
@@ -611,29 +525,17 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if id_token_hint is not None:
-            api_params['id_token_hint'] = self._normalize_value(
-                id_token_hint,
-            )
+            api_params['id_token_hint'] = self._normalize_value(id_token_hint)
         if logout_hint is not None:
-            api_params['logout_hint'] = self._normalize_value(
-                logout_hint,
-            )
+            api_params['logout_hint'] = self._normalize_value(logout_hint)
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if post_logout_redirect_uri is not None:
-            api_params['post_logout_redirect_uri'] = self._normalize_value(
-                post_logout_redirect_uri,
-            )
+            api_params['post_logout_redirect_uri'] = self._normalize_value(post_logout_redirect_uri)
         if state is not None:
-            api_params['state'] = self._normalize_value(
-                state,
-            )
+            api_params['state'] = self._normalize_value(state)
         if ui_locales is not None:
-            api_params['ui_locales'] = self._normalize_value(
-                ui_locales,
-            )
+            api_params['ui_locales'] = self._normalize_value(ui_locales)
 
         response = self.client.call(
             'post',
@@ -679,17 +581,11 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
 
         response = self.client.call(
             'get',
@@ -769,55 +665,29 @@ class Oauth2(Service):
         if response_type is None:
             raise AppwriteException('Missing required parameter: "response_type"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_params['client_id'] = self._normalize_value(
-            client_id,
-        )
-        api_params['redirect_uri'] = self._normalize_value(
-            redirect_uri,
-        )
-        api_params['response_type'] = self._normalize_value(
-            response_type,
-        )
+        api_params['client_id'] = self._normalize_value(client_id)
+        api_params['redirect_uri'] = self._normalize_value(redirect_uri)
+        api_params['response_type'] = self._normalize_value(response_type)
         if scope is not None:
-            api_params['scope'] = self._normalize_value(
-                scope,
-            )
+            api_params['scope'] = self._normalize_value(scope)
         if state is not None:
-            api_params['state'] = self._normalize_value(
-                state,
-            )
+            api_params['state'] = self._normalize_value(state)
         if nonce is not None:
-            api_params['nonce'] = self._normalize_value(
-                nonce,
-            )
+            api_params['nonce'] = self._normalize_value(nonce)
         if code_challenge is not None:
-            api_params['code_challenge'] = self._normalize_value(
-                code_challenge,
-            )
+            api_params['code_challenge'] = self._normalize_value(code_challenge)
         if code_challenge_method is not None:
-            api_params['code_challenge_method'] = self._normalize_value(
-                code_challenge_method,
-            )
+            api_params['code_challenge_method'] = self._normalize_value(code_challenge_method)
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(
-                prompt,
-            )
+            api_params['prompt'] = self._normalize_value(prompt)
         if max_age is not None:
-            api_params['max_age'] = self._normalize_value(
-                max_age,
-            )
+            api_params['max_age'] = self._normalize_value(max_age)
         if authorization_details is not None:
-            api_params['authorization_details'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorization_details'] = self._normalize_value(authorization_details)
         if resource is not None:
-            api_params['resource'] = self._normalize_value(
-                resource,
-            )
+            api_params['resource'] = self._normalize_value(resource)
         if audience is not None:
-            api_params['audience'] = self._normalize_value(
-                audience,
-            )
+            api_params['audience'] = self._normalize_value(audience)
 
         response = self.client.call(
             'post',
@@ -863,17 +733,11 @@ class Oauth2(Service):
         api_params = {}
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
 
         response = self.client.call(
             'get',
@@ -913,9 +777,7 @@ class Oauth2(Service):
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_params['grant_id'] = self._normalize_value(
-            grant_id,
-        )
+        api_params['grant_id'] = self._normalize_value(grant_id)
 
         response = self.client.call(
             'post',
@@ -965,21 +827,13 @@ class Oauth2(Service):
         if token is None:
             raise AppwriteException('Missing required parameter: "token"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_params['token'] = self._normalize_value(
-            token,
-        )
+        api_params['token'] = self._normalize_value(token)
         if token_type_hint is not None:
-            api_params['token_type_hint'] = self._normalize_value(
-                token_type_hint,
-            )
+            api_params['token_type_hint'] = self._normalize_value(token_type_hint)
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['client_secret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['client_secret'] = self._normalize_value(client_secret)
 
         response = self.client.call(
             'post',
@@ -1047,45 +901,25 @@ class Oauth2(Service):
         if grant_type is None:
             raise AppwriteException('Missing required parameter: "grant_type"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_params['grant_type'] = self._normalize_value(
-            grant_type,
-        )
+        api_params['grant_type'] = self._normalize_value(grant_type)
         if code is not None:
-            api_params['code'] = self._normalize_value(
-                code,
-            )
+            api_params['code'] = self._normalize_value(code)
         if refresh_token is not None:
-            api_params['refresh_token'] = self._normalize_value(
-                refresh_token,
-            )
+            api_params['refresh_token'] = self._normalize_value(refresh_token)
         if device_code is not None:
-            api_params['device_code'] = self._normalize_value(
-                device_code,
-            )
+            api_params['device_code'] = self._normalize_value(device_code)
         if client_id is not None:
-            api_params['client_id'] = self._normalize_value(
-                client_id,
-            )
+            api_params['client_id'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['client_secret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['client_secret'] = self._normalize_value(client_secret)
         if code_verifier is not None:
-            api_params['code_verifier'] = self._normalize_value(
-                code_verifier,
-            )
+            api_params['code_verifier'] = self._normalize_value(code_verifier)
         if redirect_uri is not None:
-            api_params['redirect_uri'] = self._normalize_value(
-                redirect_uri,
-            )
+            api_params['redirect_uri'] = self._normalize_value(redirect_uri)
         if resource is not None:
-            api_params['resource'] = self._normalize_value(
-                resource,
-            )
+            api_params['resource'] = self._normalize_value(resource)
         if audience is not None:
-            api_params['audience'] = self._normalize_value(
-                audience,
-            )
+            api_params['audience'] = self._normalize_value(audience)
 
         response = self.client.call(
             'post',

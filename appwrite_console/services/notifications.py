@@ -37,9 +37,7 @@ class Notifications(Service):
         api_path = '/notifications'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -85,9 +83,7 @@ class Notifications(Service):
         if read is None:
             raise AppwriteException('Missing required parameter: "read"')
         api_path = api_path.replace('{notificationId}', str(self._normalize_value(notification_id)))
-        api_params['read'] = self._normalize_value(
-            read,
-        )
+        api_params['read'] = self._normalize_value(read)
 
         response = self.client.call(
             'patch',

@@ -31,39 +31,12 @@ class AttributeVector(AppwriteModel):
         Vector dimensions.
     """
 
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    status: AttributeStatus = Field(
-        ...,
-        alias='status',
-    )
-    error: str = Field(
-        ...,
-        alias='error',
-    )
-    required: bool = Field(
-        ...,
-        alias='required',
-    )
-    array: Optional[bool] = Field(
-        default=None,
-        alias='array',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    size: float = Field(
-        ...,
-        alias='size',
-    )
+    key: str = Field(..., alias='key')
+    type: str = Field(..., alias='type')
+    status: AttributeStatus = Field(..., alias='status')
+    error: str = Field(..., alias='error')
+    required: bool = Field(..., alias='required')
+    array: Optional[bool] = Field(default=None, alias='array')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    size: float = Field(..., alias='size')

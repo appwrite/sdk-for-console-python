@@ -77,131 +77,35 @@ class Function(AppwriteModel):
         Machine specification for executions.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    execute: List[Any] = Field(
-        ...,
-        alias='execute',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    live: bool = Field(
-        ...,
-        alias='live',
-    )
-    logging: bool = Field(
-        ...,
-        alias='logging',
-    )
-    runtime: str = Field(
-        ...,
-        alias='runtime',
-    )
-    deploymentretention: float = Field(
-        ...,
-        alias='deploymentRetention',
-    )
-    deploymentid: str = Field(
-        ...,
-        alias='deploymentId',
-    )
-    deploymentcreatedat: str = Field(
-        ...,
-        alias='deploymentCreatedAt',
-    )
-    latestdeploymentid: str = Field(
-        ...,
-        alias='latestDeploymentId',
-    )
-    latestdeploymentcreatedat: str = Field(
-        ...,
-        alias='latestDeploymentCreatedAt',
-    )
-    latestdeploymentstatus: str = Field(
-        ...,
-        alias='latestDeploymentStatus',
-    )
-    scopes: List[Any] = Field(
-        ...,
-        alias='scopes',
-    )
-    vars: List[Variable] = Field(
-        ...,
-        alias='vars',
-    )
-    events: List[Any] = Field(
-        ...,
-        alias='events',
-    )
-    schedule: str = Field(
-        ...,
-        alias='schedule',
-    )
-    timeout: float = Field(
-        ...,
-        alias='timeout',
-    )
-    entrypoint: str = Field(
-        ...,
-        alias='entrypoint',
-    )
-    commands: str = Field(
-        ...,
-        alias='commands',
-    )
-    version: str = Field(
-        ...,
-        alias='version',
-    )
-    installationid: str = Field(
-        ...,
-        alias='installationId',
-    )
-    providerrepositoryid: str = Field(
-        ...,
-        alias='providerRepositoryId',
-    )
-    providerbranch: str = Field(
-        ...,
-        alias='providerBranch',
-    )
-    providerrootdirectory: str = Field(
-        ...,
-        alias='providerRootDirectory',
-    )
-    providersilentmode: bool = Field(
-        ...,
-        alias='providerSilentMode',
-    )
-    providerbranches: List[Any] = Field(
-        ...,
-        alias='providerBranches',
-    )
-    providerpaths: List[Any] = Field(
-        ...,
-        alias='providerPaths',
-    )
-    buildspecification: str = Field(
-        ...,
-        alias='buildSpecification',
-    )
-    runtimespecification: str = Field(
-        ...,
-        alias='runtimeSpecification',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    execute: List[Any] = Field(..., alias='execute')
+    name: str = Field(..., alias='name')
+    enabled: bool = Field(..., alias='enabled')
+    live: bool = Field(..., alias='live')
+    logging: bool = Field(..., alias='logging')
+    runtime: str = Field(..., alias='runtime')
+    deploymentretention: float = Field(..., alias='deploymentRetention')
+    deploymentid: str = Field(..., alias='deploymentId')
+    deploymentcreatedat: str = Field(..., alias='deploymentCreatedAt')
+    latestdeploymentid: str = Field(..., alias='latestDeploymentId')
+    latestdeploymentcreatedat: str = Field(..., alias='latestDeploymentCreatedAt')
+    latestdeploymentstatus: str = Field(..., alias='latestDeploymentStatus')
+    scopes: List[Any] = Field(..., alias='scopes')
+    vars: List[Variable] = Field(..., alias='vars')
+    events: List[Any] = Field(..., alias='events')
+    schedule: str = Field(..., alias='schedule')
+    timeout: float = Field(..., alias='timeout')
+    entrypoint: str = Field(..., alias='entrypoint')
+    commands: str = Field(..., alias='commands')
+    version: str = Field(..., alias='version')
+    installationid: str = Field(..., alias='installationId')
+    providerrepositoryid: str = Field(..., alias='providerRepositoryId')
+    providerbranch: str = Field(..., alias='providerBranch')
+    providerrootdirectory: str = Field(..., alias='providerRootDirectory')
+    providersilentmode: bool = Field(..., alias='providerSilentMode')
+    providerbranches: List[Any] = Field(..., alias='providerBranches')
+    providerpaths: List[Any] = Field(..., alias='providerPaths')
+    buildspecification: str = Field(..., alias='buildSpecification')
+    runtimespecification: str = Field(..., alias='runtimeSpecification')

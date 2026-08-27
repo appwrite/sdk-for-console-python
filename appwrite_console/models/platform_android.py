@@ -25,27 +25,9 @@ class PlatformAndroid(AppwriteModel):
         Android application ID.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    type: PlatformType = Field(
-        ...,
-        alias='type',
-    )
-    applicationid: str = Field(
-        ...,
-        alias='applicationId',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    type: PlatformType = Field(..., alias='type')
+    applicationid: str = Field(..., alias='applicationId')

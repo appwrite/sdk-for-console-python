@@ -40,55 +40,16 @@ class TemplateSite(AppwriteModel):
         Site variables.
     """
 
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    tagline: str = Field(
-        ...,
-        alias='tagline',
-    )
-    demourl: str = Field(
-        ...,
-        alias='demoUrl',
-    )
-    screenshotdark: str = Field(
-        ...,
-        alias='screenshotDark',
-    )
-    screenshotlight: str = Field(
-        ...,
-        alias='screenshotLight',
-    )
-    usecases: List[Any] = Field(
-        ...,
-        alias='useCases',
-    )
-    frameworks: List[TemplateFramework] = Field(
-        ...,
-        alias='frameworks',
-    )
-    vcsprovider: str = Field(
-        ...,
-        alias='vcsProvider',
-    )
-    providerrepositoryid: str = Field(
-        ...,
-        alias='providerRepositoryId',
-    )
-    providerowner: str = Field(
-        ...,
-        alias='providerOwner',
-    )
-    providerversion: str = Field(
-        ...,
-        alias='providerVersion',
-    )
-    variables: List[TemplateVariable] = Field(
-        ...,
-        alias='variables',
-    )
+    key: str = Field(..., alias='key')
+    name: str = Field(..., alias='name')
+    tagline: str = Field(..., alias='tagline')
+    demourl: str = Field(..., alias='demoUrl')
+    screenshotdark: str = Field(..., alias='screenshotDark')
+    screenshotlight: str = Field(..., alias='screenshotLight')
+    usecases: List[Any] = Field(..., alias='useCases')
+    frameworks: List[TemplateFramework] = Field(..., alias='frameworks')
+    vcsprovider: str = Field(..., alias='vcsProvider')
+    providerrepositoryid: str = Field(..., alias='providerRepositoryId')
+    providerowner: str = Field(..., alias='providerOwner')
+    providerversion: str = Field(..., alias='providerVersion')
+    variables: List[TemplateVariable] = Field(..., alias='variables')

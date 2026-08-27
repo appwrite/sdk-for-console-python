@@ -20,19 +20,7 @@ class ConsoleKeyScope(AppwriteModel):
         Scope is deprecated.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    description: str = Field(
-        ...,
-        alias='description',
-    )
-    category: str = Field(
-        ...,
-        alias='category',
-    )
-    deprecated: bool = Field(
-        ...,
-        alias='deprecated',
-    )
+    id: str = Field(..., alias='$id')
+    description: str = Field(..., alias='description')
+    category: str = Field(..., alias='category')
+    deprecated: bool = Field(..., alias='deprecated')

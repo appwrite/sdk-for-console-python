@@ -16,11 +16,5 @@ class BillingPlanLimits(AppwriteModel):
         Daily credits limit (if applicable)
     """
 
-    credits: Optional[float] = Field(
-        default=None,
-        alias='credits',
-    )
-    dailycredits: Optional[float] = Field(
-        default=None,
-        alias='dailyCredits',
-    )
+    credits: Optional[float] = Field(default=None, alias='credits')
+    dailycredits: Optional[float] = Field(default=None, alias='dailyCredits')

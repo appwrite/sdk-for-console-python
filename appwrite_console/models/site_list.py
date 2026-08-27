@@ -17,11 +17,5 @@ class SiteList(AppwriteModel):
         List of sites.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    sites: List[Site] = Field(
-        ...,
-        alias='sites',
-    )
+    total: float = Field(..., alias='total')
+    sites: List[Site] = Field(..., alias='sites')

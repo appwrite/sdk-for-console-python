@@ -24,27 +24,9 @@ class PaymentAuthentication(AppwriteModel):
         Project ID for project-level addon payments. Empty for organization-level addons.
     """
 
-    message: str = Field(
-        ...,
-        alias='message',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    organizationid: str = Field(
-        ...,
-        alias='organizationId',
-    )
-    invoiceid: str = Field(
-        ...,
-        alias='invoiceId',
-    )
-    addonid: str = Field(
-        ...,
-        alias='addonId',
-    )
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
+    message: str = Field(..., alias='message')
+    clientsecret: str = Field(..., alias='clientSecret')
+    organizationid: str = Field(..., alias='organizationId')
+    invoiceid: str = Field(..., alias='invoiceId')
+    addonid: str = Field(..., alias='addonId')
+    projectid: str = Field(..., alias='projectId')

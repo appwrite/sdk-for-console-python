@@ -17,11 +17,5 @@ class VectorsdbCollectionList(AppwriteModel):
         List of collections.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    collections: List[VectorsdbCollection] = Field(
-        ...,
-        alias='collections',
-    )
+    total: float = Field(..., alias='total')
+    collections: List[VectorsdbCollection] = Field(..., alias='collections')

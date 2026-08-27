@@ -67,111 +67,30 @@ class Deployment(AppwriteModel):
         The branch of the vcs repository
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    entrypoint: str = Field(
-        ...,
-        alias='entrypoint',
-    )
-    sourcesize: float = Field(
-        ...,
-        alias='sourceSize',
-    )
-    buildsize: float = Field(
-        ...,
-        alias='buildSize',
-    )
-    totalsize: float = Field(
-        ...,
-        alias='totalSize',
-    )
-    buildid: str = Field(
-        ...,
-        alias='buildId',
-    )
-    activate: bool = Field(
-        ...,
-        alias='activate',
-    )
-    screenshotlight: str = Field(
-        ...,
-        alias='screenshotLight',
-    )
-    screenshotdark: str = Field(
-        ...,
-        alias='screenshotDark',
-    )
-    status: DeploymentStatus = Field(
-        ...,
-        alias='status',
-    )
-    buildlogs: str = Field(
-        ...,
-        alias='buildLogs',
-    )
-    buildduration: float = Field(
-        ...,
-        alias='buildDuration',
-    )
-    providerrepositoryname: str = Field(
-        ...,
-        alias='providerRepositoryName',
-    )
-    providerrepositoryowner: str = Field(
-        ...,
-        alias='providerRepositoryOwner',
-    )
-    providerrepositoryurl: str = Field(
-        ...,
-        alias='providerRepositoryUrl',
-    )
-    providercommithash: str = Field(
-        ...,
-        alias='providerCommitHash',
-    )
-    providercommitauthorurl: str = Field(
-        ...,
-        alias='providerCommitAuthorUrl',
-    )
-    providercommitauthor: str = Field(
-        ...,
-        alias='providerCommitAuthor',
-    )
-    providercommitmessage: str = Field(
-        ...,
-        alias='providerCommitMessage',
-    )
-    providercommiturl: str = Field(
-        ...,
-        alias='providerCommitUrl',
-    )
-    providerbranch: str = Field(
-        ...,
-        alias='providerBranch',
-    )
-    providerbranchurl: str = Field(
-        ...,
-        alias='providerBranchUrl',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    type: str = Field(..., alias='type')
+    resourceid: str = Field(..., alias='resourceId')
+    resourcetype: str = Field(..., alias='resourceType')
+    entrypoint: str = Field(..., alias='entrypoint')
+    sourcesize: float = Field(..., alias='sourceSize')
+    buildsize: float = Field(..., alias='buildSize')
+    totalsize: float = Field(..., alias='totalSize')
+    buildid: str = Field(..., alias='buildId')
+    activate: bool = Field(..., alias='activate')
+    screenshotlight: str = Field(..., alias='screenshotLight')
+    screenshotdark: str = Field(..., alias='screenshotDark')
+    status: DeploymentStatus = Field(..., alias='status')
+    buildlogs: str = Field(..., alias='buildLogs')
+    buildduration: float = Field(..., alias='buildDuration')
+    providerrepositoryname: str = Field(..., alias='providerRepositoryName')
+    providerrepositoryowner: str = Field(..., alias='providerRepositoryOwner')
+    providerrepositoryurl: str = Field(..., alias='providerRepositoryUrl')
+    providercommithash: str = Field(..., alias='providerCommitHash')
+    providercommitauthorurl: str = Field(..., alias='providerCommitAuthorUrl')
+    providercommitauthor: str = Field(..., alias='providerCommitAuthor')
+    providercommitmessage: str = Field(..., alias='providerCommitMessage')
+    providercommiturl: str = Field(..., alias='providerCommitUrl')
+    providerbranch: str = Field(..., alias='providerBranch')
+    providerbranchurl: str = Field(..., alias='providerBranchUrl')

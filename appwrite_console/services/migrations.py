@@ -49,17 +49,11 @@ class Migrations(Service):
         api_path = '/migrations'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -117,22 +111,12 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if api_key is None:
             raise AppwriteException('Missing required parameter: "api_key"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['endpoint'] = self._normalize_value(
-            endpoint,
-        )
-        api_params['projectId'] = self._normalize_value(
-            project_id,
-        )
-        api_params['apiKey'] = self._normalize_value(
-            api_key,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['endpoint'] = self._normalize_value(endpoint)
+        api_params['projectId'] = self._normalize_value(project_id)
+        api_params['apiKey'] = self._normalize_value(api_key)
         if on_duplicate is not None:
-            api_params['onDuplicate'] = self._normalize_value(
-                on_duplicate,
-            )
+            api_params['onDuplicate'] = self._normalize_value(on_duplicate)
 
         response = self.client.call(
             'post',
@@ -188,18 +172,10 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['endpoint'] = self._normalize_value(
-            endpoint,
-        )
-        api_params['projectID'] = self._normalize_value(
-            project_id,
-        )
-        api_params['key'] = self._normalize_value(
-            key,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['endpoint'] = self._normalize_value(endpoint)
+        api_params['projectID'] = self._normalize_value(project_id)
+        api_params['key'] = self._normalize_value(key)
 
         response = self.client.call(
             'get',
@@ -270,43 +246,23 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "collection_id"')
         if filename is None:
             raise AppwriteException('Missing required parameter: "filename"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['collectionId'] = self._normalize_value(
-            collection_id,
-        )
-        api_params['filename'] = self._normalize_value(
-            filename,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['collectionId'] = self._normalize_value(collection_id)
+        api_params['filename'] = self._normalize_value(filename)
         if columns is not None:
-            api_params['columns'] = self._normalize_value(
-                columns,
-            )
+            api_params['columns'] = self._normalize_value(columns)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if delimiter is not None:
-            api_params['delimiter'] = self._normalize_value(
-                delimiter,
-            )
+            api_params['delimiter'] = self._normalize_value(delimiter)
         if enclosure is not None:
-            api_params['enclosure'] = self._normalize_value(
-                enclosure,
-            )
+            api_params['enclosure'] = self._normalize_value(enclosure)
         if escape is not None:
-            api_params['escape'] = self._normalize_value(
-                escape,
-            )
+            api_params['escape'] = self._normalize_value(escape)
         if header is not None:
-            api_params['header'] = self._normalize_value(
-                header,
-            )
+            api_params['header'] = self._normalize_value(header)
         if notify is not None:
-            api_params['notify'] = self._normalize_value(
-                notify,
-            )
+            api_params['notify'] = self._normalize_value(notify)
 
         response = self.client.call(
             'post',
@@ -368,26 +324,14 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
-        api_params['bucketId'] = self._normalize_value(
-            bucket_id,
-        )
-        api_params['fileId'] = self._normalize_value(
-            file_id,
-        )
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['collectionId'] = self._normalize_value(
-            collection_id,
-        )
+        api_params['bucketId'] = self._normalize_value(bucket_id)
+        api_params['fileId'] = self._normalize_value(file_id)
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['collectionId'] = self._normalize_value(collection_id)
         if internal_file is not None:
-            api_params['internalFile'] = self._normalize_value(
-                internal_file,
-            )
+            api_params['internalFile'] = self._normalize_value(internal_file)
         if on_duplicate is not None:
-            api_params['onDuplicate'] = self._normalize_value(
-                on_duplicate,
-            )
+            api_params['onDuplicate'] = self._normalize_value(on_duplicate)
 
         response = self.client.call(
             'post',
@@ -433,12 +377,8 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "resources"')
         if service_account is None:
             raise AppwriteException('Missing required parameter: "service_account"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['serviceAccount'] = self._normalize_value(
-            service_account,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['serviceAccount'] = self._normalize_value(service_account)
 
         response = self.client.call(
             'post',
@@ -484,12 +424,8 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "resources"')
         if service_account is None:
             raise AppwriteException('Missing required parameter: "service_account"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['serviceAccount'] = self._normalize_value(
-            service_account,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['serviceAccount'] = self._normalize_value(service_account)
 
         response = self.client.call(
             'get',
@@ -548,27 +484,15 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "collection_id"')
         if filename is None:
             raise AppwriteException('Missing required parameter: "filename"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['collectionId'] = self._normalize_value(
-            collection_id,
-        )
-        api_params['filename'] = self._normalize_value(
-            filename,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['collectionId'] = self._normalize_value(collection_id)
+        api_params['filename'] = self._normalize_value(filename)
         if columns is not None:
-            api_params['columns'] = self._normalize_value(
-                columns,
-            )
+            api_params['columns'] = self._normalize_value(columns)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if notify is not None:
-            api_params['notify'] = self._normalize_value(
-                notify,
-            )
+            api_params['notify'] = self._normalize_value(notify)
 
         response = self.client.call(
             'post',
@@ -630,26 +554,14 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
-        api_params['bucketId'] = self._normalize_value(
-            bucket_id,
-        )
-        api_params['fileId'] = self._normalize_value(
-            file_id,
-        )
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['collectionId'] = self._normalize_value(
-            collection_id,
-        )
+        api_params['bucketId'] = self._normalize_value(bucket_id)
+        api_params['fileId'] = self._normalize_value(file_id)
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['collectionId'] = self._normalize_value(collection_id)
         if internal_file is not None:
-            api_params['internalFile'] = self._normalize_value(
-                internal_file,
-            )
+            api_params['internalFile'] = self._normalize_value(internal_file)
         if on_duplicate is not None:
-            api_params['onDuplicate'] = self._normalize_value(
-                on_duplicate,
-            )
+            api_params['onDuplicate'] = self._normalize_value(on_duplicate)
 
         response = self.client.call(
             'post',
@@ -723,31 +635,15 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['subdomain'] = self._normalize_value(
-            subdomain,
-        )
-        api_params['region'] = self._normalize_value(
-            region,
-        )
-        api_params['adminSecret'] = self._normalize_value(
-            admin_secret,
-        )
-        api_params['database'] = self._normalize_value(
-            database,
-        )
-        api_params['username'] = self._normalize_value(
-            username,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['subdomain'] = self._normalize_value(subdomain)
+        api_params['region'] = self._normalize_value(region)
+        api_params['adminSecret'] = self._normalize_value(admin_secret)
+        api_params['database'] = self._normalize_value(database)
+        api_params['username'] = self._normalize_value(username)
+        api_params['password'] = self._normalize_value(password)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
 
         response = self.client.call(
             'post',
@@ -821,31 +717,15 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['subdomain'] = self._normalize_value(
-            subdomain,
-        )
-        api_params['region'] = self._normalize_value(
-            region,
-        )
-        api_params['adminSecret'] = self._normalize_value(
-            admin_secret,
-        )
-        api_params['database'] = self._normalize_value(
-            database,
-        )
-        api_params['username'] = self._normalize_value(
-            username,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['subdomain'] = self._normalize_value(subdomain)
+        api_params['region'] = self._normalize_value(region)
+        api_params['adminSecret'] = self._normalize_value(admin_secret)
+        api_params['database'] = self._normalize_value(database)
+        api_params['username'] = self._normalize_value(username)
+        api_params['password'] = self._normalize_value(password)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
 
         response = self.client.call(
             'get',
@@ -913,28 +793,14 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['endpoint'] = self._normalize_value(
-            endpoint,
-        )
-        api_params['apiKey'] = self._normalize_value(
-            api_key,
-        )
-        api_params['databaseHost'] = self._normalize_value(
-            database_host,
-        )
-        api_params['username'] = self._normalize_value(
-            username,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['endpoint'] = self._normalize_value(endpoint)
+        api_params['apiKey'] = self._normalize_value(api_key)
+        api_params['databaseHost'] = self._normalize_value(database_host)
+        api_params['username'] = self._normalize_value(username)
+        api_params['password'] = self._normalize_value(password)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
 
         response = self.client.call(
             'post',
@@ -1003,28 +869,14 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['resources'] = self._normalize_value(
-            resources,
-        )
-        api_params['endpoint'] = self._normalize_value(
-            endpoint,
-        )
-        api_params['apiKey'] = self._normalize_value(
-            api_key,
-        )
-        api_params['databaseHost'] = self._normalize_value(
-            database_host,
-        )
-        api_params['username'] = self._normalize_value(
-            username,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['resources'] = self._normalize_value(resources)
+        api_params['endpoint'] = self._normalize_value(endpoint)
+        api_params['apiKey'] = self._normalize_value(api_key)
+        api_params['databaseHost'] = self._normalize_value(database_host)
+        api_params['username'] = self._normalize_value(username)
+        api_params['password'] = self._normalize_value(password)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
 
         response = self.client.call(
             'get',

@@ -14,7 +14,4 @@ class Jwt(AppwriteModel):
         JWT encoded string.
     """
 
-    jwt: str = Field(
-        ...,
-        alias='jwt',
-    )
+    jwt: str = Field(..., alias='jwt')

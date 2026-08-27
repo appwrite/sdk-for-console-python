@@ -32,43 +32,13 @@ class DedicatedDatabasePooler(AppwriteModel):
         Effective memory limit applied to the pooler sidecar container (Kubernetes quantity). Returns the proportional default (15% of DB memory, floor 128Mi) unless overridden.
     """
 
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    mode: str = Field(
-        ...,
-        alias='mode',
-    )
-    maxconnections: float = Field(
-        ...,
-        alias='maxConnections',
-    )
-    defaultpoolsize: float = Field(
-        ...,
-        alias='defaultPoolSize',
-    )
-    port: float = Field(
-        ...,
-        alias='port',
-    )
-    readwritesplitting: bool = Field(
-        ...,
-        alias='readWriteSplitting',
-    )
-    poolercpurequest: str = Field(
-        ...,
-        alias='poolerCpuRequest',
-    )
-    poolercpulimit: str = Field(
-        ...,
-        alias='poolerCpuLimit',
-    )
-    poolermemoryrequest: str = Field(
-        ...,
-        alias='poolerMemoryRequest',
-    )
-    poolermemorylimit: str = Field(
-        ...,
-        alias='poolerMemoryLimit',
-    )
+    enabled: bool = Field(..., alias='enabled')
+    mode: str = Field(..., alias='mode')
+    maxconnections: float = Field(..., alias='maxConnections')
+    defaultpoolsize: float = Field(..., alias='defaultPoolSize')
+    port: float = Field(..., alias='port')
+    readwritesplitting: bool = Field(..., alias='readWriteSplitting')
+    poolercpurequest: str = Field(..., alias='poolerCpuRequest')
+    poolercpulimit: str = Field(..., alias='poolerCpuLimit')
+    poolermemoryrequest: str = Field(..., alias='poolerMemoryRequest')
+    poolermemorylimit: str = Field(..., alias='poolerMemoryLimit')

@@ -25,27 +25,9 @@ class PlatformWeb(AppwriteModel):
         Web app hostname. Empty string for other platforms.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    type: PlatformType = Field(
-        ...,
-        alias='type',
-    )
-    hostname: str = Field(
-        ...,
-        alias='hostname',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    type: PlatformType = Field(..., alias='type')
+    hostname: str = Field(..., alias='hostname')

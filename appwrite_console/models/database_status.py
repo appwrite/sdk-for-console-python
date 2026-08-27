@@ -43,59 +43,17 @@ class DatabaseStatus(AppwriteModel):
         Storage volume information.
     """
 
-    health: str = Field(
-        ...,
-        alias='health',
-    )
-    ready: bool = Field(
-        ...,
-        alias='ready',
-    )
-    engine: str = Field(
-        ...,
-        alias='engine',
-    )
-    version: str = Field(
-        ...,
-        alias='version',
-    )
-    uptime: float = Field(
-        ...,
-        alias='uptime',
-    )
-    connections: DatabaseStatusConnections = Field(
-        ...,
-        alias='connections',
-    )
-    syncmode: str = Field(
-        ...,
-        alias='syncMode',
-    )
-    effectivesyncmode: Optional[str] = Field(
-        default=None,
-        alias='effectiveSyncMode',
-    )
-    syncdegraded: bool = Field(
-        ...,
-        alias='syncDegraded',
-    )
-    syncacknowledgements: float = Field(
-        ...,
-        alias='syncAcknowledgements',
-    )
-    syncstandbycount: float = Field(
-        ...,
-        alias='syncStandbyCount',
-    )
-    syncstateconfirmed: Optional[bool] = Field(
-        default=None,
-        alias='syncStateConfirmed',
-    )
-    replicas: List[DatabaseStatusReplica] = Field(
-        ...,
-        alias='replicas',
-    )
-    volumes: List[DatabaseStatusVolume] = Field(
-        ...,
-        alias='volumes',
-    )
+    health: str = Field(..., alias='health')
+    ready: bool = Field(..., alias='ready')
+    engine: str = Field(..., alias='engine')
+    version: str = Field(..., alias='version')
+    uptime: float = Field(..., alias='uptime')
+    connections: DatabaseStatusConnections = Field(..., alias='connections')
+    syncmode: str = Field(..., alias='syncMode')
+    effectivesyncmode: Optional[str] = Field(default=None, alias='effectiveSyncMode')
+    syncdegraded: bool = Field(..., alias='syncDegraded')
+    syncacknowledgements: float = Field(..., alias='syncAcknowledgements')
+    syncstandbycount: float = Field(..., alias='syncStandbyCount')
+    syncstateconfirmed: Optional[bool] = Field(default=None, alias='syncStateConfirmed')
+    replicas: List[DatabaseStatusReplica] = Field(..., alias='replicas')
+    volumes: List[DatabaseStatusVolume] = Field(..., alias='volumes')

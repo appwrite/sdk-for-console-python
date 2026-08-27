@@ -18,15 +18,6 @@ class VcsContent(AppwriteModel):
         Name of directory or file.
     """
 
-    size: Optional[float] = Field(
-        default=None,
-        alias='size',
-    )
-    isdirectory: Optional[bool] = Field(
-        default=None,
-        alias='isDirectory',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
+    size: Optional[float] = Field(default=None, alias='size')
+    isdirectory: Optional[bool] = Field(default=None, alias='isDirectory')
+    name: str = Field(..., alias='name')

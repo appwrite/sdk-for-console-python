@@ -17,11 +17,5 @@ class MessageList(AppwriteModel):
         List of messages.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    messages: List[Message] = Field(
-        ...,
-        alias='messages',
-    )
+    total: float = Field(..., alias='total')
+    messages: List[Message] = Field(..., alias='messages')

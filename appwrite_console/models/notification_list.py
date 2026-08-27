@@ -17,11 +17,5 @@ class NotificationList(AppwriteModel):
         List of notifications.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    notifications: List[Notification] = Field(
-        ...,
-        alias='notifications',
-    )
+    total: float = Field(..., alias='total')
+    notifications: List[Notification] = Field(..., alias='notifications')

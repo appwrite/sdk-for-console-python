@@ -30,39 +30,12 @@ class TemplateFramework(AppwriteModel):
         Fallback file for SPA. Only relevant for static serve runtime.
     """
 
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    installcommand: str = Field(
-        ...,
-        alias='installCommand',
-    )
-    buildcommand: str = Field(
-        ...,
-        alias='buildCommand',
-    )
-    outputdirectory: str = Field(
-        ...,
-        alias='outputDirectory',
-    )
-    providerrootdirectory: str = Field(
-        ...,
-        alias='providerRootDirectory',
-    )
-    buildruntime: str = Field(
-        ...,
-        alias='buildRuntime',
-    )
-    adapter: str = Field(
-        ...,
-        alias='adapter',
-    )
-    fallbackfile: str = Field(
-        ...,
-        alias='fallbackFile',
-    )
+    key: str = Field(..., alias='key')
+    name: str = Field(..., alias='name')
+    installcommand: str = Field(..., alias='installCommand')
+    buildcommand: str = Field(..., alias='buildCommand')
+    outputdirectory: str = Field(..., alias='outputDirectory')
+    providerrootdirectory: str = Field(..., alias='providerRootDirectory')
+    buildruntime: str = Field(..., alias='buildRuntime')
+    adapter: str = Field(..., alias='adapter')
+    fallbackfile: str = Field(..., alias='fallbackFile')

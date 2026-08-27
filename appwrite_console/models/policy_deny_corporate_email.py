@@ -16,11 +16,5 @@ class PolicyDenyCorporateEmail(AppwriteModel):
         Whether the deny non-corporate email policy is enabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

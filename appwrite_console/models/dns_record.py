@@ -36,51 +36,15 @@ class DnsRecord(AppwriteModel):
         Comment for the DNS record.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    value: str = Field(
-        ...,
-        alias='value',
-    )
-    ttl: float = Field(
-        ...,
-        alias='ttl',
-    )
-    priority: float = Field(
-        ...,
-        alias='priority',
-    )
-    lock: bool = Field(
-        ...,
-        alias='lock',
-    )
-    weight: float = Field(
-        ...,
-        alias='weight',
-    )
-    port: float = Field(
-        ...,
-        alias='port',
-    )
-    comment: str = Field(
-        ...,
-        alias='comment',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    type: str = Field(..., alias='type')
+    name: str = Field(..., alias='name')
+    value: str = Field(..., alias='value')
+    ttl: float = Field(..., alias='ttl')
+    priority: float = Field(..., alias='priority')
+    lock: bool = Field(..., alias='lock')
+    weight: float = Field(..., alias='weight')
+    port: float = Field(..., alias='port')
+    comment: str = Field(..., alias='comment')

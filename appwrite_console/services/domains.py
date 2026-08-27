@@ -49,13 +49,9 @@ class Domains(Service):
         api_path = '/domains'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
 
         response = self.client.call(
             'get',
@@ -100,12 +96,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-        api_params['teamId'] = self._normalize_value(
-            team_id,
-        )
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
+        api_params['teamId'] = self._normalize_value(team_id)
+        api_params['domain'] = self._normalize_value(domain)
 
         response = self.client.call(
             'post',
@@ -152,17 +144,11 @@ class Domains(Service):
         api_params = {}
         if domain is None:
             raise AppwriteException('Missing required parameter: "domain"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
+        api_params['domain'] = self._normalize_value(domain)
         if period_years is not None:
-            api_params['periodYears'] = self._normalize_value(
-                period_years,
-            )
+            api_params['periodYears'] = self._normalize_value(period_years)
         if registration_type is not None:
-            api_params['registrationType'] = self._normalize_value(
-                registration_type,
-            )
+            api_params['registrationType'] = self._normalize_value(registration_type)
 
         response = self.client.call(
             'get',
@@ -249,46 +235,22 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "billing_address_id"')
         if payment_method_id is None:
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
-        api_params['firstName'] = self._normalize_value(
-            first_name,
-        )
-        api_params['lastName'] = self._normalize_value(
-            last_name,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['phone'] = self._normalize_value(
-            phone,
-        )
-        api_params['billingAddressId'] = self._normalize_value(
-            billing_address_id,
-        )
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['organizationId'] = self._normalize_value(organization_id)
+        api_params['firstName'] = self._normalize_value(first_name)
+        api_params['lastName'] = self._normalize_value(last_name)
+        api_params['email'] = self._normalize_value(email)
+        api_params['phone'] = self._normalize_value(phone)
+        api_params['billingAddressId'] = self._normalize_value(billing_address_id)
         if address_line3 is not None:
-            api_params['addressLine3'] = self._normalize_value(
-                address_line3,
-            )
+            api_params['addressLine3'] = self._normalize_value(address_line3)
         if company_name is not None:
-            api_params['companyName'] = self._normalize_value(
-                company_name,
-            )
+            api_params['companyName'] = self._normalize_value(company_name)
         if period_years is not None:
-            api_params['periodYears'] = self._normalize_value(
-                period_years,
-            )
+            api_params['periodYears'] = self._normalize_value(period_years)
         if auto_renewal is not None:
-            api_params['autoRenewal'] = self._normalize_value(
-                auto_renewal,
-            )
-        api_params['paymentMethodId'] = self._normalize_value(
-            payment_method_id,
-        )
+            api_params['autoRenewal'] = self._normalize_value(auto_renewal)
+        api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
         response = self.client.call(
             'post',
@@ -335,9 +297,7 @@ class Domains(Service):
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
+        api_params['organizationId'] = self._normalize_value(organization_id)
 
         response = self.client.call(
             'patch',
@@ -393,29 +353,17 @@ class Domains(Service):
         api_params = {}
         if query is None:
             raise AppwriteException('Missing required parameter: "query"')
-        api_params['query'] = self._normalize_value(
-            query,
-        )
+        api_params['query'] = self._normalize_value(query)
         if tlds is not None:
-            api_params['tlds'] = self._normalize_value(
-                tlds,
-            )
+            api_params['tlds'] = self._normalize_value(tlds)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if filter_type is not None:
-            api_params['filterType'] = self._normalize_value(
-                filter_type,
-            )
+            api_params['filterType'] = self._normalize_value(filter_type)
         if price_max is not None:
-            api_params['priceMax'] = self._normalize_value(
-                price_max,
-            )
+            api_params['priceMax'] = self._normalize_value(price_max)
         if price_min is not None:
-            api_params['priceMin'] = self._normalize_value(
-                price_min,
-            )
+            api_params['priceMin'] = self._normalize_value(price_min)
 
         response = self.client.call(
             'get',
@@ -473,22 +421,12 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "auth_code"')
         if payment_method_id is None:
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-        api_params['domain'] = self._normalize_value(
-            domain,
-        )
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
-        api_params['authCode'] = self._normalize_value(
-            auth_code,
-        )
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['organizationId'] = self._normalize_value(organization_id)
+        api_params['authCode'] = self._normalize_value(auth_code)
         if auto_renewal is not None:
-            api_params['autoRenewal'] = self._normalize_value(
-                auto_renewal,
-            )
-        api_params['paymentMethodId'] = self._normalize_value(
-            payment_method_id,
-        )
+            api_params['autoRenewal'] = self._normalize_value(auto_renewal)
+        api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
 
         response = self.client.call(
             'post',
@@ -535,9 +473,7 @@ class Domains(Service):
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
+        api_params['organizationId'] = self._normalize_value(organization_id)
 
         response = self.client.call(
             'patch',
@@ -583,12 +519,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-        api_params['domainId'] = self._normalize_value(
-            domain_id,
-        )
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
+        api_params['domainId'] = self._normalize_value(domain_id)
+        api_params['organizationId'] = self._normalize_value(organization_id)
 
         response = self.client.call(
             'post',
@@ -717,9 +649,7 @@ class Domains(Service):
         if auto_renewal is None:
             raise AppwriteException('Missing required parameter: "auto_renewal"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['autoRenewal'] = self._normalize_value(
-            auto_renewal,
-        )
+        api_params['autoRenewal'] = self._normalize_value(auto_renewal)
 
         response = self.client.call(
             'patch',
@@ -766,9 +696,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         if nameservers is not None:
-            api_params['nameservers'] = self._normalize_value(
-                nameservers,
-            )
+            api_params['nameservers'] = self._normalize_value(nameservers)
 
         response = self.client.call(
             'patch',
@@ -1350,9 +1278,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -1412,19 +1338,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -1492,19 +1410,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -1565,19 +1475,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -1645,19 +1547,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -1719,19 +1613,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -1801,19 +1687,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -1874,19 +1752,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -1954,19 +1824,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -2030,19 +1892,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -2108,19 +1962,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -2181,19 +2027,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -2261,19 +2099,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -2341,22 +2171,12 @@ class Domains(Service):
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
-        api_params['priority'] = self._normalize_value(
-            priority,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
+        api_params['priority'] = self._normalize_value(priority)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -2427,22 +2247,12 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "priority"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
-        api_params['priority'] = self._normalize_value(
-            priority,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
+        api_params['priority'] = self._normalize_value(priority)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -2503,19 +2313,11 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -2584,19 +2386,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -2673,28 +2467,14 @@ class Domains(Service):
         if port is None:
             raise AppwriteException('Missing required parameter: "port"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
-        api_params['priority'] = self._normalize_value(
-            priority,
-        )
-        api_params['weight'] = self._normalize_value(
-            weight,
-        )
-        api_params['port'] = self._normalize_value(
-            port,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
+        api_params['priority'] = self._normalize_value(priority)
+        api_params['weight'] = self._normalize_value(weight)
+        api_params['port'] = self._normalize_value(port)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -2788,28 +2568,14 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "port"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
-        api_params['priority'] = self._normalize_value(
-            priority,
-        )
-        api_params['weight'] = self._normalize_value(
-            weight,
-        )
-        api_params['port'] = self._normalize_value(
-            port,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
+        api_params['priority'] = self._normalize_value(priority)
+        api_params['weight'] = self._normalize_value(weight)
+        api_params['port'] = self._normalize_value(port)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -2869,20 +2635,12 @@ class Domains(Service):
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+            api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'post',
@@ -2951,19 +2709,11 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['ttl'] = self._normalize_value(
-            ttl,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['value'] = self._normalize_value(value)
+        api_params['ttl'] = self._normalize_value(ttl)
         if comment is not None:
-            api_params['comment'] = self._normalize_value(
-                comment,
-            )
+            api_params['comment'] = self._normalize_value(comment)
 
         response = self.client.call(
             'put',
@@ -3112,9 +2862,7 @@ class Domains(Service):
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['teamId'] = self._normalize_value(
-            team_id,
-        )
+        api_params['teamId'] = self._normalize_value(team_id)
 
         response = self.client.call(
             'patch',
@@ -3243,9 +2991,7 @@ class Domains(Service):
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_params['content'] = self._normalize_value(
-            content,
-        )
+        api_params['content'] = self._normalize_value(content)
 
         response = self.client.call(
             'put',

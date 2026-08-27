@@ -17,11 +17,5 @@ class ConsoleKeyScopeList(AppwriteModel):
         List of key scopes, each with its ID and description.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    scopes: List[ConsoleKeyScope] = Field(
-        ...,
-        alias='scopes',
-    )
+    total: float = Field(..., alias='total')
+    scopes: List[ConsoleKeyScope] = Field(..., alias='scopes')

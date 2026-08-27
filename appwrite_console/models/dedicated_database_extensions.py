@@ -19,15 +19,6 @@ class DedicatedDatabaseExtensions(AppwriteModel):
         Curated metadata (display name, description, category) for each available extension.
     """
 
-    installed: List[Any] = Field(
-        ...,
-        alias='installed',
-    )
-    available: List[Any] = Field(
-        ...,
-        alias='available',
-    )
-    metadata: List[PostgresExtension] = Field(
-        ...,
-        alias='metadata',
-    )
+    installed: List[Any] = Field(..., alias='installed')
+    available: List[Any] = Field(..., alias='available')
+    metadata: List[PostgresExtension] = Field(..., alias='metadata')

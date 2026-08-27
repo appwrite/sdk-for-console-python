@@ -53,9 +53,7 @@ class Postgresql(Service):
         api_path = '/postgresql'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -136,60 +134,34 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['name'] = self._normalize_value(name)
         if version is not None:
-            api_params['version'] = self._normalize_value(
-                version,
-            )
+            api_params['version'] = self._normalize_value(version)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(
-                replicas,
-            )
+            api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(
-                sync_mode,
-            )
+            api_params['syncMode'] = self._normalize_value(sync_mode)
         if network_idle_timeout_seconds is not None:
-            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(
-                network_idle_timeout_seconds,
-            )
+            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(network_idle_timeout_seconds)
         if network_ip_allowlist is not None:
-            api_params['networkIPAllowlist'] = self._normalize_value(
-                network_ip_allowlist,
-            )
+            api_params['networkIPAllowlist'] = self._normalize_value(network_ip_allowlist)
         if idle_timeout_minutes is not None:
-            api_params['idleTimeoutMinutes'] = self._normalize_value(
-                idle_timeout_minutes,
-            )
+            api_params['idleTimeoutMinutes'] = self._normalize_value(idle_timeout_minutes)
         if pitr is not None:
-            api_params['pitr'] = self._normalize_value(
-                pitr,
-            )
+            api_params['pitr'] = self._normalize_value(pitr)
         if pitr_retention_days is not None:
-            api_params['pitrRetentionDays'] = self._normalize_value(
-                pitr_retention_days,
-            )
+            api_params['pitrRetentionDays'] = self._normalize_value(pitr_retention_days)
         if storage_autoscaling is not None:
-            api_params['storageAutoscaling'] = self._normalize_value(
-                storage_autoscaling,
-            )
+            api_params['storageAutoscaling'] = self._normalize_value(storage_autoscaling)
         if storage_autoscaling_threshold_percent is not None:
             api_params['storageAutoscalingThresholdPercent'] = self._normalize_value(
                 storage_autoscaling_threshold_percent,
             )
         if storage_autoscaling_max_gb is not None:
-            api_params['storageAutoscalingMaxGb'] = self._normalize_value(
-                storage_autoscaling_max_gb,
-            )
+            api_params['storageAutoscalingMaxGb'] = self._normalize_value(storage_autoscaling_max_gb)
 
         response = self.client.call(
             'post',
@@ -363,85 +335,47 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if status is not None:
-            api_params['status'] = self._normalize_value(
-                status,
-            )
+            api_params['status'] = self._normalize_value(status)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(
-                replicas,
-            )
+            api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(
-                sync_mode,
-            )
+            api_params['syncMode'] = self._normalize_value(sync_mode)
         if network_idle_timeout_seconds is not None:
-            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(
-                network_idle_timeout_seconds,
-            )
+            api_params['networkIdleTimeoutSeconds'] = self._normalize_value(network_idle_timeout_seconds)
         if network_ip_allowlist is not None:
-            api_params['networkIPAllowlist'] = self._normalize_value(
-                network_ip_allowlist,
-            )
+            api_params['networkIPAllowlist'] = self._normalize_value(network_ip_allowlist)
         if idle_timeout_minutes is not None:
-            api_params['idleTimeoutMinutes'] = self._normalize_value(
-                idle_timeout_minutes,
-            )
+            api_params['idleTimeoutMinutes'] = self._normalize_value(idle_timeout_minutes)
         if pitr is not None:
-            api_params['pitr'] = self._normalize_value(
-                pitr,
-            )
+            api_params['pitr'] = self._normalize_value(pitr)
         if pitr_retention_days is not None:
-            api_params['pitrRetentionDays'] = self._normalize_value(
-                pitr_retention_days,
-            )
+            api_params['pitrRetentionDays'] = self._normalize_value(pitr_retention_days)
         if storage_autoscaling is not None:
-            api_params['storageAutoscaling'] = self._normalize_value(
-                storage_autoscaling,
-            )
+            api_params['storageAutoscaling'] = self._normalize_value(storage_autoscaling)
         if storage_autoscaling_threshold_percent is not None:
             api_params['storageAutoscalingThresholdPercent'] = self._normalize_value(
                 storage_autoscaling_threshold_percent,
             )
         if storage_autoscaling_max_gb is not None:
-            api_params['storageAutoscalingMaxGb'] = self._normalize_value(
-                storage_autoscaling_max_gb,
-            )
+            api_params['storageAutoscalingMaxGb'] = self._normalize_value(storage_autoscaling_max_gb)
         if metrics_trace_sample_rate is not None:
-            api_params['metricsTraceSampleRate'] = self._normalize_value(
-                metrics_trace_sample_rate,
-            )
+            api_params['metricsTraceSampleRate'] = self._normalize_value(metrics_trace_sample_rate)
         if metrics_slow_query_log_threshold_ms is not None:
-            api_params['metricsSlowQueryLogThresholdMs'] = self._normalize_value(
-                metrics_slow_query_log_threshold_ms,
-            )
+            api_params['metricsSlowQueryLogThresholdMs'] = self._normalize_value(metrics_slow_query_log_threshold_ms)
         if sql_api_enabled is not None:
-            api_params['sqlApiEnabled'] = self._normalize_value(
-                sql_api_enabled,
-            )
+            api_params['sqlApiEnabled'] = self._normalize_value(sql_api_enabled)
         if sql_api_allowed_statements is not None:
-            api_params['sqlApiAllowedStatements'] = self._normalize_value(
-                sql_api_allowed_statements,
-            )
+            api_params['sqlApiAllowedStatements'] = self._normalize_value(sql_api_allowed_statements)
         if sql_api_max_rows is not None:
-            api_params['sqlApiMaxRows'] = self._normalize_value(
-                sql_api_max_rows,
-            )
+            api_params['sqlApiMaxRows'] = self._normalize_value(sql_api_max_rows)
         if sql_api_max_bytes is not None:
-            api_params['sqlApiMaxBytes'] = self._normalize_value(
-                sql_api_max_bytes,
-            )
+            api_params['sqlApiMaxBytes'] = self._normalize_value(sql_api_max_bytes)
         if sql_api_timeout_seconds is not None:
-            api_params['sqlApiTimeoutSeconds'] = self._normalize_value(
-                sql_api_timeout_seconds,
-            )
+            api_params['sqlApiTimeoutSeconds'] = self._normalize_value(sql_api_timeout_seconds)
 
         response = self.client.call(
             'patch',
@@ -528,9 +462,7 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -575,9 +507,7 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
 
         response = self.client.call(
             'post',
@@ -623,9 +553,7 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -692,26 +620,14 @@ class Postgresql(Service):
         if retention is None:
             raise AppwriteException('Missing required parameter: "retention"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['policyId'] = self._normalize_value(
-            policy_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['schedule'] = self._normalize_value(
-            schedule,
-        )
-        api_params['retention'] = self._normalize_value(
-            retention,
-        )
+        api_params['policyId'] = self._normalize_value(policy_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['schedule'] = self._normalize_value(schedule)
+        api_params['retention'] = self._normalize_value(retention)
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -818,21 +734,13 @@ class Postgresql(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{policyId}', str(self._normalize_value(policy_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if schedule is not None:
-            api_params['schedule'] = self._normalize_value(
-                schedule,
-            )
+            api_params['schedule'] = self._normalize_value(schedule)
         if retention is not None:
-            api_params['retention'] = self._normalize_value(
-                retention,
-            )
+            api_params['retention'] = self._normalize_value(retention)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -950,30 +858,16 @@ class Postgresql(Service):
         if secret_key is None:
             raise AppwriteException('Missing required parameter: "secret_key"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['provider'] = self._normalize_value(
-            provider,
-        )
-        api_params['bucket'] = self._normalize_value(
-            bucket,
-        )
+        api_params['provider'] = self._normalize_value(provider)
+        api_params['bucket'] = self._normalize_value(bucket)
         if region is not None:
-            api_params['region'] = self._normalize_value(
-                region,
-            )
+            api_params['region'] = self._normalize_value(region)
         if prefix is not None:
-            api_params['prefix'] = self._normalize_value(
-                prefix,
-            )
+            api_params['prefix'] = self._normalize_value(prefix)
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(
-                endpoint,
-            )
-        api_params['accessKey'] = self._normalize_value(
-            access_key,
-        )
-        api_params['secretKey'] = self._normalize_value(
-            secret_key,
-        )
+            api_params['endpoint'] = self._normalize_value(endpoint)
+        api_params['accessKey'] = self._normalize_value(access_key)
+        api_params['secretKey'] = self._normalize_value(secret_key)
 
         response = self.client.call(
             'put',
@@ -1155,13 +1049,9 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if branch_id is not None:
-            api_params['branchId'] = self._normalize_value(
-                branch_id,
-            )
+            api_params['branchId'] = self._normalize_value(branch_id)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'post',
@@ -1302,17 +1192,11 @@ class Postgresql(Service):
         if sql is None:
             raise AppwriteException('Missing required parameter: "sql"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['sql'] = self._normalize_value(
-            sql,
-        )
+        api_params['sql'] = self._normalize_value(sql)
         if bindings is not None:
-            api_params['bindings'] = self._normalize_value(
-                bindings,
-            )
+            api_params['bindings'] = self._normalize_value(bindings)
         if timeout_seconds is not None:
-            api_params['timeoutSeconds'] = self._normalize_value(
-                timeout_seconds,
-            )
+            api_params['timeoutSeconds'] = self._normalize_value(timeout_seconds)
 
         response = self.client.call(
             'post',
@@ -1399,9 +1283,7 @@ class Postgresql(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -1494,9 +1376,7 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if target_replica_id is not None:
-            api_params['targetReplicaId'] = self._normalize_value(
-                target_replica_id,
-            )
+            api_params['targetReplicaId'] = self._normalize_value(target_replica_id)
 
         response = self.client.call(
             'post',
@@ -1548,12 +1428,8 @@ class Postgresql(Service):
         if hour_utc is None:
             raise AppwriteException('Missing required parameter: "hour_utc"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['day'] = self._normalize_value(
-            day,
-        )
-        api_params['hourUtc'] = self._normalize_value(
-            hour_utc,
-        )
+        api_params['day'] = self._normalize_value(day)
+        api_params['hourUtc'] = self._normalize_value(hour_utc)
 
         response = self.client.call(
             'patch',
@@ -1603,13 +1479,9 @@ class Postgresql(Service):
         if target_type is None:
             raise AppwriteException('Missing required parameter: "target_type"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['targetType'] = self._normalize_value(
-            target_type,
-        )
+        api_params['targetType'] = self._normalize_value(target_type)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
 
         response = self.client.call(
             'post',
@@ -1661,17 +1533,11 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if status is not None:
-            api_params['status'] = self._normalize_value(
-                status,
-            )
+            api_params['status'] = self._normalize_value(status)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
 
         response = self.client.call(
             'get',
@@ -1817,37 +1683,21 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if mode is not None:
-            api_params['mode'] = self._normalize_value(
-                mode,
-            )
+            api_params['mode'] = self._normalize_value(mode)
         if max_connections is not None:
-            api_params['maxConnections'] = self._normalize_value(
-                max_connections,
-            )
+            api_params['maxConnections'] = self._normalize_value(max_connections)
         if default_pool_size is not None:
-            api_params['defaultPoolSize'] = self._normalize_value(
-                default_pool_size,
-            )
+            api_params['defaultPoolSize'] = self._normalize_value(default_pool_size)
         if read_write_splitting is not None:
-            api_params['readWriteSplitting'] = self._normalize_value(
-                read_write_splitting,
-            )
+            api_params['readWriteSplitting'] = self._normalize_value(read_write_splitting)
         if pooler_cpu_request is not None:
-            api_params['poolerCpuRequest'] = self._normalize_value(
-                pooler_cpu_request,
-            )
+            api_params['poolerCpuRequest'] = self._normalize_value(pooler_cpu_request)
         if pooler_cpu_limit is not None:
-            api_params['poolerCpuLimit'] = self._normalize_value(
-                pooler_cpu_limit,
-            )
+            api_params['poolerCpuLimit'] = self._normalize_value(pooler_cpu_limit)
         if pooler_memory_request is not None:
-            api_params['poolerMemoryRequest'] = self._normalize_value(
-                pooler_memory_request,
-            )
+            api_params['poolerMemoryRequest'] = self._normalize_value(pooler_memory_request)
         if pooler_memory_limit is not None:
-            api_params['poolerMemoryLimit'] = self._normalize_value(
-                pooler_memory_limit,
-            )
+            api_params['poolerMemoryLimit'] = self._normalize_value(pooler_memory_limit)
 
         response = self.client.call(
             'patch',
@@ -1942,21 +1792,13 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if status is not None:
-            api_params['status'] = self._normalize_value(
-                status,
-            )
+            api_params['status'] = self._normalize_value(status)
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
 
         response = self.client.call(
             'get',
@@ -2010,21 +1852,13 @@ class Postgresql(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
         if backup_id is not None:
-            api_params['backupId'] = self._normalize_value(
-                backup_id,
-            )
+            api_params['backupId'] = self._normalize_value(backup_id)
         if target_database_id is not None:
-            api_params['targetDatabaseId'] = self._normalize_value(
-                target_database_id,
-            )
+            api_params['targetDatabaseId'] = self._normalize_value(target_database_id)
         if target_time is not None:
-            api_params['targetTime'] = self._normalize_value(
-                target_time,
-            )
+            api_params['targetTime'] = self._normalize_value(target_time)
 
         response = self.client.call(
             'post',
@@ -2157,9 +1991,7 @@ class Postgresql(Service):
         if target_version is None:
             raise AppwriteException('Missing required parameter: "target_version"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['targetVersion'] = self._normalize_value(
-            target_version,
-        )
+        api_params['targetVersion'] = self._normalize_value(target_version)
 
         response = self.client.call(
             'post',

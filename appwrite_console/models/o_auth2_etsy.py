@@ -20,19 +20,7 @@ class OAuth2Etsy(AppwriteModel):
         Etsy OAuth2 shared secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    keystring: str = Field(
-        ...,
-        alias='keyString',
-    )
-    sharedsecret: str = Field(
-        ...,
-        alias='sharedSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    keystring: str = Field(..., alias='keyString')
+    sharedsecret: str = Field(..., alias='sharedSecret')

@@ -28,31 +28,10 @@ class PlanChangeLimits(AppwriteModel):
         Per-project compliance details. Populated for downgrades only.
     """
 
-    canchangeplan: bool = Field(
-        ...,
-        alias='canChangePlan',
-    )
-    unsupportedaddons: List[Any] = Field(
-        ...,
-        alias='unsupportedAddons',
-    )
-    projects: PlanChangeResourceCompliance = Field(
-        ...,
-        alias='projects',
-    )
-    members: PlanChangeResourceCompliance = Field(
-        ...,
-        alias='members',
-    )
-    domains: PlanChangeResourceCompliance = Field(
-        ...,
-        alias='domains',
-    )
-    noncompliantprojects: float = Field(
-        ...,
-        alias='nonCompliantProjects',
-    )
-    projectcompliance: List[PlanChangeProjectCompliance] = Field(
-        ...,
-        alias='projectCompliance',
-    )
+    canchangeplan: bool = Field(..., alias='canChangePlan')
+    unsupportedaddons: List[Any] = Field(..., alias='unsupportedAddons')
+    projects: PlanChangeResourceCompliance = Field(..., alias='projects')
+    members: PlanChangeResourceCompliance = Field(..., alias='members')
+    domains: PlanChangeResourceCompliance = Field(..., alias='domains')
+    noncompliantprojects: float = Field(..., alias='nonCompliantProjects')
+    projectcompliance: List[PlanChangeProjectCompliance] = Field(..., alias='projectCompliance')

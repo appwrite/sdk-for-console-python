@@ -17,11 +17,5 @@ class MockNumberList(AppwriteModel):
         List of mockNumbers.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    mocknumbers: List[MockNumber] = Field(
-        ...,
-        alias='mockNumbers',
-    )
+    total: float = Field(..., alias='total')
+    mocknumbers: List[MockNumber] = Field(..., alias='mockNumbers')

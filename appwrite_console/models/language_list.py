@@ -17,11 +17,5 @@ class LanguageList(AppwriteModel):
         List of languages.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    languages: List[Language] = Field(
-        ...,
-        alias='languages',
-    )
+    total: float = Field(..., alias='total')
+    languages: List[Language] = Field(..., alias='languages')

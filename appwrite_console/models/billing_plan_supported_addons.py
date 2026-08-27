@@ -18,15 +18,6 @@ class BillingPlanSupportedAddons(AppwriteModel):
         Whether the plan supports Premium Geo DB addon (organization-level)
     """
 
-    baa: bool = Field(
-        ...,
-        alias='baa',
-    )
-    premiumgeodb: bool = Field(
-        ...,
-        alias='premiumGeoDB',
-    )
-    premiumgeodborg: bool = Field(
-        ...,
-        alias='premiumGeoDBOrg',
-    )
+    baa: bool = Field(..., alias='baa')
+    premiumgeodb: bool = Field(..., alias='premiumGeoDB')
+    premiumgeodborg: bool = Field(..., alias='premiumGeoDBOrg')

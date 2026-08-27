@@ -47,71 +47,20 @@ class WafRuleChallenge(AppwriteModel):
         Seconds a visitor stays cleared after passing the challenge before being challenged again.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    description: str = Field(
-        ...,
-        alias='description',
-    )
-    teamid: str = Field(
-        ...,
-        alias='teamId',
-    )
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    action: WafRuleAction = Field(
-        ...,
-        alias='action',
-    )
-    priority: float = Field(
-        ...,
-        alias='priority',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    conditions: List[Any] = Field(
-        ...,
-        alias='conditions',
-    )
-    config: Dict[str, Any] = Field(
-        ...,
-        alias='config',
-    )
-    challengetype: str = Field(
-        ...,
-        alias='challengeType',
-    )
-    difficulty: float = Field(
-        ...,
-        alias='difficulty',
-    )
-    ttl: float = Field(
-        ...,
-        alias='ttl',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    description: str = Field(..., alias='description')
+    teamid: str = Field(..., alias='teamId')
+    projectid: str = Field(..., alias='projectId')
+    resourcetype: str = Field(..., alias='resourceType')
+    resourceid: str = Field(..., alias='resourceId')
+    action: WafRuleAction = Field(..., alias='action')
+    priority: float = Field(..., alias='priority')
+    enabled: bool = Field(..., alias='enabled')
+    conditions: List[Any] = Field(..., alias='conditions')
+    config: Dict[str, Any] = Field(..., alias='config')
+    challengetype: str = Field(..., alias='challengeType')
+    difficulty: float = Field(..., alias='difficulty')
+    ttl: float = Field(..., alias='ttl')

@@ -16,11 +16,5 @@ class LocaleCode(AppwriteModel):
         Locale name
     """
 
-    code: str = Field(
-        ...,
-        alias='code',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
+    code: str = Field(..., alias='code')
+    name: str = Field(..., alias='name')

@@ -17,11 +17,5 @@ class PaymentMethodList(AppwriteModel):
         List of paymentMethods.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    paymentmethods: List[PaymentMethod] = Field(
-        ...,
-        alias='paymentMethods',
-    )
+    total: float = Field(..., alias='total')
+    paymentmethods: List[PaymentMethod] = Field(..., alias='paymentMethods')

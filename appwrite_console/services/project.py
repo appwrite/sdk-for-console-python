@@ -191,9 +191,7 @@ class Project(Service):
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
         api_path = api_path.replace('{methodId}', str(self._normalize_value(method_id)))
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -236,13 +234,9 @@ class Project(Service):
         api_path = '/project/keys'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -297,19 +291,11 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
-        api_params['keyId'] = self._normalize_value(
-            key_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['scopes'] = self._normalize_value(
-            scopes,
-        )
+        api_params['keyId'] = self._normalize_value(key_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
-            api_params['expire'] = self._normalize_value(
-                expire,
-            )
+            api_params['expire'] = self._normalize_value(expire)
 
         response = self.client.call(
             'post',
@@ -357,12 +343,8 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "scopes"')
         if duration is None:
             raise AppwriteException('Missing required parameter: "duration"')
-        api_params['scopes'] = self._normalize_value(
-            scopes,
-        )
-        api_params['duration'] = self._normalize_value(
-            duration,
-        )
+        api_params['scopes'] = self._normalize_value(scopes)
+        api_params['duration'] = self._normalize_value(duration)
 
         response = self.client.call(
             'post',
@@ -457,16 +439,10 @@ class Project(Service):
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['scopes'] = self._normalize_value(
-            scopes,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
-            api_params['expire'] = self._normalize_value(
-                expire,
-            )
+            api_params['expire'] = self._normalize_value(expire)
 
         response = self.client.call(
             'put',
@@ -547,9 +523,7 @@ class Project(Service):
         api_params = {}
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
-        api_params['labels'] = self._normalize_value(
-            labels,
-        )
+        api_params['labels'] = self._normalize_value(labels)
 
         response = self.client.call(
             'put',
@@ -592,13 +566,9 @@ class Project(Service):
         api_path = '/project/mock-phones'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -643,12 +613,8 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "number"')
         if otp is None:
             raise AppwriteException('Missing required parameter: "otp"')
-        api_params['number'] = self._normalize_value(
-            number,
-        )
-        api_params['otp'] = self._normalize_value(
-            otp,
-        )
+        api_params['number'] = self._normalize_value(number)
+        api_params['otp'] = self._normalize_value(otp)
 
         response = self.client.call(
             'post',
@@ -735,9 +701,7 @@ class Project(Service):
         if otp is None:
             raise AppwriteException('Missing required parameter: "otp"')
         api_path = api_path.replace('{number}', str(self._normalize_value(number)))
-        api_params['otp'] = self._normalize_value(
-            otp,
-        )
+        api_params['otp'] = self._normalize_value(otp)
 
         response = self.client.call(
             'put',
@@ -820,13 +784,9 @@ class Project(Service):
         api_path = '/project/oauth2'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -913,68 +873,36 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "enabled"')
         if authorization_url is None:
             raise AppwriteException('Missing required parameter: "authorization_url"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
-        api_params['authorizationUrl'] = self._normalize_value(
-            authorization_url,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
+        api_params['authorizationUrl'] = self._normalize_value(authorization_url)
         if scopes is not None:
-            api_params['scopes'] = self._normalize_value(
-                scopes,
-            )
+            api_params['scopes'] = self._normalize_value(scopes)
         if authorization_details_types is not None:
-            api_params['authorizationDetailsTypes'] = self._normalize_value(
-                authorization_details_types,
-            )
+            api_params['authorizationDetailsTypes'] = self._normalize_value(authorization_details_types)
         if access_token_duration is not None:
-            api_params['accessTokenDuration'] = self._normalize_value(
-                access_token_duration,
-            )
+            api_params['accessTokenDuration'] = self._normalize_value(access_token_duration)
         if refresh_token_duration is not None:
-            api_params['refreshTokenDuration'] = self._normalize_value(
-                refresh_token_duration,
-            )
+            api_params['refreshTokenDuration'] = self._normalize_value(refresh_token_duration)
         if public_access_token_duration is not None:
-            api_params['publicAccessTokenDuration'] = self._normalize_value(
-                public_access_token_duration,
-            )
+            api_params['publicAccessTokenDuration'] = self._normalize_value(public_access_token_duration)
         if public_refresh_token_duration is not None:
-            api_params['publicRefreshTokenDuration'] = self._normalize_value(
-                public_refresh_token_duration,
-            )
+            api_params['publicRefreshTokenDuration'] = self._normalize_value(public_refresh_token_duration)
         if installation_access_token_duration is not None:
-            api_params['installationAccessTokenDuration'] = self._normalize_value(
-                installation_access_token_duration,
-            )
+            api_params['installationAccessTokenDuration'] = self._normalize_value(installation_access_token_duration)
         if confidential_pkce is not None:
-            api_params['confidentialPkce'] = self._normalize_value(
-                confidential_pkce,
-            )
+            api_params['confidentialPkce'] = self._normalize_value(confidential_pkce)
         if verification_url is not None:
-            api_params['verificationUrl'] = self._normalize_value(
-                verification_url,
-            )
+            api_params['verificationUrl'] = self._normalize_value(verification_url)
         if user_code_length is not None:
-            api_params['userCodeLength'] = self._normalize_value(
-                user_code_length,
-            )
+            api_params['userCodeLength'] = self._normalize_value(user_code_length)
         if user_code_format is not None:
-            api_params['userCodeFormat'] = self._normalize_value(
-                user_code_format,
-            )
+            api_params['userCodeFormat'] = self._normalize_value(user_code_format)
         if device_code_duration is not None:
-            api_params['deviceCodeDuration'] = self._normalize_value(
-                device_code_duration,
-            )
+            api_params['deviceCodeDuration'] = self._normalize_value(device_code_duration)
         if default_scopes is not None:
-            api_params['defaultScopes'] = self._normalize_value(
-                default_scopes,
-            )
+            api_params['defaultScopes'] = self._normalize_value(default_scopes)
         if installation_scopes is not None:
-            api_params['installationScopes'] = self._normalize_value(
-                installation_scopes,
-            )
+            api_params['installationScopes'] = self._normalize_value(installation_scopes)
 
         response = self.client.call(
             'put',
@@ -1020,17 +948,11 @@ class Project(Service):
         api_path = '/project/oauth2/amazon'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1082,25 +1004,15 @@ class Project(Service):
         api_path = '/project/oauth2/apple'
         api_params = {}
         if service_id is not None:
-            api_params['serviceId'] = self._normalize_value(
-                service_id,
-            )
+            api_params['serviceId'] = self._normalize_value(service_id)
         if key_id is not None:
-            api_params['keyId'] = self._normalize_value(
-                key_id,
-            )
+            api_params['keyId'] = self._normalize_value(key_id)
         if team_id is not None:
-            api_params['teamId'] = self._normalize_value(
-                team_id,
-            )
+            api_params['teamId'] = self._normalize_value(team_id)
         if p8_file is not None:
-            api_params['p8File'] = self._normalize_value(
-                p8_file,
-            )
+            api_params['p8File'] = self._normalize_value(p8_file)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1146,17 +1058,11 @@ class Project(Service):
         api_path = '/project/oauth2/appwrite'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1205,21 +1111,13 @@ class Project(Service):
         api_path = '/project/oauth2/auth0'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(
-                endpoint,
-            )
+            api_params['endpoint'] = self._normalize_value(endpoint)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1268,21 +1166,13 @@ class Project(Service):
         api_path = '/project/oauth2/authentik'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(
-                endpoint,
-            )
+            api_params['endpoint'] = self._normalize_value(endpoint)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1328,17 +1218,11 @@ class Project(Service):
         api_path = '/project/oauth2/autodesk'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1384,17 +1268,11 @@ class Project(Service):
         api_path = '/project/oauth2/bitbucket'
         api_params = {}
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1440,17 +1318,11 @@ class Project(Service):
         api_path = '/project/oauth2/bitly'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1496,17 +1368,11 @@ class Project(Service):
         api_path = '/project/oauth2/box'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1552,17 +1418,11 @@ class Project(Service):
         api_path = '/project/oauth2/dailymotion'
         api_params = {}
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if api_secret is not None:
-            api_params['apiSecret'] = self._normalize_value(
-                api_secret,
-            )
+            api_params['apiSecret'] = self._normalize_value(api_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1608,17 +1468,11 @@ class Project(Service):
         api_path = '/project/oauth2/discord'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1664,17 +1518,11 @@ class Project(Service):
         api_path = '/project/oauth2/disqus'
         api_params = {}
         if public_key is not None:
-            api_params['publicKey'] = self._normalize_value(
-                public_key,
-            )
+            api_params['publicKey'] = self._normalize_value(public_key)
         if secret_key is not None:
-            api_params['secretKey'] = self._normalize_value(
-                secret_key,
-            )
+            api_params['secretKey'] = self._normalize_value(secret_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1720,17 +1568,11 @@ class Project(Service):
         api_path = '/project/oauth2/dropbox'
         api_params = {}
         if app_key is not None:
-            api_params['appKey'] = self._normalize_value(
-                app_key,
-            )
+            api_params['appKey'] = self._normalize_value(app_key)
         if app_secret is not None:
-            api_params['appSecret'] = self._normalize_value(
-                app_secret,
-            )
+            api_params['appSecret'] = self._normalize_value(app_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1776,17 +1618,11 @@ class Project(Service):
         api_path = '/project/oauth2/etsy'
         api_params = {}
         if key_string is not None:
-            api_params['keyString'] = self._normalize_value(
-                key_string,
-            )
+            api_params['keyString'] = self._normalize_value(key_string)
         if shared_secret is not None:
-            api_params['sharedSecret'] = self._normalize_value(
-                shared_secret,
-            )
+            api_params['sharedSecret'] = self._normalize_value(shared_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1832,17 +1668,11 @@ class Project(Service):
         api_path = '/project/oauth2/facebook'
         api_params = {}
         if app_id is not None:
-            api_params['appId'] = self._normalize_value(
-                app_id,
-            )
+            api_params['appId'] = self._normalize_value(app_id)
         if app_secret is not None:
-            api_params['appSecret'] = self._normalize_value(
-                app_secret,
-            )
+            api_params['appSecret'] = self._normalize_value(app_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1888,17 +1718,11 @@ class Project(Service):
         api_path = '/project/oauth2/figma'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -1947,21 +1771,13 @@ class Project(Service):
         api_path = '/project/oauth2/fusionauth'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(
-                endpoint,
-            )
+            api_params['endpoint'] = self._normalize_value(endpoint)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2007,17 +1823,11 @@ class Project(Service):
         api_path = '/project/oauth2/github'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2066,21 +1876,13 @@ class Project(Service):
         api_path = '/project/oauth2/gitlab'
         api_params = {}
         if application_id is not None:
-            api_params['applicationId'] = self._normalize_value(
-                application_id,
-            )
+            api_params['applicationId'] = self._normalize_value(application_id)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(
-                endpoint,
-            )
+            api_params['endpoint'] = self._normalize_value(endpoint)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2129,21 +1931,13 @@ class Project(Service):
         api_path = '/project/oauth2/google'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(
-                prompt,
-            )
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2189,17 +1983,11 @@ class Project(Service):
         api_path = '/project/oauth2/huggingface'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2251,25 +2039,15 @@ class Project(Service):
         api_path = '/project/oauth2/keycloak'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if endpoint is not None:
-            api_params['endpoint'] = self._normalize_value(
-                endpoint,
-            )
+            api_params['endpoint'] = self._normalize_value(endpoint)
         if realm_name is not None:
-            api_params['realmName'] = self._normalize_value(
-                realm_name,
-            )
+            api_params['realmName'] = self._normalize_value(realm_name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2315,17 +2093,11 @@ class Project(Service):
         api_path = '/project/oauth2/kick'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2371,17 +2143,11 @@ class Project(Service):
         api_path = '/project/oauth2/linkedin'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if primary_client_secret is not None:
-            api_params['primaryClientSecret'] = self._normalize_value(
-                primary_client_secret,
-            )
+            api_params['primaryClientSecret'] = self._normalize_value(primary_client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2430,21 +2196,13 @@ class Project(Service):
         api_path = '/project/oauth2/microsoft'
         api_params = {}
         if application_id is not None:
-            api_params['applicationId'] = self._normalize_value(
-                application_id,
-            )
+            api_params['applicationId'] = self._normalize_value(application_id)
         if application_secret is not None:
-            api_params['applicationSecret'] = self._normalize_value(
-                application_secret,
-            )
+            api_params['applicationSecret'] = self._normalize_value(application_secret)
         if tenant is not None:
-            api_params['tenant'] = self._normalize_value(
-                tenant,
-            )
+            api_params['tenant'] = self._normalize_value(tenant)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2490,17 +2248,11 @@ class Project(Service):
         api_path = '/project/oauth2/notion'
         api_params = {}
         if oauth_client_id is not None:
-            api_params['oauthClientId'] = self._normalize_value(
-                oauth_client_id,
-            )
+            api_params['oauthClientId'] = self._normalize_value(oauth_client_id)
         if oauth_client_secret is not None:
-            api_params['oauthClientSecret'] = self._normalize_value(
-                oauth_client_secret,
-            )
+            api_params['oauthClientSecret'] = self._normalize_value(oauth_client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2564,41 +2316,23 @@ class Project(Service):
         api_path = '/project/oauth2/oidc'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if well_known_url is not None:
-            api_params['wellKnownURL'] = self._normalize_value(
-                well_known_url,
-            )
+            api_params['wellKnownURL'] = self._normalize_value(well_known_url)
         if authorization_url is not None:
-            api_params['authorizationURL'] = self._normalize_value(
-                authorization_url,
-            )
+            api_params['authorizationURL'] = self._normalize_value(authorization_url)
         if token_url is not None:
-            api_params['tokenURL'] = self._normalize_value(
-                token_url,
-            )
+            api_params['tokenURL'] = self._normalize_value(token_url)
         if user_info_url is not None:
-            api_params['userInfoURL'] = self._normalize_value(
-                user_info_url,
-            )
+            api_params['userInfoURL'] = self._normalize_value(user_info_url)
         if prompt is not None:
-            api_params['prompt'] = self._normalize_value(
-                prompt,
-            )
+            api_params['prompt'] = self._normalize_value(prompt)
         if max_age is not None:
-            api_params['maxAge'] = self._normalize_value(
-                max_age,
-            )
+            api_params['maxAge'] = self._normalize_value(max_age)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2650,25 +2384,15 @@ class Project(Service):
         api_path = '/project/oauth2/okta'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if domain is not None:
-            api_params['domain'] = self._normalize_value(
-                domain,
-            )
+            api_params['domain'] = self._normalize_value(domain)
         if authorization_server_id is not None:
-            api_params['authorizationServerId'] = self._normalize_value(
-                authorization_server_id,
-            )
+            api_params['authorizationServerId'] = self._normalize_value(authorization_server_id)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2714,17 +2438,11 @@ class Project(Service):
         api_path = '/project/oauth2/paypal'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if secret_key is not None:
-            api_params['secretKey'] = self._normalize_value(
-                secret_key,
-            )
+            api_params['secretKey'] = self._normalize_value(secret_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2770,17 +2488,11 @@ class Project(Service):
         api_path = '/project/oauth2/paypalSandbox'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if secret_key is not None:
-            api_params['secretKey'] = self._normalize_value(
-                secret_key,
-            )
+            api_params['secretKey'] = self._normalize_value(secret_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2826,17 +2538,11 @@ class Project(Service):
         api_path = '/project/oauth2/podio'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2882,17 +2588,11 @@ class Project(Service):
         api_path = '/project/oauth2/salesforce'
         api_params = {}
         if customer_key is not None:
-            api_params['customerKey'] = self._normalize_value(
-                customer_key,
-            )
+            api_params['customerKey'] = self._normalize_value(customer_key)
         if customer_secret is not None:
-            api_params['customerSecret'] = self._normalize_value(
-                customer_secret,
-            )
+            api_params['customerSecret'] = self._normalize_value(customer_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2938,17 +2638,11 @@ class Project(Service):
         api_path = '/project/oauth2/slack'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2994,17 +2688,11 @@ class Project(Service):
         api_path = '/project/oauth2/spotify'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3050,17 +2738,11 @@ class Project(Service):
         api_path = '/project/oauth2/stripe'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if api_secret_key is not None:
-            api_params['apiSecretKey'] = self._normalize_value(
-                api_secret_key,
-            )
+            api_params['apiSecretKey'] = self._normalize_value(api_secret_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3106,17 +2788,11 @@ class Project(Service):
         api_path = '/project/oauth2/tradeshift'
         api_params = {}
         if oauth2_client_id is not None:
-            api_params['oauth2ClientId'] = self._normalize_value(
-                oauth2_client_id,
-            )
+            api_params['oauth2ClientId'] = self._normalize_value(oauth2_client_id)
         if oauth2_client_secret is not None:
-            api_params['oauth2ClientSecret'] = self._normalize_value(
-                oauth2_client_secret,
-            )
+            api_params['oauth2ClientSecret'] = self._normalize_value(oauth2_client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3162,17 +2838,11 @@ class Project(Service):
         api_path = '/project/oauth2/tradeshiftBox'
         api_params = {}
         if oauth2_client_id is not None:
-            api_params['oauth2ClientId'] = self._normalize_value(
-                oauth2_client_id,
-            )
+            api_params['oauth2ClientId'] = self._normalize_value(oauth2_client_id)
         if oauth2_client_secret is not None:
-            api_params['oauth2ClientSecret'] = self._normalize_value(
-                oauth2_client_secret,
-            )
+            api_params['oauth2ClientSecret'] = self._normalize_value(oauth2_client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3218,17 +2888,11 @@ class Project(Service):
         api_path = '/project/oauth2/twitch'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3274,17 +2938,11 @@ class Project(Service):
         api_path = '/project/oauth2/wordpress'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3330,17 +2988,11 @@ class Project(Service):
         api_path = '/project/oauth2/x'
         api_params = {}
         if customer_key is not None:
-            api_params['customerKey'] = self._normalize_value(
-                customer_key,
-            )
+            api_params['customerKey'] = self._normalize_value(customer_key)
         if secret_key is not None:
-            api_params['secretKey'] = self._normalize_value(
-                secret_key,
-            )
+            api_params['secretKey'] = self._normalize_value(secret_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3386,17 +3038,11 @@ class Project(Service):
         api_path = '/project/oauth2/yahoo'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3442,17 +3088,11 @@ class Project(Service):
         api_path = '/project/oauth2/yandex'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3498,17 +3138,11 @@ class Project(Service):
         api_path = '/project/oauth2/zoho'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3554,17 +3188,11 @@ class Project(Service):
         api_path = '/project/oauth2/zoom'
         api_params = {}
         if client_id is not None:
-            api_params['clientId'] = self._normalize_value(
-                client_id,
-            )
+            api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
-            api_params['clientSecret'] = self._normalize_value(
-                client_secret,
-            )
+            api_params['clientSecret'] = self._normalize_value(client_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -3814,13 +3442,9 @@ class Project(Service):
         api_path = '/project/platforms'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -3870,15 +3494,9 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if application_id is None:
             raise AppwriteException('Missing required parameter: "application_id"')
-        api_params['platformId'] = self._normalize_value(
-            platform_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['applicationId'] = self._normalize_value(
-            application_id,
-        )
+        api_params['platformId'] = self._normalize_value(platform_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['applicationId'] = self._normalize_value(application_id)
 
         response = self.client.call(
             'post',
@@ -3930,12 +3548,8 @@ class Project(Service):
         if application_id is None:
             raise AppwriteException('Missing required parameter: "application_id"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['applicationId'] = self._normalize_value(
-            application_id,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['applicationId'] = self._normalize_value(application_id)
 
         response = self.client.call(
             'put',
@@ -3986,15 +3600,9 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if bundle_identifier is None:
             raise AppwriteException('Missing required parameter: "bundle_identifier"')
-        api_params['platformId'] = self._normalize_value(
-            platform_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['bundleIdentifier'] = self._normalize_value(
-            bundle_identifier,
-        )
+        api_params['platformId'] = self._normalize_value(platform_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['bundleIdentifier'] = self._normalize_value(bundle_identifier)
 
         response = self.client.call(
             'post',
@@ -4046,12 +3654,8 @@ class Project(Service):
         if bundle_identifier is None:
             raise AppwriteException('Missing required parameter: "bundle_identifier"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['bundleIdentifier'] = self._normalize_value(
-            bundle_identifier,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['bundleIdentifier'] = self._normalize_value(bundle_identifier)
 
         response = self.client.call(
             'put',
@@ -4102,15 +3706,9 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if package_name is None:
             raise AppwriteException('Missing required parameter: "package_name"')
-        api_params['platformId'] = self._normalize_value(
-            platform_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['packageName'] = self._normalize_value(
-            package_name,
-        )
+        api_params['platformId'] = self._normalize_value(platform_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['packageName'] = self._normalize_value(package_name)
 
         response = self.client.call(
             'post',
@@ -4162,12 +3760,8 @@ class Project(Service):
         if package_name is None:
             raise AppwriteException('Missing required parameter: "package_name"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['packageName'] = self._normalize_value(
-            package_name,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['packageName'] = self._normalize_value(package_name)
 
         response = self.client.call(
             'put',
@@ -4218,15 +3812,9 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if hostname is None:
             raise AppwriteException('Missing required parameter: "hostname"')
-        api_params['platformId'] = self._normalize_value(
-            platform_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['hostname'] = self._normalize_value(
-            hostname,
-        )
+        api_params['platformId'] = self._normalize_value(platform_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['hostname'] = self._normalize_value(hostname)
 
         response = self.client.call(
             'post',
@@ -4278,12 +3866,8 @@ class Project(Service):
         if hostname is None:
             raise AppwriteException('Missing required parameter: "hostname"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['hostname'] = self._normalize_value(
-            hostname,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['hostname'] = self._normalize_value(hostname)
 
         response = self.client.call(
             'put',
@@ -4334,15 +3918,9 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if package_identifier_name is None:
             raise AppwriteException('Missing required parameter: "package_identifier_name"')
-        api_params['platformId'] = self._normalize_value(
-            platform_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['packageIdentifierName'] = self._normalize_value(
-            package_identifier_name,
-        )
+        api_params['platformId'] = self._normalize_value(platform_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['packageIdentifierName'] = self._normalize_value(package_identifier_name)
 
         response = self.client.call(
             'post',
@@ -4394,12 +3972,8 @@ class Project(Service):
         if package_identifier_name is None:
             raise AppwriteException('Missing required parameter: "package_identifier_name"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['packageIdentifierName'] = self._normalize_value(
-            package_identifier_name,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['packageIdentifierName'] = self._normalize_value(package_identifier_name)
 
         response = self.client.call(
             'put',
@@ -4545,13 +4119,9 @@ class Project(Service):
         api_path = '/project/policies'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -4591,9 +4161,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -4634,9 +4202,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -4677,9 +4243,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -4720,9 +4284,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -4777,29 +4339,17 @@ class Project(Service):
         api_path = '/project/policies/membership-privacy'
         api_params = {}
         if user_id is not None:
-            api_params['userId'] = self._normalize_value(
-                user_id,
-            )
+            api_params['userId'] = self._normalize_value(user_id)
         if user_email is not None:
-            api_params['userEmail'] = self._normalize_value(
-                user_email,
-            )
+            api_params['userEmail'] = self._normalize_value(user_email)
         if user_phone is not None:
-            api_params['userPhone'] = self._normalize_value(
-                user_phone,
-            )
+            api_params['userPhone'] = self._normalize_value(user_phone)
         if user_name is not None:
-            api_params['userName'] = self._normalize_value(
-                user_name,
-            )
+            api_params['userName'] = self._normalize_value(user_name)
         if user_mfa is not None:
-            api_params['userMFA'] = self._normalize_value(
-                user_mfa,
-            )
+            api_params['userMFA'] = self._normalize_value(user_mfa)
         if user_accessed_at is not None:
-            api_params['userAccessedAt'] = self._normalize_value(
-                user_accessed_at,
-            )
+            api_params['userAccessedAt'] = self._normalize_value(user_accessed_at)
 
         response = self.client.call(
             'patch',
@@ -4848,21 +4398,13 @@ class Project(Service):
         api_path = '/project/policies/mfa-factors'
         api_params = {}
         if totp is not None:
-            api_params['totp'] = self._normalize_value(
-                totp,
-            )
+            api_params['totp'] = self._normalize_value(totp)
         if email is not None:
-            api_params['email'] = self._normalize_value(
-                email,
-            )
+            api_params['email'] = self._normalize_value(email)
         if phone is not None:
-            api_params['phone'] = self._normalize_value(
-                phone,
-            )
+            api_params['phone'] = self._normalize_value(phone)
         if custom is not None:
-            api_params['custom'] = self._normalize_value(
-                custom,
-            )
+            api_params['custom'] = self._normalize_value(custom)
 
         response = self.client.call(
             'patch',
@@ -4903,9 +4445,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -4946,9 +4486,7 @@ class Project(Service):
 
         api_path = '/project/policies/password-history'
         api_params = {}
-        api_params['total'] = self._normalize_value(
-            total,
-        )
+        api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'patch',
@@ -4989,9 +4527,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -5043,25 +4579,15 @@ class Project(Service):
         api_path = '/project/policies/password-strength'
         api_params = {}
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if uppercase is not None:
-            api_params['uppercase'] = self._normalize_value(
-                uppercase,
-            )
+            api_params['uppercase'] = self._normalize_value(uppercase)
         if lowercase is not None:
-            api_params['lowercase'] = self._normalize_value(
-                lowercase,
-            )
+            api_params['lowercase'] = self._normalize_value(lowercase)
         if number is not None:
-            api_params['number'] = self._normalize_value(
-                number,
-            )
+            api_params['number'] = self._normalize_value(number)
         if symbols is not None:
-            api_params['symbols'] = self._normalize_value(
-                symbols,
-            )
+            api_params['symbols'] = self._normalize_value(symbols)
 
         response = self.client.call(
             'patch',
@@ -5102,9 +4628,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -5145,9 +4669,7 @@ class Project(Service):
         api_params = {}
         if duration is None:
             raise AppwriteException('Missing required parameter: "duration"')
-        api_params['duration'] = self._normalize_value(
-            duration,
-        )
+        api_params['duration'] = self._normalize_value(duration)
 
         response = self.client.call(
             'patch',
@@ -5188,9 +4710,7 @@ class Project(Service):
         api_params = {}
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -5231,9 +4751,7 @@ class Project(Service):
         api_params = {}
         if total is None:
             raise AppwriteException('Missing required parameter: "total"')
-        api_params['total'] = self._normalize_value(
-            total,
-        )
+        api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'patch',
@@ -5272,9 +4790,7 @@ class Project(Service):
 
         api_path = '/project/policies/user-limit'
         api_params = {}
-        api_params['total'] = self._normalize_value(
-            total,
-        )
+        api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'patch',
@@ -5424,9 +4940,7 @@ class Project(Service):
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
         api_path = api_path.replace('{protocolId}', str(self._normalize_value(protocol_id)))
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -5473,9 +4987,7 @@ class Project(Service):
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
         api_path = api_path.replace('{serviceId}', str(self._normalize_value(service_id)))
-        api_params['enabled'] = self._normalize_value(
-            enabled,
-        )
+        api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -5542,45 +5054,25 @@ class Project(Service):
         api_path = '/project/smtp'
         api_params = {}
         if host is not None:
-            api_params['host'] = self._normalize_value(
-                host,
-            )
+            api_params['host'] = self._normalize_value(host)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
         if username is not None:
-            api_params['username'] = self._normalize_value(
-                username,
-            )
+            api_params['username'] = self._normalize_value(username)
         if password is not None:
-            api_params['password'] = self._normalize_value(
-                password,
-            )
+            api_params['password'] = self._normalize_value(password)
         if sender_email is not None:
-            api_params['senderEmail'] = self._normalize_value(
-                sender_email,
-            )
+            api_params['senderEmail'] = self._normalize_value(sender_email)
         if sender_name is not None:
-            api_params['senderName'] = self._normalize_value(
-                sender_name,
-            )
+            api_params['senderName'] = self._normalize_value(sender_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if secure is not None:
-            api_params['secure'] = self._normalize_value(
-                secure,
-            )
+            api_params['secure'] = self._normalize_value(secure)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -5621,9 +5113,7 @@ class Project(Service):
         api_params = {}
         if emails is None:
             raise AppwriteException('Missing required parameter: "emails"')
-        api_params['emails'] = self._normalize_value(
-            emails,
-        )
+        api_params['emails'] = self._normalize_value(emails)
 
         response = self.client.call(
             'post',
@@ -5665,13 +5155,9 @@ class Project(Service):
         api_path = '/project/templates/email'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -5732,37 +5218,21 @@ class Project(Service):
         api_params = {}
         if template_id is None:
             raise AppwriteException('Missing required parameter: "template_id"')
-        api_params['templateId'] = self._normalize_value(
-            template_id,
-        )
+        api_params['templateId'] = self._normalize_value(template_id)
         if locale is not None:
-            api_params['locale'] = self._normalize_value(
-                locale,
-            )
+            api_params['locale'] = self._normalize_value(locale)
         if subject is not None:
-            api_params['subject'] = self._normalize_value(
-                subject,
-            )
+            api_params['subject'] = self._normalize_value(subject)
         if message is not None:
-            api_params['message'] = self._normalize_value(
-                message,
-            )
+            api_params['message'] = self._normalize_value(message)
         if sender_name is not None:
-            api_params['senderName'] = self._normalize_value(
-                sender_name,
-            )
+            api_params['senderName'] = self._normalize_value(sender_name)
         if sender_email is not None:
-            api_params['senderEmail'] = self._normalize_value(
-                sender_email,
-            )
+            api_params['senderEmail'] = self._normalize_value(sender_email)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
 
         response = self.client.call(
             'patch',
@@ -5808,9 +5278,7 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "template_id"')
         api_path = api_path.replace('{templateId}', str(self._normalize_value(template_id)))
         if locale is not None:
-            api_params['locale'] = self._normalize_value(
-                locale,
-            )
+            api_params['locale'] = self._normalize_value(locale)
 
         response = self.client.call(
             'get',
@@ -5858,16 +5326,10 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "start_date"')
         if end_date is None:
             raise AppwriteException('Missing required parameter: "end_date"')
-        api_params['startDate'] = self._normalize_value(
-            start_date,
-        )
-        api_params['endDate'] = self._normalize_value(
-            end_date,
-        )
+        api_params['startDate'] = self._normalize_value(start_date)
+        api_params['endDate'] = self._normalize_value(end_date)
         if period is not None:
-            api_params['period'] = self._normalize_value(
-                period,
-            )
+            api_params['period'] = self._normalize_value(period)
 
         response = self.client.call(
             'get',
@@ -5909,13 +5371,9 @@ class Project(Service):
         api_path = '/project/variables'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -5968,19 +5426,11 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "key"')
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
-        api_params['variableId'] = self._normalize_value(
-            variable_id,
-        )
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
+        api_params['variableId'] = self._normalize_value(variable_id)
+        api_params['key'] = self._normalize_value(key)
+        api_params['value'] = self._normalize_value(value)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'post',
@@ -6072,17 +5522,11 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "variable_id"')
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
+            api_params['value'] = self._normalize_value(value)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'put',

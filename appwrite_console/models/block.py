@@ -34,47 +34,14 @@ class Block(AppwriteModel):
         Billing plan of the organization that owns the project.
     """
 
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    mode: str = Field(
-        ...,
-        alias='mode',
-    )
-    reason: Optional[str] = Field(
-        default=None,
-        alias='reason',
-    )
-    expiredat: Optional[str] = Field(
-        default=None,
-        alias='expiredAt',
-    )
-    projectname: str = Field(
-        ...,
-        alias='projectName',
-    )
-    region: str = Field(
-        ...,
-        alias='region',
-    )
-    organizationname: str = Field(
-        ...,
-        alias='organizationName',
-    )
-    organizationid: str = Field(
-        ...,
-        alias='organizationId',
-    )
-    billingplan: str = Field(
-        ...,
-        alias='billingPlan',
-    )
+    createdat: str = Field(..., alias='$createdAt')
+    resourcetype: str = Field(..., alias='resourceType')
+    resourceid: str = Field(..., alias='resourceId')
+    mode: str = Field(..., alias='mode')
+    reason: Optional[str] = Field(default=None, alias='reason')
+    expiredat: Optional[str] = Field(default=None, alias='expiredAt')
+    projectname: str = Field(..., alias='projectName')
+    region: str = Field(..., alias='region')
+    organizationname: str = Field(..., alias='organizationName')
+    organizationid: str = Field(..., alias='organizationId')
+    billingplan: str = Field(..., alias='billingPlan')

@@ -44,67 +44,19 @@ class Notification(AppwriteModel):
         Most recent time the notification was viewed from a notification logo.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    messageid: Optional[str] = Field(
-        default=None,
-        alias='messageId',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    channel: str = Field(
-        ...,
-        alias='channel',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    parentresourcetype: str = Field(
-        ...,
-        alias='parentResourceType',
-    )
-    parentresourceid: str = Field(
-        ...,
-        alias='parentResourceId',
-    )
-    projectid: Optional[str] = Field(
-        default=None,
-        alias='projectId',
-    )
-    title: str = Field(
-        ...,
-        alias='title',
-    )
-    body: str = Field(
-        ...,
-        alias='body',
-    )
-    read: Optional[bool] = Field(
-        default=None,
-        alias='read',
-    )
-    firstseen: Optional[str] = Field(
-        default=None,
-        alias='firstSeen',
-    )
-    lastseen: Optional[str] = Field(
-        default=None,
-        alias='lastSeen',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    messageid: Optional[str] = Field(default=None, alias='messageId')
+    type: str = Field(..., alias='type')
+    channel: str = Field(..., alias='channel')
+    resourcetype: str = Field(..., alias='resourceType')
+    resourceid: str = Field(..., alias='resourceId')
+    parentresourcetype: str = Field(..., alias='parentResourceType')
+    parentresourceid: str = Field(..., alias='parentResourceId')
+    projectid: Optional[str] = Field(default=None, alias='projectId')
+    title: str = Field(..., alias='title')
+    body: str = Field(..., alias='body')
+    read: Optional[bool] = Field(default=None, alias='read')
+    firstseen: Optional[str] = Field(default=None, alias='firstSeen')
+    lastseen: Optional[str] = Field(default=None, alias='lastSeen')

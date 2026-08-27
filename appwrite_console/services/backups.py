@@ -42,9 +42,7 @@ class Backups(Service):
         api_path = '/backups/archives'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -87,13 +85,9 @@ class Backups(Service):
         api_params = {}
         if services is None:
             raise AppwriteException('Missing required parameter: "services"')
-        api_params['services'] = self._normalize_value(
-            services,
-        )
+        api_params['services'] = self._normalize_value(services)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
 
         response = self.client.call(
             'post',
@@ -214,9 +208,7 @@ class Backups(Service):
         api_path = '/backups/policies'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -280,30 +272,16 @@ class Backups(Service):
             raise AppwriteException('Missing required parameter: "retention"')
         if schedule is None:
             raise AppwriteException('Missing required parameter: "schedule"')
-        api_params['policyId'] = self._normalize_value(
-            policy_id,
-        )
+        api_params['policyId'] = self._normalize_value(policy_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
-        api_params['services'] = self._normalize_value(
-            services,
-        )
+            api_params['name'] = self._normalize_value(name)
+        api_params['services'] = self._normalize_value(services)
         if resource_id is not None:
-            api_params['resourceId'] = self._normalize_value(
-                resource_id,
-            )
+            api_params['resourceId'] = self._normalize_value(resource_id)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
-        api_params['retention'] = self._normalize_value(
-            retention,
-        )
-        api_params['schedule'] = self._normalize_value(
-            schedule,
-        )
+            api_params['enabled'] = self._normalize_value(enabled)
+        api_params['retention'] = self._normalize_value(retention)
+        api_params['schedule'] = self._normalize_value(schedule)
 
         response = self.client.call(
             'post',
@@ -398,21 +376,13 @@ class Backups(Service):
             raise AppwriteException('Missing required parameter: "policy_id"')
         api_path = api_path.replace('{policyId}', str(self._normalize_value(policy_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if retention is not None:
-            api_params['retention'] = self._normalize_value(
-                retention,
-            )
+            api_params['retention'] = self._normalize_value(retention)
         if schedule is not None:
-            api_params['schedule'] = self._normalize_value(
-                schedule,
-            )
+            api_params['schedule'] = self._normalize_value(schedule)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -513,20 +483,12 @@ class Backups(Service):
             raise AppwriteException('Missing required parameter: "archive_id"')
         if services is None:
             raise AppwriteException('Missing required parameter: "services"')
-        api_params['archiveId'] = self._normalize_value(
-            archive_id,
-        )
-        api_params['services'] = self._normalize_value(
-            services,
-        )
+        api_params['archiveId'] = self._normalize_value(archive_id)
+        api_params['services'] = self._normalize_value(services)
         if new_resource_id is not None:
-            api_params['newResourceId'] = self._normalize_value(
-                new_resource_id,
-            )
+            api_params['newResourceId'] = self._normalize_value(new_resource_id)
         if new_resource_name is not None:
-            api_params['newResourceName'] = self._normalize_value(
-                new_resource_name,
-            )
+            api_params['newResourceName'] = self._normalize_value(new_resource_name)
 
         response = self.client.call(
             'post',
@@ -566,9 +528,7 @@ class Backups(Service):
         api_path = '/backups/restorations'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',

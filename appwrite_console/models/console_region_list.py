@@ -17,11 +17,5 @@ class ConsoleRegionList(AppwriteModel):
         List of regions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    regions: List[ConsoleRegion] = Field(
-        ...,
-        alias='regions',
-    )
+    total: float = Field(..., alias='total')
+    regions: List[ConsoleRegion] = Field(..., alias='regions')

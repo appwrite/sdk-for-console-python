@@ -17,11 +17,5 @@ class BackupPolicyList(AppwriteModel):
         List of policies.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    policies: List[BackupPolicy] = Field(
-        ...,
-        alias='policies',
-    )
+    total: float = Field(..., alias='total')
+    policies: List[BackupPolicy] = Field(..., alias='policies')

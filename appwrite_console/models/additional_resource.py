@@ -24,27 +24,9 @@ class AdditionalResource(AppwriteModel):
         Description on invoice
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    unit: str = Field(
-        ...,
-        alias='unit',
-    )
-    currency: str = Field(
-        ...,
-        alias='currency',
-    )
-    price: float = Field(
-        ...,
-        alias='price',
-    )
-    value: float = Field(
-        ...,
-        alias='value',
-    )
-    invoicedesc: str = Field(
-        ...,
-        alias='invoiceDesc',
-    )
+    name: str = Field(..., alias='name')
+    unit: str = Field(..., alias='unit')
+    currency: str = Field(..., alias='currency')
+    price: float = Field(..., alias='price')
+    value: float = Field(..., alias='value')
+    invoicedesc: str = Field(..., alias='invoiceDesc')

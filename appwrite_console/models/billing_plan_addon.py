@@ -17,11 +17,5 @@ class BillingPlanAddon(AppwriteModel):
         Addon projects
     """
 
-    seats: Optional[BillingPlanAddonDetails] = Field(
-        default=None,
-        alias='seats',
-    )
-    projects: Optional[BillingPlanAddonDetails] = Field(
-        default=None,
-        alias='projects',
-    )
+    seats: Optional[BillingPlanAddonDetails] = Field(default=None, alias='seats')
+    projects: Optional[BillingPlanAddonDetails] = Field(default=None, alias='projects')

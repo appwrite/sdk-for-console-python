@@ -20,19 +20,7 @@ class DomainSuggestion(AppwriteModel):
         Is the domain available?
     """
 
-    domain: str = Field(
-        ...,
-        alias='domain',
-    )
-    premium: bool = Field(
-        ...,
-        alias='premium',
-    )
-    price: Optional[float] = Field(
-        default=None,
-        alias='price',
-    )
-    available: bool = Field(
-        ...,
-        alias='available',
-    )
+    domain: str = Field(..., alias='domain')
+    premium: bool = Field(..., alias='premium')
+    price: Optional[float] = Field(default=None, alias='price')
+    available: bool = Field(..., alias='available')

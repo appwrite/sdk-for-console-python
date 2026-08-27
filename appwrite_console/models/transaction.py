@@ -24,27 +24,9 @@ class Transaction(AppwriteModel):
         Expiration time in ISO 8601 format.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    operations: float = Field(
-        ...,
-        alias='operations',
-    )
-    expiresat: str = Field(
-        ...,
-        alias='expiresAt',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    status: str = Field(..., alias='status')
+    operations: float = Field(..., alias='operations')
+    expiresat: str = Field(..., alias='expiresAt')

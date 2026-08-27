@@ -17,11 +17,5 @@ class VariableList(AppwriteModel):
         List of variables.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    variables: List[Variable] = Field(
-        ...,
-        alias='variables',
-    )
+    total: float = Field(..., alias='total')
+    variables: List[Variable] = Field(..., alias='variables')

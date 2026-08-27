@@ -17,11 +17,5 @@ class AppKeyList(AppwriteModel):
         List of keys.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    keys: List[AppKey] = Field(
-        ...,
-        alias='keys',
-    )
+    total: float = Field(..., alias='total')
+    keys: List[AppKey] = Field(..., alias='keys')

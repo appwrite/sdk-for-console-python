@@ -17,11 +17,5 @@ class Oauth2OrganizationList(AppwriteModel):
         List of organizations.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    organizations: List[Oauth2Organization] = Field(
-        ...,
-        alias='organizations',
-    )
+    total: float = Field(..., alias='total')
+    organizations: List[Oauth2Organization] = Field(..., alias='organizations')

@@ -38,55 +38,16 @@ class Webhook(AppwriteModel):
         Number of consecutive failed webhook attempts.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    url: str = Field(
-        ...,
-        alias='url',
-    )
-    events: List[Any] = Field(
-        ...,
-        alias='events',
-    )
-    tls: bool = Field(
-        ...,
-        alias='tls',
-    )
-    authusername: str = Field(
-        ...,
-        alias='authUsername',
-    )
-    authpassword: str = Field(
-        ...,
-        alias='authPassword',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    logs: str = Field(
-        ...,
-        alias='logs',
-    )
-    attempts: float = Field(
-        ...,
-        alias='attempts',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    url: str = Field(..., alias='url')
+    events: List[Any] = Field(..., alias='events')
+    tls: bool = Field(..., alias='tls')
+    authusername: str = Field(..., alias='authUsername')
+    authpassword: str = Field(..., alias='authPassword')
+    secret: str = Field(..., alias='secret')
+    enabled: bool = Field(..., alias='enabled')
+    logs: str = Field(..., alias='logs')
+    attempts: float = Field(..., alias='attempts')

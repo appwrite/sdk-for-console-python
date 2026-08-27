@@ -17,11 +17,5 @@ class ProjectProtocol(AppwriteModel):
         Protocol status.
     """
 
-    id: ProjectProtocolId = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: ProjectProtocolId = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

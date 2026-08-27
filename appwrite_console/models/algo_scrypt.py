@@ -22,23 +22,8 @@ class AlgoScrypt(AppwriteModel):
         Length used to compute hash.
     """
 
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    costcpu: float = Field(
-        ...,
-        alias='costCpu',
-    )
-    costmemory: float = Field(
-        ...,
-        alias='costMemory',
-    )
-    costparallel: float = Field(
-        ...,
-        alias='costParallel',
-    )
-    length: float = Field(
-        ...,
-        alias='length',
-    )
+    type: str = Field(..., alias='type')
+    costcpu: float = Field(..., alias='costCpu')
+    costmemory: float = Field(..., alias='costMemory')
+    costparallel: float = Field(..., alias='costParallel')
+    length: float = Field(..., alias='length')

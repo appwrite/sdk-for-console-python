@@ -31,10 +31,7 @@ class PolicyList(AppwriteModel):
         List of policies.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    total: float = Field(..., alias='total')
     policies: List[
         Union[
             PolicyPasswordDictionary,
@@ -53,7 +50,4 @@ class PolicyList(AppwriteModel):
             PolicyDenyFreeEmail,
             PolicyDenyCorporateEmail,
         ]
-    ] = Field(
-        ...,
-        alias='policies',
-    )
+    ] = Field(..., alias='policies')

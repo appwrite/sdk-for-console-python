@@ -28,35 +28,11 @@ class Topic(AppwriteModel):
         Subscribe permissions.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    emailtotal: float = Field(
-        ...,
-        alias='emailTotal',
-    )
-    smstotal: float = Field(
-        ...,
-        alias='smsTotal',
-    )
-    pushtotal: float = Field(
-        ...,
-        alias='pushTotal',
-    )
-    subscribe: List[Any] = Field(
-        ...,
-        alias='subscribe',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    emailtotal: float = Field(..., alias='emailTotal')
+    smstotal: float = Field(..., alias='smsTotal')
+    pushtotal: float = Field(..., alias='pushTotal')
+    subscribe: List[Any] = Field(..., alias='subscribe')

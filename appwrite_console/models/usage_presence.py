@@ -19,15 +19,6 @@ class UsagePresence(AppwriteModel):
         Aggregated number of online users per period.
     """
 
-    range: str = Field(
-        ...,
-        alias='range',
-    )
-    usersonlinetotal: float = Field(
-        ...,
-        alias='usersOnlineTotal',
-    )
-    presences: List[Metric] = Field(
-        ...,
-        alias='presences',
-    )
+    range: str = Field(..., alias='range')
+    usersonlinetotal: float = Field(..., alias='usersOnlineTotal')
+    presences: List[Metric] = Field(..., alias='presences')

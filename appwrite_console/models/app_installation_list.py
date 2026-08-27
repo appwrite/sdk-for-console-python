@@ -17,11 +17,5 @@ class AppInstallationList(AppwriteModel):
         List of installations.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    installations: List[AppInstallation] = Field(
-        ...,
-        alias='installations',
-    )
+    total: float = Field(..., alias='total')
+    installations: List[AppInstallation] = Field(..., alias='installations')

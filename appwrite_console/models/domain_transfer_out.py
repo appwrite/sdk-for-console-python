@@ -14,7 +14,4 @@ class DomainTransferOut(AppwriteModel):
         Domain transfer authorization code.
     """
 
-    authcode: str = Field(
-        ...,
-        alias='authCode',
-    )
+    authcode: str = Field(..., alias='authCode')

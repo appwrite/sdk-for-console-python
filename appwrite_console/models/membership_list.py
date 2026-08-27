@@ -17,11 +17,5 @@ class MembershipList(AppwriteModel):
         List of memberships.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    memberships: List[Membership] = Field(
-        ...,
-        alias='memberships',
-    )
+    total: float = Field(..., alias='total')
+    memberships: List[Membership] = Field(..., alias='memberships')

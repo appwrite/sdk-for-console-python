@@ -20,19 +20,7 @@ class OAuth2Disqus(AppwriteModel):
         Disqus OAuth2 secret key.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    publickey: str = Field(
-        ...,
-        alias='publicKey',
-    )
-    secretkey: str = Field(
-        ...,
-        alias='secretKey',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    publickey: str = Field(..., alias='publicKey')
+    secretkey: str = Field(..., alias='secretKey')

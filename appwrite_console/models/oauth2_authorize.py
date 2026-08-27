@@ -16,11 +16,5 @@ class Oauth2Authorize(AppwriteModel):
         URL the end user should be redirected to when the flow can complete without consent. Empty when consent is still required.
     """
 
-    grantid: str = Field(
-        ...,
-        alias='grantId',
-    )
-    redirecturl: str = Field(
-        ...,
-        alias='redirectUrl',
-    )
+    grantid: str = Field(..., alias='grantId')
+    redirecturl: str = Field(..., alias='redirectUrl')

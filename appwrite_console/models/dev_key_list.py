@@ -17,11 +17,5 @@ class DevKeyList(AppwriteModel):
         List of devKeys.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    devkeys: List[DevKey] = Field(
-        ...,
-        alias='devKeys',
-    )
+    total: float = Field(..., alias='total')
+    devkeys: List[DevKey] = Field(..., alias='devKeys')

@@ -70,119 +70,32 @@ class UsageDataPoint(AppwriteModel):
         Owning team ID when broken down by `teamId`.
     """
 
-    time: Optional[str] = Field(
-        default=None,
-        alias='time',
-    )
-    value: float = Field(
-        ...,
-        alias='value',
-    )
-    path: Optional[str] = Field(
-        default=None,
-        alias='path',
-    )
-    method: Optional[str] = Field(
-        default=None,
-        alias='method',
-    )
-    status: Optional[str] = Field(
-        default=None,
-        alias='status',
-    )
-    service: Optional[str] = Field(
-        default=None,
-        alias='service',
-    )
-    country: Optional[str] = Field(
-        default=None,
-        alias='country',
-    )
-    region: Optional[str] = Field(
-        default=None,
-        alias='region',
-    )
-    hostname: Optional[str] = Field(
-        default=None,
-        alias='hostname',
-    )
-    ip: Optional[str] = Field(
-        default=None,
-        alias='ip',
-    )
-    osname: Optional[str] = Field(
-        default=None,
-        alias='osName',
-    )
-    clienttype: Optional[str] = Field(
-        default=None,
-        alias='clientType',
-    )
-    clientname: Optional[str] = Field(
-        default=None,
-        alias='clientName',
-    )
-    sdk: Optional[str] = Field(
-        default=None,
-        alias='sdk',
-    )
-    sdkversion: Optional[str] = Field(
-        default=None,
-        alias='sdkVersion',
-    )
-    devicename: Optional[str] = Field(
-        default=None,
-        alias='deviceName',
-    )
-    resourceid: Optional[str] = Field(
-        default=None,
-        alias='resourceId',
-    )
-    resourcetype: Optional[str] = Field(
-        default=None,
-        alias='resourceType',
-    )
-    ordinal: Optional[str] = Field(
-        default=None,
-        alias='ordinal',
-    )
-    continentcode: Optional[str] = Field(
-        default=None,
-        alias='continentCode',
-    )
-    city: Optional[str] = Field(
-        default=None,
-        alias='city',
-    )
-    subdivisions: Optional[str] = Field(
-        default=None,
-        alias='subdivisions',
-    )
-    isp: Optional[str] = Field(
-        default=None,
-        alias='isp',
-    )
-    autonomoussystemnumber: Optional[str] = Field(
-        default=None,
-        alias='autonomousSystemNumber',
-    )
-    autonomoussystemorganization: Optional[str] = Field(
-        default=None,
-        alias='autonomousSystemOrganization',
-    )
-    connectiontype: Optional[str] = Field(
-        default=None,
-        alias='connectionType',
-    )
-    connectionusagetype: Optional[str] = Field(
-        default=None,
-        alias='connectionUsageType',
-    )
-    connectionorganization: Optional[str] = Field(
-        default=None,
-        alias='connectionOrganization',
-    )
-    teamid: Optional[str] = Field(
-        default=None,
-        alias='teamId',
-    )
+    time: Optional[str] = Field(default=None, alias='time')
+    value: float = Field(..., alias='value')
+    path: Optional[str] = Field(default=None, alias='path')
+    method: Optional[str] = Field(default=None, alias='method')
+    status: Optional[str] = Field(default=None, alias='status')
+    service: Optional[str] = Field(default=None, alias='service')
+    country: Optional[str] = Field(default=None, alias='country')
+    region: Optional[str] = Field(default=None, alias='region')
+    hostname: Optional[str] = Field(default=None, alias='hostname')
+    ip: Optional[str] = Field(default=None, alias='ip')
+    osname: Optional[str] = Field(default=None, alias='osName')
+    clienttype: Optional[str] = Field(default=None, alias='clientType')
+    clientname: Optional[str] = Field(default=None, alias='clientName')
+    sdk: Optional[str] = Field(default=None, alias='sdk')
+    sdkversion: Optional[str] = Field(default=None, alias='sdkVersion')
+    devicename: Optional[str] = Field(default=None, alias='deviceName')
+    resourceid: Optional[str] = Field(default=None, alias='resourceId')
+    resourcetype: Optional[str] = Field(default=None, alias='resourceType')
+    ordinal: Optional[str] = Field(default=None, alias='ordinal')
+    continentcode: Optional[str] = Field(default=None, alias='continentCode')
+    city: Optional[str] = Field(default=None, alias='city')
+    subdivisions: Optional[str] = Field(default=None, alias='subdivisions')
+    isp: Optional[str] = Field(default=None, alias='isp')
+    autonomoussystemnumber: Optional[str] = Field(default=None, alias='autonomousSystemNumber')
+    autonomoussystemorganization: Optional[str] = Field(default=None, alias='autonomousSystemOrganization')
+    connectiontype: Optional[str] = Field(default=None, alias='connectionType')
+    connectionusagetype: Optional[str] = Field(default=None, alias='connectionUsageType')
+    connectionorganization: Optional[str] = Field(default=None, alias='connectionOrganization')
+    teamid: Optional[str] = Field(default=None, alias='teamId')

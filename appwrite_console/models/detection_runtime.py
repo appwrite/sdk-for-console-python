@@ -24,23 +24,8 @@ class DetectionRuntime(AppwriteModel):
         Function install and build commands
     """
 
-    type: DetectionRuntimeType = Field(
-        ...,
-        alias='type',
-    )
-    variables: Optional[List[DetectionVariable]] = Field(
-        default=None,
-        alias='variables',
-    )
-    runtime: str = Field(
-        ...,
-        alias='runtime',
-    )
-    entrypoint: str = Field(
-        ...,
-        alias='entrypoint',
-    )
-    commands: str = Field(
-        ...,
-        alias='commands',
-    )
+    type: DetectionRuntimeType = Field(..., alias='type')
+    variables: Optional[List[DetectionVariable]] = Field(default=None, alias='variables')
+    runtime: str = Field(..., alias='runtime')
+    entrypoint: str = Field(..., alias='entrypoint')
+    commands: str = Field(..., alias='commands')

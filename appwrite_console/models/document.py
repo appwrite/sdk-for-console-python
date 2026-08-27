@@ -30,34 +30,13 @@ class Document(AppwriteModel, Generic[T]):
         Document permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    sequence: str = Field(
-        ...,
-        alias='$sequence',
-    )
-    collectionid: str = Field(
-        ...,
-        alias='$collectionId',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='$databaseId',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
+    id: str = Field(..., alias='$id')
+    sequence: str = Field(..., alias='$sequence')
+    collectionid: str = Field(..., alias='$collectionId')
+    databaseid: str = Field(..., alias='$databaseId')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'Document[T]':

@@ -16,11 +16,5 @@ class Country(AppwriteModel):
         Country two-character ISO 3166-1 alpha code.
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    code: str = Field(
-        ...,
-        alias='code',
-    )
+    name: str = Field(..., alias='name')
+    code: str = Field(..., alias='code')

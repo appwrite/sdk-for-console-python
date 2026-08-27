@@ -17,11 +17,5 @@ class AffiliateReferralList(AppwriteModel):
         List of referrals.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    referrals: List[AffiliateReferral] = Field(
-        ...,
-        alias='referrals',
-    )
+    total: float = Field(..., alias='total')
+    referrals: List[AffiliateReferral] = Field(..., alias='referrals')

@@ -17,11 +17,5 @@ class TopicList(AppwriteModel):
         List of topics.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    topics: List[Topic] = Field(
-        ...,
-        alias='topics',
-    )
+    total: float = Field(..., alias='total')
+    topics: List[Topic] = Field(..., alias='topics')

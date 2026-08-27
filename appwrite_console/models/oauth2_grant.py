@@ -36,51 +36,15 @@ class Oauth2Grant(AppwriteModel):
         Grant expiration time in ISO 8601 format.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    appid: str = Field(
-        ...,
-        alias='appId',
-    )
-    scopes: List[Any] = Field(
-        ...,
-        alias='scopes',
-    )
-    resources: List[Any] = Field(
-        ...,
-        alias='resources',
-    )
-    authorizationdetails: str = Field(
-        ...,
-        alias='authorizationDetails',
-    )
-    prompt: str = Field(
-        ...,
-        alias='prompt',
-    )
-    redirecturi: str = Field(
-        ...,
-        alias='redirectUri',
-    )
-    authtime: float = Field(
-        ...,
-        alias='authTime',
-    )
-    expire: str = Field(
-        ...,
-        alias='expire',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    userid: str = Field(..., alias='userId')
+    appid: str = Field(..., alias='appId')
+    scopes: List[Any] = Field(..., alias='scopes')
+    resources: List[Any] = Field(..., alias='resources')
+    authorizationdetails: str = Field(..., alias='authorizationDetails')
+    prompt: str = Field(..., alias='prompt')
+    redirecturi: str = Field(..., alias='redirectUri')
+    authtime: float = Field(..., alias='authTime')
+    expire: str = Field(..., alias='expire')

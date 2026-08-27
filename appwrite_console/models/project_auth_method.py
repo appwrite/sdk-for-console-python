@@ -17,11 +17,5 @@ class ProjectAuthMethod(AppwriteModel):
         Auth method status.
     """
 
-    id: ProjectAuthMethodId = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: ProjectAuthMethodId = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

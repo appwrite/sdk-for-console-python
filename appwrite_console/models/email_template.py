@@ -28,35 +28,11 @@ class EmailTemplate(AppwriteModel):
         Email subject
     """
 
-    templateid: str = Field(
-        ...,
-        alias='templateId',
-    )
-    locale: str = Field(
-        ...,
-        alias='locale',
-    )
-    message: str = Field(
-        ...,
-        alias='message',
-    )
-    sendername: str = Field(
-        ...,
-        alias='senderName',
-    )
-    senderemail: str = Field(
-        ...,
-        alias='senderEmail',
-    )
-    replytoemail: str = Field(
-        ...,
-        alias='replyToEmail',
-    )
-    replytoname: str = Field(
-        ...,
-        alias='replyToName',
-    )
-    subject: str = Field(
-        ...,
-        alias='subject',
-    )
+    templateid: str = Field(..., alias='templateId')
+    locale: str = Field(..., alias='locale')
+    message: str = Field(..., alias='message')
+    sendername: str = Field(..., alias='senderName')
+    senderemail: str = Field(..., alias='senderEmail')
+    replytoemail: str = Field(..., alias='replyToEmail')
+    replytoname: str = Field(..., alias='replyToName')
+    subject: str = Field(..., alias='subject')

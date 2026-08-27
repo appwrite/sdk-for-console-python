@@ -16,11 +16,5 @@ class PolicyUserLimit(AppwriteModel):
         Maximum number of users allowed in the project. A value of 0 means the policy is disabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    id: str = Field(..., alias='$id')
+    total: float = Field(..., alias='total')

@@ -17,11 +17,5 @@ class EmailTemplateList(AppwriteModel):
         List of templates.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    templates: List[EmailTemplate] = Field(
-        ...,
-        alias='templates',
-    )
+    total: float = Field(..., alias='total')
+    templates: List[EmailTemplate] = Field(..., alias='templates')

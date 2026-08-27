@@ -34,10 +34,7 @@ class ColumnList(AppwriteModel):
         List of columns.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    total: float = Field(..., alias='total')
     columns: List[
         Union[
             ColumnBoolean,
@@ -59,7 +56,4 @@ class ColumnList(AppwriteModel):
             ColumnLongtext,
             ColumnString,
         ]
-    ] = Field(
-        ...,
-        alias='columns',
-    )
+    ] = Field(..., alias='columns')

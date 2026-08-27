@@ -20,19 +20,7 @@ class AlgoScryptModified(AppwriteModel):
         Key used to compute hash.
     """
 
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    salt: str = Field(
-        ...,
-        alias='salt',
-    )
-    saltseparator: str = Field(
-        ...,
-        alias='saltSeparator',
-    )
-    signerkey: str = Field(
-        ...,
-        alias='signerKey',
-    )
+    type: str = Field(..., alias='type')
+    salt: str = Field(..., alias='salt')
+    saltseparator: str = Field(..., alias='saltSeparator')
+    signerkey: str = Field(..., alias='signerKey')

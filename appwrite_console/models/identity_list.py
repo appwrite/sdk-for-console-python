@@ -17,11 +17,5 @@ class IdentityList(AppwriteModel):
         List of identities.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    identities: List[Identity] = Field(
-        ...,
-        alias='identities',
-    )
+    total: float = Field(..., alias='total')
+    identities: List[Identity] = Field(..., alias='identities')

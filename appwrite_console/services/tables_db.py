@@ -83,17 +83,11 @@ class TablesDB(Service):
         api_path = '/tablesdb'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -150,28 +144,16 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(
-                replicas,
-            )
+            api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(
-                sync_mode,
-            )
+            api_params['syncMode'] = self._normalize_value(sync_mode)
 
         response = self.client.call(
             'post',
@@ -242,9 +224,7 @@ class TablesDB(Service):
         api_path = '/tablesdb/transactions'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -283,9 +263,7 @@ class TablesDB(Service):
         api_path = '/tablesdb/transactions'
         api_params = {}
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'post',
@@ -374,13 +352,9 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if commit is not None:
-            api_params['commit'] = self._normalize_value(
-                commit,
-            )
+            api_params['commit'] = self._normalize_value(commit)
         if rollback is not None:
-            api_params['rollback'] = self._normalize_value(
-                rollback,
-            )
+            api_params['rollback'] = self._normalize_value(rollback)
 
         response = self.client.call(
             'patch',
@@ -466,9 +440,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if operations is not None:
-            api_params['operations'] = self._normalize_value(
-                operations,
-            )
+            api_params['operations'] = self._normalize_value(operations)
 
         response = self.client.call(
             'post',
@@ -566,25 +538,15 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(
-                replicas,
-            )
+            api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(
-                sync_mode,
-            )
+            api_params['syncMode'] = self._normalize_value(sync_mode)
 
         response = self.client.call(
             'put',
@@ -670,9 +632,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if target_replica_id is not None:
-            api_params['targetReplicaId'] = self._normalize_value(
-                target_replica_id,
-            )
+            api_params['targetReplicaId'] = self._normalize_value(target_replica_id)
 
         response = self.client.call(
             'post',
@@ -762,13 +722,9 @@ class TablesDB(Service):
         if specification is None:
             raise AppwriteException('Missing required parameter: "specification"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['specification'] = self._normalize_value(
-            specification,
-        )
+        api_params['specification'] = self._normalize_value(specification)
         if auto_cutover is not None:
-            api_params['autoCutover'] = self._normalize_value(
-                auto_cutover,
-            )
+            api_params['autoCutover'] = self._normalize_value(auto_cutover)
 
         response = self.client.call(
             'post',
@@ -960,17 +916,11 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if status is not None:
-            api_params['status'] = self._normalize_value(
-                status,
-            )
+            api_params['status'] = self._normalize_value(status)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
 
         response = self.client.call(
             'get',
@@ -1101,17 +1051,11 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1177,32 +1121,18 @@ class TablesDB(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['tableId'] = self._normalize_value(
-            table_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['tableId'] = self._normalize_value(table_id)
+        api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if row_security is not None:
-            api_params['rowSecurity'] = self._normalize_value(
-                row_security,
-            )
+            api_params['rowSecurity'] = self._normalize_value(row_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if columns is not None:
-            api_params['columns'] = self._normalize_value(
-                columns,
-            )
+            api_params['columns'] = self._normalize_value(columns)
         if indexes is not None:
-            api_params['indexes'] = self._normalize_value(
-                indexes,
-            )
+            api_params['indexes'] = self._normalize_value(indexes)
 
         response = self.client.call(
             'post',
@@ -1312,25 +1242,15 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if row_security is not None:
-            api_params['rowSecurity'] = self._normalize_value(
-                row_security,
-            )
+            api_params['rowSecurity'] = self._normalize_value(row_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if purge is not None:
-            api_params['purge'] = self._normalize_value(
-                purge,
-            )
+            api_params['purge'] = self._normalize_value(purge)
 
         response = self.client.call(
             'put',
@@ -1431,13 +1351,9 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1506,28 +1422,16 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1598,24 +1502,14 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+            api_params['max'] = self._normalize_value(max)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1679,20 +1573,12 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1757,16 +1643,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1830,20 +1710,12 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -1908,16 +1780,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -1981,20 +1847,12 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2059,16 +1917,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2137,23 +1989,13 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['elements'] = self._normalize_value(
-            elements,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['elements'] = self._normalize_value(elements)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2223,19 +2065,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['elements'] = self._normalize_value(
-            elements,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['elements'] = self._normalize_value(elements)
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2305,28 +2139,16 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2397,24 +2219,14 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+            api_params['max'] = self._normalize_value(max)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2484,28 +2296,16 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2576,24 +2376,14 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+            api_params['max'] = self._normalize_value(max)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2657,20 +2447,12 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -2735,16 +2517,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2805,16 +2581,10 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
 
         response = self.client.call(
             'post',
@@ -2879,17 +2649,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -2956,24 +2720,14 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3038,16 +2792,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3114,24 +2862,14 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3196,16 +2934,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3266,16 +2998,10 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
 
         response = self.client.call(
             'post',
@@ -3340,17 +3066,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3411,16 +3131,10 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
 
         response = self.client.call(
             'post',
@@ -3485,17 +3199,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3565,28 +3273,16 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "type"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['relatedTableId'] = self._normalize_value(
-            related_table_id,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
+        api_params['relatedTableId'] = self._normalize_value(related_table_id)
+        api_params['type'] = self._normalize_value(type)
         if two_way is not None:
-            api_params['twoWay'] = self._normalize_value(
-                two_way,
-            )
+            api_params['twoWay'] = self._normalize_value(two_way)
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if two_way_key is not None:
-            api_params['twoWayKey'] = self._normalize_value(
-                two_way_key,
-            )
+            api_params['twoWayKey'] = self._normalize_value(two_way_key)
         if on_delete is not None:
-            api_params['onDelete'] = self._normalize_value(
-                on_delete,
-            )
+            api_params['onDelete'] = self._normalize_value(on_delete)
 
         response = self.client.call(
             'post',
@@ -3661,27 +3357,15 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['size'] = self._normalize_value(
-            size,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['size'] = self._normalize_value(size)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3752,20 +3436,12 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if size is not None:
-            api_params['size'] = self._normalize_value(
-                size,
-            )
+            api_params['size'] = self._normalize_value(size)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3832,24 +3508,14 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -3914,16 +3580,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -3987,20 +3647,12 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
 
         response = self.client.call(
             'post',
@@ -4065,16 +3717,10 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -4146,27 +3792,15 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "required"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['size'] = self._normalize_value(
-            size,
-        )
-        api_params['required'] = self._normalize_value(
-            required,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['size'] = self._normalize_value(size)
+        api_params['required'] = self._normalize_value(required)
         if default is not None:
-            api_params['default'] = self._normalize_value(
-                default,
-            )
+            api_params['default'] = self._normalize_value(default)
         if array is not None:
-            api_params['array'] = self._normalize_value(
-                array,
-            )
+            api_params['array'] = self._normalize_value(array)
         if encrypt is not None:
-            api_params['encrypt'] = self._normalize_value(
-                encrypt,
-            )
+            api_params['encrypt'] = self._normalize_value(encrypt)
 
         response = self.client.call(
             'post',
@@ -4234,20 +3868,12 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
-        api_params['required'] = self._normalize_value(
-            required,
-        )
-        api_params['default'] = self._normalize_value(
-            default,
-        )
+        api_params['required'] = self._normalize_value(required)
+        api_params['default'] = self._normalize_value(default)
         if size is not None:
-            api_params['size'] = self._normalize_value(
-                size,
-            )
+            api_params['size'] = self._normalize_value(size)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -4455,13 +4081,9 @@ class TablesDB(Service):
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
         if on_delete is not None:
-            api_params['onDelete'] = self._normalize_value(
-                on_delete,
-            )
+            api_params['onDelete'] = self._normalize_value(on_delete)
         if new_key is not None:
-            api_params['newKey'] = self._normalize_value(
-                new_key,
-            )
+            api_params['newKey'] = self._normalize_value(new_key)
 
         response = self.client.call(
             'patch',
@@ -4516,13 +4138,9 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -4591,23 +4209,13 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "columns"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
-        api_params['columns'] = self._normalize_value(
-            columns,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['type'] = self._normalize_value(type)
+        api_params['columns'] = self._normalize_value(columns)
         if orders is not None:
-            api_params['orders'] = self._normalize_value(
-                orders,
-            )
+            api_params['orders'] = self._normalize_value(orders)
         if lengths is not None:
-            api_params['lengths'] = self._normalize_value(
-                lengths,
-            )
+            api_params['lengths'] = self._normalize_value(lengths)
 
         response = self.client.call(
             'post',
@@ -4776,21 +4384,13 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'get',
@@ -4857,20 +4457,12 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "data"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['rowId'] = self._normalize_value(
-            row_id,
-        )
-        api_params['data'] = self._normalize_value(
-            data,
-        )
+        api_params['rowId'] = self._normalize_value(row_id)
+        api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'post',
@@ -4930,13 +4522,9 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "rows"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['rows'] = self._normalize_value(
-            rows,
-        )
+        api_params['rows'] = self._normalize_value(rows)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'post',
@@ -4996,13 +4584,9 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "rows"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
-        api_params['rows'] = self._normalize_value(
-            rows,
-        )
+        api_params['rows'] = self._normalize_value(rows)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'put',
@@ -5064,17 +4648,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -5133,13 +4711,9 @@ class TablesDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'delete',
@@ -5204,13 +4778,9 @@ class TablesDB(Service):
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'get',
@@ -5277,17 +4847,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'put',
@@ -5355,17 +4919,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -5423,9 +4981,7 @@ class TablesDB(Service):
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'delete',
@@ -5498,17 +5054,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
         api_path = api_path.replace('{column}', str(self._normalize_value(column)))
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
+            api_params['value'] = self._normalize_value(value)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -5582,17 +5132,11 @@ class TablesDB(Service):
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
         api_path = api_path.replace('{column}', str(self._normalize_value(column)))
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
+            api_params['value'] = self._normalize_value(value)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',

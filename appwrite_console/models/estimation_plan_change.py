@@ -24,23 +24,8 @@ class EstimationPlanChange(AppwriteModel):
         Plan limits and compliance information
     """
 
-    currentbillingplanid: str = Field(
-        ...,
-        alias='currentBillingPlanId',
-    )
-    targetbillingplanid: str = Field(
-        ...,
-        alias='targetBillingPlanId',
-    )
-    direction: str = Field(
-        ...,
-        alias='direction',
-    )
-    estimation: PlanChangeEstimationDetails = Field(
-        ...,
-        alias='estimation',
-    )
-    limits: PlanChangeLimits = Field(
-        ...,
-        alias='limits',
-    )
+    currentbillingplanid: str = Field(..., alias='currentBillingPlanId')
+    targetbillingplanid: str = Field(..., alias='targetBillingPlanId')
+    direction: str = Field(..., alias='direction')
+    estimation: PlanChangeEstimationDetails = Field(..., alias='estimation')
+    limits: PlanChangeLimits = Field(..., alias='limits')

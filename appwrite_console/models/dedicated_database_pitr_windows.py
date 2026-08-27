@@ -16,11 +16,5 @@ class DedicatedDatabasePITRWindows(AppwriteModel):
         Latest available recovery point.
     """
 
-    earliest: str = Field(
-        ...,
-        alias='earliest',
-    )
-    latest: str = Field(
-        ...,
-        alias='latest',
-    )
+    earliest: str = Field(..., alias='earliest')
+    latest: str = Field(..., alias='latest')

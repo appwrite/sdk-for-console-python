@@ -17,11 +17,5 @@ class DnsRecordsList(AppwriteModel):
         List of dnsRecords.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    dnsrecords: List[DnsRecord] = Field(
-        ...,
-        alias='dnsRecords',
-    )
+    total: float = Field(..., alias='total')
+    dnsrecords: List[DnsRecord] = Field(..., alias='dnsRecords')

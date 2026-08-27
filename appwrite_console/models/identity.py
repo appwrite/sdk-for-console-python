@@ -32,43 +32,13 @@ class Identity(AppwriteModel):
         Identity Provider Refresh Token.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    provider: str = Field(
-        ...,
-        alias='provider',
-    )
-    provideruid: str = Field(
-        ...,
-        alias='providerUid',
-    )
-    provideremail: str = Field(
-        ...,
-        alias='providerEmail',
-    )
-    provideraccesstoken: str = Field(
-        ...,
-        alias='providerAccessToken',
-    )
-    provideraccesstokenexpiry: str = Field(
-        ...,
-        alias='providerAccessTokenExpiry',
-    )
-    providerrefreshtoken: str = Field(
-        ...,
-        alias='providerRefreshToken',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    userid: str = Field(..., alias='userId')
+    provider: str = Field(..., alias='provider')
+    provideruid: str = Field(..., alias='providerUid')
+    provideremail: str = Field(..., alias='providerEmail')
+    provideraccesstoken: str = Field(..., alias='providerAccessToken')
+    provideraccesstokenexpiry: str = Field(..., alias='providerAccessTokenExpiry')
+    providerrefreshtoken: str = Field(..., alias='providerRefreshToken')

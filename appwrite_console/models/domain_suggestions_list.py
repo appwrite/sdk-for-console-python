@@ -17,11 +17,5 @@ class DomainSuggestionsList(AppwriteModel):
         List of suggestions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    suggestions: List[DomainSuggestion] = Field(
-        ...,
-        alias='suggestions',
-    )
+    total: float = Field(..., alias='total')
+    suggestions: List[DomainSuggestion] = Field(..., alias='suggestions')

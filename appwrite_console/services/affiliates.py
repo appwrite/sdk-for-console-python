@@ -40,9 +40,7 @@ class Affiliates(Service):
         api_path = '/affiliates/links'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -85,13 +83,9 @@ class Affiliates(Service):
         api_params = {}
         if link_id is None:
             raise AppwriteException('Missing required parameter: "link_id"')
-        api_params['linkId'] = self._normalize_value(
-            link_id,
-        )
+        api_params['linkId'] = self._normalize_value(link_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -212,9 +206,7 @@ class Affiliates(Service):
         api_path = '/affiliates/referrals'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -253,9 +245,7 @@ class Affiliates(Service):
         api_path = '/affiliates/rewards'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -306,12 +296,8 @@ class Affiliates(Service):
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
         api_path = api_path.replace('{rewardId}', str(self._normalize_value(reward_id)))
-        api_params['status'] = self._normalize_value(
-            status,
-        )
-        api_params['organizationId'] = self._normalize_value(
-            organization_id,
-        )
+        api_params['status'] = self._normalize_value(status)
+        api_params['organizationId'] = self._normalize_value(organization_id)
 
         response = self.client.call(
             'patch',

@@ -16,11 +16,5 @@ class PolicyDenyFreeEmail(AppwriteModel):
         Whether the deny free email policy is enabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

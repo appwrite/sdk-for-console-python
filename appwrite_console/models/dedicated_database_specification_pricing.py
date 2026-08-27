@@ -20,19 +20,7 @@ class DedicatedDatabaseSpecificationPricing(AppwriteModel):
         Point-in-time recovery price as a fraction of the specification cost.
     """
 
-    storageoveragerate: float = Field(
-        ...,
-        alias='storageOverageRate',
-    )
-    bandwidthoveragerate: float = Field(
-        ...,
-        alias='bandwidthOverageRate',
-    )
-    replicarate: float = Field(
-        ...,
-        alias='replicaRate',
-    )
-    pitrrate: float = Field(
-        ...,
-        alias='pitrRate',
-    )
+    storageoveragerate: float = Field(..., alias='storageOverageRate')
+    bandwidthoveragerate: float = Field(..., alias='bandwidthOverageRate')
+    replicarate: float = Field(..., alias='replicaRate')
+    pitrrate: float = Field(..., alias='pitrRate')

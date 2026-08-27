@@ -17,11 +17,5 @@ class FrameworkList(AppwriteModel):
         List of frameworks.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    frameworks: List[Framework] = Field(
-        ...,
-        alias='frameworks',
-    )
+    total: float = Field(..., alias='total')
+    frameworks: List[Framework] = Field(..., alias='frameworks')

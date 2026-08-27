@@ -17,11 +17,5 @@ class TemplateFunctionList(AppwriteModel):
         List of templates.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    templates: List[TemplateFunction] = Field(
-        ...,
-        alias='templates',
-    )
+    total: float = Field(..., alias='total')
+    templates: List[TemplateFunction] = Field(..., alias='templates')

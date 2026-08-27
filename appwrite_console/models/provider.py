@@ -30,39 +30,12 @@ class Provider(AppwriteModel):
         Provider options.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    provider: str = Field(
-        ...,
-        alias='provider',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    credentials: Dict[str, Any] = Field(
-        ...,
-        alias='credentials',
-    )
-    options: Optional[Dict[str, Any]] = Field(
-        default=None,
-        alias='options',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    provider: str = Field(..., alias='provider')
+    enabled: bool = Field(..., alias='enabled')
+    type: str = Field(..., alias='type')
+    credentials: Dict[str, Any] = Field(..., alias='credentials')
+    options: Optional[Dict[str, Any]] = Field(default=None, alias='options')

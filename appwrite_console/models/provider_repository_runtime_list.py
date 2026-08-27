@@ -19,15 +19,6 @@ class ProviderRepositoryRuntimeList(AppwriteModel):
         Provider repository list type.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    runtimeproviderrepositories: List[ProviderRepositoryRuntime] = Field(
-        ...,
-        alias='runtimeProviderRepositories',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
+    total: float = Field(..., alias='total')
+    runtimeproviderrepositories: List[ProviderRepositoryRuntime] = Field(..., alias='runtimeProviderRepositories')
+    type: str = Field(..., alias='type')

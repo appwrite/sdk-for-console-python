@@ -20,19 +20,7 @@ class AlgoArgon2(AppwriteModel):
         Number of threads used to compute hash.
     """
 
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    memorycost: float = Field(
-        ...,
-        alias='memoryCost',
-    )
-    timecost: float = Field(
-        ...,
-        alias='timeCost',
-    )
-    threads: float = Field(
-        ...,
-        alias='threads',
-    )
+    type: str = Field(..., alias='type')
+    memorycost: float = Field(..., alias='memoryCost')
+    timecost: float = Field(..., alias='timeCost')
+    threads: float = Field(..., alias='threads')

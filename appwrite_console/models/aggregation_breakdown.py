@@ -23,23 +23,8 @@ class AggregationBreakdown(AppwriteModel):
         Typed model field.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    region: str = Field(
-        ...,
-        alias='region',
-    )
-    amount: float = Field(
-        ...,
-        alias='amount',
-    )
-    resources: List[UsageResources] = Field(
-        ...,
-        alias='resources',
-    )
+    id: str = Field(..., alias='$id')
+    name: str = Field(..., alias='name')
+    region: str = Field(..., alias='region')
+    amount: float = Field(..., alias='amount')
+    resources: List[UsageResources] = Field(..., alias='resources')

@@ -32,43 +32,13 @@ class Oauth2Consent(AppwriteModel):
         Consent expiration time in ISO 8601 format. Empty when the consent has no token-bound expiry yet.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    appid: str = Field(
-        ...,
-        alias='appId',
-    )
-    cimdurl: str = Field(
-        ...,
-        alias='cimdUrl',
-    )
-    scopes: List[Any] = Field(
-        ...,
-        alias='scopes',
-    )
-    resources: List[Any] = Field(
-        ...,
-        alias='resources',
-    )
-    authorizationdetails: str = Field(
-        ...,
-        alias='authorizationDetails',
-    )
-    expire: str = Field(
-        ...,
-        alias='expire',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    userid: str = Field(..., alias='userId')
+    appid: str = Field(..., alias='appId')
+    cimdurl: str = Field(..., alias='cimdUrl')
+    scopes: List[Any] = Field(..., alias='scopes')
+    resources: List[Any] = Field(..., alias='resources')
+    authorizationdetails: str = Field(..., alias='authorizationDetails')
+    expire: str = Field(..., alias='expire')

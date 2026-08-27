@@ -28,35 +28,11 @@ class Coupon(AppwriteModel):
         If the coupon is only valid for new organizations or not.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    code: str = Field(
-        ...,
-        alias='code',
-    )
-    credits: float = Field(
-        ...,
-        alias='credits',
-    )
-    expiration: str = Field(
-        ...,
-        alias='expiration',
-    )
-    validity: float = Field(
-        ...,
-        alias='validity',
-    )
-    campaign: str = Field(
-        ...,
-        alias='campaign',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    onlyneworgs: bool = Field(
-        ...,
-        alias='onlyNewOrgs',
-    )
+    id: str = Field(..., alias='$id')
+    code: str = Field(..., alias='code')
+    credits: float = Field(..., alias='credits')
+    expiration: str = Field(..., alias='expiration')
+    validity: float = Field(..., alias='validity')
+    campaign: str = Field(..., alias='campaign')
+    status: str = Field(..., alias='status')
+    onlyneworgs: bool = Field(..., alias='onlyNewOrgs')

@@ -30,39 +30,12 @@ class AppKey(AppwriteModel):
         Time the app key was last used for authentication in ISO 8601 format. Null if never used.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    appid: str = Field(
-        ...,
-        alias='appId',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    hint: str = Field(
-        ...,
-        alias='hint',
-    )
-    createdbyid: str = Field(
-        ...,
-        alias='createdById',
-    )
-    createdbyname: str = Field(
-        ...,
-        alias='createdByName',
-    )
-    lastaccessedat: Optional[str] = Field(
-        default=None,
-        alias='lastAccessedAt',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    appid: str = Field(..., alias='appId')
+    secret: str = Field(..., alias='secret')
+    hint: str = Field(..., alias='hint')
+    createdbyid: str = Field(..., alias='createdById')
+    createdbyname: str = Field(..., alias='createdByName')
+    lastaccessedat: Optional[str] = Field(default=None, alias='lastAccessedAt')

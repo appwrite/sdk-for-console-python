@@ -17,11 +17,5 @@ class BranchList(AppwriteModel):
         List of branches.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    branches: List[Branch] = Field(
-        ...,
-        alias='branches',
-    )
+    total: float = Field(..., alias='total')
+    branches: List[Branch] = Field(..., alias='branches')

@@ -17,11 +17,5 @@ class ResourceTokenList(AppwriteModel):
         List of tokens.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    tokens: List[ResourceToken] = Field(
-        ...,
-        alias='tokens',
-    )
+    total: float = Field(..., alias='total')
+    tokens: List[ResourceToken] = Field(..., alias='tokens')

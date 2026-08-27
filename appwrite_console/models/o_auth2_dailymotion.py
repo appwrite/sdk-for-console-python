@@ -20,19 +20,7 @@ class OAuth2Dailymotion(AppwriteModel):
         Dailymotion OAuth2 API secret.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    apikey: str = Field(
-        ...,
-        alias='apiKey',
-    )
-    apisecret: str = Field(
-        ...,
-        alias='apiSecret',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    apikey: str = Field(..., alias='apiKey')
+    apisecret: str = Field(..., alias='apiSecret')

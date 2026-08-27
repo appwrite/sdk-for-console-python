@@ -61,17 +61,11 @@ class Functions(Service):
         api_path = '/functions'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -178,91 +172,47 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if runtime is None:
             raise AppwriteException('Missing required parameter: "runtime"')
-        api_params['functionId'] = self._normalize_value(
-            function_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['runtime'] = self._normalize_value(
-            runtime,
-        )
+        api_params['functionId'] = self._normalize_value(function_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['runtime'] = self._normalize_value(runtime)
         if execute is not None:
-            api_params['execute'] = self._normalize_value(
-                execute,
-            )
+            api_params['execute'] = self._normalize_value(execute)
         if events is not None:
-            api_params['events'] = self._normalize_value(
-                events,
-            )
+            api_params['events'] = self._normalize_value(events)
         if schedule is not None:
-            api_params['schedule'] = self._normalize_value(
-                schedule,
-            )
+            api_params['schedule'] = self._normalize_value(schedule)
         if timeout is not None:
-            api_params['timeout'] = self._normalize_value(
-                timeout,
-            )
+            api_params['timeout'] = self._normalize_value(timeout)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if logging is not None:
-            api_params['logging'] = self._normalize_value(
-                logging,
-            )
+            api_params['logging'] = self._normalize_value(logging)
         if entrypoint is not None:
-            api_params['entrypoint'] = self._normalize_value(
-                entrypoint,
-            )
+            api_params['entrypoint'] = self._normalize_value(entrypoint)
         if commands is not None:
-            api_params['commands'] = self._normalize_value(
-                commands,
-            )
+            api_params['commands'] = self._normalize_value(commands)
         if scopes is not None:
-            api_params['scopes'] = self._normalize_value(
-                scopes,
-            )
+            api_params['scopes'] = self._normalize_value(scopes)
         if installation_id is not None:
-            api_params['installationId'] = self._normalize_value(
-                installation_id,
-            )
+            api_params['installationId'] = self._normalize_value(installation_id)
         if provider_repository_id is not None:
-            api_params['providerRepositoryId'] = self._normalize_value(
-                provider_repository_id,
-            )
+            api_params['providerRepositoryId'] = self._normalize_value(provider_repository_id)
         if provider_branch is not None:
-            api_params['providerBranch'] = self._normalize_value(
-                provider_branch,
-            )
+            api_params['providerBranch'] = self._normalize_value(provider_branch)
         if provider_silent_mode is not None:
-            api_params['providerSilentMode'] = self._normalize_value(
-                provider_silent_mode,
-            )
+            api_params['providerSilentMode'] = self._normalize_value(provider_silent_mode)
         if provider_root_directory is not None:
-            api_params['providerRootDirectory'] = self._normalize_value(
-                provider_root_directory,
-            )
+            api_params['providerRootDirectory'] = self._normalize_value(provider_root_directory)
         if provider_branches is not None:
-            api_params['providerBranches'] = self._normalize_value(
-                provider_branches,
-            )
+            api_params['providerBranches'] = self._normalize_value(provider_branches)
         if provider_paths is not None:
-            api_params['providerPaths'] = self._normalize_value(
-                provider_paths,
-            )
+            api_params['providerPaths'] = self._normalize_value(provider_paths)
         if build_specification is not None:
-            api_params['buildSpecification'] = self._normalize_value(
-                build_specification,
-            )
+            api_params['buildSpecification'] = self._normalize_value(build_specification)
         if runtime_specification is not None:
-            api_params['runtimeSpecification'] = self._normalize_value(
-                runtime_specification,
-            )
+            api_params['runtimeSpecification'] = self._normalize_value(runtime_specification)
         if deployment_retention is not None:
-            api_params['deploymentRetention'] = self._normalize_value(
-                deployment_retention,
-            )
+            api_params['deploymentRetention'] = self._normalize_value(deployment_retention)
 
         response = self.client.call(
             'post',
@@ -333,9 +283,7 @@ class Functions(Service):
         api_path = '/functions/specifications'
         api_params = {}
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
 
         response = self.client.call(
             'get',
@@ -386,25 +334,15 @@ class Functions(Service):
         api_path = '/functions/templates'
         api_params = {}
         if runtimes is not None:
-            api_params['runtimes'] = self._normalize_value(
-                runtimes,
-            )
+            api_params['runtimes'] = self._normalize_value(runtimes)
         if use_cases is not None:
-            api_params['useCases'] = self._normalize_value(
-                use_cases,
-            )
+            api_params['useCases'] = self._normalize_value(use_cases)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -590,89 +528,47 @@ class Functions(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
         if runtime is not None:
-            api_params['runtime'] = self._normalize_value(
-                runtime,
-            )
+            api_params['runtime'] = self._normalize_value(runtime)
         if execute is not None:
-            api_params['execute'] = self._normalize_value(
-                execute,
-            )
+            api_params['execute'] = self._normalize_value(execute)
         if events is not None:
-            api_params['events'] = self._normalize_value(
-                events,
-            )
+            api_params['events'] = self._normalize_value(events)
         if schedule is not None:
-            api_params['schedule'] = self._normalize_value(
-                schedule,
-            )
+            api_params['schedule'] = self._normalize_value(schedule)
         if timeout is not None:
-            api_params['timeout'] = self._normalize_value(
-                timeout,
-            )
+            api_params['timeout'] = self._normalize_value(timeout)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if logging is not None:
-            api_params['logging'] = self._normalize_value(
-                logging,
-            )
+            api_params['logging'] = self._normalize_value(logging)
         if entrypoint is not None:
-            api_params['entrypoint'] = self._normalize_value(
-                entrypoint,
-            )
+            api_params['entrypoint'] = self._normalize_value(entrypoint)
         if commands is not None:
-            api_params['commands'] = self._normalize_value(
-                commands,
-            )
+            api_params['commands'] = self._normalize_value(commands)
         if scopes is not None:
-            api_params['scopes'] = self._normalize_value(
-                scopes,
-            )
+            api_params['scopes'] = self._normalize_value(scopes)
         if installation_id is not None:
-            api_params['installationId'] = self._normalize_value(
-                installation_id,
-            )
+            api_params['installationId'] = self._normalize_value(installation_id)
         if provider_repository_id is not None:
-            api_params['providerRepositoryId'] = self._normalize_value(
-                provider_repository_id,
-            )
+            api_params['providerRepositoryId'] = self._normalize_value(provider_repository_id)
         if provider_branch is not None:
-            api_params['providerBranch'] = self._normalize_value(
-                provider_branch,
-            )
+            api_params['providerBranch'] = self._normalize_value(provider_branch)
         if provider_silent_mode is not None:
-            api_params['providerSilentMode'] = self._normalize_value(
-                provider_silent_mode,
-            )
+            api_params['providerSilentMode'] = self._normalize_value(provider_silent_mode)
         if provider_root_directory is not None:
-            api_params['providerRootDirectory'] = self._normalize_value(
-                provider_root_directory,
-            )
+            api_params['providerRootDirectory'] = self._normalize_value(provider_root_directory)
         if provider_branches is not None:
-            api_params['providerBranches'] = self._normalize_value(
-                provider_branches,
-            )
+            api_params['providerBranches'] = self._normalize_value(provider_branches)
         if provider_paths is not None:
-            api_params['providerPaths'] = self._normalize_value(
-                provider_paths,
-            )
+            api_params['providerPaths'] = self._normalize_value(provider_paths)
         if build_specification is not None:
-            api_params['buildSpecification'] = self._normalize_value(
-                build_specification,
-            )
+            api_params['buildSpecification'] = self._normalize_value(build_specification)
         if runtime_specification is not None:
-            api_params['runtimeSpecification'] = self._normalize_value(
-                runtime_specification,
-            )
+            api_params['runtimeSpecification'] = self._normalize_value(runtime_specification)
         if deployment_retention is not None:
-            api_params['deploymentRetention'] = self._normalize_value(
-                deployment_retention,
-            )
+            api_params['deploymentRetention'] = self._normalize_value(deployment_retention)
 
         response = self.client.call(
             'put',
@@ -759,9 +655,7 @@ class Functions(Service):
         if deployment_id is None:
             raise AppwriteException('Missing required parameter: "deployment_id"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
-        api_params['deploymentId'] = self._normalize_value(
-            deployment_id,
-        )
+        api_params['deploymentId'] = self._normalize_value(deployment_id)
 
         response = self.client.call(
             'patch',
@@ -813,17 +707,11 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "function_id"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -889,19 +777,11 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "activate"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if entrypoint is not None:
-            api_params['entrypoint'] = self._normalize_value(
-                entrypoint,
-            )
+            api_params['entrypoint'] = self._normalize_value(entrypoint)
         if commands is not None:
-            api_params['commands'] = self._normalize_value(
-                commands,
-            )
-        api_params['code'] = self._normalize_value(
-            code,
-        )
-        api_params['activate'] = self._normalize_value(
-            str(activate).lower() if type(activate) is bool else activate,
-        )
+            api_params['commands'] = self._normalize_value(commands)
+        api_params['code'] = self._normalize_value(code)
+        api_params['activate'] = self._normalize_value(str(activate).lower() if type(activate) is bool else activate)
 
         param_name = 'code'
 
@@ -957,13 +837,9 @@ class Functions(Service):
         if deployment_id is None:
             raise AppwriteException('Missing required parameter: "deployment_id"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
-        api_params['deploymentId'] = self._normalize_value(
-            deployment_id,
-        )
+        api_params['deploymentId'] = self._normalize_value(deployment_id)
         if build_id is not None:
-            api_params['buildId'] = self._normalize_value(
-                build_id,
-            )
+            api_params['buildId'] = self._normalize_value(build_id)
 
         response = self.client.call(
             'post',
@@ -1035,25 +911,13 @@ class Functions(Service):
         if reference is None:
             raise AppwriteException('Missing required parameter: "reference"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
-        api_params['repository'] = self._normalize_value(
-            repository,
-        )
-        api_params['owner'] = self._normalize_value(
-            owner,
-        )
-        api_params['rootDirectory'] = self._normalize_value(
-            root_directory,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
-        api_params['reference'] = self._normalize_value(
-            reference,
-        )
+        api_params['repository'] = self._normalize_value(repository)
+        api_params['owner'] = self._normalize_value(owner)
+        api_params['rootDirectory'] = self._normalize_value(root_directory)
+        api_params['type'] = self._normalize_value(type)
+        api_params['reference'] = self._normalize_value(reference)
         if activate is not None:
-            api_params['activate'] = self._normalize_value(
-                activate,
-            )
+            api_params['activate'] = self._normalize_value(activate)
 
         response = self.client.call(
             'post',
@@ -1110,16 +974,10 @@ class Functions(Service):
         if reference is None:
             raise AppwriteException('Missing required parameter: "reference"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
-        api_params['type'] = self._normalize_value(
-            type,
-        )
-        api_params['reference'] = self._normalize_value(
-            reference,
-        )
+        api_params['type'] = self._normalize_value(type)
+        api_params['reference'] = self._normalize_value(reference)
         if activate is not None:
-            api_params['activate'] = self._normalize_value(
-                activate,
-            )
+            api_params['activate'] = self._normalize_value(activate)
 
         response = self.client.call(
             'post',
@@ -1266,13 +1124,9 @@ class Functions(Service):
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         api_path = api_path.replace('{deploymentId}', str(self._normalize_value(deployment_id)))
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
         if token is not None:
-            api_params['token'] = self._normalize_value(
-                token,
-            )
+            api_params['token'] = self._normalize_value(token)
 
         response = self.client.call(
             'get',
@@ -1367,13 +1221,9 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "function_id"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1433,29 +1283,17 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "function_id"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if body is not None:
-            api_params['body'] = self._normalize_value(
-                body,
-            )
+            api_params['body'] = self._normalize_value(body)
         if xasync is not None:
-            api_params['async'] = self._normalize_value(
-                xasync,
-            )
+            api_params['async'] = self._normalize_value(xasync)
         if path is not None:
-            api_params['path'] = self._normalize_value(
-                path,
-            )
+            api_params['path'] = self._normalize_value(path)
         if method is not None:
-            api_params['method'] = self._normalize_value(
-                method,
-            )
+            api_params['method'] = self._normalize_value(method)
         if headers is not None:
-            api_params['headers'] = self._normalize_value(
-                headers,
-            )
+            api_params['headers'] = self._normalize_value(headers)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
 
         response = self.client.call(
             'post',
@@ -1596,13 +1434,9 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "function_id"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1661,19 +1495,11 @@ class Functions(Service):
         if value is None:
             raise AppwriteException('Missing required parameter: "value"')
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
-        api_params['variableId'] = self._normalize_value(
-            variable_id,
-        )
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['value'] = self._normalize_value(
-            value,
-        )
+        api_params['variableId'] = self._normalize_value(variable_id)
+        api_params['key'] = self._normalize_value(key)
+        api_params['value'] = self._normalize_value(value)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'post',
@@ -1777,17 +1603,11 @@ class Functions(Service):
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
         if key is not None:
-            api_params['key'] = self._normalize_value(
-                key,
-            )
+            api_params['key'] = self._normalize_value(key)
         if value is not None:
-            api_params['value'] = self._normalize_value(
-                value,
-            )
+            api_params['value'] = self._normalize_value(value)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'put',

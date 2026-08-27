@@ -16,11 +16,5 @@ class PolicyDenyDisposableEmail(AppwriteModel):
         Whether the deny disposable email policy is enabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

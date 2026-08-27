@@ -17,11 +17,5 @@ class VcsNamespaceList(AppwriteModel):
         List of namespaces.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    namespaces: List[VcsNamespace] = Field(
-        ...,
-        alias='namespaces',
-    )
+    total: float = Field(..., alias='total')
+    namespaces: List[VcsNamespace] = Field(..., alias='namespaces')

@@ -14,7 +14,4 @@ class CreditAvailable(AppwriteModel):
         Total available credits for the organization.
     """
 
-    available: float = Field(
-        ...,
-        alias='available',
-    )
+    available: float = Field(..., alias='available')

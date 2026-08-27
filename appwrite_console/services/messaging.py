@@ -52,17 +52,11 @@ class Messaging(Service):
         api_path = '/messaging/messages'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -139,51 +133,27 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "subject"')
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
-        api_params['messageId'] = self._normalize_value(
-            message_id,
-        )
-        api_params['subject'] = self._normalize_value(
-            subject,
-        )
-        api_params['content'] = self._normalize_value(
-            content,
-        )
+        api_params['messageId'] = self._normalize_value(message_id)
+        api_params['subject'] = self._normalize_value(subject)
+        api_params['content'] = self._normalize_value(content)
         if topics is not None:
-            api_params['topics'] = self._normalize_value(
-                topics,
-            )
+            api_params['topics'] = self._normalize_value(topics)
         if users is not None:
-            api_params['users'] = self._normalize_value(
-                users,
-            )
+            api_params['users'] = self._normalize_value(users)
         if targets is not None:
-            api_params['targets'] = self._normalize_value(
-                targets,
-            )
+            api_params['targets'] = self._normalize_value(targets)
         if cc is not None:
-            api_params['cc'] = self._normalize_value(
-                cc,
-            )
+            api_params['cc'] = self._normalize_value(cc)
         if bcc is not None:
-            api_params['bcc'] = self._normalize_value(
-                bcc,
-            )
+            api_params['bcc'] = self._normalize_value(bcc)
         if attachments is not None:
-            api_params['attachments'] = self._normalize_value(
-                attachments,
-            )
+            api_params['attachments'] = self._normalize_value(attachments)
         if draft is not None:
-            api_params['draft'] = self._normalize_value(
-                draft,
-            )
+            api_params['draft'] = self._normalize_value(draft)
         if html is not None:
-            api_params['html'] = self._normalize_value(
-                html,
-            )
+            api_params['html'] = self._normalize_value(html)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
 
         response = self.client.call(
             'post',
@@ -259,49 +229,27 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if topics is not None:
-            api_params['topics'] = self._normalize_value(
-                topics,
-            )
+            api_params['topics'] = self._normalize_value(topics)
         if users is not None:
-            api_params['users'] = self._normalize_value(
-                users,
-            )
+            api_params['users'] = self._normalize_value(users)
         if targets is not None:
-            api_params['targets'] = self._normalize_value(
-                targets,
-            )
+            api_params['targets'] = self._normalize_value(targets)
         if subject is not None:
-            api_params['subject'] = self._normalize_value(
-                subject,
-            )
+            api_params['subject'] = self._normalize_value(subject)
         if content is not None:
-            api_params['content'] = self._normalize_value(
-                content,
-            )
+            api_params['content'] = self._normalize_value(content)
         if draft is not None:
-            api_params['draft'] = self._normalize_value(
-                draft,
-            )
+            api_params['draft'] = self._normalize_value(draft)
         if html is not None:
-            api_params['html'] = self._normalize_value(
-                html,
-            )
+            api_params['html'] = self._normalize_value(html)
         if cc is not None:
-            api_params['cc'] = self._normalize_value(
-                cc,
-            )
+            api_params['cc'] = self._normalize_value(cc)
         if bcc is not None:
-            api_params['bcc'] = self._normalize_value(
-                bcc,
-            )
+            api_params['bcc'] = self._normalize_value(bcc)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
         if attachments is not None:
-            api_params['attachments'] = self._normalize_value(
-                attachments,
-            )
+            api_params['attachments'] = self._normalize_value(attachments)
 
         response = self.client.call(
             'patch',
@@ -396,81 +344,43 @@ class Messaging(Service):
         api_params = {}
         if message_id is None:
             raise AppwriteException('Missing required parameter: "message_id"')
-        api_params['messageId'] = self._normalize_value(
-            message_id,
-        )
+        api_params['messageId'] = self._normalize_value(message_id)
         if title is not None:
-            api_params['title'] = self._normalize_value(
-                title,
-            )
+            api_params['title'] = self._normalize_value(title)
         if body is not None:
-            api_params['body'] = self._normalize_value(
-                body,
-            )
+            api_params['body'] = self._normalize_value(body)
         if topics is not None:
-            api_params['topics'] = self._normalize_value(
-                topics,
-            )
+            api_params['topics'] = self._normalize_value(topics)
         if users is not None:
-            api_params['users'] = self._normalize_value(
-                users,
-            )
+            api_params['users'] = self._normalize_value(users)
         if targets is not None:
-            api_params['targets'] = self._normalize_value(
-                targets,
-            )
+            api_params['targets'] = self._normalize_value(targets)
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if action is not None:
-            api_params['action'] = self._normalize_value(
-                action,
-            )
+            api_params['action'] = self._normalize_value(action)
         if image is not None:
-            api_params['image'] = self._normalize_value(
-                image,
-            )
+            api_params['image'] = self._normalize_value(image)
         if icon is not None:
-            api_params['icon'] = self._normalize_value(
-                icon,
-            )
+            api_params['icon'] = self._normalize_value(icon)
         if sound is not None:
-            api_params['sound'] = self._normalize_value(
-                sound,
-            )
+            api_params['sound'] = self._normalize_value(sound)
         if color is not None:
-            api_params['color'] = self._normalize_value(
-                color,
-            )
+            api_params['color'] = self._normalize_value(color)
         if tag is not None:
-            api_params['tag'] = self._normalize_value(
-                tag,
-            )
+            api_params['tag'] = self._normalize_value(tag)
         if badge is not None:
-            api_params['badge'] = self._normalize_value(
-                badge,
-            )
+            api_params['badge'] = self._normalize_value(badge)
         if draft is not None:
-            api_params['draft'] = self._normalize_value(
-                draft,
-            )
+            api_params['draft'] = self._normalize_value(draft)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
         if content_available is not None:
-            api_params['contentAvailable'] = self._normalize_value(
-                content_available,
-            )
+            api_params['contentAvailable'] = self._normalize_value(content_available)
         if critical is not None:
-            api_params['critical'] = self._normalize_value(
-                critical,
-            )
+            api_params['critical'] = self._normalize_value(critical)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
 
         response = self.client.call(
             'post',
@@ -567,77 +477,41 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if topics is not None:
-            api_params['topics'] = self._normalize_value(
-                topics,
-            )
+            api_params['topics'] = self._normalize_value(topics)
         if users is not None:
-            api_params['users'] = self._normalize_value(
-                users,
-            )
+            api_params['users'] = self._normalize_value(users)
         if targets is not None:
-            api_params['targets'] = self._normalize_value(
-                targets,
-            )
+            api_params['targets'] = self._normalize_value(targets)
         if title is not None:
-            api_params['title'] = self._normalize_value(
-                title,
-            )
+            api_params['title'] = self._normalize_value(title)
         if body is not None:
-            api_params['body'] = self._normalize_value(
-                body,
-            )
+            api_params['body'] = self._normalize_value(body)
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if action is not None:
-            api_params['action'] = self._normalize_value(
-                action,
-            )
+            api_params['action'] = self._normalize_value(action)
         if image is not None:
-            api_params['image'] = self._normalize_value(
-                image,
-            )
+            api_params['image'] = self._normalize_value(image)
         if icon is not None:
-            api_params['icon'] = self._normalize_value(
-                icon,
-            )
+            api_params['icon'] = self._normalize_value(icon)
         if sound is not None:
-            api_params['sound'] = self._normalize_value(
-                sound,
-            )
+            api_params['sound'] = self._normalize_value(sound)
         if color is not None:
-            api_params['color'] = self._normalize_value(
-                color,
-            )
+            api_params['color'] = self._normalize_value(color)
         if tag is not None:
-            api_params['tag'] = self._normalize_value(
-                tag,
-            )
+            api_params['tag'] = self._normalize_value(tag)
         if badge is not None:
-            api_params['badge'] = self._normalize_value(
-                badge,
-            )
+            api_params['badge'] = self._normalize_value(badge)
         if draft is not None:
-            api_params['draft'] = self._normalize_value(
-                draft,
-            )
+            api_params['draft'] = self._normalize_value(draft)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
         if content_available is not None:
-            api_params['contentAvailable'] = self._normalize_value(
-                content_available,
-            )
+            api_params['contentAvailable'] = self._normalize_value(content_available)
         if critical is not None:
-            api_params['critical'] = self._normalize_value(
-                critical,
-            )
+            api_params['critical'] = self._normalize_value(critical)
         if priority is not None:
-            api_params['priority'] = self._normalize_value(
-                priority,
-            )
+            api_params['priority'] = self._normalize_value(priority)
 
         response = self.client.call(
             'patch',
@@ -698,32 +572,18 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "message_id"')
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
-        api_params['messageId'] = self._normalize_value(
-            message_id,
-        )
-        api_params['content'] = self._normalize_value(
-            content,
-        )
+        api_params['messageId'] = self._normalize_value(message_id)
+        api_params['content'] = self._normalize_value(content)
         if topics is not None:
-            api_params['topics'] = self._normalize_value(
-                topics,
-            )
+            api_params['topics'] = self._normalize_value(topics)
         if users is not None:
-            api_params['users'] = self._normalize_value(
-                users,
-            )
+            api_params['users'] = self._normalize_value(users)
         if targets is not None:
-            api_params['targets'] = self._normalize_value(
-                targets,
-            )
+            api_params['targets'] = self._normalize_value(targets)
         if draft is not None:
-            api_params['draft'] = self._normalize_value(
-                draft,
-            )
+            api_params['draft'] = self._normalize_value(draft)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
 
         response = self.client.call(
             'post',
@@ -784,29 +644,17 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if topics is not None:
-            api_params['topics'] = self._normalize_value(
-                topics,
-            )
+            api_params['topics'] = self._normalize_value(topics)
         if users is not None:
-            api_params['users'] = self._normalize_value(
-                users,
-            )
+            api_params['users'] = self._normalize_value(users)
         if targets is not None:
-            api_params['targets'] = self._normalize_value(
-                targets,
-            )
+            api_params['targets'] = self._normalize_value(targets)
         if content is not None:
-            api_params['content'] = self._normalize_value(
-                content,
-            )
+            api_params['content'] = self._normalize_value(content)
         if draft is not None:
-            api_params['draft'] = self._normalize_value(
-                draft,
-            )
+            api_params['draft'] = self._normalize_value(draft)
         if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(
-                scheduled_at,
-            )
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
 
         response = self.client.call(
             'patch',
@@ -935,13 +783,9 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -986,17 +830,11 @@ class Messaging(Service):
         api_path = '/messaging/providers'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1059,36 +897,20 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if auth_key is not None:
-            api_params['authKey'] = self._normalize_value(
-                auth_key,
-            )
+            api_params['authKey'] = self._normalize_value(auth_key)
         if auth_key_id is not None:
-            api_params['authKeyId'] = self._normalize_value(
-                auth_key_id,
-            )
+            api_params['authKeyId'] = self._normalize_value(auth_key_id)
         if team_id is not None:
-            api_params['teamId'] = self._normalize_value(
-                team_id,
-            )
+            api_params['teamId'] = self._normalize_value(team_id)
         if bundle_id is not None:
-            api_params['bundleId'] = self._normalize_value(
-                bundle_id,
-            )
+            api_params['bundleId'] = self._normalize_value(bundle_id)
         if sandbox is not None:
-            api_params['sandbox'] = self._normalize_value(
-                sandbox,
-            )
+            api_params['sandbox'] = self._normalize_value(sandbox)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -1152,33 +974,19 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if auth_key is not None:
-            api_params['authKey'] = self._normalize_value(
-                auth_key,
-            )
+            api_params['authKey'] = self._normalize_value(auth_key)
         if auth_key_id is not None:
-            api_params['authKeyId'] = self._normalize_value(
-                auth_key_id,
-            )
+            api_params['authKeyId'] = self._normalize_value(auth_key_id)
         if team_id is not None:
-            api_params['teamId'] = self._normalize_value(
-                team_id,
-            )
+            api_params['teamId'] = self._normalize_value(team_id)
         if bundle_id is not None:
-            api_params['bundleId'] = self._normalize_value(
-                bundle_id,
-            )
+            api_params['bundleId'] = self._normalize_value(bundle_id)
         if sandbox is not None:
-            api_params['sandbox'] = self._normalize_value(
-                sandbox,
-            )
+            api_params['sandbox'] = self._normalize_value(sandbox)
 
         response = self.client.call(
             'patch',
@@ -1230,20 +1038,12 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if service_account_json is not None:
-            api_params['serviceAccountJSON'] = self._normalize_value(
-                service_account_json,
-            )
+            api_params['serviceAccountJSON'] = self._normalize_value(service_account_json)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -1295,17 +1095,11 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if service_account_json is not None:
-            api_params['serviceAccountJSON'] = self._normalize_value(
-                service_account_json,
-            )
+            api_params['serviceAccountJSON'] = self._normalize_value(service_account_json)
 
         response = self.client.call(
             'patch',
@@ -1375,44 +1169,24 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if domain is not None:
-            api_params['domain'] = self._normalize_value(
-                domain,
-            )
+            api_params['domain'] = self._normalize_value(domain)
         if is_eu_region is not None:
-            api_params['isEuRegion'] = self._normalize_value(
-                is_eu_region,
-            )
+            api_params['isEuRegion'] = self._normalize_value(is_eu_region)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -1482,41 +1256,23 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if domain is not None:
-            api_params['domain'] = self._normalize_value(
-                domain,
-            )
+            api_params['domain'] = self._normalize_value(domain)
         if is_eu_region is not None:
-            api_params['isEuRegion'] = self._normalize_value(
-                is_eu_region,
-            )
+            api_params['isEuRegion'] = self._normalize_value(is_eu_region)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
 
         response = self.client.call(
             'patch',
@@ -1574,28 +1330,16 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if template_id is not None:
-            api_params['templateId'] = self._normalize_value(
-                template_id,
-            )
+            api_params['templateId'] = self._normalize_value(template_id)
         if sender_id is not None:
-            api_params['senderId'] = self._normalize_value(
-                sender_id,
-            )
+            api_params['senderId'] = self._normalize_value(sender_id)
         if auth_key is not None:
-            api_params['authKey'] = self._normalize_value(
-                auth_key,
-            )
+            api_params['authKey'] = self._normalize_value(auth_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -1653,25 +1397,15 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if template_id is not None:
-            api_params['templateId'] = self._normalize_value(
-                template_id,
-            )
+            api_params['templateId'] = self._normalize_value(template_id)
         if sender_id is not None:
-            api_params['senderId'] = self._normalize_value(
-                sender_id,
-            )
+            api_params['senderId'] = self._normalize_value(sender_id)
         if auth_key is not None:
-            api_params['authKey'] = self._normalize_value(
-                auth_key,
-            )
+            api_params['authKey'] = self._normalize_value(auth_key)
 
         response = self.client.call(
             'patch',
@@ -1735,36 +1469,20 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -1828,33 +1546,19 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
 
         response = self.client.call(
             'patch',
@@ -1918,36 +1622,20 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -2011,33 +1699,19 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
 
         response = self.client.call(
             'patch',
@@ -2107,44 +1781,24 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if access_key is not None:
-            api_params['accessKey'] = self._normalize_value(
-                access_key,
-            )
+            api_params['accessKey'] = self._normalize_value(access_key)
         if secret_key is not None:
-            api_params['secretKey'] = self._normalize_value(
-                secret_key,
-            )
+            api_params['secretKey'] = self._normalize_value(secret_key)
         if region is not None:
-            api_params['region'] = self._normalize_value(
-                region,
-            )
+            api_params['region'] = self._normalize_value(region)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -2214,41 +1868,23 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if access_key is not None:
-            api_params['accessKey'] = self._normalize_value(
-                access_key,
-            )
+            api_params['accessKey'] = self._normalize_value(access_key)
         if secret_key is not None:
-            api_params['secretKey'] = self._normalize_value(
-                secret_key,
-            )
+            api_params['secretKey'] = self._normalize_value(secret_key)
         if region is not None:
-            api_params['region'] = self._normalize_value(
-                region,
-            )
+            api_params['region'] = self._normalize_value(region)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
 
         response = self.client.call(
             'patch',
@@ -2332,59 +1968,31 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if host is None:
             raise AppwriteException('Missing required parameter: "host"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['host'] = self._normalize_value(
-            host,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['host'] = self._normalize_value(host)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
         if username is not None:
-            api_params['username'] = self._normalize_value(
-                username,
-            )
+            api_params['username'] = self._normalize_value(username)
         if password is not None:
-            api_params['password'] = self._normalize_value(
-                password,
-            )
+            api_params['password'] = self._normalize_value(password)
         if encryption is not None:
-            api_params['encryption'] = self._normalize_value(
-                encryption,
-            )
+            api_params['encryption'] = self._normalize_value(encryption)
         if auto_tls is not None:
-            api_params['autoTLS'] = self._normalize_value(
-                auto_tls,
-            )
+            api_params['autoTLS'] = self._normalize_value(auto_tls)
         if mailer is not None:
-            api_params['mailer'] = self._normalize_value(
-                mailer,
-            )
+            api_params['mailer'] = self._normalize_value(mailer)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -2466,57 +2074,31 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if host is not None:
-            api_params['host'] = self._normalize_value(
-                host,
-            )
+            api_params['host'] = self._normalize_value(host)
         if port is not None:
-            api_params['port'] = self._normalize_value(
-                port,
-            )
+            api_params['port'] = self._normalize_value(port)
         if username is not None:
-            api_params['username'] = self._normalize_value(
-                username,
-            )
+            api_params['username'] = self._normalize_value(username)
         if password is not None:
-            api_params['password'] = self._normalize_value(
-                password,
-            )
+            api_params['password'] = self._normalize_value(password)
         if encryption is not None:
-            api_params['encryption'] = self._normalize_value(
-                encryption,
-            )
+            api_params['encryption'] = self._normalize_value(encryption)
         if auto_tls is not None:
-            api_params['autoTLS'] = self._normalize_value(
-                auto_tls,
-            )
+            api_params['autoTLS'] = self._normalize_value(auto_tls)
         if mailer is not None:
-            api_params['mailer'] = self._normalize_value(
-                mailer,
-            )
+            api_params['mailer'] = self._normalize_value(mailer)
         if from_name is not None:
-            api_params['fromName'] = self._normalize_value(
-                from_name,
-            )
+            api_params['fromName'] = self._normalize_value(from_name)
         if from_email is not None:
-            api_params['fromEmail'] = self._normalize_value(
-                from_email,
-            )
+            api_params['fromEmail'] = self._normalize_value(from_email)
         if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(
-                reply_to_name,
-            )
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(
-                reply_to_email,
-            )
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'patch',
@@ -2574,28 +2156,16 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
         if customer_id is not None:
-            api_params['customerId'] = self._normalize_value(
-                customer_id,
-            )
+            api_params['customerId'] = self._normalize_value(customer_id)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -2653,25 +2223,15 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if customer_id is not None:
-            api_params['customerId'] = self._normalize_value(
-                customer_id,
-            )
+            api_params['customerId'] = self._normalize_value(customer_id)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
 
         response = self.client.call(
             'patch',
@@ -2729,28 +2289,16 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
         if username is not None:
-            api_params['username'] = self._normalize_value(
-                username,
-            )
+            api_params['username'] = self._normalize_value(username)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -2808,25 +2356,15 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if username is not None:
-            api_params['username'] = self._normalize_value(
-                username,
-            )
+            api_params['username'] = self._normalize_value(username)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
 
         response = self.client.call(
             'patch',
@@ -2884,28 +2422,16 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
         if account_sid is not None:
-            api_params['accountSid'] = self._normalize_value(
-                account_sid,
-            )
+            api_params['accountSid'] = self._normalize_value(account_sid)
         if auth_token is not None:
-            api_params['authToken'] = self._normalize_value(
-                auth_token,
-            )
+            api_params['authToken'] = self._normalize_value(auth_token)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -2963,25 +2489,15 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if account_sid is not None:
-            api_params['accountSid'] = self._normalize_value(
-                account_sid,
-            )
+            api_params['accountSid'] = self._normalize_value(account_sid)
         if auth_token is not None:
-            api_params['authToken'] = self._normalize_value(
-                auth_token,
-            )
+            api_params['authToken'] = self._normalize_value(auth_token)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
 
         response = self.client.call(
             'patch',
@@ -3039,28 +2555,16 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['providerId'] = self._normalize_value(
-            provider_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['providerId'] = self._normalize_value(provider_id)
+        api_params['name'] = self._normalize_value(name)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if api_secret is not None:
-            api_params['apiSecret'] = self._normalize_value(
-                api_secret,
-            )
+            api_params['apiSecret'] = self._normalize_value(api_secret)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -3118,25 +2622,15 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "provider_id"')
         api_path = api_path.replace('{providerId}', str(self._normalize_value(provider_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if api_key is not None:
-            api_params['apiKey'] = self._normalize_value(
-                api_key,
-            )
+            api_params['apiKey'] = self._normalize_value(api_key)
         if api_secret is not None:
-            api_params['apiSecret'] = self._normalize_value(
-                api_secret,
-            )
+            api_params['apiSecret'] = self._normalize_value(api_secret)
         if xfrom is not None:
-            api_params['from'] = self._normalize_value(
-                xfrom,
-            )
+            api_params['from'] = self._normalize_value(xfrom)
 
         response = self.client.call(
             'patch',
@@ -3262,17 +2756,11 @@ class Messaging(Service):
         api_path = '/messaging/topics'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -3320,16 +2808,10 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "topic_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['topicId'] = self._normalize_value(
-            topic_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['topicId'] = self._normalize_value(topic_id)
+        api_params['name'] = self._normalize_value(name)
         if subscribe is not None:
-            api_params['subscribe'] = self._normalize_value(
-                subscribe,
-            )
+            api_params['subscribe'] = self._normalize_value(subscribe)
 
         response = self.client.call(
             'post',
@@ -3418,13 +2900,9 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "topic_id"')
         api_path = api_path.replace('{topicId}', str(self._normalize_value(topic_id)))
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
         if subscribe is not None:
-            api_params['subscribe'] = self._normalize_value(
-                subscribe,
-            )
+            api_params['subscribe'] = self._normalize_value(subscribe)
 
         response = self.client.call(
             'patch',
@@ -3516,17 +2994,11 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "topic_id"')
         api_path = api_path.replace('{topicId}', str(self._normalize_value(topic_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -3577,12 +3049,8 @@ class Messaging(Service):
         if target_id is None:
             raise AppwriteException('Missing required parameter: "target_id"')
         api_path = api_path.replace('{topicId}', str(self._normalize_value(topic_id)))
-        api_params['subscriberId'] = self._normalize_value(
-            subscriber_id,
-        )
-        api_params['targetId'] = self._normalize_value(
-            target_id,
-        )
+        api_params['subscriberId'] = self._normalize_value(subscriber_id)
+        api_params['targetId'] = self._normalize_value(target_id)
 
         response = self.client.call(
             'post',

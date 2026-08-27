@@ -45,17 +45,11 @@ class Presences(Service):
         api_path = '/presences'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'get',
@@ -94,9 +88,7 @@ class Presences(Service):
         api_path = '/presences/usage'
         api_params = {}
         if range is not None:
-            api_params['range'] = self._normalize_value(
-                range,
-            )
+            api_params['range'] = self._normalize_value(range)
 
         response = self.client.call(
             'get',
@@ -191,21 +183,13 @@ class Presences(Service):
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
         api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
-        api_params['status'] = self._normalize_value(
-            status,
-        )
+        api_params['status'] = self._normalize_value(status)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if expires_at is not None:
-            api_params['expiresAt'] = self._normalize_value(
-                expires_at,
-            )
+            api_params['expiresAt'] = self._normalize_value(expires_at)
         if metadata is not None:
-            api_params['metadata'] = self._normalize_value(
-                metadata,
-            )
+            api_params['metadata'] = self._normalize_value(metadata)
 
         response = self.client.call(
             'put',
@@ -263,25 +247,15 @@ class Presences(Service):
             raise AppwriteException('Missing required parameter: "presence_id"')
         api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
         if status is not None:
-            api_params['status'] = self._normalize_value(
-                status,
-            )
+            api_params['status'] = self._normalize_value(status)
         if expires_at is not None:
-            api_params['expiresAt'] = self._normalize_value(
-                expires_at,
-            )
+            api_params['expiresAt'] = self._normalize_value(expires_at)
         if metadata is not None:
-            api_params['metadata'] = self._normalize_value(
-                metadata,
-            )
+            api_params['metadata'] = self._normalize_value(metadata)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if purge is not None:
-            api_params['purge'] = self._normalize_value(
-                purge,
-            )
+            api_params['purge'] = self._normalize_value(purge)
 
         response = self.client.call(
             'patch',

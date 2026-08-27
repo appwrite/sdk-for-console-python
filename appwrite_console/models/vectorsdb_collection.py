@@ -41,60 +41,21 @@ class VectorsdbCollection(AppwriteModel):
         Embedding dimension.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='databaseId',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    documentsecurity: bool = Field(
-        ...,
-        alias='documentSecurity',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    databaseid: str = Field(..., alias='databaseId')
+    name: str = Field(..., alias='name')
+    enabled: bool = Field(..., alias='enabled')
+    documentsecurity: bool = Field(..., alias='documentSecurity')
     attributes: List[
         Union[
             AttributeObject,
             AttributeVector,
         ]
-    ] = Field(
-        ...,
-        alias='attributes',
-    )
-    indexes: List[Index] = Field(
-        ...,
-        alias='indexes',
-    )
-    bytesmax: float = Field(
-        ...,
-        alias='bytesMax',
-    )
-    bytesused: float = Field(
-        ...,
-        alias='bytesUsed',
-    )
-    dimension: float = Field(
-        ...,
-        alias='dimension',
-    )
+    ] = Field(..., alias='attributes')
+    indexes: List[Index] = Field(..., alias='indexes')
+    bytesmax: float = Field(..., alias='bytesMax')
+    bytesused: float = Field(..., alias='bytesUsed')
+    dimension: float = Field(..., alias='dimension')

@@ -16,11 +16,5 @@ class Metric(AppwriteModel):
         The date at which this metric was aggregated in ISO 8601 format.
     """
 
-    value: float = Field(
-        ...,
-        alias='value',
-    )
-    date: str = Field(
-        ...,
-        alias='date',
-    )
+    value: float = Field(..., alias='value')
+    date: str = Field(..., alias='date')

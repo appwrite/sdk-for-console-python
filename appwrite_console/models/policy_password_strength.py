@@ -24,27 +24,9 @@ class PolicyPasswordStrength(AppwriteModel):
         Whether passwords must include at least one symbol.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    min: float = Field(
-        ...,
-        alias='min',
-    )
-    uppercase: bool = Field(
-        ...,
-        alias='uppercase',
-    )
-    lowercase: bool = Field(
-        ...,
-        alias='lowercase',
-    )
-    number: bool = Field(
-        ...,
-        alias='number',
-    )
-    symbols: bool = Field(
-        ...,
-        alias='symbols',
-    )
+    id: str = Field(..., alias='$id')
+    min: float = Field(..., alias='min')
+    uppercase: bool = Field(..., alias='uppercase')
+    lowercase: bool = Field(..., alias='lowercase')
+    number: bool = Field(..., alias='number')
+    symbols: bool = Field(..., alias='symbols')

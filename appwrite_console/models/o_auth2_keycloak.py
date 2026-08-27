@@ -24,27 +24,9 @@ class OAuth2Keycloak(AppwriteModel):
         Keycloak OAuth2 realm name.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    endpoint: str = Field(
-        ...,
-        alias='endpoint',
-    )
-    realmname: str = Field(
-        ...,
-        alias='realmName',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    clientsecret: str = Field(..., alias='clientSecret')
+    endpoint: str = Field(..., alias='endpoint')
+    realmname: str = Field(..., alias='realmName')

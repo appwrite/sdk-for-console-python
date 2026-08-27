@@ -17,11 +17,5 @@ class DedicatedDatabaseList(AppwriteModel):
         List of databases.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    databases: List[DedicatedDatabase] = Field(
-        ...,
-        alias='databases',
-    )
+    total: float = Field(..., alias='total')
+    databases: List[DedicatedDatabase] = Field(..., alias='databases')

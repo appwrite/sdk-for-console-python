@@ -58,10 +58,7 @@ class OAuth2ProviderList(AppwriteModel):
         List of OAuth2 providers.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
+    total: float = Field(..., alias='total')
     providers: List[
         Union[
             OAuth2Github,
@@ -107,7 +104,4 @@ class OAuth2ProviderList(AppwriteModel):
             OAuth2Microsoft,
             OAuth2HuggingFace,
         ]
-    ] = Field(
-        ...,
-        alias='providers',
-    )
+    ] = Field(..., alias='providers')

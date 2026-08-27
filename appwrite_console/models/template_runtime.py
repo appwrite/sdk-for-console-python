@@ -20,19 +20,7 @@ class TemplateRuntime(AppwriteModel):
         Path to function in VCS (Version Control System) repository
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    commands: str = Field(
-        ...,
-        alias='commands',
-    )
-    entrypoint: str = Field(
-        ...,
-        alias='entrypoint',
-    )
-    providerrootdirectory: str = Field(
-        ...,
-        alias='providerRootDirectory',
-    )
+    name: str = Field(..., alias='name')
+    commands: str = Field(..., alias='commands')
+    entrypoint: str = Field(..., alias='entrypoint')
+    providerrootdirectory: str = Field(..., alias='providerRootDirectory')

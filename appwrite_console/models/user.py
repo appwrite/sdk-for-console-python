@@ -75,30 +75,12 @@ class User(AppwriteModel, Generic[T]):
         ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    password: Optional[str] = Field(
-        default=None,
-        alias='password',
-    )
-    hash: Optional[str] = Field(
-        default=None,
-        alias='hash',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    password: Optional[str] = Field(default=None, alias='password')
+    hash: Optional[str] = Field(default=None, alias='hash')
     hashoptions: Optional[
         Union[
             AlgoArgon2,
@@ -109,86 +91,26 @@ class User(AppwriteModel, Generic[T]):
             AlgoSha,
             AlgoMd5,
         ]
-    ] = Field(
-        default=None,
-        alias='hashOptions',
-    )
-    registration: str = Field(
-        ...,
-        alias='registration',
-    )
-    status: bool = Field(
-        ...,
-        alias='status',
-    )
-    labels: List[Any] = Field(
-        ...,
-        alias='labels',
-    )
-    passwordupdate: str = Field(
-        ...,
-        alias='passwordUpdate',
-    )
-    email: str = Field(
-        ...,
-        alias='email',
-    )
-    phone: str = Field(
-        ...,
-        alias='phone',
-    )
-    emailverification: bool = Field(
-        ...,
-        alias='emailVerification',
-    )
-    emailcanonical: Optional[str] = Field(
-        default=None,
-        alias='emailCanonical',
-    )
-    emailisfree: Optional[bool] = Field(
-        default=None,
-        alias='emailIsFree',
-    )
-    emailisdisposable: Optional[bool] = Field(
-        default=None,
-        alias='emailIsDisposable',
-    )
-    emailiscorporate: Optional[bool] = Field(
-        default=None,
-        alias='emailIsCorporate',
-    )
-    emailiscanonical: Optional[bool] = Field(
-        default=None,
-        alias='emailIsCanonical',
-    )
-    phoneverification: bool = Field(
-        ...,
-        alias='phoneVerification',
-    )
-    mfa: bool = Field(
-        ...,
-        alias='mfa',
-    )
-    prefs: Preferences[T] = Field(
-        ...,
-        alias='prefs',
-    )
-    targets: List[Target] = Field(
-        ...,
-        alias='targets',
-    )
-    accessedat: str = Field(
-        ...,
-        alias='accessedAt',
-    )
-    impersonator: Optional[bool] = Field(
-        default=None,
-        alias='impersonator',
-    )
-    impersonatoruserid: Optional[str] = Field(
-        default=None,
-        alias='impersonatorUserId',
-    )
+    ] = Field(default=None, alias='hashOptions')
+    registration: str = Field(..., alias='registration')
+    status: bool = Field(..., alias='status')
+    labels: List[Any] = Field(..., alias='labels')
+    passwordupdate: str = Field(..., alias='passwordUpdate')
+    email: str = Field(..., alias='email')
+    phone: str = Field(..., alias='phone')
+    emailverification: bool = Field(..., alias='emailVerification')
+    emailcanonical: Optional[str] = Field(default=None, alias='emailCanonical')
+    emailisfree: Optional[bool] = Field(default=None, alias='emailIsFree')
+    emailisdisposable: Optional[bool] = Field(default=None, alias='emailIsDisposable')
+    emailiscorporate: Optional[bool] = Field(default=None, alias='emailIsCorporate')
+    emailiscanonical: Optional[bool] = Field(default=None, alias='emailIsCanonical')
+    phoneverification: bool = Field(..., alias='phoneVerification')
+    mfa: bool = Field(..., alias='mfa')
+    prefs: Preferences[T] = Field(..., alias='prefs')
+    targets: List[Target] = Field(..., alias='targets')
+    accessedat: str = Field(..., alias='accessedAt')
+    impersonator: Optional[bool] = Field(default=None, alias='impersonator')
+    impersonatoruserid: Optional[str] = Field(default=None, alias='impersonatorUserId')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'User[T]':

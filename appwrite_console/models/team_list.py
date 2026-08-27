@@ -19,14 +19,8 @@ class TeamList(AppwriteModel, Generic[T]):
         List of teams.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    teams: List[Team[T]] = Field(
-        ...,
-        alias='teams',
-    )
+    total: float = Field(..., alias='total')
+    teams: List[Team[T]] = Field(..., alias='teams')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'TeamList[T]':

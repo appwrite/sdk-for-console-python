@@ -17,11 +17,5 @@ class RuntimeList(AppwriteModel):
         List of runtimes.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    runtimes: List[Runtime] = Field(
-        ...,
-        alias='runtimes',
-    )
+    total: float = Field(..., alias='total')
+    runtimes: List[Runtime] = Field(..., alias='runtimes')

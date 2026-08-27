@@ -14,7 +14,4 @@ class AlgoSha(AppwriteModel):
         Algo type.
     """
 
-    type: str = Field(
-        ...,
-        alias='type',
-    )
+    type: str = Field(..., alias='type')

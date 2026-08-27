@@ -28,35 +28,11 @@ class BillingPlanAddonDetails(AppwriteModel):
         Description on invoice
     """
 
-    supported: bool = Field(
-        ...,
-        alias='supported',
-    )
-    planincluded: float = Field(
-        ...,
-        alias='planIncluded',
-    )
-    limit: float = Field(
-        ...,
-        alias='limit',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    currency: Optional[str] = Field(
-        default=None,
-        alias='currency',
-    )
-    price: float = Field(
-        ...,
-        alias='price',
-    )
-    value: float = Field(
-        ...,
-        alias='value',
-    )
-    invoicedesc: str = Field(
-        ...,
-        alias='invoiceDesc',
-    )
+    supported: bool = Field(..., alias='supported')
+    planincluded: float = Field(..., alias='planIncluded')
+    limit: float = Field(..., alias='limit')
+    type: str = Field(..., alias='type')
+    currency: Optional[str] = Field(default=None, alias='currency')
+    price: float = Field(..., alias='price')
+    value: float = Field(..., alias='value')
+    invoicedesc: str = Field(..., alias='invoiceDesc')

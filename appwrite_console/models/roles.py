@@ -16,11 +16,5 @@ class Roles(AppwriteModel):
         Array of roles assigned to current user.
     """
 
-    scopes: List[Any] = Field(
-        ...,
-        alias='scopes',
-    )
-    roles: List[Any] = Field(
-        ...,
-        alias='roles',
-    )
+    scopes: List[Any] = Field(..., alias='scopes')
+    roles: List[Any] = Field(..., alias='roles')

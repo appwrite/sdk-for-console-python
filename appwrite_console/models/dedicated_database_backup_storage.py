@@ -22,23 +22,8 @@ class DedicatedDatabaseBackupStorage(AppwriteModel):
         Custom endpoint for S3-compatible storage.
     """
 
-    provider: str = Field(
-        ...,
-        alias='provider',
-    )
-    bucket: str = Field(
-        ...,
-        alias='bucket',
-    )
-    region: str = Field(
-        ...,
-        alias='region',
-    )
-    prefix: str = Field(
-        ...,
-        alias='prefix',
-    )
-    endpoint: str = Field(
-        ...,
-        alias='endpoint',
-    )
+    provider: str = Field(..., alias='provider')
+    bucket: str = Field(..., alias='bucket')
+    region: str = Field(..., alias='region')
+    prefix: str = Field(..., alias='prefix')
+    endpoint: str = Field(..., alias='endpoint')

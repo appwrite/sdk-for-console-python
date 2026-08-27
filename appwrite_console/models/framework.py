@@ -23,23 +23,8 @@ class Framework(AppwriteModel):
         List of supported adapters.
     """
 
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    buildruntime: str = Field(
-        ...,
-        alias='buildRuntime',
-    )
-    runtimes: List[Any] = Field(
-        ...,
-        alias='runtimes',
-    )
-    adapters: List[FrameworkAdapter] = Field(
-        ...,
-        alias='adapters',
-    )
+    key: str = Field(..., alias='key')
+    name: str = Field(..., alias='name')
+    buildruntime: str = Field(..., alias='buildRuntime')
+    runtimes: List[Any] = Field(..., alias='runtimes')
+    adapters: List[FrameworkAdapter] = Field(..., alias='adapters')

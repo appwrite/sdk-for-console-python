@@ -18,15 +18,6 @@ class Phone(AppwriteModel):
         Country name.
     """
 
-    code: str = Field(
-        ...,
-        alias='code',
-    )
-    countrycode: str = Field(
-        ...,
-        alias='countryCode',
-    )
-    countryname: str = Field(
-        ...,
-        alias='countryName',
-    )
+    code: str = Field(..., alias='code')
+    countrycode: str = Field(..., alias='countryCode')
+    countryname: str = Field(..., alias='countryName')

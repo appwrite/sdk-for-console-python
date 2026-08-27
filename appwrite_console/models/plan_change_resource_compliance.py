@@ -24,27 +24,9 @@ class PlanChangeResourceCompliance(AppwriteModel):
         Suggestion for resolving the compliance issue. Empty when the resource is within limits.
     """
 
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    currentusage: float = Field(
-        ...,
-        alias='currentUsage',
-    )
-    limit: float = Field(
-        ...,
-        alias='limit',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    excess: float = Field(
-        ...,
-        alias='excess',
-    )
-    resolutionhint: str = Field(
-        ...,
-        alias='resolutionHint',
-    )
+    type: str = Field(..., alias='type')
+    currentusage: float = Field(..., alias='currentUsage')
+    limit: float = Field(..., alias='limit')
+    status: str = Field(..., alias='status')
+    excess: float = Field(..., alias='excess')
+    resolutionhint: str = Field(..., alias='resolutionHint')

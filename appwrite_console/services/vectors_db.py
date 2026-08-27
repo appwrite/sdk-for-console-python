@@ -57,13 +57,9 @@ class VectorsDB(Service):
         api_path = '/vectorsdb'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -120,28 +116,16 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(
-                replicas,
-            )
+            api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(
-                sync_mode,
-            )
+            api_params['syncMode'] = self._normalize_value(sync_mode)
 
         response = self.client.call(
             'post',
@@ -212,9 +196,7 @@ class VectorsDB(Service):
         api_path = '/vectorsdb/transactions'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -253,9 +235,7 @@ class VectorsDB(Service):
         api_path = '/vectorsdb/transactions'
         api_params = {}
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'post',
@@ -344,13 +324,9 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if commit is not None:
-            api_params['commit'] = self._normalize_value(
-                commit,
-            )
+            api_params['commit'] = self._normalize_value(commit)
         if rollback is not None:
-            api_params['rollback'] = self._normalize_value(
-                rollback,
-            )
+            api_params['rollback'] = self._normalize_value(rollback)
 
         response = self.client.call(
             'patch',
@@ -436,9 +412,7 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if operations is not None:
-            api_params['operations'] = self._normalize_value(
-                operations,
-            )
+            api_params['operations'] = self._normalize_value(operations)
 
         response = self.client.call(
             'post',
@@ -537,25 +511,15 @@ class VectorsDB(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if specification is not None:
-            api_params['specification'] = self._normalize_value(
-                specification,
-            )
+            api_params['specification'] = self._normalize_value(specification)
         if replicas is not None:
-            api_params['replicas'] = self._normalize_value(
-                replicas,
-            )
+            api_params['replicas'] = self._normalize_value(replicas)
         if sync_mode is not None:
-            api_params['syncMode'] = self._normalize_value(
-                sync_mode,
-            )
+            api_params['syncMode'] = self._normalize_value(sync_mode)
 
         response = self.client.call(
             'put',
@@ -647,17 +611,11 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -722,27 +680,15 @@ class VectorsDB(Service):
         if dimension is None:
             raise AppwriteException('Missing required parameter: "dimension"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
-        api_params['collectionId'] = self._normalize_value(
-            collection_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['dimension'] = self._normalize_value(
-            dimension,
-        )
+        api_params['collectionId'] = self._normalize_value(collection_id)
+        api_params['name'] = self._normalize_value(name)
+        api_params['dimension'] = self._normalize_value(dimension)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if document_security is not None:
-            api_params['documentSecurity'] = self._normalize_value(
-                document_security,
-            )
+            api_params['documentSecurity'] = self._normalize_value(document_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'post',
@@ -853,25 +799,15 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
         if dimension is not None:
-            api_params['dimension'] = self._normalize_value(
-                dimension,
-            )
+            api_params['dimension'] = self._normalize_value(dimension)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if document_security is not None:
-            api_params['documentSecurity'] = self._normalize_value(
-                document_security,
-            )
+            api_params['documentSecurity'] = self._normalize_value(document_security)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
 
         response = self.client.call(
             'put',
@@ -982,21 +918,13 @@ class VectorsDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'get',
@@ -1060,16 +988,10 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "data"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['documentId'] = self._normalize_value(
-            document_id,
-        )
-        api_params['data'] = self._normalize_value(
-            data,
-        )
+        api_params['documentId'] = self._normalize_value(document_id)
+        api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
 
         response = self.client.call(
             'post',
@@ -1126,9 +1048,7 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "documents"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['documents'] = self._normalize_value(
-            documents,
-        )
+        api_params['documents'] = self._normalize_value(documents)
 
         response = self.client.call(
             'post',
@@ -1188,13 +1108,9 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "documents"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['documents'] = self._normalize_value(
-            documents,
-        )
+        api_params['documents'] = self._normalize_value(documents)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'put',
@@ -1256,17 +1172,11 @@ class VectorsDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -1325,13 +1235,9 @@ class VectorsDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'delete',
@@ -1396,21 +1302,13 @@ class VectorsDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
         if ttl is not None:
-            api_params['ttl'] = self._normalize_value(
-                ttl,
-            )
+            api_params['ttl'] = self._normalize_value(ttl)
 
         response = self.client.call(
             'post',
@@ -1475,13 +1373,9 @@ class VectorsDB(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'get',
@@ -1548,17 +1442,11 @@ class VectorsDB(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'put',
@@ -1626,17 +1514,11 @@ class VectorsDB(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
         if permissions is not None:
-            api_params['permissions'] = self._normalize_value(
-                permissions,
-            )
+            api_params['permissions'] = self._normalize_value(permissions)
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'patch',
@@ -1694,9 +1576,7 @@ class VectorsDB(Service):
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         api_path = api_path.replace('{documentId}', str(self._normalize_value(document_id)))
         if transaction_id is not None:
-            api_params['transactionId'] = self._normalize_value(
-                transaction_id,
-            )
+            api_params['transactionId'] = self._normalize_value(transaction_id)
 
         response = self.client.call(
             'delete',
@@ -1750,13 +1630,9 @@ class VectorsDB(Service):
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1825,23 +1701,13 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "attributes"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
-        api_params['key'] = self._normalize_value(
-            key,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
-        api_params['attributes'] = self._normalize_value(
-            attributes,
-        )
+        api_params['key'] = self._normalize_value(key)
+        api_params['type'] = self._normalize_value(type)
+        api_params['attributes'] = self._normalize_value(attributes)
         if orders is not None:
-            api_params['orders'] = self._normalize_value(
-                orders,
-            )
+            api_params['orders'] = self._normalize_value(orders)
         if lengths is not None:
-            api_params['lengths'] = self._normalize_value(
-                lengths,
-            )
+            api_params['lengths'] = self._normalize_value(lengths)
 
         response = self.client.call(
             'post',
@@ -1991,9 +1857,7 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if target_replica_id is not None:
-            api_params['targetReplicaId'] = self._normalize_value(
-                target_replica_id,
-            )
+            api_params['targetReplicaId'] = self._normalize_value(target_replica_id)
 
         response = self.client.call(
             'post',
@@ -2045,17 +1909,11 @@ class VectorsDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if status is not None:
-            api_params['status'] = self._normalize_value(
-                status,
-            )
+            api_params['status'] = self._normalize_value(status)
         if limit is not None:
-            api_params['limit'] = self._normalize_value(
-                limit,
-            )
+            api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
-            api_params['offset'] = self._normalize_value(
-                offset,
-            )
+            api_params['offset'] = self._normalize_value(offset)
 
         response = self.client.call(
             'get',

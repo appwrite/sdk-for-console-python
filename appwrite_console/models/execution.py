@@ -54,79 +54,22 @@ class Execution(AppwriteModel):
         The scheduled time for execution. If left empty, execution will be queued immediately.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    resourcetype: ExecutionResourceType = Field(
-        ...,
-        alias='resourceType',
-    )
-    deploymentid: str = Field(
-        ...,
-        alias='deploymentId',
-    )
-    trigger: ExecutionTrigger = Field(
-        ...,
-        alias='trigger',
-    )
-    status: ExecutionStatus = Field(
-        ...,
-        alias='status',
-    )
-    requestmethod: str = Field(
-        ...,
-        alias='requestMethod',
-    )
-    requestpath: str = Field(
-        ...,
-        alias='requestPath',
-    )
-    requestheaders: List[Headers] = Field(
-        ...,
-        alias='requestHeaders',
-    )
-    responsestatuscode: float = Field(
-        ...,
-        alias='responseStatusCode',
-    )
-    responsebody: str = Field(
-        ...,
-        alias='responseBody',
-    )
-    responseheaders: List[Headers] = Field(
-        ...,
-        alias='responseHeaders',
-    )
-    logs: str = Field(
-        ...,
-        alias='logs',
-    )
-    errors: str = Field(
-        ...,
-        alias='errors',
-    )
-    duration: float = Field(
-        ...,
-        alias='duration',
-    )
-    scheduledat: Optional[str] = Field(
-        default=None,
-        alias='scheduledAt',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    resourceid: str = Field(..., alias='resourceId')
+    resourcetype: ExecutionResourceType = Field(..., alias='resourceType')
+    deploymentid: str = Field(..., alias='deploymentId')
+    trigger: ExecutionTrigger = Field(..., alias='trigger')
+    status: ExecutionStatus = Field(..., alias='status')
+    requestmethod: str = Field(..., alias='requestMethod')
+    requestpath: str = Field(..., alias='requestPath')
+    requestheaders: List[Headers] = Field(..., alias='requestHeaders')
+    responsestatuscode: float = Field(..., alias='responseStatusCode')
+    responsebody: str = Field(..., alias='responseBody')
+    responseheaders: List[Headers] = Field(..., alias='responseHeaders')
+    logs: str = Field(..., alias='logs')
+    errors: str = Field(..., alias='errors')
+    duration: float = Field(..., alias='duration')
+    scheduledat: Optional[str] = Field(default=None, alias='scheduledAt')

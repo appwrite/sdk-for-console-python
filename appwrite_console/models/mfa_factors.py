@@ -22,23 +22,8 @@ class MfaFactors(AppwriteModel):
         Can custom factor be used for MFA challenge for this account.
     """
 
-    totp: bool = Field(
-        ...,
-        alias='totp',
-    )
-    phone: bool = Field(
-        ...,
-        alias='phone',
-    )
-    email: bool = Field(
-        ...,
-        alias='email',
-    )
-    recoverycode: bool = Field(
-        ...,
-        alias='recoveryCode',
-    )
-    custom: bool = Field(
-        ...,
-        alias='custom',
-    )
+    totp: bool = Field(..., alias='totp')
+    phone: bool = Field(..., alias='phone')
+    email: bool = Field(..., alias='email')
+    recoverycode: bool = Field(..., alias='recoveryCode')
+    custom: bool = Field(..., alias='custom')

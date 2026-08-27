@@ -17,11 +17,5 @@ class ReportList(AppwriteModel):
         List of reports.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    reports: List[Report] = Field(
-        ...,
-        alias='reports',
-    )
+    total: float = Field(..., alias='total')
+    reports: List[Report] = Field(..., alias='reports')

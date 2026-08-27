@@ -39,55 +39,16 @@ class Message(AppwriteModel):
         Status of delivery.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    providertype: str = Field(
-        ...,
-        alias='providerType',
-    )
-    topics: List[Any] = Field(
-        ...,
-        alias='topics',
-    )
-    users: List[Any] = Field(
-        ...,
-        alias='users',
-    )
-    targets: List[Any] = Field(
-        ...,
-        alias='targets',
-    )
-    scheduledat: Optional[str] = Field(
-        default=None,
-        alias='scheduledAt',
-    )
-    deliveredat: Optional[str] = Field(
-        default=None,
-        alias='deliveredAt',
-    )
-    deliveryerrors: Optional[List[Any]] = Field(
-        default=None,
-        alias='deliveryErrors',
-    )
-    deliveredtotal: float = Field(
-        ...,
-        alias='deliveredTotal',
-    )
-    data: Dict[str, Any] = Field(
-        ...,
-        alias='data',
-    )
-    status: MessageStatus = Field(
-        ...,
-        alias='status',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    providertype: str = Field(..., alias='providerType')
+    topics: List[Any] = Field(..., alias='topics')
+    users: List[Any] = Field(..., alias='users')
+    targets: List[Any] = Field(..., alias='targets')
+    scheduledat: Optional[str] = Field(default=None, alias='scheduledAt')
+    deliveredat: Optional[str] = Field(default=None, alias='deliveredAt')
+    deliveryerrors: Optional[List[Any]] = Field(default=None, alias='deliveryErrors')
+    deliveredtotal: float = Field(..., alias='deliveredTotal')
+    data: Dict[str, Any] = Field(..., alias='data')
+    status: MessageStatus = Field(..., alias='status')

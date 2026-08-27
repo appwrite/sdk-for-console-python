@@ -19,14 +19,8 @@ class RowList(AppwriteModel, Generic[T]):
         List of rows.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    rows: List[Row[T]] = Field(
-        ...,
-        alias='rows',
-    )
+    total: float = Field(..., alias='total')
+    rows: List[Row[T]] = Field(..., alias='rows')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'RowList[T]':

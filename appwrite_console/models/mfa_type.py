@@ -16,11 +16,5 @@ class MfaType(AppwriteModel):
         URI for authenticator apps.
     """
 
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    uri: str = Field(
-        ...,
-        alias='uri',
-    )
+    secret: str = Field(..., alias='secret')
+    uri: str = Field(..., alias='uri')

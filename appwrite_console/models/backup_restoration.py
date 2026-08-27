@@ -34,47 +34,14 @@ class BackupRestoration(AppwriteModel):
         Optional data in key-value object.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    archiveid: str = Field(
-        ...,
-        alias='archiveId',
-    )
-    policyid: str = Field(
-        ...,
-        alias='policyId',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    startedat: str = Field(
-        ...,
-        alias='startedAt',
-    )
-    migrationid: str = Field(
-        ...,
-        alias='migrationId',
-    )
-    services: List[Any] = Field(
-        ...,
-        alias='services',
-    )
-    resources: List[Any] = Field(
-        ...,
-        alias='resources',
-    )
-    options: str = Field(
-        ...,
-        alias='options',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    archiveid: str = Field(..., alias='archiveId')
+    policyid: str = Field(..., alias='policyId')
+    status: str = Field(..., alias='status')
+    startedat: str = Field(..., alias='startedAt')
+    migrationid: str = Field(..., alias='migrationId')
+    services: List[Any] = Field(..., alias='services')
+    resources: List[Any] = Field(..., alias='resources')
+    options: str = Field(..., alias='options')

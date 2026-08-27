@@ -17,11 +17,5 @@ class ProviderList(AppwriteModel):
         List of providers.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    providers: List[Provider] = Field(
-        ...,
-        alias='providers',
-    )
+    total: float = Field(..., alias='total')
+    providers: List[Provider] = Field(..., alias='providers')

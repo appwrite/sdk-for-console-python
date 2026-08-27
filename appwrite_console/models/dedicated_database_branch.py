@@ -36,51 +36,15 @@ class DedicatedDatabaseBranch(AppwriteModel):
         Full connection string for the branch.
     """
 
-    branchid: str = Field(
-        ...,
-        alias='branchId',
-    )
-    branchname: str = Field(
-        ...,
-        alias='branchName',
-    )
-    namespace: str = Field(
-        ...,
-        alias='namespace',
-    )
-    expiresat: float = Field(
-        ...,
-        alias='expiresAt',
-    )
-    host: str = Field(
-        ...,
-        alias='host',
-    )
-    port: float = Field(
-        ...,
-        alias='port',
-    )
-    database: str = Field(
-        ...,
-        alias='database',
-    )
-    username: str = Field(
-        ...,
-        alias='username',
-    )
-    password: str = Field(
-        ...,
-        alias='password',
-    )
-    ssl: bool = Field(
-        ...,
-        alias='ssl',
-    )
-    engine: str = Field(
-        ...,
-        alias='engine',
-    )
-    connectionstring: str = Field(
-        ...,
-        alias='connectionString',
-    )
+    branchid: str = Field(..., alias='branchId')
+    branchname: str = Field(..., alias='branchName')
+    namespace: str = Field(..., alias='namespace')
+    expiresat: float = Field(..., alias='expiresAt')
+    host: str = Field(..., alias='host')
+    port: float = Field(..., alias='port')
+    database: str = Field(..., alias='database')
+    username: str = Field(..., alias='username')
+    password: str = Field(..., alias='password')
+    ssl: bool = Field(..., alias='ssl')
+    engine: str = Field(..., alias='engine')
+    connectionstring: str = Field(..., alias='connectionString')

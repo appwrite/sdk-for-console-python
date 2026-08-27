@@ -67,17 +67,11 @@ class Users(Service):
         api_path = '/users'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -133,25 +127,15 @@ class Users(Service):
         api_params = {}
         if user_id is None:
             raise AppwriteException('Missing required parameter: "user_id"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
         if email is not None:
-            api_params['email'] = self._normalize_value(
-                email,
-            )
+            api_params['email'] = self._normalize_value(email)
         if phone is not None:
-            api_params['phone'] = self._normalize_value(
-                phone,
-            )
+            api_params['phone'] = self._normalize_value(phone)
         if password is not None:
-            api_params['password'] = self._normalize_value(
-                password,
-            )
+            api_params['password'] = self._normalize_value(password)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -209,19 +193,11 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "email"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -279,19 +255,11 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "email"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -337,17 +305,11 @@ class Users(Service):
         api_path = '/users/identities'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -444,19 +406,11 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "email"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -514,19 +468,11 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "email"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -609,34 +555,16 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "password_parallel"')
         if password_length is None:
             raise AppwriteException('Missing required parameter: "password_length"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
-        api_params['passwordSalt'] = self._normalize_value(
-            password_salt,
-        )
-        api_params['passwordCpu'] = self._normalize_value(
-            password_cpu,
-        )
-        api_params['passwordMemory'] = self._normalize_value(
-            password_memory,
-        )
-        api_params['passwordParallel'] = self._normalize_value(
-            password_parallel,
-        )
-        api_params['passwordLength'] = self._normalize_value(
-            password_length,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
+        api_params['passwordSalt'] = self._normalize_value(password_salt)
+        api_params['passwordCpu'] = self._normalize_value(password_cpu)
+        api_params['passwordMemory'] = self._normalize_value(password_memory)
+        api_params['passwordParallel'] = self._normalize_value(password_parallel)
+        api_params['passwordLength'] = self._normalize_value(password_length)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -709,28 +637,14 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "password_salt_separator"')
         if password_signer_key is None:
             raise AppwriteException('Missing required parameter: "password_signer_key"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
-        api_params['passwordSalt'] = self._normalize_value(
-            password_salt,
-        )
-        api_params['passwordSaltSeparator'] = self._normalize_value(
-            password_salt_separator,
-        )
-        api_params['passwordSignerKey'] = self._normalize_value(
-            password_signer_key,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
+        api_params['passwordSalt'] = self._normalize_value(password_salt)
+        api_params['passwordSaltSeparator'] = self._normalize_value(password_salt_separator)
+        api_params['passwordSignerKey'] = self._normalize_value(password_signer_key)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -791,23 +705,13 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "email"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['email'] = self._normalize_value(
-            email,
-        )
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['email'] = self._normalize_value(email)
+        api_params['password'] = self._normalize_value(password)
         if password_version is not None:
-            api_params['passwordVersion'] = self._normalize_value(
-                password_version,
-            )
+            api_params['passwordVersion'] = self._normalize_value(password_version)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -847,9 +751,7 @@ class Users(Service):
         api_path = '/users/usage'
         api_params = {}
         if range is not None:
-            api_params['range'] = self._normalize_value(
-                range,
-            )
+            api_params['range'] = self._normalize_value(range)
 
         response = self.client.call(
             'get',
@@ -983,9 +885,7 @@ class Users(Service):
         if email is None:
             raise AppwriteException('Missing required parameter: "email"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['email'] = self._normalize_value(
-            email,
-        )
+        api_params['email'] = self._normalize_value(email)
 
         response = self.client.call(
             'patch',
@@ -1036,9 +936,7 @@ class Users(Service):
         if impersonator is None:
             raise AppwriteException('Missing required parameter: "impersonator"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['impersonator'] = self._normalize_value(
-            impersonator,
-        )
+        api_params['impersonator'] = self._normalize_value(impersonator)
 
         response = self.client.call(
             'patch',
@@ -1087,13 +985,9 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if session_id is not None:
-            api_params['sessionId'] = self._normalize_value(
-                session_id,
-            )
+            api_params['sessionId'] = self._normalize_value(session_id)
         if duration is not None:
-            api_params['duration'] = self._normalize_value(
-                duration,
-            )
+            api_params['duration'] = self._normalize_value(duration)
 
         response = self.client.call(
             'post',
@@ -1146,9 +1040,7 @@ class Users(Service):
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['labels'] = self._normalize_value(
-            labels,
-        )
+        api_params['labels'] = self._normalize_value(labels)
 
         response = self.client.call(
             'put',
@@ -1197,13 +1089,9 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1254,17 +1142,11 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1314,9 +1196,7 @@ class Users(Service):
         if mfa is None:
             raise AppwriteException('Missing required parameter: "mfa"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['mfa'] = self._normalize_value(
-            mfa,
-        )
+        api_params['mfa'] = self._normalize_value(mfa)
 
         response = self.client.call(
             'patch',
@@ -1621,9 +1501,7 @@ class Users(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'patch',
@@ -1674,9 +1552,7 @@ class Users(Service):
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['password'] = self._normalize_value(
-            password,
-        )
+        api_params['password'] = self._normalize_value(password)
 
         response = self.client.call(
             'patch',
@@ -1727,9 +1603,7 @@ class Users(Service):
         if number is None:
             raise AppwriteException('Missing required parameter: "number"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['number'] = self._normalize_value(
-            number,
-        )
+        api_params['number'] = self._normalize_value(number)
 
         response = self.client.call(
             'patch',
@@ -1824,9 +1698,7 @@ class Users(Service):
         if prefs is None:
             raise AppwriteException('Missing required parameter: "prefs"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['prefs'] = self._normalize_value(
-            prefs,
-        )
+        api_params['prefs'] = self._normalize_value(prefs)
 
         response = self.client.call(
             'patch',
@@ -1872,9 +1744,7 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -2053,9 +1923,7 @@ class Users(Service):
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['status'] = self._normalize_value(
-            status,
-        )
+        api_params['status'] = self._normalize_value(status)
 
         response = self.client.call(
             'patch',
@@ -2104,13 +1972,9 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -2172,23 +2036,13 @@ class Users(Service):
         if identifier is None:
             raise AppwriteException('Missing required parameter: "identifier"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['targetId'] = self._normalize_value(
-            target_id,
-        )
-        api_params['providerType'] = self._normalize_value(
-            provider_type,
-        )
-        api_params['identifier'] = self._normalize_value(
-            identifier,
-        )
+        api_params['targetId'] = self._normalize_value(target_id)
+        api_params['providerType'] = self._normalize_value(provider_type)
+        api_params['identifier'] = self._normalize_value(identifier)
         if provider_id is not None:
-            api_params['providerId'] = self._normalize_value(
-                provider_id,
-            )
+            api_params['providerId'] = self._normalize_value(provider_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -2292,17 +2146,11 @@ class Users(Service):
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         api_path = api_path.replace('{targetId}', str(self._normalize_value(target_id)))
         if identifier is not None:
-            api_params['identifier'] = self._normalize_value(
-                identifier,
-            )
+            api_params['identifier'] = self._normalize_value(identifier)
         if provider_id is not None:
-            api_params['providerId'] = self._normalize_value(
-                provider_id,
-            )
+            api_params['providerId'] = self._normalize_value(provider_id)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'patch',
@@ -2397,13 +2245,9 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if length is not None:
-            api_params['length'] = self._normalize_value(
-                length,
-            )
+            api_params['length'] = self._normalize_value(length)
         if expire is not None:
-            api_params['expire'] = self._normalize_value(
-                expire,
-            )
+            api_params['expire'] = self._normalize_value(expire)
 
         response = self.client.call(
             'post',
@@ -2454,9 +2298,7 @@ class Users(Service):
         if email_verification is None:
             raise AppwriteException('Missing required parameter: "email_verification"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['emailVerification'] = self._normalize_value(
-            email_verification,
-        )
+        api_params['emailVerification'] = self._normalize_value(email_verification)
 
         response = self.client.call(
             'patch',
@@ -2507,9 +2349,7 @@ class Users(Service):
         if phone_verification is None:
             raise AppwriteException('Missing required parameter: "phone_verification"')
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
-        api_params['phoneVerification'] = self._normalize_value(
-            phone_verification,
-        )
+        api_params['phoneVerification'] = self._normalize_value(phone_verification)
 
         response = self.client.call(
             'patch',

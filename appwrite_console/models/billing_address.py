@@ -28,35 +28,11 @@ class BillingAddress(AppwriteModel):
         postal code
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    streetaddress: str = Field(
-        ...,
-        alias='streetAddress',
-    )
-    addressline2: str = Field(
-        ...,
-        alias='addressLine2',
-    )
-    country: str = Field(
-        ...,
-        alias='country',
-    )
-    city: str = Field(
-        ...,
-        alias='city',
-    )
-    state: str = Field(
-        ...,
-        alias='state',
-    )
-    postalcode: str = Field(
-        ...,
-        alias='postalCode',
-    )
+    id: str = Field(..., alias='$id')
+    userid: str = Field(..., alias='userId')
+    streetaddress: str = Field(..., alias='streetAddress')
+    addressline2: str = Field(..., alias='addressLine2')
+    country: str = Field(..., alias='country')
+    city: str = Field(..., alias='city')
+    state: str = Field(..., alias='state')
+    postalcode: str = Field(..., alias='postalCode')

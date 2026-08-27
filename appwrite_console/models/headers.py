@@ -16,11 +16,5 @@ class Headers(AppwriteModel):
         Header value.
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    value: str = Field(
-        ...,
-        alias='value',
-    )
+    name: str = Field(..., alias='name')
+    value: str = Field(..., alias='value')

@@ -55,17 +55,11 @@ class Teams(Service):
         api_path = '/teams'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -117,16 +111,10 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_params['teamId'] = self._normalize_value(
-            team_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['teamId'] = self._normalize_value(team_id)
+        api_params['name'] = self._normalize_value(name)
         if roles is not None:
-            api_params['roles'] = self._normalize_value(
-                roles,
-            )
+            api_params['roles'] = self._normalize_value(roles)
 
         response = self.client.call(
             'post',
@@ -221,9 +209,7 @@ class Teams(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'put',
@@ -312,13 +298,9 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -367,13 +349,9 @@ class Teams(Service):
         if app_id is None:
             raise AppwriteException('Missing required parameter: "app_id"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
-        api_params['appId'] = self._normalize_value(
-            app_id,
-        )
+        api_params['appId'] = self._normalize_value(app_id)
         if authorization_details is not None:
-            api_params['authorizationDetails'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorizationDetails'] = self._normalize_value(authorization_details)
 
         response = self.client.call(
             'post',
@@ -471,9 +449,7 @@ class Teams(Service):
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         if authorization_details is not None:
-            api_params['authorizationDetails'] = self._normalize_value(
-                authorization_details,
-            )
+            api_params['authorizationDetails'] = self._normalize_value(authorization_details)
 
         response = self.client.call(
             'put',
@@ -569,13 +545,9 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -626,17 +598,11 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -704,28 +670,16 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "roles"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if email is not None:
-            api_params['email'] = self._normalize_value(
-                email,
-            )
+            api_params['email'] = self._normalize_value(email)
         if user_id is not None:
-            api_params['userId'] = self._normalize_value(
-                user_id,
-            )
+            api_params['userId'] = self._normalize_value(user_id)
         if phone is not None:
-            api_params['phone'] = self._normalize_value(
-                phone,
-            )
-        api_params['roles'] = self._normalize_value(
-            roles,
-        )
+            api_params['phone'] = self._normalize_value(phone)
+        api_params['roles'] = self._normalize_value(roles)
         if url is not None:
-            api_params['url'] = self._normalize_value(
-                url,
-            )
+            api_params['url'] = self._normalize_value(url)
         if name is not None:
-            api_params['name'] = self._normalize_value(
-                name,
-            )
+            api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
             'post',
@@ -824,9 +778,7 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "roles"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         api_path = api_path.replace('{membershipId}', str(self._normalize_value(membership_id)))
-        api_params['roles'] = self._normalize_value(
-            roles,
-        )
+        api_params['roles'] = self._normalize_value(roles)
 
         response = self.client.call(
             'patch',
@@ -932,12 +884,8 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "secret"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         api_path = api_path.replace('{membershipId}', str(self._normalize_value(membership_id)))
-        api_params['userId'] = self._normalize_value(
-            user_id,
-        )
-        api_params['secret'] = self._normalize_value(
-            secret,
-        )
+        api_params['userId'] = self._normalize_value(user_id)
+        api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'patch',
@@ -1032,9 +980,7 @@ class Teams(Service):
         if prefs is None:
             raise AppwriteException('Missing required parameter: "prefs"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
-        api_params['prefs'] = self._normalize_value(
-            prefs,
-        )
+        api_params['prefs'] = self._normalize_value(prefs)
 
         response = self.client.call(
             'put',

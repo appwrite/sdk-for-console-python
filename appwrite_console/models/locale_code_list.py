@@ -17,11 +17,5 @@ class LocaleCodeList(AppwriteModel):
         List of localeCodes.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    localecodes: List[LocaleCode] = Field(
-        ...,
-        alias='localeCodes',
-    )
+    total: float = Field(..., alias='total')
+    localecodes: List[LocaleCode] = Field(..., alias='localeCodes')

@@ -17,11 +17,5 @@ class ContinentList(AppwriteModel):
         List of continents.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    continents: List[Continent] = Field(
-        ...,
-        alias='continents',
-    )
+    total: float = Field(..., alias='total')
+    continents: List[Continent] = Field(..., alias='continents')

@@ -20,19 +20,7 @@ class InsightCTA(AppwriteModel):
         Parameter map the client should pass to the service method when this CTA is triggered. Keys match the target API&#039;s parameter names (e.g. databaseId/tableId/columns for tablesDB, databaseId/collectionId/attributes for the legacy Databases API).
     """
 
-    label: str = Field(
-        ...,
-        alias='label',
-    )
-    service: str = Field(
-        ...,
-        alias='service',
-    )
-    method: str = Field(
-        ...,
-        alias='method',
-    )
-    params: Dict[str, Any] = Field(
-        ...,
-        alias='params',
-    )
+    label: str = Field(..., alias='label')
+    service: str = Field(..., alias='service')
+    method: str = Field(..., alias='method')
+    params: Dict[str, Any] = Field(..., alias='params')

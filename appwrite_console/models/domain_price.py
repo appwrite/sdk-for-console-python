@@ -24,27 +24,9 @@ class DomainPrice(AppwriteModel):
         Whether the domain is a premium domain.
     """
 
-    domain: str = Field(
-        ...,
-        alias='domain',
-    )
-    tld: str = Field(
-        ...,
-        alias='tld',
-    )
-    available: bool = Field(
-        ...,
-        alias='available',
-    )
-    price: float = Field(
-        ...,
-        alias='price',
-    )
-    periodyears: float = Field(
-        ...,
-        alias='periodYears',
-    )
-    premium: bool = Field(
-        ...,
-        alias='premium',
-    )
+    domain: str = Field(..., alias='domain')
+    tld: str = Field(..., alias='tld')
+    available: bool = Field(..., alias='available')
+    price: float = Field(..., alias='price')
+    periodyears: float = Field(..., alias='periodYears')
+    premium: bool = Field(..., alias='premium')

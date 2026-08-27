@@ -17,11 +17,5 @@ class DedicatedDatabaseOperationList(AppwriteModel):
         List of operations.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    operations: List[DedicatedDatabaseOperation] = Field(
-        ...,
-        alias='operations',
-    )
+    total: float = Field(..., alias='total')
+    operations: List[DedicatedDatabaseOperation] = Field(..., alias='operations')

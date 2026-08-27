@@ -16,11 +16,5 @@ class PolicySessionAlert(AppwriteModel):
         Whether session alert policy is enabled.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')

@@ -59,95 +59,26 @@ class Invoice(AppwriteModel):
         End date of the invoice
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
-    teamid: str = Field(
-        ...,
-        alias='teamId',
-    )
-    aggregationid: str = Field(
-        ...,
-        alias='aggregationId',
-    )
-    plan: str = Field(
-        ...,
-        alias='plan',
-    )
-    usage: List[UsageResources] = Field(
-        ...,
-        alias='usage',
-    )
-    amount: float = Field(
-        ...,
-        alias='amount',
-    )
-    tax: float = Field(
-        ...,
-        alias='tax',
-    )
-    taxamount: float = Field(
-        ...,
-        alias='taxAmount',
-    )
-    vat: float = Field(
-        ...,
-        alias='vat',
-    )
-    vatamount: float = Field(
-        ...,
-        alias='vatAmount',
-    )
-    grossamount: float = Field(
-        ...,
-        alias='grossAmount',
-    )
-    creditsused: float = Field(
-        ...,
-        alias='creditsUsed',
-    )
-    currency: str = Field(
-        ...,
-        alias='currency',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    lasterror: str = Field(
-        ...,
-        alias='lastError',
-    )
-    dueat: str = Field(
-        ...,
-        alias='dueAt',
-    )
-    xfrom: str = Field(
-        ...,
-        alias='from',
-    )
-    to: str = Field(
-        ...,
-        alias='to',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
+    teamid: str = Field(..., alias='teamId')
+    aggregationid: str = Field(..., alias='aggregationId')
+    plan: str = Field(..., alias='plan')
+    usage: List[UsageResources] = Field(..., alias='usage')
+    amount: float = Field(..., alias='amount')
+    tax: float = Field(..., alias='tax')
+    taxamount: float = Field(..., alias='taxAmount')
+    vat: float = Field(..., alias='vat')
+    vatamount: float = Field(..., alias='vatAmount')
+    grossamount: float = Field(..., alias='grossAmount')
+    creditsused: float = Field(..., alias='creditsUsed')
+    currency: str = Field(..., alias='currency')
+    clientsecret: str = Field(..., alias='clientSecret')
+    status: str = Field(..., alias='status')
+    type: str = Field(..., alias='type')
+    lasterror: str = Field(..., alias='lastError')
+    dueat: str = Field(..., alias='dueAt')
+    xfrom: str = Field(..., alias='from')
+    to: str = Field(..., alias='to')

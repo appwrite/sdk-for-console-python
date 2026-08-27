@@ -26,31 +26,10 @@ class ResourceToken(AppwriteModel):
         Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    expire: str = Field(
-        ...,
-        alias='expire',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    accessedat: str = Field(
-        ...,
-        alias='accessedAt',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    resourceid: str = Field(..., alias='resourceId')
+    resourcetype: str = Field(..., alias='resourceType')
+    expire: str = Field(..., alias='expire')
+    secret: str = Field(..., alias='secret')
+    accessedat: str = Field(..., alias='accessedAt')

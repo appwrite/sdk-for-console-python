@@ -16,11 +16,5 @@ class DedicatedDatabaseExecutionColumn(AppwriteModel):
         Engine-specific column type (e.g. int4, text, timestamptz).
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
+    name: str = Field(..., alias='name')
+    type: str = Field(..., alias='type')

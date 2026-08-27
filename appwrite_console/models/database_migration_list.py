@@ -17,11 +17,5 @@ class DatabaseMigrationList(AppwriteModel):
         List of migrations.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    migrations: List[DatabaseMigration] = Field(
-        ...,
-        alias='migrations',
-    )
+    total: float = Field(..., alias='total')
+    migrations: List[DatabaseMigration] = Field(..., alias='migrations')

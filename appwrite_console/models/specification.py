@@ -20,19 +20,7 @@ class Specification(AppwriteModel):
         Size slug.
     """
 
-    memory: float = Field(
-        ...,
-        alias='memory',
-    )
-    cpus: float = Field(
-        ...,
-        alias='cpus',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    slug: str = Field(
-        ...,
-        alias='slug',
-    )
+    memory: float = Field(..., alias='memory')
+    cpus: float = Field(..., alias='cpus')
+    enabled: bool = Field(..., alias='enabled')
+    slug: str = Field(..., alias='slug')

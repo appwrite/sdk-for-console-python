@@ -17,11 +17,5 @@ class ProxyRuleList(AppwriteModel):
         List of rules.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    rules: List[ProxyRule] = Field(
-        ...,
-        alias='rules',
-    )
+    total: float = Field(..., alias='total')
+    rules: List[ProxyRule] = Field(..., alias='rules')

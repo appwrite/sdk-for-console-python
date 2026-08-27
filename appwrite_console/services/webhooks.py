@@ -40,13 +40,9 @@ class Webhooks(Service):
         api_path = '/webhooks'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -116,38 +112,20 @@ class Webhooks(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if events is None:
             raise AppwriteException('Missing required parameter: "events"')
-        api_params['webhookId'] = self._normalize_value(
-            webhook_id,
-        )
-        api_params['url'] = self._normalize_value(
-            url,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['events'] = self._normalize_value(
-            events,
-        )
+        api_params['webhookId'] = self._normalize_value(webhook_id)
+        api_params['url'] = self._normalize_value(url)
+        api_params['name'] = self._normalize_value(name)
+        api_params['events'] = self._normalize_value(events)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if tls is not None:
-            api_params['tls'] = self._normalize_value(
-                tls,
-            )
+            api_params['tls'] = self._normalize_value(tls)
         if auth_username is not None:
-            api_params['authUsername'] = self._normalize_value(
-                auth_username,
-            )
+            api_params['authUsername'] = self._normalize_value(auth_username)
         if auth_password is not None:
-            api_params['authPassword'] = self._normalize_value(
-                auth_password,
-            )
+            api_params['authPassword'] = self._normalize_value(auth_password)
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'post',
@@ -256,31 +234,17 @@ class Webhooks(Service):
         if events is None:
             raise AppwriteException('Missing required parameter: "events"')
         api_path = api_path.replace('{webhookId}', str(self._normalize_value(webhook_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['url'] = self._normalize_value(
-            url,
-        )
-        api_params['events'] = self._normalize_value(
-            events,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['url'] = self._normalize_value(url)
+        api_params['events'] = self._normalize_value(events)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if tls is not None:
-            api_params['tls'] = self._normalize_value(
-                tls,
-            )
+            api_params['tls'] = self._normalize_value(tls)
         if auth_username is not None:
-            api_params['authUsername'] = self._normalize_value(
-                auth_username,
-            )
+            api_params['authUsername'] = self._normalize_value(auth_username)
         if auth_password is not None:
-            api_params['authPassword'] = self._normalize_value(
-                auth_password,
-            )
+            api_params['authPassword'] = self._normalize_value(auth_password)
 
         response = self.client.call(
             'put',
@@ -366,9 +330,7 @@ class Webhooks(Service):
             raise AppwriteException('Missing required parameter: "webhook_id"')
         api_path = api_path.replace('{webhookId}', str(self._normalize_value(webhook_id)))
         if secret is not None:
-            api_params['secret'] = self._normalize_value(
-                secret,
-            )
+            api_params['secret'] = self._normalize_value(secret)
 
         response = self.client.call(
             'patch',

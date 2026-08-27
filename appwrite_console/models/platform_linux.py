@@ -25,27 +25,9 @@ class PlatformLinux(AppwriteModel):
         Linux package name.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    type: PlatformType = Field(
-        ...,
-        alias='type',
-    )
-    packagename: str = Field(
-        ...,
-        alias='packageName',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    type: PlatformType = Field(..., alias='type')
+    packagename: str = Field(..., alias='packageName')

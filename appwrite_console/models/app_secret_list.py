@@ -17,11 +17,5 @@ class AppSecretList(AppwriteModel):
         List of secrets.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    secrets: List[AppSecret] = Field(
-        ...,
-        alias='secrets',
-    )
+    total: float = Field(..., alias='total')
+    secrets: List[AppSecret] = Field(..., alias='secrets')

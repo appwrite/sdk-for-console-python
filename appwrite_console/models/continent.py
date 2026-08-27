@@ -16,11 +16,5 @@ class Continent(AppwriteModel):
         Continent two letter code.
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    code: str = Field(
-        ...,
-        alias='code',
-    )
+    name: str = Field(..., alias='name')
+    code: str = Field(..., alias='code')

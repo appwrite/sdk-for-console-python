@@ -14,7 +14,4 @@ class MfaRecoveryCodes(AppwriteModel):
         Recovery codes.
     """
 
-    recoverycodes: List[Any] = Field(
-        ...,
-        alias='recoveryCodes',
-    )
+    recoverycodes: List[Any] = Field(..., alias='recoveryCodes')

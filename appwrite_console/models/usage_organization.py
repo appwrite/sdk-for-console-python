@@ -74,123 +74,33 @@ class UsageOrganization(AppwriteModel):
         Aggregated stats for total realtime bandwidth.
     """
 
-    bandwidth: List[Metric] = Field(
-        ...,
-        alias='bandwidth',
-    )
-    users: List[Metric] = Field(
-        ...,
-        alias='users',
-    )
-    executions: List[Metric] = Field(
-        ...,
-        alias='executions',
-    )
-    databasesreads: List[Metric] = Field(
-        ...,
-        alias='databasesReads',
-    )
-    databaseswrites: List[Metric] = Field(
-        ...,
-        alias='databasesWrites',
-    )
-    imagetransformations: List[Metric] = Field(
-        ...,
-        alias='imageTransformations',
-    )
-    imagetransformationstotal: float = Field(
-        ...,
-        alias='imageTransformationsTotal',
-    )
-    screenshotsgenerated: List[Metric] = Field(
-        ...,
-        alias='screenshotsGenerated',
-    )
-    screenshotsgeneratedtotal: float = Field(
-        ...,
-        alias='screenshotsGeneratedTotal',
-    )
-    userstotal: float = Field(
-        ...,
-        alias='usersTotal',
-    )
-    executionstotal: float = Field(
-        ...,
-        alias='executionsTotal',
-    )
-    executionsmbsecondstotal: float = Field(
-        ...,
-        alias='executionsMBSecondsTotal',
-    )
-    buildsmbsecondstotal: float = Field(
-        ...,
-        alias='buildsMBSecondsTotal',
-    )
-    filesstoragetotal: float = Field(
-        ...,
-        alias='filesStorageTotal',
-    )
-    buildsstoragetotal: float = Field(
-        ...,
-        alias='buildsStorageTotal',
-    )
-    deploymentsstoragetotal: float = Field(
-        ...,
-        alias='deploymentsStorageTotal',
-    )
-    databasesstoragetotal: float = Field(
-        ...,
-        alias='databasesStorageTotal',
-    )
-    databasesreadstotal: float = Field(
-        ...,
-        alias='databasesReadsTotal',
-    )
-    databaseswritestotal: float = Field(
-        ...,
-        alias='databasesWritesTotal',
-    )
-    backupsstoragetotal: float = Field(
-        ...,
-        alias='backupsStorageTotal',
-    )
-    storagetotal: float = Field(
-        ...,
-        alias='storageTotal',
-    )
-    authphonetotal: float = Field(
-        ...,
-        alias='authPhoneTotal',
-    )
-    authphoneestimate: float = Field(
-        ...,
-        alias='authPhoneEstimate',
-    )
-    projects: List[UsageOrganizationProject] = Field(
-        ...,
-        alias='projects',
-    )
-    realtimeconnections: List[Metric] = Field(
-        ...,
-        alias='realtimeConnections',
-    )
-    realtimeconnectionstotal: float = Field(
-        ...,
-        alias='realtimeConnectionsTotal',
-    )
-    realtimemessages: List[Metric] = Field(
-        ...,
-        alias='realtimeMessages',
-    )
-    realtimemessagestotal: float = Field(
-        ...,
-        alias='realtimeMessagesTotal',
-    )
-    realtimebandwidth: List[Metric] = Field(
-        ...,
-        alias='realtimeBandwidth',
-    )
-    realtimebandwidthtotal: float = Field(
-        ...,
-        alias='realtimeBandwidthTotal',
-    )
+    bandwidth: List[Metric] = Field(..., alias='bandwidth')
+    users: List[Metric] = Field(..., alias='users')
+    executions: List[Metric] = Field(..., alias='executions')
+    databasesreads: List[Metric] = Field(..., alias='databasesReads')
+    databaseswrites: List[Metric] = Field(..., alias='databasesWrites')
+    imagetransformations: List[Metric] = Field(..., alias='imageTransformations')
+    imagetransformationstotal: float = Field(..., alias='imageTransformationsTotal')
+    screenshotsgenerated: List[Metric] = Field(..., alias='screenshotsGenerated')
+    screenshotsgeneratedtotal: float = Field(..., alias='screenshotsGeneratedTotal')
+    userstotal: float = Field(..., alias='usersTotal')
+    executionstotal: float = Field(..., alias='executionsTotal')
+    executionsmbsecondstotal: float = Field(..., alias='executionsMBSecondsTotal')
+    buildsmbsecondstotal: float = Field(..., alias='buildsMBSecondsTotal')
+    filesstoragetotal: float = Field(..., alias='filesStorageTotal')
+    buildsstoragetotal: float = Field(..., alias='buildsStorageTotal')
+    deploymentsstoragetotal: float = Field(..., alias='deploymentsStorageTotal')
+    databasesstoragetotal: float = Field(..., alias='databasesStorageTotal')
+    databasesreadstotal: float = Field(..., alias='databasesReadsTotal')
+    databaseswritestotal: float = Field(..., alias='databasesWritesTotal')
+    backupsstoragetotal: float = Field(..., alias='backupsStorageTotal')
+    storagetotal: float = Field(..., alias='storageTotal')
+    authphonetotal: float = Field(..., alias='authPhoneTotal')
+    authphoneestimate: float = Field(..., alias='authPhoneEstimate')
+    projects: List[UsageOrganizationProject] = Field(..., alias='projects')
+    realtimeconnections: List[Metric] = Field(..., alias='realtimeConnections')
+    realtimeconnectionstotal: float = Field(..., alias='realtimeConnectionsTotal')
+    realtimemessages: List[Metric] = Field(..., alias='realtimeMessages')
+    realtimemessagestotal: float = Field(..., alias='realtimeMessagesTotal')
+    realtimebandwidth: List[Metric] = Field(..., alias='realtimeBandwidth')
+    realtimebandwidthtotal: float = Field(..., alias='realtimeBandwidthTotal')

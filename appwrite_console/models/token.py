@@ -24,27 +24,9 @@ class Token(AppwriteModel):
         Security phrase of a token. Empty if security phrase was not requested when creating a token. It includes randomly generated phrase which is also sent in the external resource such as email.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    secret: str = Field(
-        ...,
-        alias='secret',
-    )
-    expire: str = Field(
-        ...,
-        alias='expire',
-    )
-    phrase: str = Field(
-        ...,
-        alias='phrase',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    userid: str = Field(..., alias='userId')
+    secret: str = Field(..., alias='secret')
+    expire: str = Field(..., alias='expire')
+    phrase: str = Field(..., alias='phrase')

@@ -22,23 +22,8 @@ class DatabaseStatusReplica(AppwriteModel):
         Replication lag in seconds (null for primary). Also null against `replicating: true`, for a member that is streaming but whose engine printed no numeric lag.
     """
 
-    index: float = Field(
-        ...,
-        alias='index',
-    )
-    role: str = Field(
-        ...,
-        alias='role',
-    )
-    healthy: bool = Field(
-        ...,
-        alias='healthy',
-    )
-    replicating: Optional[bool] = Field(
-        default=None,
-        alias='replicating',
-    )
-    lagseconds: Optional[float] = Field(
-        default=None,
-        alias='lagSeconds',
-    )
+    index: float = Field(..., alias='index')
+    role: str = Field(..., alias='role')
+    healthy: bool = Field(..., alias='healthy')
+    replicating: Optional[bool] = Field(default=None, alias='replicating')
+    lagseconds: Optional[float] = Field(default=None, alias='lagSeconds')

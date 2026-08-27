@@ -42,63 +42,18 @@ class Membership(AppwriteModel):
         User list of roles
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    username: str = Field(
-        ...,
-        alias='userName',
-    )
-    useremail: str = Field(
-        ...,
-        alias='userEmail',
-    )
-    userphone: str = Field(
-        ...,
-        alias='userPhone',
-    )
-    teamid: str = Field(
-        ...,
-        alias='teamId',
-    )
-    teamname: str = Field(
-        ...,
-        alias='teamName',
-    )
-    invited: str = Field(
-        ...,
-        alias='invited',
-    )
-    joined: str = Field(
-        ...,
-        alias='joined',
-    )
-    confirm: bool = Field(
-        ...,
-        alias='confirm',
-    )
-    mfa: bool = Field(
-        ...,
-        alias='mfa',
-    )
-    useraccessedat: str = Field(
-        ...,
-        alias='userAccessedAt',
-    )
-    roles: List[Any] = Field(
-        ...,
-        alias='roles',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    userid: str = Field(..., alias='userId')
+    username: str = Field(..., alias='userName')
+    useremail: str = Field(..., alias='userEmail')
+    userphone: str = Field(..., alias='userPhone')
+    teamid: str = Field(..., alias='teamId')
+    teamname: str = Field(..., alias='teamName')
+    invited: str = Field(..., alias='invited')
+    joined: str = Field(..., alias='joined')
+    confirm: bool = Field(..., alias='confirm')
+    mfa: bool = Field(..., alias='mfa')
+    useraccessedat: str = Field(..., alias='userAccessedAt')
+    roles: List[Any] = Field(..., alias='roles')

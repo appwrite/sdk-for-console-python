@@ -22,23 +22,8 @@ class PolicyMfaFactors(AppwriteModel):
         Whether the custom factor can be used to complete an MFA challenge.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    totp: bool = Field(
-        ...,
-        alias='totp',
-    )
-    email: bool = Field(
-        ...,
-        alias='email',
-    )
-    phone: bool = Field(
-        ...,
-        alias='phone',
-    )
-    custom: bool = Field(
-        ...,
-        alias='custom',
-    )
+    id: str = Field(..., alias='$id')
+    totp: bool = Field(..., alias='totp')
+    email: bool = Field(..., alias='email')
+    phone: bool = Field(..., alias='phone')
+    custom: bool = Field(..., alias='custom')

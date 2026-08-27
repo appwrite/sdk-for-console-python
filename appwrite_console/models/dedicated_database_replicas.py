@@ -29,35 +29,11 @@ class DedicatedDatabaseReplicas(AppwriteModel):
         Per-pod statuses for the primary and every replica.
     """
 
-    replicas: float = Field(
-        ...,
-        alias='replicas',
-    )
-    syncmode: str = Field(
-        ...,
-        alias='syncMode',
-    )
-    effectivesyncmode: Optional[str] = Field(
-        default=None,
-        alias='effectiveSyncMode',
-    )
-    syncdegraded: bool = Field(
-        ...,
-        alias='syncDegraded',
-    )
-    syncacknowledgements: float = Field(
-        ...,
-        alias='syncAcknowledgements',
-    )
-    syncstandbycount: float = Field(
-        ...,
-        alias='syncStandbyCount',
-    )
-    syncstateconfirmed: Optional[bool] = Field(
-        default=None,
-        alias='syncStateConfirmed',
-    )
-    members: List[DedicatedDatabaseMember] = Field(
-        ...,
-        alias='members',
-    )
+    replicas: float = Field(..., alias='replicas')
+    syncmode: str = Field(..., alias='syncMode')
+    effectivesyncmode: Optional[str] = Field(default=None, alias='effectiveSyncMode')
+    syncdegraded: bool = Field(..., alias='syncDegraded')
+    syncacknowledgements: float = Field(..., alias='syncAcknowledgements')
+    syncstandbycount: float = Field(..., alias='syncStandbyCount')
+    syncstateconfirmed: Optional[bool] = Field(default=None, alias='syncStateConfirmed')
+    members: List[DedicatedDatabaseMember] = Field(..., alias='members')

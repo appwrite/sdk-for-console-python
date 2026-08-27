@@ -46,71 +46,20 @@ class DedicatedDatabaseBackup(AppwriteModel):
         Error message if backup failed.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='databaseId',
-    )
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
-    policyid: str = Field(
-        ...,
-        alias='policyId',
-    )
-    trigger: str = Field(
-        ...,
-        alias='trigger',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    requestedtype: str = Field(
-        ...,
-        alias='requestedType',
-    )
-    fallbackreason: str = Field(
-        ...,
-        alias='fallbackReason',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    sizebytes: float = Field(
-        ...,
-        alias='sizeBytes',
-    )
-    startedat: Optional[str] = Field(
-        default=None,
-        alias='startedAt',
-    )
-    completedat: Optional[str] = Field(
-        default=None,
-        alias='completedAt',
-    )
-    verifiedat: Optional[str] = Field(
-        default=None,
-        alias='verifiedAt',
-    )
-    expiresat: Optional[str] = Field(
-        default=None,
-        alias='expiresAt',
-    )
-    logposition: Optional[str] = Field(
-        default=None,
-        alias='logPosition',
-    )
-    error: str = Field(
-        ...,
-        alias='error',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    databaseid: str = Field(..., alias='databaseId')
+    projectid: str = Field(..., alias='projectId')
+    policyid: str = Field(..., alias='policyId')
+    trigger: str = Field(..., alias='trigger')
+    type: str = Field(..., alias='type')
+    requestedtype: str = Field(..., alias='requestedType')
+    fallbackreason: str = Field(..., alias='fallbackReason')
+    status: str = Field(..., alias='status')
+    sizebytes: float = Field(..., alias='sizeBytes')
+    startedat: Optional[str] = Field(default=None, alias='startedAt')
+    completedat: Optional[str] = Field(default=None, alias='completedAt')
+    verifiedat: Optional[str] = Field(default=None, alias='verifiedAt')
+    expiresat: Optional[str] = Field(default=None, alias='expiresAt')
+    logposition: Optional[str] = Field(default=None, alias='logPosition')
+    error: str = Field(..., alias='error')

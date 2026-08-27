@@ -20,19 +20,7 @@ class MockNumber(AppwriteModel):
         Attribute update date in ISO 8601 format.
     """
 
-    number: str = Field(
-        ...,
-        alias='number',
-    )
-    otp: str = Field(
-        ...,
-        alias='otp',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
+    number: str = Field(..., alias='number')
+    otp: str = Field(..., alias='otp')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')

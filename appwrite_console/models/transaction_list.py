@@ -17,11 +17,5 @@ class TransactionList(AppwriteModel):
         List of transactions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    transactions: List[Transaction] = Field(
-        ...,
-        alias='transactions',
-    )
+    total: float = Field(..., alias='total')
+    transactions: List[Transaction] = Field(..., alias='transactions')

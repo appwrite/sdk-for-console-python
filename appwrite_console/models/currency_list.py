@@ -17,11 +17,5 @@ class CurrencyList(AppwriteModel):
         List of currencies.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    currencies: List[Currency] = Field(
-        ...,
-        alias='currencies',
-    )
+    total: float = Field(..., alias='total')
+    currencies: List[Currency] = Field(..., alias='currencies')

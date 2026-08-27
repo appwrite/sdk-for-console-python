@@ -17,11 +17,5 @@ class TemplateSiteList(AppwriteModel):
         List of templates.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    templates: List[TemplateSite] = Field(
-        ...,
-        alias='templates',
-    )
+    total: float = Field(..., alias='total')
+    templates: List[TemplateSite] = Field(..., alias='templates')

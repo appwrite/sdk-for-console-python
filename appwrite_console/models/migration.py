@@ -54,87 +54,24 @@ class Migration(AppwriteModel):
         Migration options used during the migration process.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    status: str = Field(
-        ...,
-        alias='status',
-    )
-    stage: str = Field(
-        ...,
-        alias='stage',
-    )
-    source: str = Field(
-        ...,
-        alias='source',
-    )
-    destination: str = Field(
-        ...,
-        alias='destination',
-    )
-    resources: List[Any] = Field(
-        ...,
-        alias='resources',
-    )
-    resourceid: str = Field(
-        ...,
-        alias='resourceId',
-    )
-    resourceinternalid: str = Field(
-        ...,
-        alias='resourceInternalId',
-    )
-    resourcetype: str = Field(
-        ...,
-        alias='resourceType',
-    )
-    parentresourceid: str = Field(
-        ...,
-        alias='parentResourceId',
-    )
-    parentresourceinternalid: str = Field(
-        ...,
-        alias='parentResourceInternalId',
-    )
-    parentresourcetype: str = Field(
-        ...,
-        alias='parentResourceType',
-    )
-    destinationresourceid: str = Field(
-        ...,
-        alias='destinationResourceId',
-    )
-    destinationresourceinternalid: str = Field(
-        ...,
-        alias='destinationResourceInternalId',
-    )
-    destinationresourcetype: str = Field(
-        ...,
-        alias='destinationResourceType',
-    )
-    statuscounters: Dict[str, Any] = Field(
-        ...,
-        alias='statusCounters',
-    )
-    resourcedata: List[Any] = Field(
-        ...,
-        alias='resourceData',
-    )
-    errors: List[Any] = Field(
-        ...,
-        alias='errors',
-    )
-    options: Dict[str, Any] = Field(
-        ...,
-        alias='options',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    status: str = Field(..., alias='status')
+    stage: str = Field(..., alias='stage')
+    source: str = Field(..., alias='source')
+    destination: str = Field(..., alias='destination')
+    resources: List[Any] = Field(..., alias='resources')
+    resourceid: str = Field(..., alias='resourceId')
+    resourceinternalid: str = Field(..., alias='resourceInternalId')
+    resourcetype: str = Field(..., alias='resourceType')
+    parentresourceid: str = Field(..., alias='parentResourceId')
+    parentresourceinternalid: str = Field(..., alias='parentResourceInternalId')
+    parentresourcetype: str = Field(..., alias='parentResourceType')
+    destinationresourceid: str = Field(..., alias='destinationResourceId')
+    destinationresourceinternalid: str = Field(..., alias='destinationResourceInternalId')
+    destinationresourcetype: str = Field(..., alias='destinationResourceType')
+    statuscounters: Dict[str, Any] = Field(..., alias='statusCounters')
+    resourcedata: List[Any] = Field(..., alias='resourceData')
+    errors: List[Any] = Field(..., alias='errors')
+    options: Dict[str, Any] = Field(..., alias='options')

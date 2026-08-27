@@ -20,19 +20,7 @@ class DatabaseStatusVolume(AppwriteModel):
         Whether the volume is mounted.
     """
 
-    path: str = Field(
-        ...,
-        alias='path',
-    )
-    usedpercent: str = Field(
-        ...,
-        alias='usedPercent',
-    )
-    available: str = Field(
-        ...,
-        alias='available',
-    )
-    mounted: bool = Field(
-        ...,
-        alias='mounted',
-    )
+    path: str = Field(..., alias='path')
+    usedpercent: str = Field(..., alias='usedPercent')
+    available: str = Field(..., alias='available')
+    mounted: bool = Field(..., alias='mounted')

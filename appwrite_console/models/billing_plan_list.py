@@ -17,11 +17,5 @@ class BillingPlanList(AppwriteModel):
         List of plans.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    plans: List[BillingPlan] = Field(
-        ...,
-        alias='plans',
-    )
+    total: float = Field(..., alias='total')
+    plans: List[BillingPlan] = Field(..., alias='plans')

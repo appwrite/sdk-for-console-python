@@ -46,71 +46,20 @@ class DatabaseMigration(AppwriteModel):
         Whether the migration is paused.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    projectid: str = Field(
-        ...,
-        alias='projectId',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='databaseId',
-    )
-    specification: str = Field(
-        ...,
-        alias='specification',
-    )
-    phase: str = Field(
-        ...,
-        alias='phase',
-    )
-    attempt: float = Field(
-        ...,
-        alias='attempt',
-    )
-    lasterror: str = Field(
-        ...,
-        alias='lastError',
-    )
-    lagdocuments: float = Field(
-        ...,
-        alias='lagDocuments',
-    )
-    changelogwatermark: float = Field(
-        ...,
-        alias='changelogWatermark',
-    )
-    verifiedat: str = Field(
-        ...,
-        alias='verifiedAt',
-    )
-    cutoverat: str = Field(
-        ...,
-        alias='cutoverAt',
-    )
-    soakuntil: str = Field(
-        ...,
-        alias='soakUntil',
-    )
-    autocutover: bool = Field(
-        ...,
-        alias='autoCutover',
-    )
-    cutoverrequested: bool = Field(
-        ...,
-        alias='cutoverRequested',
-    )
-    paused: bool = Field(
-        ...,
-        alias='paused',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    projectid: str = Field(..., alias='projectId')
+    databaseid: str = Field(..., alias='databaseId')
+    specification: str = Field(..., alias='specification')
+    phase: str = Field(..., alias='phase')
+    attempt: float = Field(..., alias='attempt')
+    lasterror: str = Field(..., alias='lastError')
+    lagdocuments: float = Field(..., alias='lagDocuments')
+    changelogwatermark: float = Field(..., alias='changelogWatermark')
+    verifiedat: str = Field(..., alias='verifiedAt')
+    cutoverat: str = Field(..., alias='cutoverAt')
+    soakuntil: str = Field(..., alias='soakUntil')
+    autocutover: bool = Field(..., alias='autoCutover')
+    cutoverrequested: bool = Field(..., alias='cutoverRequested')
+    paused: bool = Field(..., alias='paused')

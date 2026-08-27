@@ -17,11 +17,5 @@ class DatabaseList(AppwriteModel):
         List of databases.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    databases: List[Database] = Field(
-        ...,
-        alias='databases',
-    )
+    total: float = Field(..., alias='total')
+    databases: List[Database] = Field(..., alias='databases')

@@ -30,39 +30,12 @@ class Target(AppwriteModel):
         Is the target expired.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    userid: str = Field(
-        ...,
-        alias='userId',
-    )
-    providerid: Optional[str] = Field(
-        default=None,
-        alias='providerId',
-    )
-    providertype: str = Field(
-        ...,
-        alias='providerType',
-    )
-    identifier: str = Field(
-        ...,
-        alias='identifier',
-    )
-    expired: bool = Field(
-        ...,
-        alias='expired',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    userid: str = Field(..., alias='userId')
+    providerid: Optional[str] = Field(default=None, alias='providerId')
+    providertype: str = Field(..., alias='providerType')
+    identifier: str = Field(..., alias='identifier')
+    expired: bool = Field(..., alias='expired')

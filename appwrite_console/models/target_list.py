@@ -17,11 +17,5 @@ class TargetList(AppwriteModel):
         List of targets.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    targets: List[Target] = Field(
-        ...,
-        alias='targets',
-    )
+    total: float = Field(..., alias='total')
+    targets: List[Target] = Field(..., alias='targets')

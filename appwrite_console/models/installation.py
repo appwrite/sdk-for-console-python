@@ -24,27 +24,9 @@ class Installation(AppwriteModel):
         VCS (Version Control System) installation ID.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    provider: str = Field(
-        ...,
-        alias='provider',
-    )
-    organization: str = Field(
-        ...,
-        alias='organization',
-    )
-    providerinstallationid: str = Field(
-        ...,
-        alias='providerInstallationId',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    provider: str = Field(..., alias='provider')
+    organization: str = Field(..., alias='organization')
+    providerinstallationid: str = Field(..., alias='providerInstallationId')

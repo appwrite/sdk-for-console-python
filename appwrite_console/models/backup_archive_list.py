@@ -17,11 +17,5 @@ class BackupArchiveList(AppwriteModel):
         List of archives.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    archives: List[BackupArchive] = Field(
-        ...,
-        alias='archives',
-    )
+    total: float = Field(..., alias='total')
+    archives: List[BackupArchive] = Field(..., alias='archives')

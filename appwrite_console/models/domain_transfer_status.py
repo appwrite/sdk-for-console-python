@@ -19,15 +19,6 @@ class DomainTransferStatus(AppwriteModel):
         Transfer status timestamp in ISO 8601 format.
     """
 
-    status: DomainTransferStatusEnum = Field(
-        ...,
-        alias='status',
-    )
-    reason: str = Field(
-        ...,
-        alias='reason',
-    )
-    timestamp: str = Field(
-        ...,
-        alias='timestamp',
-    )
+    status: DomainTransferStatusEnum = Field(..., alias='status')
+    reason: str = Field(..., alias='reason')
+    timestamp: str = Field(..., alias='timestamp')

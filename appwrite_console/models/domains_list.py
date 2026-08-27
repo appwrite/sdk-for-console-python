@@ -17,11 +17,5 @@ class DomainsList(AppwriteModel):
         List of domains.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    domains: List[Domain] = Field(
-        ...,
-        alias='domains',
-    )
+    total: float = Field(..., alias='total')
+    domains: List[Domain] = Field(..., alias='domains')

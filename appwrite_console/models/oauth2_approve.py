@@ -14,7 +14,4 @@ class Oauth2Approve(AppwriteModel):
         URL the end user should be redirected to after the grant is approved, carrying the authorization `code` and/or `id_token` along with the original `state`.
     """
 
-    redirecturl: str = Field(
-        ...,
-        alias='redirectUrl',
-    )
+    redirecturl: str = Field(..., alias='redirectUrl')

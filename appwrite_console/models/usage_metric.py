@@ -17,11 +17,5 @@ class UsageMetric(AppwriteModel):
         Data points in the requested order.
     """
 
-    metric: str = Field(
-        ...,
-        alias='metric',
-    )
-    points: List[UsageDataPoint] = Field(
-        ...,
-        alias='points',
-    )
+    metric: str = Field(..., alias='metric')
+    points: List[UsageDataPoint] = Field(..., alias='points')

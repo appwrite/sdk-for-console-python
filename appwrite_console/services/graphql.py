@@ -36,9 +36,7 @@ class Graphql(Service):
         api_params = {}
         if query is None:
             raise AppwriteException('Missing required parameter: "query"')
-        api_params['query'] = self._normalize_value(
-            query,
-        )
+        api_params['query'] = self._normalize_value(query)
 
         response = self.client.call(
             'post',
@@ -80,9 +78,7 @@ class Graphql(Service):
         api_params = {}
         if query is None:
             raise AppwriteException('Missing required parameter: "query"')
-        api_params['query'] = self._normalize_value(
-            query,
-        )
+        api_params['query'] = self._normalize_value(query)
 
         response = self.client.call(
             'post',

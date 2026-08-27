@@ -24,27 +24,9 @@ class OAuth2Okta(AppwriteModel):
         Okta OAuth2 authorization server ID.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    clientsecret: str = Field(
-        ...,
-        alias='clientSecret',
-    )
-    domain: str = Field(
-        ...,
-        alias='domain',
-    )
-    authorizationserverid: str = Field(
-        ...,
-        alias='authorizationServerId',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    clientsecret: str = Field(..., alias='clientSecret')
+    domain: str = Field(..., alias='domain')
+    authorizationserverid: str = Field(..., alias='authorizationServerId')

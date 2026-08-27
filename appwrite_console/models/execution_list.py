@@ -17,11 +17,5 @@ class ExecutionList(AppwriteModel):
         List of executions.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    executions: List[Execution] = Field(
-        ...,
-        alias='executions',
-    )
+    total: float = Field(..., alias='total')
+    executions: List[Execution] = Field(..., alias='executions')

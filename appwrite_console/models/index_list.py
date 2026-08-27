@@ -17,11 +17,5 @@ class IndexList(AppwriteModel):
         List of indexes.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    indexes: List[Index] = Field(
-        ...,
-        alias='indexes',
-    )
+    total: float = Field(..., alias='total')
+    indexes: List[Index] = Field(..., alias='indexes')

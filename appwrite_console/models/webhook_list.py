@@ -17,11 +17,5 @@ class WebhookList(AppwriteModel):
         List of webhooks.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    webhooks: List[Webhook] = Field(
-        ...,
-        alias='webhooks',
-    )
+    total: float = Field(..., alias='total')
+    webhooks: List[Webhook] = Field(..., alias='webhooks')

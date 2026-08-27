@@ -20,19 +20,7 @@ class Review(AppwriteModel):
         Review
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    image: str = Field(
-        ...,
-        alias='image',
-    )
-    description: str = Field(
-        ...,
-        alias='description',
-    )
-    review: str = Field(
-        ...,
-        alias='review',
-    )
+    name: str = Field(..., alias='name')
+    image: str = Field(..., alias='image')
+    description: str = Field(..., alias='description')
+    review: str = Field(..., alias='review')

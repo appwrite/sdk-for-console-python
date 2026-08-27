@@ -361,9 +361,7 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
 
         response = self.client.call(
             'get',
@@ -466,12 +464,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "expire"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
-        api_params['expire'] = self._normalize_value(
-            expire,
-        )
+        api_params['name'] = self._normalize_value(name)
+        api_params['expire'] = self._normalize_value(expire)
 
         response = self.client.call(
             'put',
@@ -566,13 +560,9 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -634,23 +624,13 @@ class Projects(Service):
         if schedule is None:
             raise AppwriteException('Missing required parameter: "schedule"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_params['resourceType'] = self._normalize_value(
-            resource_type,
-        )
-        api_params['resourceId'] = self._normalize_value(
-            resource_id,
-        )
-        api_params['schedule'] = self._normalize_value(
-            schedule,
-        )
+        api_params['resourceType'] = self._normalize_value(resource_type)
+        api_params['resourceId'] = self._normalize_value(resource_id)
+        api_params['schedule'] = self._normalize_value(schedule)
         if active is not None:
-            api_params['active'] = self._normalize_value(
-                active,
-            )
+            api_params['active'] = self._normalize_value(active)
         if data is not None:
-            api_params['data'] = self._normalize_value(
-                data,
-            )
+            api_params['data'] = self._normalize_value(data)
 
         response = self.client.call(
             'post',
@@ -788,9 +768,7 @@ class Projects(Service):
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{stageId}', str(self._normalize_value(stage_id)))
         if skip is not None:
-            api_params['skip'] = self._normalize_value(
-                skip,
-            )
+            api_params['skip'] = self._normalize_value(skip)
 
         response = self.client.call(
             'patch',
@@ -837,9 +815,7 @@ class Projects(Service):
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_params['status'] = self._normalize_value(
-            status,
-        )
+        api_params['status'] = self._normalize_value(status)
 
         response = self.client.call(
             'patch',
@@ -886,9 +862,7 @@ class Projects(Service):
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_params['teamId'] = self._normalize_value(
-            team_id,
-        )
+        api_params['teamId'] = self._normalize_value(team_id)
 
         response = self.client.call(
             'patch',

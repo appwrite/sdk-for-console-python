@@ -17,11 +17,5 @@ class EmbeddingList(AppwriteModel):
         List of embeddings.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    embeddings: List[Embedding] = Field(
-        ...,
-        alias='embeddings',
-    )
+    total: float = Field(..., alias='total')
+    embeddings: List[Embedding] = Field(..., alias='embeddings')

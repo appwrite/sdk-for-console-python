@@ -49,13 +49,9 @@ class Apps(Service):
         api_path = '/apps'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -153,79 +149,41 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if redirect_uris is None:
             raise AppwriteException('Missing required parameter: "redirect_uris"')
-        api_params['appId'] = self._normalize_value(
-            app_id,
-        )
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['appId'] = self._normalize_value(app_id)
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if client_uri is not None:
-            api_params['clientUri'] = self._normalize_value(
-                client_uri,
-            )
+            api_params['clientUri'] = self._normalize_value(client_uri)
         if logo_uri is not None:
-            api_params['logoUri'] = self._normalize_value(
-                logo_uri,
-            )
+            api_params['logoUri'] = self._normalize_value(logo_uri)
         if privacy_policy_url is not None:
-            api_params['privacyPolicyUrl'] = self._normalize_value(
-                privacy_policy_url,
-            )
+            api_params['privacyPolicyUrl'] = self._normalize_value(privacy_policy_url)
         if terms_url is not None:
-            api_params['termsUrl'] = self._normalize_value(
-                terms_url,
-            )
+            api_params['termsUrl'] = self._normalize_value(terms_url)
         if contacts is not None:
-            api_params['contacts'] = self._normalize_value(
-                contacts,
-            )
+            api_params['contacts'] = self._normalize_value(contacts)
         if tagline is not None:
-            api_params['tagline'] = self._normalize_value(
-                tagline,
-            )
+            api_params['tagline'] = self._normalize_value(tagline)
         if tags is not None:
-            api_params['tags'] = self._normalize_value(
-                tags,
-            )
+            api_params['tags'] = self._normalize_value(tags)
         if images is not None:
-            api_params['images'] = self._normalize_value(
-                images,
-            )
+            api_params['images'] = self._normalize_value(images)
         if support_url is not None:
-            api_params['supportUrl'] = self._normalize_value(
-                support_url,
-            )
+            api_params['supportUrl'] = self._normalize_value(support_url)
         if data_deletion_url is not None:
-            api_params['dataDeletionUrl'] = self._normalize_value(
-                data_deletion_url,
-            )
-        api_params['redirectUris'] = self._normalize_value(
-            redirect_uris,
-        )
+            api_params['dataDeletionUrl'] = self._normalize_value(data_deletion_url)
+        api_params['redirectUris'] = self._normalize_value(redirect_uris)
         if post_logout_redirect_uris is not None:
-            api_params['postLogoutRedirectUris'] = self._normalize_value(
-                post_logout_redirect_uris,
-            )
+            api_params['postLogoutRedirectUris'] = self._normalize_value(post_logout_redirect_uris)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
         if device_flow is not None:
-            api_params['deviceFlow'] = self._normalize_value(
-                device_flow,
-            )
+            api_params['deviceFlow'] = self._normalize_value(device_flow)
         if team_id is not None:
-            api_params['teamId'] = self._normalize_value(
-                team_id,
-            )
+            api_params['teamId'] = self._normalize_value(team_id)
 
         response = self.client.call(
             'post',
@@ -428,81 +386,43 @@ class Apps(Service):
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
-        api_params['name'] = self._normalize_value(
-            name,
-        )
+        api_params['name'] = self._normalize_value(name)
         if description is not None:
-            api_params['description'] = self._normalize_value(
-                description,
-            )
+            api_params['description'] = self._normalize_value(description)
         if client_uri is not None:
-            api_params['clientUri'] = self._normalize_value(
-                client_uri,
-            )
+            api_params['clientUri'] = self._normalize_value(client_uri)
         if logo_uri is not None:
-            api_params['logoUri'] = self._normalize_value(
-                logo_uri,
-            )
+            api_params['logoUri'] = self._normalize_value(logo_uri)
         if privacy_policy_url is not None:
-            api_params['privacyPolicyUrl'] = self._normalize_value(
-                privacy_policy_url,
-            )
+            api_params['privacyPolicyUrl'] = self._normalize_value(privacy_policy_url)
         if terms_url is not None:
-            api_params['termsUrl'] = self._normalize_value(
-                terms_url,
-            )
+            api_params['termsUrl'] = self._normalize_value(terms_url)
         if contacts is not None:
-            api_params['contacts'] = self._normalize_value(
-                contacts,
-            )
+            api_params['contacts'] = self._normalize_value(contacts)
         if tagline is not None:
-            api_params['tagline'] = self._normalize_value(
-                tagline,
-            )
+            api_params['tagline'] = self._normalize_value(tagline)
         if tags is not None:
-            api_params['tags'] = self._normalize_value(
-                tags,
-            )
+            api_params['tags'] = self._normalize_value(tags)
         if images is not None:
-            api_params['images'] = self._normalize_value(
-                images,
-            )
+            api_params['images'] = self._normalize_value(images)
         if support_url is not None:
-            api_params['supportUrl'] = self._normalize_value(
-                support_url,
-            )
+            api_params['supportUrl'] = self._normalize_value(support_url)
         if data_deletion_url is not None:
-            api_params['dataDeletionUrl'] = self._normalize_value(
-                data_deletion_url,
-            )
+            api_params['dataDeletionUrl'] = self._normalize_value(data_deletion_url)
         if enabled is not None:
-            api_params['enabled'] = self._normalize_value(
-                enabled,
-            )
+            api_params['enabled'] = self._normalize_value(enabled)
         if redirect_uris is not None:
-            api_params['redirectUris'] = self._normalize_value(
-                redirect_uris,
-            )
+            api_params['redirectUris'] = self._normalize_value(redirect_uris)
         if post_logout_redirect_uris is not None:
-            api_params['postLogoutRedirectUris'] = self._normalize_value(
-                post_logout_redirect_uris,
-            )
+            api_params['postLogoutRedirectUris'] = self._normalize_value(post_logout_redirect_uris)
         if type is not None:
-            api_params['type'] = self._normalize_value(
-                type,
-            )
+            api_params['type'] = self._normalize_value(type)
         if device_flow is not None:
-            api_params['deviceFlow'] = self._normalize_value(
-                device_flow,
-            )
+            api_params['deviceFlow'] = self._normalize_value(device_flow)
         if installation_scopes is not None:
-            api_params['installationScopes'] = self._normalize_value(
-                installation_scopes,
-            )
+            api_params['installationScopes'] = self._normalize_value(installation_scopes)
         if installation_redirect_url is not None:
-            api_params['installationRedirectUrl'] = self._normalize_value(
-                installation_redirect_url,
-            )
+            api_params['installationRedirectUrl'] = self._normalize_value(installation_redirect_url)
 
         response = self.client.call(
             'put',
@@ -592,13 +512,9 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "app_id"')
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -786,13 +702,9 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "app_id"')
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -972,9 +884,7 @@ class Apps(Service):
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
-        api_params['labels'] = self._normalize_value(
-            labels,
-        )
+        api_params['labels'] = self._normalize_value(labels)
 
         response = self.client.call(
             'put',
@@ -1023,13 +933,9 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "app_id"')
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1209,9 +1115,7 @@ class Apps(Service):
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
-        api_params['teamId'] = self._normalize_value(
-            team_id,
-        )
+        api_params['teamId'] = self._normalize_value(team_id)
 
         response = self.client.call(
             'patch',

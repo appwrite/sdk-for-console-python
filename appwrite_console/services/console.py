@@ -143,17 +143,11 @@ class Console(Service):
         api_path = '/console/databases'
         api_params = {}
         if queries is not None:
-            api_params['queries'] = self._normalize_value(
-                queries,
-            )
+            api_params['queries'] = self._normalize_value(queries)
         if search is not None:
-            api_params['search'] = self._normalize_value(
-                search,
-            )
+            api_params['search'] = self._normalize_value(search)
         if total is not None:
-            api_params['total'] = self._normalize_value(
-                total,
-            )
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -223,9 +217,7 @@ class Console(Service):
         api_path = '/console/plans'
         api_params = {}
         if platform is not None:
-            api_params['platform'] = self._normalize_value(
-                platform,
-            )
+            api_params['platform'] = self._normalize_value(platform)
 
         response = self.client.call(
             'get',
@@ -457,12 +449,8 @@ class Console(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
-        api_params['value'] = self._normalize_value(
-            value,
-        )
-        api_params['type'] = self._normalize_value(
-            type,
-        )
+        api_params['value'] = self._normalize_value(value)
+        api_params['type'] = self._normalize_value(type)
 
         response = self.client.call(
             'get',
@@ -574,25 +562,15 @@ class Console(Service):
         api_path = '/console/sources'
         api_params = {}
         if ref is not None:
-            api_params['ref'] = self._normalize_value(
-                ref,
-            )
+            api_params['ref'] = self._normalize_value(ref)
         if referrer is not None:
-            api_params['referrer'] = self._normalize_value(
-                referrer,
-            )
+            api_params['referrer'] = self._normalize_value(referrer)
         if utm_source is not None:
-            api_params['utmSource'] = self._normalize_value(
-                utm_source,
-            )
+            api_params['utmSource'] = self._normalize_value(utm_source)
         if utm_campaign is not None:
-            api_params['utmCampaign'] = self._normalize_value(
-                utm_campaign,
-            )
+            api_params['utmCampaign'] = self._normalize_value(utm_campaign)
         if utm_medium is not None:
-            api_params['utmMedium'] = self._normalize_value(
-                utm_medium,
-            )
+            api_params['utmMedium'] = self._normalize_value(utm_medium)
 
         response = self.client.call(
             'post',
@@ -647,24 +625,14 @@ class Console(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['tableId'] = self._normalize_value(
-            table_id,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['tableId'] = self._normalize_value(table_id)
         if context is not None:
-            api_params['context'] = self._normalize_value(
-                context,
-            )
+            api_params['context'] = self._normalize_value(context)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
 
         response = self.client.call(
             'get',
@@ -715,20 +683,12 @@ class Console(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
-        api_params['databaseId'] = self._normalize_value(
-            database_id,
-        )
-        api_params['tableId'] = self._normalize_value(
-            table_id,
-        )
+        api_params['databaseId'] = self._normalize_value(database_id)
+        api_params['tableId'] = self._normalize_value(table_id)
         if min is not None:
-            api_params['min'] = self._normalize_value(
-                min,
-            )
+            api_params['min'] = self._normalize_value(min)
         if max is not None:
-            api_params['max'] = self._normalize_value(
-                max,
-            )
+            api_params['max'] = self._normalize_value(max)
 
         response = self.client.call(
             'get',
@@ -779,20 +739,12 @@ class Console(Service):
             raise AppwriteException('Missing required parameter: "resource"')
         if input is None:
             raise AppwriteException('Missing required parameter: "input"')
-        api_params['resource'] = self._normalize_value(
-            resource,
-        )
-        api_params['input'] = self._normalize_value(
-            input,
-        )
+        api_params['resource'] = self._normalize_value(resource)
+        api_params['input'] = self._normalize_value(input)
         if database_id is not None:
-            api_params['databaseId'] = self._normalize_value(
-                database_id,
-            )
+            api_params['databaseId'] = self._normalize_value(database_id)
         if table_id is not None:
-            api_params['tableId'] = self._normalize_value(
-                table_id,
-            )
+            api_params['tableId'] = self._normalize_value(table_id)
 
         response = self.client.call(
             'get',
@@ -837,9 +789,7 @@ class Console(Service):
             raise AppwriteException('Missing required parameter: "template_id"')
         api_path = api_path.replace('{templateId}', str(self._normalize_value(template_id)))
         if locale is not None:
-            api_params['locale'] = self._normalize_value(
-                locale,
-            )
+            api_params['locale'] = self._normalize_value(locale)
 
         response = self.client.call(
             'get',

@@ -25,27 +25,9 @@ class PlatformWindows(AppwriteModel):
         Windows package identifier name.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    name: str = Field(
-        ...,
-        alias='name',
-    )
-    type: PlatformType = Field(
-        ...,
-        alias='type',
-    )
-    packageidentifiername: str = Field(
-        ...,
-        alias='packageIdentifierName',
-    )
+    id: str = Field(..., alias='$id')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    name: str = Field(..., alias='name')
+    type: PlatformType = Field(..., alias='type')
+    packageidentifiername: str = Field(..., alias='packageIdentifierName')

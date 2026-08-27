@@ -30,34 +30,13 @@ class Row(AppwriteModel, Generic[T]):
         Row permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    sequence: str = Field(
-        ...,
-        alias='$sequence',
-    )
-    tableid: str = Field(
-        ...,
-        alias='$tableId',
-    )
-    databaseid: str = Field(
-        ...,
-        alias='$databaseId',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    permissions: List[Any] = Field(
-        ...,
-        alias='$permissions',
-    )
+    id: str = Field(..., alias='$id')
+    sequence: str = Field(..., alias='$sequence')
+    tableid: str = Field(..., alias='$tableId')
+    databaseid: str = Field(..., alias='$databaseId')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    permissions: List[Any] = Field(..., alias='$permissions')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'Row[T]':

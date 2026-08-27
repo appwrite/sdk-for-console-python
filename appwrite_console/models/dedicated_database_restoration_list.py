@@ -17,11 +17,5 @@ class DedicatedDatabaseRestorationList(AppwriteModel):
         List of restorations.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    restorations: List[DedicatedDatabaseRestoration] = Field(
-        ...,
-        alias='restorations',
-    )
+    total: float = Field(..., alias='total')
+    restorations: List[DedicatedDatabaseRestoration] = Field(..., alias='restorations')

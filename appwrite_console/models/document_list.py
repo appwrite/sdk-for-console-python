@@ -19,14 +19,8 @@ class DocumentList(AppwriteModel, Generic[T]):
         List of documents.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    documents: List[Document[T]] = Field(
-        ...,
-        alias='documents',
-    )
+    total: float = Field(..., alias='total')
+    documents: List[Document[T]] = Field(..., alias='documents')
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'DocumentList[T]':

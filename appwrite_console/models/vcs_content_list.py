@@ -17,11 +17,5 @@ class VcsContentList(AppwriteModel):
         List of contents.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    contents: List[VcsContent] = Field(
-        ...,
-        alias='contents',
-    )
+    total: float = Field(..., alias='total')
+    contents: List[VcsContent] = Field(..., alias='contents')

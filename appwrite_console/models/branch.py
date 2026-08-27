@@ -14,7 +14,4 @@ class Branch(AppwriteModel):
         Branch Name.
     """
 
-    name: str = Field(
-        ...,
-        alias='name',
-    )
+    name: str = Field(..., alias='name')

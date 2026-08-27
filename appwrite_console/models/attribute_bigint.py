@@ -35,47 +35,14 @@ class AttributeBigint(AppwriteModel):
         Default value for attribute when not provided. Cannot be set when attribute is required.
     """
 
-    key: str = Field(
-        ...,
-        alias='key',
-    )
-    type: str = Field(
-        ...,
-        alias='type',
-    )
-    status: AttributeStatus = Field(
-        ...,
-        alias='status',
-    )
-    error: str = Field(
-        ...,
-        alias='error',
-    )
-    required: bool = Field(
-        ...,
-        alias='required',
-    )
-    array: Optional[bool] = Field(
-        default=None,
-        alias='array',
-    )
-    createdat: str = Field(
-        ...,
-        alias='$createdAt',
-    )
-    updatedat: str = Field(
-        ...,
-        alias='$updatedAt',
-    )
-    min: Optional[float] = Field(
-        default=None,
-        alias='min',
-    )
-    max: Optional[float] = Field(
-        default=None,
-        alias='max',
-    )
-    default: Optional[float] = Field(
-        default=None,
-        alias='default',
-    )
+    key: str = Field(..., alias='key')
+    type: str = Field(..., alias='type')
+    status: AttributeStatus = Field(..., alias='status')
+    error: str = Field(..., alias='error')
+    required: bool = Field(..., alias='required')
+    array: Optional[bool] = Field(default=None, alias='array')
+    createdat: str = Field(..., alias='$createdAt')
+    updatedat: str = Field(..., alias='$updatedAt')
+    min: Optional[float] = Field(default=None, alias='min')
+    max: Optional[float] = Field(default=None, alias='max')
+    default: Optional[float] = Field(default=None, alias='default')

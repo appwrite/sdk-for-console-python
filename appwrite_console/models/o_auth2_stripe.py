@@ -20,19 +20,7 @@ class OAuth2Stripe(AppwriteModel):
         Stripe OAuth2 API secret key.
     """
 
-    id: str = Field(
-        ...,
-        alias='$id',
-    )
-    enabled: bool = Field(
-        ...,
-        alias='enabled',
-    )
-    clientid: str = Field(
-        ...,
-        alias='clientId',
-    )
-    apisecretkey: str = Field(
-        ...,
-        alias='apiSecretKey',
-    )
+    id: str = Field(..., alias='$id')
+    enabled: bool = Field(..., alias='enabled')
+    clientid: str = Field(..., alias='clientId')
+    apisecretkey: str = Field(..., alias='apiSecretKey')

@@ -17,11 +17,5 @@ class CollectionList(AppwriteModel):
         List of collections.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    collections: List[Collection] = Field(
-        ...,
-        alias='collections',
-    )
+    total: float = Field(..., alias='total')
+    collections: List[Collection] = Field(..., alias='collections')

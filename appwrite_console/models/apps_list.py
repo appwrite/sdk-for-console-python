@@ -17,11 +17,5 @@ class AppsList(AppwriteModel):
         List of apps.
     """
 
-    total: float = Field(
-        ...,
-        alias='total',
-    )
-    apps: List[App] = Field(
-        ...,
-        alias='apps',
-    )
+    total: float = Field(..., alias='total')
+    apps: List[App] = Field(..., alias='apps')
