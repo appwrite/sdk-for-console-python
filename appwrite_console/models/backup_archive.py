@@ -18,11 +18,11 @@ class BackupArchive(AppwriteModel):
         Archive update date in ISO 8601 format.
     policyid : str
         Archive policy ID.
-    size : float
+    size : Optional[float]
         Archive size in bytes.
     status : str
         The status of the archive creation. Possible values: pending, processing, uploading, completed, failed, skipped.
-    startedat : str
+    startedat : Optional[str]
         The backup start time.
     migrationid : str
         Migration ID.
@@ -40,9 +40,9 @@ class BackupArchive(AppwriteModel):
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
     policyid: str = Field(..., alias='policyId')
-    size: float = Field(..., alias='size')
+    size: Optional[float] = Field(default=None, alias='size')
     status: str = Field(..., alias='status')
-    startedat: str = Field(..., alias='startedAt')
+    startedat: Optional[str] = Field(default=None, alias='startedAt')
     migrationid: str = Field(..., alias='migrationId')
     services: List[Any] = Field(..., alias='services')
     resources: List[Any] = Field(..., alias='resources')

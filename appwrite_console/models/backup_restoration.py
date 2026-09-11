@@ -22,7 +22,7 @@ class BackupRestoration(AppwriteModel):
         Backup policy ID.
     status : str
         The status of the restoration. Possible values: pending, downloading, processing, completed, failed.
-    startedat : str
+    startedat : Optional[str]
         The backup start time.
     migrationid : str
         Migration ID.
@@ -30,8 +30,8 @@ class BackupRestoration(AppwriteModel):
         The services that are backed up by this policy.
     resources : List[Any]
         The resources that are backed up by this policy.
-    options : str
-        Optional data in key-value object.
+    options : Dict[str, Any]
+        Resource mappings used by the restoration.
     """
 
     id: str = Field(..., alias='$id')
@@ -40,8 +40,8 @@ class BackupRestoration(AppwriteModel):
     archiveid: str = Field(..., alias='archiveId')
     policyid: str = Field(..., alias='policyId')
     status: str = Field(..., alias='status')
-    startedat: str = Field(..., alias='startedAt')
+    startedat: Optional[str] = Field(default=None, alias='startedAt')
     migrationid: str = Field(..., alias='migrationId')
     services: List[Any] = Field(..., alias='services')
     resources: List[Any] = Field(..., alias='resources')
-    options: str = Field(..., alias='options')
+    options: Dict[str, Any] = Field(..., alias='options')

@@ -36,10 +36,10 @@ class BackupsServiceTest(unittest.TestCase):
             "$id": "5e5ea5c16897e",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "policyId": "did8jx6ws45jana098ab7",
-            "size": 100000.0,
-            "status": "completed",
-            "startedAt": "2020-10-15T06:38:00.000+00:00",
+            "policyId": "",
+            "size": None,
+            "status": "pending",
+            "startedAt": None,
             "migrationId": "did8jx6ws45jana098ab7",
             "services": [],
             "resources": [],
@@ -62,7 +62,7 @@ class BackupsServiceTest(unittest.TestCase):
             "$id": "5e5ea5c16897e",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "policyId": "did8jx6ws45jana098ab7",
+            "policyId": "",
             "size": 100000.0,
             "status": "completed",
             "startedAt": "2020-10-15T06:38:00.000+00:00",
@@ -216,13 +216,13 @@ class BackupsServiceTest(unittest.TestCase):
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "archiveId": "did8jx6ws45jana098ab7",
-            "policyId": "did8jx6ws45jana098ab7",
-            "status": "completed",
-            "startedAt": "2020-10-15T06:38:00.000+00:00",
+            "policyId": "",
+            "status": "pending",
+            "startedAt": None,
             "migrationId": "did8jx6ws45jana098ab7",
             "services": [],
             "resources": [],
-            "options": "{databases.database[{oldId, newId, newName}]}",
+            "options": {"tablesdb": {"database": [{"oldId": "source", "newId": "restored"}]}},
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -240,8 +240,35 @@ class BackupsServiceTest(unittest.TestCase):
     @requests_mock.Mocker()
     def test_list_restorations(self, m):
         data = {
-            "total": 5.0,
-            "restorations": [],
+            "total": 2,
+            "restorations": [
+                {
+                    "$id": "pending-restoration",
+                    "$createdAt": "2026-09-10T08:00:00.000+00:00",
+                    "$updatedAt": "2026-09-10T08:00:00.000+00:00",
+                    "archiveId": "archive",
+                    "policyId": "",
+                    "status": "pending",
+                    "startedAt": None,
+                    "migrationId": "migration-pending",
+                    "services": ["databases"],
+                    "resources": ["database"],
+                    "options": {},
+                },
+                {
+                    "$id": "completed-restoration",
+                    "$createdAt": "2026-09-10T08:00:00.000+00:00",
+                    "$updatedAt": "2026-09-10T09:00:00.000+00:00",
+                    "archiveId": "archive",
+                    "policyId": "",
+                    "status": "completed",
+                    "startedAt": "2026-09-10T08:30:00.000+00:00",
+                    "migrationId": "migration-completed",
+                    "services": ["databases"],
+                    "resources": ["database"],
+                    "options": {"tablesdb": {"database": [{"oldId": "source", "newId": "restored"}]}},
+                },
+            ],
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -266,7 +293,7 @@ class BackupsServiceTest(unittest.TestCase):
             "migrationId": "did8jx6ws45jana098ab7",
             "services": [],
             "resources": [],
-            "options": "{databases.database[{oldId, newId, newName}]}",
+            "options": {"tablesdb": {"database": [{"oldId": "source", "newId": "restored"}]}},
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
