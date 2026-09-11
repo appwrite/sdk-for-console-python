@@ -82,6 +82,7 @@ class TablesDB(Service):
 
         api_path = '/tablesdb'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -223,6 +224,7 @@ class TablesDB(Service):
 
         api_path = '/tablesdb/transactions'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -1049,6 +1051,7 @@ class TablesDB(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1120,6 +1123,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "table_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_params['tableId'] = self._normalize_value(table_id)
         api_params['name'] = self._normalize_value(name)
@@ -1239,6 +1243,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if name is not None:
@@ -1348,6 +1353,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
@@ -1987,6 +1993,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "elements"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
+        self._validate_string_list('elements', elements)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_params['key'] = self._normalize_value(key)
@@ -2062,6 +2069,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "elements"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
+        self._validate_string_list('elements', elements)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{key}', str(self._normalize_value(key)))
@@ -4135,6 +4143,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
@@ -4207,6 +4216,8 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "type"')
         if columns is None:
             raise AppwriteException('Missing required parameter: "columns"')
+        self._validate_string_list('columns', columns)
+        self._validate_string_list('orders', orders)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_params['key'] = self._normalize_value(key)
@@ -4381,6 +4392,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
@@ -4455,6 +4467,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "row_id"')
         if data is None:
             raise AppwriteException('Missing required parameter: "data"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_params['rowId'] = self._normalize_value(row_id)
@@ -4645,6 +4658,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if data is not None:
@@ -4708,6 +4722,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if table_id is None:
             raise AppwriteException('Missing required parameter: "table_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         if queries is not None:
@@ -4774,6 +4789,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "table_id"')
         if row_id is None:
             raise AppwriteException('Missing required parameter: "row_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
@@ -4843,6 +4859,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "table_id"')
         if row_id is None:
             raise AppwriteException('Missing required parameter: "row_id"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))
@@ -4915,6 +4932,7 @@ class TablesDB(Service):
             raise AppwriteException('Missing required parameter: "table_id"')
         if row_id is None:
             raise AppwriteException('Missing required parameter: "row_id"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{tableId}', str(self._normalize_value(table_id)))
         api_path = api_path.replace('{rowId}', str(self._normalize_value(row_id)))

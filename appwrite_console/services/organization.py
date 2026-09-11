@@ -164,6 +164,7 @@ class Organization(Service):
 
         api_path = '/organization/installations'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -381,6 +382,7 @@ class Organization(Service):
 
         api_path = '/organization/keys'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -437,6 +439,7 @@ class Organization(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
+        self._validate_string_list('scopes', scopes)
         api_params['keyId'] = self._normalize_value(key_id)
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
@@ -535,6 +538,7 @@ class Organization(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
+        self._validate_string_list('scopes', scopes)
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
@@ -624,6 +628,7 @@ class Organization(Service):
 
         api_path = '/organization/memberships'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -684,6 +689,7 @@ class Organization(Service):
         api_params = {}
         if roles is None:
             raise AppwriteException('Missing required parameter: "roles"')
+        self._validate_string_list('roles', roles)
         if email is not None:
             api_params['email'] = self._normalize_value(email)
         if user_id is not None:
@@ -780,6 +786,7 @@ class Organization(Service):
             raise AppwriteException('Missing required parameter: "membership_id"')
         if roles is None:
             raise AppwriteException('Missing required parameter: "roles"')
+        self._validate_string_list('roles', roles)
         api_path = api_path.replace('{membershipId}', str(self._normalize_value(membership_id)))
         api_params['roles'] = self._normalize_value(roles)
 
@@ -866,6 +873,7 @@ class Organization(Service):
 
         api_path = '/organization/projects'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:

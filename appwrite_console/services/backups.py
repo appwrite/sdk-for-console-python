@@ -41,6 +41,7 @@ class Backups(Service):
 
         api_path = '/backups/archives'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -85,6 +86,7 @@ class Backups(Service):
         api_params = {}
         if services is None:
             raise AppwriteException('Missing required parameter: "services"')
+        self._validate_string_list('services', services)
         api_params['services'] = self._normalize_value(services)
         if resource_id is not None:
             api_params['resourceId'] = self._normalize_value(resource_id)
@@ -207,6 +209,7 @@ class Backups(Service):
 
         api_path = '/backups/policies'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -272,6 +275,7 @@ class Backups(Service):
             raise AppwriteException('Missing required parameter: "retention"')
         if schedule is None:
             raise AppwriteException('Missing required parameter: "schedule"')
+        self._validate_string_list('services', services)
         api_params['policyId'] = self._normalize_value(policy_id)
         if name is not None:
             api_params['name'] = self._normalize_value(name)
@@ -483,6 +487,7 @@ class Backups(Service):
             raise AppwriteException('Missing required parameter: "archive_id"')
         if services is None:
             raise AppwriteException('Missing required parameter: "services"')
+        self._validate_string_list('services', services)
         api_params['archiveId'] = self._normalize_value(archive_id)
         api_params['services'] = self._normalize_value(services)
         if new_resource_id is not None:
@@ -527,6 +532,7 @@ class Backups(Service):
 
         api_path = '/backups/restorations'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 

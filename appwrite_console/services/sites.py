@@ -61,6 +61,7 @@ class Sites(Service):
 
         api_path = '/sites'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -181,6 +182,9 @@ class Sites(Service):
             raise AppwriteException('Missing required parameter: "framework"')
         if build_runtime is None:
             raise AppwriteException('Missing required parameter: "build_runtime"')
+        self._validate_string_list('provider_branches', provider_branches)
+        self._validate_string_list('provider_paths', provider_paths)
+        self._validate_string_list('scopes', scopes)
         api_params['siteId'] = self._normalize_value(site_id)
         api_params['name'] = self._normalize_value(name)
         api_params['framework'] = self._normalize_value(framework)
@@ -342,6 +346,8 @@ class Sites(Service):
 
         api_path = '/sites/templates'
         api_params = {}
+        self._validate_string_list('frameworks', frameworks)
+        self._validate_string_list('use_cases', use_cases)
         if frameworks is not None:
             api_params['frameworks'] = self._normalize_value(frameworks)
         if use_cases is not None:
@@ -542,6 +548,9 @@ class Sites(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if framework is None:
             raise AppwriteException('Missing required parameter: "framework"')
+        self._validate_string_list('provider_branches', provider_branches)
+        self._validate_string_list('provider_paths', provider_paths)
+        self._validate_string_list('scopes', scopes)
         api_path = api_path.replace('{siteId}', str(self._normalize_value(site_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['framework'] = self._normalize_value(framework)
@@ -723,6 +732,7 @@ class Sites(Service):
         api_params = {}
         if site_id is None:
             raise AppwriteException('Missing required parameter: "site_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{siteId}', str(self._normalize_value(site_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1234,6 +1244,7 @@ class Sites(Service):
         api_params = {}
         if site_id is None:
             raise AppwriteException('Missing required parameter: "site_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{siteId}', str(self._normalize_value(site_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1377,6 +1388,7 @@ class Sites(Service):
         api_params = {}
         if site_id is None:
             raise AppwriteException('Missing required parameter: "site_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{siteId}', str(self._normalize_value(site_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

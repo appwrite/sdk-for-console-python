@@ -39,6 +39,7 @@ class Affiliates(Service):
 
         api_path = '/affiliates/links'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -205,6 +206,7 @@ class Affiliates(Service):
 
         api_path = '/affiliates/referrals'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -244,6 +246,7 @@ class Affiliates(Service):
 
         api_path = '/affiliates/rewards'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 

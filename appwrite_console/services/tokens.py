@@ -49,6 +49,7 @@ class Tokens(Service):
             raise AppwriteException('Missing required parameter: "bucket_id"')
         if file_id is None:
             raise AppwriteException('Missing required parameter: "file_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if queries is not None:

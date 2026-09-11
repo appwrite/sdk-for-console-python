@@ -196,6 +196,7 @@ class Account(Service):
 
         api_path = '/account/billing-addresses'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -461,6 +462,7 @@ class Account(Service):
 
         api_path = '/account/consents'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -591,6 +593,7 @@ class Account(Service):
         api_params = {}
         if consent_id is None:
             raise AppwriteException('Missing required parameter: "consent_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{consentId}', str(self._normalize_value(consent_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -821,6 +824,7 @@ class Account(Service):
 
         api_path = '/account/identities'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -902,6 +906,7 @@ class Account(Service):
 
         api_path = '/account/invoices'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -1030,6 +1035,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
+        self._validate_string_list('scopes', scopes)
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
@@ -1127,6 +1133,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
+        self._validate_string_list('scopes', scopes)
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
@@ -1214,6 +1221,7 @@ class Account(Service):
 
         api_path = '/account/logs'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -1741,6 +1749,7 @@ class Account(Service):
 
         api_path = '/account/payment-methods'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -2494,6 +2503,7 @@ class Account(Service):
         api_params = {}
         if provider is None:
             raise AppwriteException('Missing required parameter: "provider"')
+        self._validate_string_list('scopes', scopes)
         api_path = api_path.replace('{provider}', str(self._normalize_value(provider)))
         if success is not None:
             api_params['success'] = self._normalize_value(success)
@@ -3063,6 +3073,7 @@ class Account(Service):
         api_params = {}
         if provider is None:
             raise AppwriteException('Missing required parameter: "provider"')
+        self._validate_string_list('scopes', scopes)
         api_path = api_path.replace('{provider}', str(self._normalize_value(provider)))
         if success is not None:
             api_params['success'] = self._normalize_value(success)

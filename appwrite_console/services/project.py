@@ -233,6 +233,7 @@ class Project(Service):
 
         api_path = '/project/keys'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -291,6 +292,7 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
+        self._validate_string_list('scopes', scopes)
         api_params['keyId'] = self._normalize_value(key_id)
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
@@ -343,6 +345,7 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "scopes"')
         if duration is None:
             raise AppwriteException('Missing required parameter: "duration"')
+        self._validate_string_list('scopes', scopes)
         api_params['scopes'] = self._normalize_value(scopes)
         api_params['duration'] = self._normalize_value(duration)
 
@@ -438,6 +441,7 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
+        self._validate_string_list('scopes', scopes)
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
@@ -523,6 +527,7 @@ class Project(Service):
         api_params = {}
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
+        self._validate_string_list('labels', labels)
         api_params['labels'] = self._normalize_value(labels)
 
         response = self.client.call(
@@ -565,6 +570,7 @@ class Project(Service):
 
         api_path = '/project/mock-phones'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -783,6 +789,7 @@ class Project(Service):
 
         api_path = '/project/oauth2'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -873,6 +880,10 @@ class Project(Service):
             raise AppwriteException('Missing required parameter: "enabled"')
         if authorization_url is None:
             raise AppwriteException('Missing required parameter: "authorization_url"')
+        self._validate_string_list('scopes', scopes)
+        self._validate_string_list('authorization_details_types', authorization_details_types)
+        self._validate_string_list('default_scopes', default_scopes)
+        self._validate_string_list('installation_scopes', installation_scopes)
         api_params['enabled'] = self._normalize_value(enabled)
         api_params['authorizationUrl'] = self._normalize_value(authorization_url)
         if scopes is not None:
@@ -1930,6 +1941,7 @@ class Project(Service):
 
         api_path = '/project/oauth2/google'
         api_params = {}
+        self._validate_string_list('prompt', prompt)
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -2315,6 +2327,7 @@ class Project(Service):
 
         api_path = '/project/oauth2/oidc'
         api_params = {}
+        self._validate_string_list('prompt', prompt)
         if client_id is not None:
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
@@ -3441,6 +3454,7 @@ class Project(Service):
 
         api_path = '/project/platforms'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -4118,6 +4132,7 @@ class Project(Service):
 
         api_path = '/project/policies'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -5113,6 +5128,7 @@ class Project(Service):
         api_params = {}
         if emails is None:
             raise AppwriteException('Missing required parameter: "emails"')
+        self._validate_string_list('emails', emails)
         api_params['emails'] = self._normalize_value(emails)
 
         response = self.client.call(
@@ -5154,6 +5170,7 @@ class Project(Service):
 
         api_path = '/project/templates/email'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -5370,6 +5387,7 @@ class Project(Service):
 
         api_path = '/project/variables'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:

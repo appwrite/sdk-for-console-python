@@ -51,6 +51,7 @@ class Messaging(Service):
 
         api_path = '/messaging/messages'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -133,6 +134,12 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "subject"')
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
+        self._validate_string_list('topics', topics)
+        self._validate_string_list('users', users)
+        self._validate_string_list('targets', targets)
+        self._validate_string_list('cc', cc)
+        self._validate_string_list('bcc', bcc)
+        self._validate_string_list('attachments', attachments)
         api_params['messageId'] = self._normalize_value(message_id)
         api_params['subject'] = self._normalize_value(subject)
         api_params['content'] = self._normalize_value(content)
@@ -227,6 +234,12 @@ class Messaging(Service):
         api_params = {}
         if message_id is None:
             raise AppwriteException('Missing required parameter: "message_id"')
+        self._validate_string_list('topics', topics)
+        self._validate_string_list('users', users)
+        self._validate_string_list('targets', targets)
+        self._validate_string_list('cc', cc)
+        self._validate_string_list('bcc', bcc)
+        self._validate_string_list('attachments', attachments)
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if topics is not None:
             api_params['topics'] = self._normalize_value(topics)
@@ -344,6 +357,9 @@ class Messaging(Service):
         api_params = {}
         if message_id is None:
             raise AppwriteException('Missing required parameter: "message_id"')
+        self._validate_string_list('topics', topics)
+        self._validate_string_list('users', users)
+        self._validate_string_list('targets', targets)
         api_params['messageId'] = self._normalize_value(message_id)
         if title is not None:
             api_params['title'] = self._normalize_value(title)
@@ -475,6 +491,9 @@ class Messaging(Service):
         api_params = {}
         if message_id is None:
             raise AppwriteException('Missing required parameter: "message_id"')
+        self._validate_string_list('topics', topics)
+        self._validate_string_list('users', users)
+        self._validate_string_list('targets', targets)
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if topics is not None:
             api_params['topics'] = self._normalize_value(topics)
@@ -572,6 +591,9 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "message_id"')
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
+        self._validate_string_list('topics', topics)
+        self._validate_string_list('users', users)
+        self._validate_string_list('targets', targets)
         api_params['messageId'] = self._normalize_value(message_id)
         api_params['content'] = self._normalize_value(content)
         if topics is not None:
@@ -642,6 +664,9 @@ class Messaging(Service):
         api_params = {}
         if message_id is None:
             raise AppwriteException('Missing required parameter: "message_id"')
+        self._validate_string_list('topics', topics)
+        self._validate_string_list('users', users)
+        self._validate_string_list('targets', targets)
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if topics is not None:
             api_params['topics'] = self._normalize_value(topics)
@@ -781,6 +806,7 @@ class Messaging(Service):
         api_params = {}
         if message_id is None:
             raise AppwriteException('Missing required parameter: "message_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -829,6 +855,7 @@ class Messaging(Service):
 
         api_path = '/messaging/providers'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -2755,6 +2782,7 @@ class Messaging(Service):
 
         api_path = '/messaging/topics'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -2808,6 +2836,7 @@ class Messaging(Service):
             raise AppwriteException('Missing required parameter: "topic_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('subscribe', subscribe)
         api_params['topicId'] = self._normalize_value(topic_id)
         api_params['name'] = self._normalize_value(name)
         if subscribe is not None:
@@ -2898,6 +2927,7 @@ class Messaging(Service):
         api_params = {}
         if topic_id is None:
             raise AppwriteException('Missing required parameter: "topic_id"')
+        self._validate_string_list('subscribe', subscribe)
         api_path = api_path.replace('{topicId}', str(self._normalize_value(topic_id)))
         if name is not None:
             api_params['name'] = self._normalize_value(name)
@@ -2992,6 +3022,7 @@ class Messaging(Service):
         api_params = {}
         if topic_id is None:
             raise AppwriteException('Missing required parameter: "topic_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{topicId}', str(self._normalize_value(topic_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

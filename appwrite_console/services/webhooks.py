@@ -39,6 +39,7 @@ class Webhooks(Service):
 
         api_path = '/webhooks'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -112,6 +113,7 @@ class Webhooks(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if events is None:
             raise AppwriteException('Missing required parameter: "events"')
+        self._validate_string_list('events', events)
         api_params['webhookId'] = self._normalize_value(webhook_id)
         api_params['url'] = self._normalize_value(url)
         api_params['name'] = self._normalize_value(name)
@@ -233,6 +235,7 @@ class Webhooks(Service):
             raise AppwriteException('Missing required parameter: "url"')
         if events is None:
             raise AppwriteException('Missing required parameter: "events"')
+        self._validate_string_list('events', events)
         api_path = api_path.replace('{webhookId}', str(self._normalize_value(webhook_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['url'] = self._normalize_value(url)

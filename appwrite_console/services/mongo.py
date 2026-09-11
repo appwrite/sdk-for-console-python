@@ -49,6 +49,7 @@ class Mongo(Service):
 
         api_path = '/mongo'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 
@@ -131,6 +132,7 @@ class Mongo(Service):
             raise AppwriteException('Missing required parameter: "database_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('network_ip_allowlist', network_ip_allowlist)
         api_params['databaseId'] = self._normalize_value(database_id)
         api_params['name'] = self._normalize_value(name)
         if version is not None:
@@ -330,6 +332,8 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
+        self._validate_string_list('network_ip_allowlist', network_ip_allowlist)
+        self._validate_string_list('sql_api_allowed_statements', sql_api_allowed_statements)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if name is not None:
             api_params['name'] = self._normalize_value(name)
@@ -457,6 +461,7 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -548,6 +553,7 @@ class Mongo(Service):
         api_params = {}
         if database_id is None:
             raise AppwriteException('Missing required parameter: "database_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

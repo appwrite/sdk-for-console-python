@@ -142,6 +142,7 @@ class Console(Service):
 
         api_path = '/console/databases'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:

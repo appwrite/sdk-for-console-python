@@ -359,6 +359,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -558,6 +559,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None:
             raise AppwriteException('Missing required parameter: "project_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

@@ -66,6 +66,7 @@ class Users(Service):
 
         api_path = '/users'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -304,6 +305,7 @@ class Users(Service):
 
         api_path = '/users/identities'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -1039,6 +1041,7 @@ class Users(Service):
             raise AppwriteException('Missing required parameter: "user_id"')
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
+        self._validate_string_list('labels', labels)
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         api_params['labels'] = self._normalize_value(labels)
 
@@ -1087,6 +1090,7 @@ class Users(Service):
         api_params = {}
         if user_id is None:
             raise AppwriteException('Missing required parameter: "user_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1140,6 +1144,7 @@ class Users(Service):
         api_params = {}
         if user_id is None:
             raise AppwriteException('Missing required parameter: "user_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1970,6 +1975,7 @@ class Users(Service):
         api_params = {}
         if user_id is None:
             raise AppwriteException('Missing required parameter: "user_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{userId}', str(self._normalize_value(user_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

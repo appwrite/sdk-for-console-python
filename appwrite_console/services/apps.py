@@ -48,6 +48,7 @@ class Apps(Service):
 
         api_path = '/apps'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -149,6 +150,11 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if redirect_uris is None:
             raise AppwriteException('Missing required parameter: "redirect_uris"')
+        self._validate_string_list('redirect_uris', redirect_uris)
+        self._validate_string_list('contacts', contacts)
+        self._validate_string_list('tags', tags)
+        self._validate_string_list('images', images)
+        self._validate_string_list('post_logout_redirect_uris', post_logout_redirect_uris)
         api_params['appId'] = self._normalize_value(app_id)
         api_params['name'] = self._normalize_value(name)
         if description is not None:
@@ -385,6 +391,12 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "app_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('contacts', contacts)
+        self._validate_string_list('tags', tags)
+        self._validate_string_list('images', images)
+        self._validate_string_list('redirect_uris', redirect_uris)
+        self._validate_string_list('post_logout_redirect_uris', post_logout_redirect_uris)
+        self._validate_string_list('installation_scopes', installation_scopes)
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         api_params['name'] = self._normalize_value(name)
         if description is not None:
@@ -510,6 +522,7 @@ class Apps(Service):
         api_params = {}
         if app_id is None:
             raise AppwriteException('Missing required parameter: "app_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -700,6 +713,7 @@ class Apps(Service):
         api_params = {}
         if app_id is None:
             raise AppwriteException('Missing required parameter: "app_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -883,6 +897,7 @@ class Apps(Service):
             raise AppwriteException('Missing required parameter: "app_id"')
         if labels is None:
             raise AppwriteException('Missing required parameter: "labels"')
+        self._validate_string_list('labels', labels)
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         api_params['labels'] = self._normalize_value(labels)
 
@@ -931,6 +946,7 @@ class Apps(Service):
         api_params = {}
         if app_id is None:
             raise AppwriteException('Missing required parameter: "app_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{appId}', str(self._normalize_value(app_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

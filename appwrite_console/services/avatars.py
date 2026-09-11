@@ -560,6 +560,7 @@ class Avatars(Service):
         api_params = {}
         if url is None:
             raise AppwriteException('Missing required parameter: "url"')
+        self._validate_string_list('permissions', permissions)
         api_params['url'] = self._normalize_value(url)
         if headers is not None:
             api_params['headers'] = self._normalize_value(headers)
