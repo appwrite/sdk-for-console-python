@@ -1,8 +1,10 @@
 import json
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, urlparse
 
 from appwrite_console.client import Client
+from appwrite_console.exception import AppwriteException
 from appwrite_console.input_file import InputFile
 from appwrite_console.models import *
 from appwrite_console.services.tables_db import TablesDB
@@ -1794,6 +1796,63 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
         )
         self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_list_rows_reports_api_errors_for_unencoded_queries(self, m):
+        error = {'message': 'Invalid queries parameter.', 'code': 400, 'type': 'general_argument_invalid'}
+        m.get(requests_mock.ANY, json=error, status_code=400, headers={'Content-Type': 'application/json'})
+
+        for queries in ([{'method': 'limit', 'values': [1]}], [42]):
+            with self.subTest(queries=queries):
+                with self.assertRaises(AppwriteException) as raised:
+                    self.tables_db.list_rows('database-id', 'table-id', queries=queries)
+
+                self.assertEqual(raised.exception.code, 400)
+                self.assertEqual(raised.exception.type, 'general_argument_invalid')
+                self.assertEqual(json.loads(raised.exception.response), error)
+
+    @requests_mock.Mocker()
+    def test_list_rows_preserves_encoded_queries(self, m):
+        queries = [
+            json.dumps({'method': 'equal', 'attribute': 'name', 'values': ['Zoë 東京']}, ensure_ascii=False),
+            json.dumps({'method': 'limit', 'values': [1]}),
+        ]
+        data = {'total': 0, 'rows': []}
+        m.get(requests_mock.ANY, json=data, headers={'Content-Type': 'application/json'})
+
+        response = self.tables_db.list_rows('database-id', 'table-id', queries=queries)
+
+        self.assertEqual(response.to_dict(), data)
+        self.assertEqual(
+            parse_qs(urlparse(m.last_request.url).query),
+            {'queries[0]': [queries[0]], 'queries[1]': [queries[1]]},
+        )
+
+    @requests_mock.Mocker()
+    def test_list_rows_serializes_nested_queries(self, m):
+        error = {'message': 'Invalid queries parameter.', 'code': 400, 'type': 'general_argument_invalid'}
+        m.get(requests_mock.ANY, json=error, status_code=400, headers={'Content-Type': 'application/json'})
+        queries = [
+            {'method': 'equal', 'attribute': 'name', 'values': ['Zoë 東京', {'active': True}]},
+            [False, 3],
+        ]
+
+        with self.assertRaises(AppwriteException) as raised:
+            self.tables_db.list_rows('database-id', 'table-id', queries=queries)
+
+        self.assertEqual(raised.exception.code, 400)
+        self.assertEqual(raised.exception.type, 'general_argument_invalid')
+        self.assertEqual(
+            parse_qs(urlparse(m.last_request.url).query),
+            {
+                'queries[0][method]': ['equal'],
+                'queries[0][attribute]': ['name'],
+                'queries[0][values][0]': ['Zoë 東京'],
+                'queries[0][values][1][active]': ['true'],
+                'queries[1][0]': ['false'],
+                'queries[1][1]': ['3'],
+            },
+        )
 
     @requests_mock.Mocker()
     def test_create_row(self, m):
