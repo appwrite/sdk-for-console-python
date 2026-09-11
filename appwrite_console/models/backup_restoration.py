@@ -18,7 +18,7 @@ class BackupRestoration(AppwriteModel):
         Restoration update date in ISO 8601 format.
     archiveid : str
         Backup archive ID.
-    policyid : Optional[str]
+    policyid : str
         Backup policy ID.
     status : str
         The status of the restoration. Possible values: pending, downloading, processing, completed, failed.
@@ -38,7 +38,7 @@ class BackupRestoration(AppwriteModel):
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
     archiveid: str = Field(..., alias='archiveId')
-    policyid: Optional[str] = Field(default=None, alias='policyId')
+    policyid: str = Field(..., alias='policyId')
     status: str = Field(..., alias='status')
     startedat: Optional[str] = Field(default=None, alias='startedAt')
     migrationid: str = Field(..., alias='migrationId')

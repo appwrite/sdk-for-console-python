@@ -16,7 +16,7 @@ class BackupArchive(AppwriteModel):
         Archive creation time in ISO 8601 format.
     updatedat : str
         Archive update date in ISO 8601 format.
-    policyid : Optional[str]
+    policyid : str
         Archive policy ID.
     size : Optional[float]
         Archive size in bytes.
@@ -39,7 +39,7 @@ class BackupArchive(AppwriteModel):
     id: str = Field(..., alias='$id')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
-    policyid: Optional[str] = Field(default=None, alias='policyId')
+    policyid: str = Field(..., alias='policyId')
     size: Optional[float] = Field(default=None, alias='size')
     status: str = Field(..., alias='status')
     startedat: Optional[str] = Field(default=None, alias='startedAt')
