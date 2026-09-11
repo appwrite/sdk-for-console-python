@@ -97,6 +97,7 @@ class Proxy(Service):
 
         api_path = '/proxy/rules'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:

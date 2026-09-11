@@ -48,6 +48,7 @@ class Domains(Service):
 
         api_path = '/domains'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -353,6 +354,7 @@ class Domains(Service):
         api_params = {}
         if query is None:
             raise AppwriteException('Missing required parameter: "query"')
+        self._validate_string_list('tlds', tlds)
         api_params['query'] = self._normalize_value(query)
         if tlds is not None:
             api_params['tlds'] = self._normalize_value(tlds)
@@ -694,6 +696,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
+        self._validate_string_list('nameservers', nameservers)
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         if nameservers is not None:
             api_params['nameservers'] = self._normalize_value(nameservers)
@@ -1276,6 +1279,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None:
             raise AppwriteException('Missing required parameter: "domain_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

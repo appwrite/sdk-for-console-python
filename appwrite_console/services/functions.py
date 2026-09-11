@@ -60,6 +60,7 @@ class Functions(Service):
 
         api_path = '/functions'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -172,6 +173,11 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if runtime is None:
             raise AppwriteException('Missing required parameter: "runtime"')
+        self._validate_string_list('execute', execute)
+        self._validate_string_list('events', events)
+        self._validate_string_list('scopes', scopes)
+        self._validate_string_list('provider_branches', provider_branches)
+        self._validate_string_list('provider_paths', provider_paths)
         api_params['functionId'] = self._normalize_value(function_id)
         api_params['name'] = self._normalize_value(name)
         api_params['runtime'] = self._normalize_value(runtime)
@@ -333,6 +339,8 @@ class Functions(Service):
 
         api_path = '/functions/templates'
         api_params = {}
+        self._validate_string_list('runtimes', runtimes)
+        self._validate_string_list('use_cases', use_cases)
         if runtimes is not None:
             api_params['runtimes'] = self._normalize_value(runtimes)
         if use_cases is not None:
@@ -527,6 +535,11 @@ class Functions(Service):
             raise AppwriteException('Missing required parameter: "function_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('execute', execute)
+        self._validate_string_list('events', events)
+        self._validate_string_list('scopes', scopes)
+        self._validate_string_list('provider_branches', provider_branches)
+        self._validate_string_list('provider_paths', provider_paths)
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         api_params['name'] = self._normalize_value(name)
         if runtime is not None:
@@ -705,6 +718,7 @@ class Functions(Service):
         api_params = {}
         if function_id is None:
             raise AppwriteException('Missing required parameter: "function_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1219,6 +1233,7 @@ class Functions(Service):
         api_params = {}
         if function_id is None:
             raise AppwriteException('Missing required parameter: "function_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1432,6 +1447,7 @@ class Functions(Service):
         api_params = {}
         if function_id is None:
             raise AppwriteException('Missing required parameter: "function_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{functionId}', str(self._normalize_value(function_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

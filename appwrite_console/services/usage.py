@@ -76,6 +76,9 @@ class Usage(Service):
         api_params = {}
         if metrics is None:
             raise AppwriteException('Missing required parameter: "metrics"')
+        self._validate_string_list('metrics', metrics)
+        self._validate_string_list('queries', queries)
+        self._validate_string_list('dimensions', dimensions)
         api_params['metrics'] = self._normalize_value(metrics)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -174,6 +177,9 @@ class Usage(Service):
         api_params = {}
         if metrics is None:
             raise AppwriteException('Missing required parameter: "metrics"')
+        self._validate_string_list('metrics', metrics)
+        self._validate_string_list('queries', queries)
+        self._validate_string_list('dimensions', dimensions)
         api_params['metrics'] = self._normalize_value(metrics)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

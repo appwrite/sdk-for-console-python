@@ -44,6 +44,7 @@ class Presences(Service):
 
         api_path = '/presences'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -182,6 +183,7 @@ class Presences(Service):
             raise AppwriteException('Missing required parameter: "presence_id"')
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
         api_params['status'] = self._normalize_value(status)
         if permissions is not None:
@@ -245,6 +247,7 @@ class Presences(Service):
         api_params = {}
         if presence_id is None:
             raise AppwriteException('Missing required parameter: "presence_id"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
         if status is not None:
             api_params['status'] = self._normalize_value(status)

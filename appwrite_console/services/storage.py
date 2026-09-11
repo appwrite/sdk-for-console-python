@@ -48,6 +48,7 @@ class Storage(Service):
 
         api_path = '/storage/buckets'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -125,6 +126,8 @@ class Storage(Service):
             raise AppwriteException('Missing required parameter: "bucket_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('permissions', permissions)
+        self._validate_string_list('allowed_file_extensions', allowed_file_extensions)
         api_params['bucketId'] = self._normalize_value(bucket_id)
         api_params['name'] = self._normalize_value(name)
         if permissions is not None:
@@ -257,6 +260,8 @@ class Storage(Service):
             raise AppwriteException('Missing required parameter: "bucket_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('permissions', permissions)
+        self._validate_string_list('allowed_file_extensions', allowed_file_extensions)
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_params['name'] = self._normalize_value(name)
         if permissions is not None:
@@ -366,6 +371,7 @@ class Storage(Service):
         api_params = {}
         if bucket_id is None:
             raise AppwriteException('Missing required parameter: "bucket_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -438,6 +444,7 @@ class Storage(Service):
             raise AppwriteException('Missing required parameter: "file_id"')
         if file is None:
             raise AppwriteException('Missing required parameter: "file"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_params['fileId'] = self._normalize_value(file_id)
         api_params['file'] = self._normalize_value(file)
@@ -549,6 +556,7 @@ class Storage(Service):
             raise AppwriteException('Missing required parameter: "bucket_id"')
         if file_id is None:
             raise AppwriteException('Missing required parameter: "file_id"')
+        self._validate_string_list('permissions', permissions)
         api_path = api_path.replace('{bucketId}', str(self._normalize_value(bucket_id)))
         api_path = api_path.replace('{fileId}', str(self._normalize_value(file_id)))
         if name is not None:

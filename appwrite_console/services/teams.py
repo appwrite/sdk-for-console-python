@@ -54,6 +54,7 @@ class Teams(Service):
 
         api_path = '/teams'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -111,6 +112,7 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
+        self._validate_string_list('roles', roles)
         api_params['teamId'] = self._normalize_value(team_id)
         api_params['name'] = self._normalize_value(name)
         if roles is not None:
@@ -296,6 +298,7 @@ class Teams(Service):
         api_params = {}
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -543,6 +546,7 @@ class Teams(Service):
         api_params = {}
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -596,6 +600,7 @@ class Teams(Service):
         api_params = {}
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -668,6 +673,7 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "team_id"')
         if roles is None:
             raise AppwriteException('Missing required parameter: "roles"')
+        self._validate_string_list('roles', roles)
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         if email is not None:
             api_params['email'] = self._normalize_value(email)
@@ -776,6 +782,7 @@ class Teams(Service):
             raise AppwriteException('Missing required parameter: "membership_id"')
         if roles is None:
             raise AppwriteException('Missing required parameter: "roles"')
+        self._validate_string_list('roles', roles)
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
         api_path = api_path.replace('{membershipId}', str(self._normalize_value(membership_id)))
         api_params['roles'] = self._normalize_value(roles)

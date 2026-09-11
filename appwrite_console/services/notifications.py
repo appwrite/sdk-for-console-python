@@ -36,6 +36,7 @@ class Notifications(Service):
 
         api_path = '/notifications'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
 

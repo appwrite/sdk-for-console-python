@@ -41,6 +41,7 @@ class Advisor(Service):
 
         api_path = '/reports'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -170,6 +171,7 @@ class Advisor(Service):
         api_params = {}
         if report_id is None:
             raise AppwriteException('Missing required parameter: "report_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{reportId}', str(self._normalize_value(report_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)

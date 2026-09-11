@@ -130,6 +130,7 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_params['type'] = self._normalize_value(type)
         if search is not None:
@@ -298,6 +299,7 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         if provider_repository_id is None:
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
         if search is not None:
@@ -456,6 +458,7 @@ class Vcs(Service):
 
         api_path = '/vcs/installations'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -587,6 +590,7 @@ class Vcs(Service):
         api_params = {}
         if installation_id is None:
             raise AppwriteException('Missing required parameter: "installation_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         if search is not None:
             api_params['search'] = self._normalize_value(search)

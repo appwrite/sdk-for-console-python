@@ -1,8 +1,11 @@
 import json
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, urlparse
 
 from appwrite_console.client import Client
+from appwrite_console.exception import AppwriteException
+from appwrite_console.enums.order_by import OrderBy
 from appwrite_console.input_file import InputFile
 from appwrite_console.models import *
 from appwrite_console.services.tables_db import TablesDB
@@ -567,6 +570,19 @@ class TablesDBServiceTest(unittest.TestCase):
             '<NAME>',
         )
         self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_create_table_rejects_invalid_permission_types(self, m):
+        for permissions in ([{'role': 'any'}], [42], 'read("any")'):
+            with self.subTest(permissions=permissions):
+                with self.assertRaises(AppwriteException) as raised:
+                    self.tables_db.create_table('database-id', 'table-id', 'Table', permissions=permissions)
+
+                self.assertEqual(raised.exception.code, 0)
+                self.assertEqual(raised.exception.type, 'sdk_input_validation')
+                self.assertIsNone(raised.exception.response)
+                self.assertIn('permissions', str(raised.exception))
+                self.assertFalse(m.called)
 
     @requests_mock.Mocker()
     def test_get_table(self, m):
@@ -1729,8 +1745,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '',
             'key',
             [],
+            orders=[OrderBy.ASC, 'desc'],
         )
         self.assertEqual(response.to_dict(), data)
+        self.assertEqual(m.last_request.json()['orders'], ['asc', 'desc'])
 
     @requests_mock.Mocker()
     def test_get_index(self, m):
@@ -1794,6 +1812,47 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
         )
         self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_list_rows_rejects_invalid_query_types(self, m):
+        m.get(requests_mock.ANY, json={'total': 0, 'rows': []}, headers={'Content-Type': 'application/json'})
+
+        for queries in (
+            [{'method': 'limit', 'values': [1]}],
+            [42],
+            ['{"method":"limit","values":[1]}', {'method': 'limit', 'values': [2]}],
+            [{'method': 'equal', 'attribute': 'name', 'values': ['Zoë 東京', {'active': True}]}, [False, 3]],
+            {'method': 'limit', 'values': [1]},
+            '{"method":"limit","values":[1]}',
+        ):
+            with self.subTest(queries=queries):
+                with self.assertRaises(AppwriteException) as raised:
+                    self.tables_db.list_rows('database-id', 'table-id', queries=queries)
+
+                self.assertEqual(raised.exception.code, 0)
+                self.assertEqual(raised.exception.type, 'sdk_input_validation')
+                self.assertIsNone(raised.exception.response)
+                self.assertIn('queries', str(raised.exception))
+                self.assertFalse(m.called)
+
+    @requests_mock.Mocker()
+    def test_list_rows_preserves_encoded_queries(self, m):
+        encoded_queries = [
+            json.dumps({'method': 'equal', 'attribute': 'name', 'values': ['Zoë 東京']}, ensure_ascii=False),
+            json.dumps({'method': 'limit', 'values': [1]}),
+        ]
+        data = {'total': 0, 'rows': []}
+        m.get(requests_mock.ANY, json=data, headers={'Content-Type': 'application/json'})
+
+        for queries in (encoded_queries, [], None):
+            with self.subTest(queries=queries):
+                response = self.tables_db.list_rows('database-id', 'table-id', queries=queries)
+
+                self.assertEqual(response.to_dict(), data)
+                self.assertEqual(
+                    parse_qs(urlparse(m.last_request.url).query),
+                    {'queries[0]': [queries[0]], 'queries[1]': [queries[1]]} if queries else {},
+                )
 
     @requests_mock.Mocker()
     def test_create_row(self, m):

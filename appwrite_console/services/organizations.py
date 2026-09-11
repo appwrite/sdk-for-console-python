@@ -69,6 +69,7 @@ class Organizations(Service):
 
         api_path = '/organizations'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -150,6 +151,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
+        self._validate_string_list('invites', invites)
         api_params['organizationId'] = self._normalize_value(organization_id)
         api_params['name'] = self._normalize_value(name)
         api_params['billingPlan'] = self._normalize_value(billing_plan)
@@ -219,6 +221,7 @@ class Organizations(Service):
         api_params = {}
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
+        self._validate_string_list('invites', invites)
         api_params['billingPlan'] = self._normalize_value(billing_plan)
         if payment_method_id is not None:
             api_params['paymentMethodId'] = self._normalize_value(payment_method_id)
@@ -620,6 +623,7 @@ class Organizations(Service):
         api_params = {}
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -964,6 +968,7 @@ class Organizations(Service):
         api_params = {}
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1191,6 +1196,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
+        self._validate_string_list('invites', invites)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         api_params['billingPlan'] = self._normalize_value(billing_plan)
         if invites is not None:
@@ -1305,6 +1311,7 @@ class Organizations(Service):
         api_params = {}
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
+        self._validate_string_list('queries', queries)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
@@ -1890,6 +1897,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
+        self._validate_string_list('invites', invites)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         api_params['billingPlan'] = self._normalize_value(billing_plan)
         if payment_method_id is not None:
@@ -2000,6 +2008,7 @@ class Organizations(Service):
             raise AppwriteException('Missing required parameter: "organization_id"')
         if billing_plan is None:
             raise AppwriteException('Missing required parameter: "billing_plan"')
+        self._validate_string_list('invites', invites)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         api_params['billingPlan'] = self._normalize_value(billing_plan)
         if invites is not None:
@@ -2237,6 +2246,7 @@ class Organizations(Service):
         api_params = {}
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
+        self._validate_string_list('invites', invites)
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if invites is not None:
             api_params['invites'] = self._normalize_value(invites)

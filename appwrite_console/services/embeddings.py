@@ -41,6 +41,7 @@ class Embeddings(Service):
         api_params = {}
         if texts is None:
             raise AppwriteException('Missing required parameter: "texts"')
+        self._validate_string_list('texts', texts)
         api_params['texts'] = self._normalize_value(texts)
         if model is not None:
             api_params['model'] = self._normalize_value(model)

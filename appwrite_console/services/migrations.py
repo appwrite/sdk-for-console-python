@@ -48,6 +48,7 @@ class Migrations(Service):
 
         api_path = '/migrations'
         api_params = {}
+        self._validate_string_list('queries', queries)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
@@ -111,6 +112,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if api_key is None:
             raise AppwriteException('Missing required parameter: "api_key"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['projectId'] = self._normalize_value(project_id)
@@ -172,6 +174,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['projectID'] = self._normalize_value(project_id)
@@ -246,6 +249,8 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "collection_id"')
         if filename is None:
             raise AppwriteException('Missing required parameter: "filename"')
+        self._validate_string_list('columns', columns)
+        self._validate_string_list('queries', queries)
         api_params['databaseId'] = self._normalize_value(database_id)
         api_params['collectionId'] = self._normalize_value(collection_id)
         api_params['filename'] = self._normalize_value(filename)
@@ -377,6 +382,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "resources"')
         if service_account is None:
             raise AppwriteException('Missing required parameter: "service_account"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['serviceAccount'] = self._normalize_value(service_account)
 
@@ -424,6 +430,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "resources"')
         if service_account is None:
             raise AppwriteException('Missing required parameter: "service_account"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['serviceAccount'] = self._normalize_value(service_account)
 
@@ -484,6 +491,8 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "collection_id"')
         if filename is None:
             raise AppwriteException('Missing required parameter: "filename"')
+        self._validate_string_list('columns', columns)
+        self._validate_string_list('queries', queries)
         api_params['databaseId'] = self._normalize_value(database_id)
         api_params['collectionId'] = self._normalize_value(collection_id)
         api_params['filename'] = self._normalize_value(filename)
@@ -635,6 +644,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['subdomain'] = self._normalize_value(subdomain)
         api_params['region'] = self._normalize_value(region)
@@ -717,6 +727,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['subdomain'] = self._normalize_value(subdomain)
         api_params['region'] = self._normalize_value(region)
@@ -793,6 +804,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['apiKey'] = self._normalize_value(api_key)
@@ -869,6 +881,7 @@ class Migrations(Service):
             raise AppwriteException('Missing required parameter: "username"')
         if password is None:
             raise AppwriteException('Missing required parameter: "password"')
+        self._validate_string_list('resources', resources)
         api_params['resources'] = self._normalize_value(resources)
         api_params['endpoint'] = self._normalize_value(endpoint)
         api_params['apiKey'] = self._normalize_value(api_key)
