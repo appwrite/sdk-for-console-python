@@ -22,6 +22,8 @@ class Installation(AppwriteModel):
         VCS (Version Control System) organization name.
     providerinstallationid : str
         VCS (Version Control System) installation ID.
+    organizationurl : str
+        VCS (Version Control System) organization URL. Points at the configured instance, which is not the provider&#039;s own host for a self-hosted install.
     """
 
     id: str = Field(..., alias='$id')
@@ -30,3 +32,4 @@ class Installation(AppwriteModel):
     provider: str = Field(..., alias='provider')
     organization: str = Field(..., alias='organization')
     providerinstallationid: str = Field(..., alias='providerInstallationId')
+    organizationurl: str = Field(..., alias='organizationUrl')

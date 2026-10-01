@@ -26,7 +26,7 @@ class TemplateFramework(AppwriteModel):
         Runtime used during build step of template.
     adapter : str
         Site framework runtime
-    fallbackfile : str
+    fallbackfile : Optional[str]
         Fallback file for SPA. Only relevant for static serve runtime.
     """
 
@@ -38,4 +38,4 @@ class TemplateFramework(AppwriteModel):
     providerrootdirectory: str = Field(..., alias='providerRootDirectory')
     buildruntime: str = Field(..., alias='buildRuntime')
     adapter: str = Field(..., alias='adapter')
-    fallbackfile: str = Field(..., alias='fallbackFile')
+    fallbackfile: Optional[str] = Field(default=None, alias='fallbackFile')

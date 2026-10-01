@@ -16,6 +16,14 @@ class DedicatedDatabaseSpecification(AppwriteModel):
         Human readable specification name.
     price : float
         Monthly price of the specification in USD.
+    storageoveragerate : float
+        Price per GB of storage above the included amount, per month, in USD.
+    bandwidthoveragerate : float
+        Price per GB of bandwidth above the included amount, per month, in USD.
+    replicarate : float
+        High availability replica price as a fraction of the specification price.
+    pitrrate : float
+        Point-in-time recovery price as a fraction of the specification price.
     cpu : float
         Allocated CPU in millicores.
     memory : float
@@ -33,6 +41,10 @@ class DedicatedDatabaseSpecification(AppwriteModel):
     slug: str = Field(..., alias='slug')
     name: str = Field(..., alias='name')
     price: float = Field(..., alias='price')
+    storageoveragerate: float = Field(..., alias='storageOverageRate')
+    bandwidthoveragerate: float = Field(..., alias='bandwidthOverageRate')
+    replicarate: float = Field(..., alias='replicaRate')
+    pitrrate: float = Field(..., alias='pitrRate')
     cpu: float = Field(..., alias='cpu')
     memory: float = Field(..., alias='memory')
     maxconnections: float = Field(..., alias='maxConnections')

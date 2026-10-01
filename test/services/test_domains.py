@@ -55,7 +55,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create(
             '<TEAM_ID>',
-            '',
+            'example.com',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -65,9 +65,9 @@ class DomainsServiceTest(unittest.TestCase):
             "domain": "example.com",
             "tld": "com",
             "available": True,
-            "price": 25.99,
             "periodYears": 1.0,
             "premium": True,
+            "renewalPeriodYears": 1.0,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -77,7 +77,25 @@ class DomainsServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.domains.get_price(
-            '',
+            'example.com',
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_list_prices(self, m):
+        data = {
+            "total": 5.0,
+            "prices": [],
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            requests_mock.ANY,
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.domains.list_prices(
+            [],
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -103,7 +121,7 @@ class DomainsServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.domains.create_purchase(
-            '',
+            'example.com',
             '<ORGANIZATION_ID>',
             '<FIRST_NAME>',
             '<LAST_NAME>',
@@ -181,7 +199,7 @@ class DomainsServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.domains.create_transfer_in(
-            '',
+            'example.com',
             '<ORGANIZATION_ID>',
             '<AUTH_CODE>',
             '<PAYMENT_METHOD_ID>',
@@ -620,8 +638,8 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_a(
             '<DOMAIN_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -652,8 +670,8 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_a(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -683,8 +701,8 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_aaaa(
             '<DOMAIN_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -715,8 +733,8 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_aaaa(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -746,7 +764,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_alias(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -778,7 +796,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_alias(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -809,8 +827,8 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_caa(
             '<DOMAIN_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -841,8 +859,8 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_caa(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
-            '',
+            'name',
+            'value',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -872,7 +890,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_cname(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -904,7 +922,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_cname(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -935,7 +953,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_https(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -967,7 +985,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_https(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -998,7 +1016,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_mx(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -1031,7 +1049,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_mx(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -1063,7 +1081,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_ns(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -1095,7 +1113,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_ns(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -1126,7 +1144,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_srv(
             '<DOMAIN_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -1161,7 +1179,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_srv(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
             1,
@@ -1195,7 +1213,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.create_record_txt(
             '<DOMAIN_ID>',
-            '',
+            'name',
             1,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1226,7 +1244,7 @@ class DomainsServiceTest(unittest.TestCase):
         response = self.domains.update_record_txt(
             '<DOMAIN_ID>',
             '<RECORD_ID>',
-            '',
+            'name',
             '<VALUE>',
             1,
         )
@@ -1327,12 +1345,12 @@ class DomainsServiceTest(unittest.TestCase):
 
     @requests_mock.Mocker()
     def test_get_zone(self, m):
-        data = ''
-        headers = {'Content-Type': 'application/json'}
+        data = '; café zone\nwww 3600 IN A 192.0.2.1\n'
+        headers = {'Content-Type': 'text/plain; charset=utf-8'}
         m.request(
             requests_mock.ANY,
             requests_mock.ANY,
-            text=json.dumps(data),
+            text=data,
             headers=headers,
         )
         response = self.domains.get_zone(

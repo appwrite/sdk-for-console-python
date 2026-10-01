@@ -7,6 +7,7 @@ from ..models.domains_list import DomainsList
 from ..models.domain import Domain
 from ..enums.domain_registration_type import DomainRegistrationType
 from ..models.domain_price import DomainPrice
+from ..models.domain_prices_list import DomainPricesList
 from ..models.domain_purchase import DomainPurchase
 from ..enums.domain_suggestion_type import DomainSuggestionType
 from ..models.domain_suggestions_list import DomainSuggestionsList
@@ -112,6 +113,7 @@ class Domains(Service):
 
         return self._parse_response(response, model=Domain)
 
+    @deprecated("This API has been deprecated since 2.0.0. Please use `domains.list_prices` instead.")
     def get_price(
         self,
         domain: str,
@@ -121,6 +123,8 @@ class Domains(Service):
         """
         Get the registration price for a domain name.
 
+        .. deprecated::2.0.0
+            This API has been deprecated since 2.0.0. Please use `domains.list_prices` instead.
         Parameters
         ----------
         domain : str
@@ -161,6 +165,56 @@ class Domains(Service):
         )
 
         return self._parse_response(response, model=DomainPrice)
+
+    def list_prices(
+        self,
+        domains: List[str],
+        period_years: Optional[float] = None,
+        registration_type: Optional[DomainRegistrationType] = None,
+    ) -> DomainPricesList:
+        """
+        Check availability and get the requested registration price for one or more domain names. Availability is resolved for all domains in a single registrar lookup. Unavailable domains have a null price for new registrations, but can still be priced for renewal, transfer, or trade. Every priced domain also carries its renewal price for the same period, so a separate renewal lookup is not needed. A domain whose price could not be resolved, for example because its TLD is not supported, is returned with a null price.
+
+        Parameters
+        ----------
+        domains : List[str]
+            Domain names to check availability and price for. Maximum of 50 domains per request.
+        period_years : Optional[float]
+            Number of years to calculate the domain price for. Must be at least 1.
+        registration_type : Optional[DomainRegistrationType]
+            Type of registration pricing to fetch. Allowed values: new, transfer, renewal, trade.
+        Returns
+        -------
+        DomainPricesList
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/domains/prices'
+        api_params = {}
+        if domains is None:
+            raise AppwriteException('Missing required parameter: "domains"')
+        api_params['domains'] = self._normalize_value(domains)
+        if period_years is not None:
+            api_params['periodYears'] = self._normalize_value(period_years)
+        if registration_type is not None:
+            api_params['registrationType'] = self._normalize_value(registration_type)
+
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=DomainPricesList)
 
     def create_purchase(
         self,
@@ -292,7 +346,7 @@ class Domains(Service):
 
         api_path = '/domains/purchases/{invoiceId}'
         api_params = {}
-        if invoice_id is None:
+        if invoice_id is None or invoice_id == '':
             raise AppwriteException('Missing required parameter: "invoice_id"')
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
@@ -468,7 +522,7 @@ class Domains(Service):
 
         api_path = '/domains/transfers/in/{invoiceId}'
         api_params = {}
-        if invoice_id is None:
+        if invoice_id is None or invoice_id == '':
             raise AppwriteException('Missing required parameter: "invoice_id"')
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
@@ -559,7 +613,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -600,7 +654,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -644,7 +698,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/auto-renewal'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if auto_renewal is None:
             raise AppwriteException('Missing required parameter: "auto_renewal"')
@@ -692,7 +746,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/nameservers'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         if nameservers is not None:
@@ -737,7 +791,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/nameservers/verification'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -778,7 +832,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/google-workspace'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -819,7 +873,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/google-workspace'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -860,7 +914,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/icloud'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -901,7 +955,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/icloud'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -942,7 +996,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/mailgun'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -983,7 +1037,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/mailgun'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1024,7 +1078,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/outlook'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1065,7 +1119,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/outlook'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1106,7 +1160,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/proton-mail'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1147,7 +1201,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/proton-mail'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1188,7 +1242,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/zoho'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1229,7 +1283,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/presets/zoho'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -1274,7 +1328,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         if queries is not None:
@@ -1313,7 +1367,7 @@ class Domains(Service):
         value : str
             IPv4 address for this A record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment explaining what this record is for.
         Returns
@@ -1329,7 +1383,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/a'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1382,7 +1436,7 @@ class Domains(Service):
         value : str
             IPv4 address for this A record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment explaining what this record is for.
         Returns
@@ -1398,9 +1452,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/a/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1450,7 +1504,7 @@ class Domains(Service):
         value : str
             IPv6 address for this AAAA record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment explaining what this record is for.
         Returns
@@ -1466,7 +1520,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/aaaa'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1519,7 +1573,7 @@ class Domains(Service):
         value : str
             IPv6 address for this AAAA record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1535,9 +1589,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/aaaa/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1588,7 +1642,7 @@ class Domains(Service):
         value : str
             Target domain for this ALIAS record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1604,7 +1658,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/alias'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1659,7 +1713,7 @@ class Domains(Service):
         value : str
             Target domain for this ALIAS record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1675,9 +1729,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/alias/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1727,7 +1781,7 @@ class Domains(Service):
         value : str
             CAA value (e.g. issuer domain).
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1743,7 +1797,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/caa'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1796,7 +1850,7 @@ class Domains(Service):
         value : str
             CAA value (e.g. issuer domain).
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1812,9 +1866,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/caa/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1867,7 +1921,7 @@ class Domains(Service):
         value : str
             Canonical target for this CNAME record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1883,7 +1937,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/cname'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -1934,7 +1988,7 @@ class Domains(Service):
         value : str
             Canonical target for this CNAME record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -1950,9 +2004,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/cname/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2002,7 +2056,7 @@ class Domains(Service):
         value : str
             Target for the HTTPS record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2018,7 +2072,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/https'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2071,7 +2125,7 @@ class Domains(Service):
         value : str
             Target for the HTTPS record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2087,9 +2141,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/https/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2142,9 +2196,9 @@ class Domains(Service):
         value : str
             Mail server domain for this MX record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         priority : float
-            MX priority.
+            MX priority. Lower values are tried first.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2160,7 +2214,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/mx'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2215,9 +2269,9 @@ class Domains(Service):
         value : str
             Mail server domain for this MX record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         priority : float
-            MX priority.
+            MX priority. Lower values are tried first.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2233,9 +2287,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/mx/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2288,7 +2342,7 @@ class Domains(Service):
         value : str
             Nameserver target for this NS record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2304,7 +2358,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/ns'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2358,7 +2412,7 @@ class Domains(Service):
         value : str
             Nameserver target for this NS record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2374,9 +2428,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/ns/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2430,11 +2484,11 @@ class Domains(Service):
         value : str
             Target hostname for this SRV record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         priority : float
-            Record priority.
+            Record priority. Lower values are tried first.
         weight : float
-            Record weight.
+            Record weight, used to share load between targets of equal priority.
         port : float
             Port number for the service.
         comment : Optional[str]
@@ -2452,7 +2506,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/srv'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2528,11 +2582,11 @@ class Domains(Service):
         value : str
             Target hostname for this SRV record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         priority : float
-            Record priority.
+            Record priority. Lower values are tried first.
         weight : float
-            Record weight.
+            Record weight, used to share load between targets of equal priority.
         port : float
             Port number for the service.
         comment : Optional[str]
@@ -2550,9 +2604,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/srv/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2610,7 +2664,7 @@ class Domains(Service):
         name : str
             Record name (subdomain) for the TXT record.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         value : Optional[str]
             TXT record value.
         comment : Optional[str]
@@ -2628,7 +2682,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/txt'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2681,7 +2735,7 @@ class Domains(Service):
         value : str
             TXT record value.
         ttl : float
-            Time to live, in seconds. Must be greater than 0.
+            Time to live, in seconds. Must be between 1 and 2147483647.
         comment : Optional[str]
             A comment for this record.
         Returns
@@ -2697,9 +2751,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/txt/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -2759,9 +2813,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
@@ -2806,9 +2860,9 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/records/{recordId}'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        if record_id is None:
+        if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
         api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
@@ -2857,7 +2911,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/team'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
@@ -2901,7 +2955,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/transfers/status'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -2920,7 +2974,7 @@ class Domains(Service):
     def get_zone(
         self,
         domain_id: str,
-    ) -> Dict[str, Any]:
+    ) -> str:
         """
         Retrieve the DNS zone file for the given domain. This endpoint will return the DNS
         zone file in a standardized format that can be used to configure DNS servers.
@@ -2931,8 +2985,8 @@ class Domains(Service):
             Domain unique ID.
         Returns
         -------
-        Dict[str, Any]
-            API response as a dictionary
+        str
+            Response body as text
 
         Raises
         ------
@@ -2942,7 +2996,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/zone'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
 
@@ -2954,6 +3008,7 @@ class Domains(Service):
                 'accept': 'text/plain',
             },
             api_params,
+            response_type='text',
         )
 
         return response
@@ -2986,7 +3041,7 @@ class Domains(Service):
 
         api_path = '/domains/{domainId}/zone'
         api_params = {}
-        if domain_id is None:
+        if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')

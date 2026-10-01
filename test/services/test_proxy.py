@@ -30,7 +30,7 @@ class ProxyServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.proxy.create_invalidation(
-            '',
+            'example.com',
             'tag',
         )
         self.assertEqual(response.to_dict(), data)
@@ -77,7 +77,7 @@ class ProxyServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.proxy.create_api_rule(
-            '',
+            'example.com',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -107,7 +107,7 @@ class ProxyServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.proxy.create_function_rule(
-            '',
+            'example.com',
             '<FUNCTION_ID>',
         )
         self.assertEqual(response.to_dict(), data)
@@ -138,7 +138,7 @@ class ProxyServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.proxy.create_redirect_rule(
-            '',
+            'example.com',
             'https://example.com',
             '301',
             '<RESOURCE_ID>',
@@ -172,7 +172,7 @@ class ProxyServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.proxy.create_site_rule(
-            '',
+            'example.com',
             '<SITE_ID>',
         )
         self.assertEqual(response.to_dict(), data)

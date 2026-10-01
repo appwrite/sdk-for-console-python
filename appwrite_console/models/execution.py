@@ -49,7 +49,7 @@ class Execution(AppwriteModel):
     errors : str
         Resource errors. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
     duration : float
-        Resource(function/site) execution duration in seconds.
+        Total time the resource(function/site) took to respond, in seconds.
     scheduledat : Optional[str]
         The scheduled time for execution. If left empty, execution will be queued immediately.
     """

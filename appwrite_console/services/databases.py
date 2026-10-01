@@ -264,7 +264,7 @@ class Databases(Service):
 
         api_path = '/databases/transactions/{transactionId}'
         api_params = {}
-        if transaction_id is None:
+        if transaction_id is None or transaction_id == '':
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
 
@@ -313,7 +313,7 @@ class Databases(Service):
 
         api_path = '/databases/transactions/{transactionId}'
         api_params = {}
-        if transaction_id is None:
+        if transaction_id is None or transaction_id == '':
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if commit is not None:
@@ -361,7 +361,7 @@ class Databases(Service):
 
         api_path = '/databases/transactions/{transactionId}'
         api_params = {}
-        if transaction_id is None:
+        if transaction_id is None or transaction_id == '':
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
 
@@ -371,6 +371,7 @@ class Databases(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -407,7 +408,7 @@ class Databases(Service):
 
         api_path = '/databases/transactions/{transactionId}/operations'
         api_params = {}
-        if transaction_id is None:
+        if transaction_id is None or transaction_id == '':
             raise AppwriteException('Missing required parameter: "transaction_id"')
         api_path = api_path.replace('{transactionId}', str(self._normalize_value(transaction_id)))
         if operations is not None:
@@ -453,7 +454,7 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
@@ -502,7 +503,7 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if name is not None:
@@ -550,7 +551,7 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
 
@@ -560,6 +561,7 @@ class Databases(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -602,7 +604,7 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         if queries is not None:
@@ -672,7 +674,7 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
         if collection_id is None:
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -735,9 +737,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -799,9 +801,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -859,9 +861,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -872,6 +874,7 @@ class Databases(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -914,9 +917,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -985,9 +988,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1067,11 +1070,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/bigint/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -1142,9 +1145,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1214,11 +1217,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -1285,9 +1288,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/datetime'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1357,11 +1360,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/datetime/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -1428,9 +1431,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/email'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1500,11 +1503,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/email/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -1574,9 +1577,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/enum'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1652,11 +1655,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/enum/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if elements is None:
             raise AppwriteException('Missing required parameter: "elements"')
@@ -1732,9 +1735,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/float'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1814,11 +1817,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/float/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -1895,9 +1898,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/integer'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -1977,11 +1980,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/integer/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2052,9 +2055,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/ip'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -2124,11 +2127,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/ip/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2192,9 +2195,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/line'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -2262,11 +2265,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/line/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2337,9 +2340,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -2411,11 +2414,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/longtext/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2485,9 +2488,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -2559,11 +2562,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/mediumtext/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2627,9 +2630,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/point'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -2697,11 +2700,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/point/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2766,9 +2769,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/polygon'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -2836,11 +2839,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/polygon/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -2914,9 +2917,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if related_collection_id is None:
             raise AppwriteException('Missing required parameter: "related_collection_id"')
@@ -2987,11 +2990,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/relationship/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -3062,9 +3065,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/string'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -3142,11 +3145,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/string/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -3218,9 +3221,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/text'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -3292,11 +3295,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/text/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -3363,9 +3366,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/url'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -3435,11 +3438,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/url/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -3512,9 +3515,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -3592,11 +3595,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/varchar/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         if required is None:
             raise AppwriteException('Missing required parameter: "required"')
@@ -3631,6 +3634,7 @@ class Databases(Service):
         key: str,
     ) -> Union[
         AttributeBoolean,
+        AttributeBigint,
         AttributeInteger,
         AttributeFloat,
         AttributeEmail,
@@ -3639,6 +3643,13 @@ class Databases(Service):
         AttributeIp,
         AttributeDatetime,
         AttributeRelationship,
+        AttributePoint,
+        AttributeLine,
+        AttributePolygon,
+        AttributeVarchar,
+        AttributeText,
+        AttributeMediumtext,
+        AttributeLongtext,
         AttributeString,
     ]:
         """
@@ -3656,7 +3667,7 @@ class Databases(Service):
             Attribute Key.
         Returns
         -------
-        Union[AttributeBoolean, AttributeInteger, AttributeFloat, AttributeEmail, AttributeEnum, AttributeUrl, AttributeIp, AttributeDatetime, AttributeRelationship, AttributeString]
+        Union[AttributeBoolean, AttributeBigint, AttributeInteger, AttributeFloat, AttributeEmail, AttributeEnum, AttributeUrl, AttributeIp, AttributeDatetime, AttributeRelationship, AttributePoint, AttributeLine, AttributePolygon, AttributeVarchar, AttributeText, AttributeMediumtext, AttributeLongtext, AttributeString]
             API response as one of the typed response models
 
         Raises
@@ -3667,11 +3678,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -3704,6 +3715,9 @@ class Databases(Service):
         if response.get('type') == 'boolean':
             return self._parse_response(response, model=AttributeBoolean)
 
+        if response.get('type') == 'bigint':
+            return self._parse_response(response, model=AttributeBigint)
+
         if response.get('type') == 'integer':
             return self._parse_response(response, model=AttributeInteger)
 
@@ -3715,6 +3729,27 @@ class Databases(Service):
 
         if response.get('type') == 'relationship':
             return self._parse_response(response, model=AttributeRelationship)
+
+        if response.get('type') == 'point':
+            return self._parse_response(response, model=AttributePoint)
+
+        if response.get('type') == 'linestring':
+            return self._parse_response(response, model=AttributeLine)
+
+        if response.get('type') == 'polygon':
+            return self._parse_response(response, model=AttributePolygon)
+
+        if response.get('type') == 'varchar':
+            return self._parse_response(response, model=AttributeVarchar)
+
+        if response.get('type') == 'text':
+            return self._parse_response(response, model=AttributeText)
+
+        if response.get('type') == 'mediumtext':
+            return self._parse_response(response, model=AttributeMediumtext)
+
+        if response.get('type') == 'longtext':
+            return self._parse_response(response, model=AttributeLongtext)
 
         if response.get('type') == 'string':
             return self._parse_response(response, model=AttributeString)
@@ -3754,11 +3789,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -3770,6 +3805,7 @@ class Databases(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -3822,9 +3858,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -3895,9 +3931,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if document_id is None:
             raise AppwriteException('Missing required parameter: "document_id"')
@@ -3965,9 +4001,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if documents is None:
             raise AppwriteException('Missing required parameter: "documents"')
@@ -4030,9 +4066,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if documents is None:
             raise AppwriteException('Missing required parameter: "documents"')
@@ -4098,9 +4134,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4164,9 +4200,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4231,11 +4267,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if document_id is None:
+        if document_id is None or document_id == '':
             raise AppwriteException('Missing required parameter: "document_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4303,11 +4339,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if document_id is None:
+        if document_id is None or document_id == '':
             raise AppwriteException('Missing required parameter: "document_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4378,11 +4414,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if document_id is None:
+        if document_id is None or document_id == '':
             raise AppwriteException('Missing required parameter: "document_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4443,11 +4479,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if document_id is None:
+        if document_id is None or document_id == '':
             raise AppwriteException('Missing required parameter: "document_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4461,6 +4497,7 @@ class Databases(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -4516,13 +4553,13 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if document_id is None:
+        if document_id is None or document_id == '':
             raise AppwriteException('Missing required parameter: "document_id"')
-        if attribute is None:
+        if attribute is None or attribute == '':
             raise AppwriteException('Missing required parameter: "attribute"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4597,13 +4634,13 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if document_id is None:
+        if document_id is None or document_id == '':
             raise AppwriteException('Missing required parameter: "document_id"')
-        if attribute is None:
+        if attribute is None or attribute == '':
             raise AppwriteException('Missing required parameter: "attribute"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4665,9 +4702,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/indexes'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4734,9 +4771,9 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/indexes'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
         if key is None:
             raise AppwriteException('Missing required parameter: "key"')
@@ -4800,11 +4837,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4855,11 +4892,11 @@ class Databases(Service):
 
         api_path = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
         api_params = {}
-        if database_id is None:
+        if database_id is None or database_id == '':
             raise AppwriteException('Missing required parameter: "database_id"')
-        if collection_id is None:
+        if collection_id is None or collection_id == '':
             raise AppwriteException('Missing required parameter: "collection_id"')
-        if key is None:
+        if key is None or key == '':
             raise AppwriteException('Missing required parameter: "key"')
         api_path = api_path.replace('{databaseId}', str(self._normalize_value(database_id)))
         api_path = api_path.replace('{collectionId}', str(self._normalize_value(collection_id)))
@@ -4871,6 +4908,7 @@ class Databases(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )

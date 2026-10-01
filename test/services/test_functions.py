@@ -680,7 +680,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "responseHeaders": [],
             "logs": "",
             "errors": "",
-            "duration": 0.4,
+            "duration": 1.23,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -714,7 +714,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "responseHeaders": [],
             "logs": "",
             "errors": "",
-            "duration": 0.4,
+            "duration": 1.23,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -785,7 +785,7 @@ class FunctionsServiceTest(unittest.TestCase):
         response = self.functions.create_variable(
             '<FUNCTION_ID>',
             '<VARIABLE_ID>',
-            '',
+            '<KEY>',
             '<VALUE>',
         )
         self.assertEqual(response.to_dict(), data)

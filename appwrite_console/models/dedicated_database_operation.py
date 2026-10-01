@@ -17,9 +17,9 @@ class DedicatedDatabaseOperation(AppwriteModel):
     databaseid : str
         Database ID the operation ran against.
     type : str
-        Operation type, such as provision, update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
+        Operation type, such as provision, update, credentials-update, restore, pausing, resuming, failover, backup-create or cross-region-enable.
     status : str
-        Operation status. Possible values: running (in progress), completed (finished successfully), failed (ended in an error).
+        Operation status. Possible values: queued (accepted and waiting to resume), running (in progress), completed (finished successfully), failed (ended in an error).
     attempts : float
         Number of times this operation has been attempted.
     requestedat : Optional[str]

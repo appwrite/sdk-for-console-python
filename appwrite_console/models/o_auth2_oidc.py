@@ -19,6 +19,8 @@ class OAuth2Oidc(AppwriteModel):
         OpenID Connect OAuth2 client ID.
     clientsecret : str
         OpenID Connect OAuth2 client secret.
+    prompt : List[OAuth2OidcPrompt]
+        OpenID Connect prompt values controlling the authentication and consent screens.
     wellknownurl : str
         OpenID Connect well-known configuration URL. When set, authorization, token, and user info endpoints can be discovered automatically.
     authorizationurl : str
@@ -27,8 +29,6 @@ class OAuth2Oidc(AppwriteModel):
         OpenID Connect token endpoint URL.
     userinfourl : str
         OpenID Connect user info endpoint URL.
-    prompt : List[OAuth2OidcPrompt]
-        OpenID Connect prompt values controlling the authentication and consent screens.
     maxage : Optional[float]
         Maximum authentication age in seconds. When set, the user must have authenticated within this many seconds.
     """
@@ -37,9 +37,9 @@ class OAuth2Oidc(AppwriteModel):
     enabled: bool = Field(..., alias='enabled')
     clientid: str = Field(..., alias='clientId')
     clientsecret: str = Field(..., alias='clientSecret')
+    prompt: List[OAuth2OidcPrompt] = Field(..., alias='prompt')
     wellknownurl: str = Field(..., alias='wellKnownURL')
     authorizationurl: str = Field(..., alias='authorizationURL')
     tokenurl: str = Field(..., alias='tokenURL')
     userinfourl: str = Field(..., alias='userInfoURL')
-    prompt: List[OAuth2OidcPrompt] = Field(..., alias='prompt')
     maxage: Optional[float] = Field(default=None, alias='maxAge')

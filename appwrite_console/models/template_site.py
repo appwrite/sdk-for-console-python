@@ -18,7 +18,7 @@ class TemplateSite(AppwriteModel):
         Site Template Name.
     tagline : str
         Short description of template
-    demourl : str
+    demourl : Optional[str]
         URL hosting a template demo.
     screenshotdark : str
         File URL with preview screenshot in dark theme preference.
@@ -43,7 +43,7 @@ class TemplateSite(AppwriteModel):
     key: str = Field(..., alias='key')
     name: str = Field(..., alias='name')
     tagline: str = Field(..., alias='tagline')
-    demourl: str = Field(..., alias='demoUrl')
+    demourl: Optional[str] = Field(default=None, alias='demoUrl')
     screenshotdark: str = Field(..., alias='screenshotDark')
     screenshotlight: str = Field(..., alias='screenshotLight')
     usecases: List[Any] = Field(..., alias='useCases')

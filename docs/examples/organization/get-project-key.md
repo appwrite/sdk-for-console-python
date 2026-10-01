@@ -1,17 +1,17 @@
 ```python
 from appwrite_console.client import Client
-from appwrite_console.services.account import Account
-from appwrite_console.models import LogList
+from appwrite_console.services.organization import Organization
+from appwrite_console.models import Key
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint
 client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 
-account = Account(client)
+organization = Organization(client)
 
-result: LogList = account.list_logs(
-    queries = [], # optional
-    total = False # optional
+result: Key = organization.get_project_key(
+    project_id = '<PROJECT_ID>',
+    key_id = '<KEY_ID>'
 )
 
 print(result.model_dump())

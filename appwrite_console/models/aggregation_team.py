@@ -36,6 +36,10 @@ class AggregationTeam(AppwriteModel):
         Total builds storage usage
     usagedatabasesstorage : float
         Total databases storage usage
+    usagefunctionsstorage : float
+        Total functions storage usage, deployments and builds together. Supersedes usageDeploymentsStorage and usageBuildsStorage.
+    usagesitesstorage : float
+        Total sites storage usage, deployments and builds together. Supersedes usageDeploymentsStorage and usageBuildsStorage.
     usageusers : float
         Total active users for the billing period
     usageexecutions : float
@@ -84,6 +88,8 @@ class AggregationTeam(AppwriteModel):
     usagedeploymentsstorage: float = Field(..., alias='usageDeploymentsStorage')
     usagebuildsstorage: float = Field(..., alias='usageBuildsStorage')
     usagedatabasesstorage: float = Field(..., alias='usageDatabasesStorage')
+    usagefunctionsstorage: float = Field(..., alias='usageFunctionsStorage')
+    usagesitesstorage: float = Field(..., alias='usageSitesStorage')
     usageusers: float = Field(..., alias='usageUsers')
     usageexecutions: float = Field(..., alias='usageExecutions')
     usagebandwidth: float = Field(..., alias='usageBandwidth')

@@ -2,7 +2,6 @@ from typing import Any, Dict, List, Optional, Union, cast
 from pydantic import Field, PrivateAttr
 
 from .base_model import AppwriteModel
-from .dev_key import DevKey
 from .project_auth_method import ProjectAuthMethod
 from .project_service import ProjectService
 from .project_protocol import ProjectProtocol
@@ -28,8 +27,6 @@ class Project(AppwriteModel):
         Project team ID.
     region : str
         Project region
-    devkeys : List[DevKey]
-        Deprecated since 1.9.5: List of dev keys.
     smtpenabled : bool
         Status for custom SMTP
     smtpsendername : str
@@ -74,6 +71,10 @@ class Project(AppwriteModel):
         Whether WAF enforcement is enabled for the project.
     billinglimits : Optional[BillingLimits]
         Billing limits reached
+    firstaccessedat : Optional[str]
+        First time the project received a non-console API request. Empty until the project is used.
+    mcpaccessedat : Optional[str]
+        Last time the project was accessed through the MCP server. Empty if it was never accessed via MCP.
     oauth2serverenabled : Optional[bool]
         OAuth2 server status
     oauth2serverauthorizationurl : Optional[str]
@@ -116,7 +117,6 @@ class Project(AppwriteModel):
     name: str = Field(..., alias='name')
     teamid: str = Field(..., alias='teamId')
     region: str = Field(..., alias='region')
-    devkeys: List[DevKey] = Field(..., alias='devKeys')
     smtpenabled: bool = Field(..., alias='smtpEnabled')
     smtpsendername: str = Field(..., alias='smtpSenderName')
     smtpsenderemail: str = Field(..., alias='smtpSenderEmail')
@@ -139,6 +139,8 @@ class Project(AppwriteModel):
     consoleaccessedat: str = Field(..., alias='consoleAccessedAt')
     wafenabled: Optional[bool] = Field(default=None, alias='wafEnabled')
     billinglimits: Optional[BillingLimits] = Field(default=None, alias='billingLimits')
+    firstaccessedat: Optional[str] = Field(default=None, alias='firstAccessedAt')
+    mcpaccessedat: Optional[str] = Field(default=None, alias='mcpAccessedAt')
     oauth2serverenabled: Optional[bool] = Field(default=None, alias='oAuth2ServerEnabled')
     oauth2serverauthorizationurl: Optional[str] = Field(default=None, alias='oAuth2ServerAuthorizationUrl')
     oauth2serverscopes: Optional[List[Any]] = Field(default=None, alias='oAuth2ServerScopes')

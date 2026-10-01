@@ -58,12 +58,6 @@ class TablesDBServiceTest(unittest.TestCase):
         data = {
             "specifications": [],
             "total": 9.0,
-            "pricing": {
-                "storageOverageRate": 0.125,
-                "bandwidthOverageRate": 0.08,
-                "replicaRate": 1,
-                "pitrRate": 0.2,
-            },
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -268,6 +262,7 @@ class TablesDBServiceTest(unittest.TestCase):
             "connectionPort": 5432.0,
             "connectionUser": "appwrite_user",
             "connectionPassword": "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+            "credentialGeneration": 1.0,
             "connectionString": "postgresql:\/\/user:pass@db-myproject-mydb.fra.appwrite.center:5432\/postgres?sslmode=require",
             "ssl": True,
             "status": "ready",
@@ -277,6 +272,8 @@ class TablesDBServiceTest(unittest.TestCase):
             "cpu": 2000.0,
             "memory": 4096.0,
             "storage": 100.0,
+            "storageStatus": "resizing",
+            "storageTargetGb": 120.0,
             "storageClass": "ssd",
             "storageMaxGb": 100.0,
             "nodePool": "db-pool-4vcpu-8gb",
@@ -290,7 +287,7 @@ class TablesDBServiceTest(unittest.TestCase):
             "pitrRetentionDays": 14.0,
             "storageAutoscaling": True,
             "storageAutoscalingThresholdPercent": 85.0,
-            "storageAutoscalingMaxGb": 500.0,
+            "storageAutoscalingMaxGb": 30.0,
             "maintenanceWindowDay": "sun",
             "maintenanceWindowHourUtc": 3.0,
             "metricsEnabled": True,
@@ -416,7 +413,7 @@ class TablesDBServiceTest(unittest.TestCase):
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
-    def test_cutover_migration(self, m):
+    def test_create_cutover(self, m):
         data = {
             "$id": "5e5ea5c16897e",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
@@ -443,7 +440,7 @@ class TablesDBServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.tables_db.cutover_migration(
+        response = self.tables_db.create_cutover(
             '<DATABASE_ID>',
             '<MIGRATION_ID>',
         )
@@ -682,7 +679,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_big_int_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -708,7 +705,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_big_int_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             1,
         )
@@ -735,7 +732,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_boolean_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -761,7 +758,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_boolean_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             True,
         )
@@ -789,7 +786,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_datetime_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -816,7 +813,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_datetime_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             '2020-10-15T06:38:00.000+00:00',
         )
@@ -844,7 +841,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_email_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -871,7 +868,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_email_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             'email@example.com',
         )
@@ -900,7 +897,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_enum_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             [],
             True,
         )
@@ -929,10 +926,10 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_enum_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             [],
             True,
-            '<DEFAULT>',
+            'active',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -957,7 +954,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_float_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -983,7 +980,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_float_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             1.0,
         )
@@ -1010,7 +1007,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_integer_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1036,7 +1033,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_integer_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             1,
         )
@@ -1064,7 +1061,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_ip_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1091,9 +1088,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_ip_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
-            '',
+            '192.0.2.0',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1118,7 +1115,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_line_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1144,7 +1141,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_line_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1170,7 +1167,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_longtext_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1196,9 +1193,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_longtext_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1223,7 +1220,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_mediumtext_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1249,9 +1246,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_mediumtext_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1276,7 +1273,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_point_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1302,7 +1299,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_point_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1328,7 +1325,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_polygon_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1354,7 +1351,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_polygon_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1392,6 +1389,37 @@ class TablesDBServiceTest(unittest.TestCase):
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
+    def test_update_relationship_column(self, m):
+        data = {
+            "key": "fullName",
+            "type": "string",
+            "status": "available",
+            "error": "string",
+            "required": True,
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "relatedTable": "table",
+            "relationType": "oneToOne|oneToMany|manyToOne|manyToMany",
+            "twoWay": True,
+            "twoWayKey": "string",
+            "onDelete": "restrict|cascade|setNull",
+            "side": "parent|child",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            requests_mock.ANY,
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.tables_db.update_relationship_column(
+            '<DATABASE_ID>',
+            '<TABLE_ID>',
+            '<KEY>',
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
     def test_create_string_column(self, m):
         data = {
             "key": "fullName",
@@ -1413,7 +1441,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_string_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             1,
             True,
         )
@@ -1441,9 +1469,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_string_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1468,7 +1496,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_text_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1494,9 +1522,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_text_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1522,7 +1550,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_url_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1549,7 +1577,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_url_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
             'https://example.com',
         )
@@ -1577,7 +1605,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_varchar_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             1,
             True,
         )
@@ -1605,9 +1633,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_varchar_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1632,7 +1660,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.get_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1649,40 +1677,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.delete_column(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response, data)
-
-    @requests_mock.Mocker()
-    def test_update_relationship_column(self, m):
-        data = {
-            "key": "fullName",
-            "type": "string",
-            "status": "available",
-            "error": "string",
-            "required": True,
-            "$createdAt": "2020-10-15T06:38:00.000+00:00",
-            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "relatedTable": "table",
-            "relationType": "oneToOne|oneToMany|manyToOne|manyToMany",
-            "twoWay": True,
-            "twoWayKey": "string",
-            "onDelete": "restrict|cascade|setNull",
-            "side": "parent|child",
-        }
-        headers = {'Content-Type': 'application/json'}
-        m.request(
-            requests_mock.ANY,
-            requests_mock.ANY,
-            text=json.dumps(data),
-            headers=headers,
-        )
-        response = self.tables_db.update_relationship_column(
-            '<DATABASE_ID>',
-            '<TABLE_ID>',
-            '',
-        )
-        self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
     def test_list_indexes(self, m):
@@ -1726,7 +1723,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_index(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
             'key',
             [],
         )
@@ -1755,7 +1752,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.get_index(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1772,7 +1769,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.delete_index(
             '<DATABASE_ID>',
             '<TABLE_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response, data)
 
@@ -2017,7 +2014,7 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<ROW_ID>',
-            '',
+            '<COLUMN>',
         )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
@@ -2044,7 +2041,7 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<ROW_ID>',
-            '',
+            '<COLUMN>',
         )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)

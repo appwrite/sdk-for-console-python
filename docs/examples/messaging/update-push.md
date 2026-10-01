@@ -12,11 +12,11 @@ messaging = Messaging(client)
 
 result: Message = messaging.update_push(
     message_id = '<MESSAGE_ID>',
+    title = '<TITLE>', # optional
+    body = '<BODY>', # optional
     topics = [], # optional
     users = [], # optional
     targets = [], # optional
-    title = '<TITLE>', # optional
-    body = '<BODY>', # optional
     data = {}, # optional
     action = '<ACTION>', # optional
     image = '<ID1:ID2>', # optional
@@ -24,12 +24,13 @@ result: Message = messaging.update_push(
     sound = '<SOUND>', # optional
     color = '<COLOR>', # optional
     tag = '<TAG>', # optional
-    badge = None, # optional
+    badge = 1, # optional
     draft = False, # optional
     scheduled_at = '2020-10-15T06:38:00.000+00:00', # optional
     content_available = False, # optional
     critical = False, # optional
-    priority = MessagePriority.NORMAL # optional
+    priority = MessagePriority.NORMAL, # optional
+    channel_id = '<CHANNEL_ID>' # optional
 )
 
 print(result.model_dump())

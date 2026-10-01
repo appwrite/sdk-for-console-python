@@ -4,10 +4,8 @@ from enum import Enum
 class OrganizationKeyScopes(Enum):
     PROJECTS_READ = "projects.read"
     PROJECTS_WRITE = "projects.write"
-    DEVKEYS_READ = "devKeys.read"
-    DEVKEYS_WRITE = "devKeys.write"
-    ORGANIZATION_KEYS_READ = "organization.keys.read"
-    ORGANIZATION_KEYS_WRITE = "organization.keys.write"
+    ORGANIZATION_PROJECTS_KEYS_READ = "organization.projects.keys.read"
+    ORGANIZATION_PROJECTS_KEYS_WRITE = "organization.projects.keys.write"
     ORGANIZATION_INSTALLATIONS_READ = "organization.installations.read"
     ORGANIZATION_INSTALLATIONS_WRITE = "organization.installations.write"
     ORGANIZATION_MEMBERSHIPS_READ = "organization.memberships.read"

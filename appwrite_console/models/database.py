@@ -37,7 +37,7 @@ class Database(AppwriteModel):
     error : Optional[str]
         Error message when the dedicated backing failed. Null when the database has no dedicated backing or has not failed.
     containerstatus : Optional[str]
-        Container status of the dedicated backing: active or inactive. Null when the database has no dedicated backing or the runtime has not reported one.
+        Container status of the dedicated backing: active, inactive, or failed (a wake was declined because the backing namespace is gone). Null when the database has no dedicated backing or the runtime has not reported one.
     lifecyclestate : Optional[str]
         Idle-lifecycle state of the dedicated backing: active, warm, cold, or hibernated. Null when the database has no dedicated backing or the runtime has not reported one.
     policies : Optional[List[BackupPolicy]]

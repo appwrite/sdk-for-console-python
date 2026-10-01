@@ -9,7 +9,7 @@ client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 
 tables_db = TablesDB(client)
 
-result: DatabaseMigration = tables_db.cutover_migration(
+result: DatabaseMigration = tables_db.create_cutover(
     database_id = '<DATABASE_ID>',
     migration_id = '<MIGRATION_ID>'
 )

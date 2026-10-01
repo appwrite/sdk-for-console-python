@@ -391,7 +391,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_big_int_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -417,7 +417,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_big_int_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             1,
         )
@@ -444,7 +444,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_boolean_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -470,7 +470,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_boolean_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             True,
         )
@@ -498,7 +498,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_datetime_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -525,7 +525,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_datetime_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             '2020-10-15T06:38:00.000+00:00',
         )
@@ -553,7 +553,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_email_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -580,7 +580,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_email_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             'email@example.com',
         )
@@ -609,7 +609,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_enum_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             [],
             True,
         )
@@ -638,10 +638,10 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_enum_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             [],
             True,
-            '<DEFAULT>',
+            'active',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -666,7 +666,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_float_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -692,7 +692,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_float_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             1.0,
         )
@@ -719,7 +719,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_integer_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -745,7 +745,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_integer_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             1,
         )
@@ -773,7 +773,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_ip_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -800,9 +800,9 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_ip_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
-            '',
+            '192.0.2.0',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -827,7 +827,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_line_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -853,7 +853,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_line_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -879,7 +879,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_longtext_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -905,9 +905,9 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_longtext_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -932,7 +932,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_mediumtext_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -958,9 +958,9 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_mediumtext_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -985,7 +985,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_point_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1011,7 +1011,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_point_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1037,7 +1037,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_polygon_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1063,7 +1063,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_polygon_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1127,7 +1127,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_relationship_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1153,7 +1153,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_string_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             1,
             True,
         )
@@ -1181,9 +1181,9 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_string_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1208,7 +1208,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_text_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1234,9 +1234,9 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_text_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1262,7 +1262,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_url_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
         )
         self.assertEqual(response.to_dict(), data)
@@ -1289,7 +1289,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_url_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
             'https://example.com',
         )
@@ -1317,7 +1317,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_varchar_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             1,
             True,
         )
@@ -1345,9 +1345,9 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.update_varchar_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             True,
-            '<DEFAULT>',
+            'Hello World',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1372,7 +1372,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.get_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1389,7 +1389,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.delete_attribute(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response, data)
 
@@ -1634,7 +1634,7 @@ class DatabasesServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
             '<DOCUMENT_ID>',
-            '',
+            '<ATTRIBUTE>',
         )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
@@ -1661,7 +1661,7 @@ class DatabasesServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
             '<DOCUMENT_ID>',
-            '',
+            '<ATTRIBUTE>',
         )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
@@ -1708,7 +1708,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.create_index(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             'key',
             [],
         )
@@ -1737,7 +1737,7 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.get_index(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1754,6 +1754,6 @@ class DatabasesServiceTest(unittest.TestCase):
         response = self.databases.delete_index(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response, data)

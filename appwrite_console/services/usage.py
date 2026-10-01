@@ -44,11 +44,11 @@ class Usage(Service):
         metrics : List[str]
             One to ten metric names. Single-metric callers pass a one-element array. Example: `metrics[]=executions` or `metrics[]=executions&metrics[]=executions.compute` for stacked charts. On console: `metrics[]=affiliates.clicks`.
         queries : Optional[List[str]]
-            Up to 10 filter queries in Utopia syntax. Allowed attributes, also published as the `UsageEventDimension` enum: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
+            Up to 10 filter queries in Utopia syntax. Allowed attributes, also published as the `UsageEventDimension` enum: path, method, status, service, resourceType, resourceId, teamId, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion, protocol, queryKeys, accept, acceptLanguage, postalCode, latitude, longitude, timeZone, weatherCode, isp, autonomousSystemNumber, autonomousSystemOrganization, connectionType, connectionUsageType, connectionOrganization. Allowed methods: equal, notEqual, contains, startsWith, endsWith, isNull, isNotNull. Example: `queries[]=equal("resourceType", ["bucket"])`.
         interval : Optional[UsageInterval]
             Time interval size. Omit (null) for a flat aggregate over the whole window. Allowed: 1m, 15m, 30m, 1h, 1d.
         dimensions : Optional[List[UsageEventDimension]]
-            Break-down dimensions (max 10). Allowed: path, method, status, service, resourceType, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion, teamId, resourceId.
+            Break-down dimensions (max 10). Allowed: path, method, status, service, resourceType, country, continentCode, city, region, hostname, ip, osName, clientType, clientName, deviceName, sdk, sdkVersion, teamId, resourceId, protocol, queryKeys, accept, acceptLanguage, postalCode, latitude, longitude, timeZone, weatherCode, isp, autonomousSystemNumber, autonomousSystemOrganization, connectionType, connectionUsageType, connectionOrganization.
         start_at : Optional[str]
             Range start in ISO 8601. Defaults adapt to interval (7d for the no-interval aggregate).
         end_at : Optional[str]

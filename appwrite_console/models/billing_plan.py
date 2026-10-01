@@ -91,6 +91,8 @@ class BillingPlan(AppwriteModel):
         Usage history days
     usagelogsintervals : Optional[List[Any]]
         Usage log time intervals allowed for this plan (e.g. 15m, 1h, 1d).
+    usageaggregateonlymetrics : Optional[List[Any]]
+        Metrics this plan only records as a total. They cannot be broken down by dimension or filtered, because the stored events cover a fraction of the real traffic.
     projectinactivitydays : float
         Number of days of console inactivity before a project is paused. 0 means pausing is disabled.
     alertlimit : float
@@ -109,6 +111,8 @@ class BillingPlan(AppwriteModel):
         Does plan require payment method
     requiresbillingaddress : bool
         Does plan require billing address
+    eligiblecountries : Optional[List[Any]]
+        ISO country codes eligible for this regional plan. Empty means no restriction.
     isavailable : bool
         Is the billing plan available
     selfservice : bool
@@ -198,6 +202,7 @@ class BillingPlan(AppwriteModel):
     activitylogs: Optional[float] = Field(default=None, alias='activityLogs')
     usagelogs: float = Field(..., alias='usageLogs')
     usagelogsintervals: Optional[List[Any]] = Field(default=None, alias='usageLogsIntervals')
+    usageaggregateonlymetrics: Optional[List[Any]] = Field(default=None, alias='usageAggregateOnlyMetrics')
     projectinactivitydays: float = Field(..., alias='projectInactivityDays')
     alertlimit: float = Field(..., alias='alertLimit')
     usage: UsageBillingPlan = Field(..., alias='usage')
@@ -207,6 +212,7 @@ class BillingPlan(AppwriteModel):
     emailbranding: bool = Field(..., alias='emailBranding')
     requirespaymentmethod: bool = Field(..., alias='requiresPaymentMethod')
     requiresbillingaddress: bool = Field(..., alias='requiresBillingAddress')
+    eligiblecountries: Optional[List[Any]] = Field(default=None, alias='eligibleCountries')
     isavailable: bool = Field(..., alias='isAvailable')
     selfservice: bool = Field(..., alias='selfService')
     premiumsupport: bool = Field(..., alias='premiumSupport')
