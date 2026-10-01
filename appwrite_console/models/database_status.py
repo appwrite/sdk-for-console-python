@@ -23,8 +23,8 @@ class DatabaseStatus(AppwriteModel):
         Database engine version.
     uptime : float
         Database uptime in seconds.
-    connections : DatabaseStatusConnections
-        Connection statistics.
+    connections : Optional[DatabaseStatusConnections]
+        Connection statistics. Null when the database has not been probed.
     syncmode : str
         Requested replication sync mode. Possible values: async, sync, quorum. Compare with effectiveSyncMode for what the primary is enforcing.
     effectivesyncmode : Optional[str]
@@ -48,7 +48,7 @@ class DatabaseStatus(AppwriteModel):
     engine: str = Field(..., alias='engine')
     version: str = Field(..., alias='version')
     uptime: float = Field(..., alias='uptime')
-    connections: DatabaseStatusConnections = Field(..., alias='connections')
+    connections: Optional[DatabaseStatusConnections] = Field(default=None, alias='connections')
     syncmode: str = Field(..., alias='syncMode')
     effectivesyncmode: Optional[str] = Field(default=None, alias='effectiveSyncMode')
     syncdegraded: bool = Field(..., alias='syncDegraded')

@@ -31,7 +31,7 @@ class ProxyRule(AppwriteModel):
     deploymentid : str
         ID of deployment. Used if type is &quot;deployment&quot;
     deploymentresourcetype : Optional[ProxyRuleDeploymentResourceType]
-        Type of deployment. Possible values are &quot;function&quot;, &quot;site&quot;. Used if rule&#039;s type is &quot;deployment&quot;.
+        Type of deployment resource: function, site, or dedicatedDatabase.
     deploymentresourceid : str
         ID of deployment&#039;s resource (site or function ID). Used if type is &quot;deployment&quot;
     deploymentvcsproviderbranch : str

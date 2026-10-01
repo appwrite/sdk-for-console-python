@@ -1078,10 +1078,6 @@ class MysqlServiceTest(unittest.TestCase):
             "engine": "postgresql",
             "version": "17",
             "uptime": 86400.0,
-            "connections": {
-                "current": 12.0,
-                "max": 100.0,
-            },
             "syncMode": "async",
             "syncDegraded": True,
             "syncAcknowledgements": 1.0,

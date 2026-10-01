@@ -97,8 +97,8 @@ class BillingPlan(AppwriteModel):
         Number of days of console inactivity before a project is paused. 0 means pausing is disabled.
     alertlimit : float
         Alert threshold percentage
-    usage : UsageBillingPlan
-        Additional resources
+    usage : Optional[UsageBillingPlan]
+        Additional resources. Null when the plan does not support usage billing.
     addons : BillingPlanAddon
         Addons
     budgetcapenabled : bool
@@ -205,7 +205,7 @@ class BillingPlan(AppwriteModel):
     usageaggregateonlymetrics: Optional[List[Any]] = Field(default=None, alias='usageAggregateOnlyMetrics')
     projectinactivitydays: float = Field(..., alias='projectInactivityDays')
     alertlimit: float = Field(..., alias='alertLimit')
-    usage: UsageBillingPlan = Field(..., alias='usage')
+    usage: Optional[UsageBillingPlan] = Field(default=None, alias='usage')
     addons: BillingPlanAddon = Field(..., alias='addons')
     budgetcapenabled: bool = Field(..., alias='budgetCapEnabled')
     customsmtp: bool = Field(..., alias='customSmtp')
