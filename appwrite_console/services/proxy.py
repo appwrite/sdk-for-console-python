@@ -27,6 +27,8 @@ class Proxy(Service):
 
         Depending on type, the invalidation purges a single cache tag, a single URL path, or all cached content for the domain.
 
+        Domains that route to a function do not support cache invalidation.
+
         Parameters
         ----------
         domain : str

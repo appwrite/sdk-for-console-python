@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.7.1
+
+* Fixed: Accepted nullable backup archive sizes and start timestamps.
+* Fixed: Parsed restoration options as objects and accepted nullable start timestamps.
+* Fixed: Accepted dedicated database deployment types in proxy rules.
+* Fixed: Accepted unavailable billing usage and database connection statistics.
+
 ## 0.7.0
 
 * Breaking: Removed `account.list_logs`, `teams.list_logs`, `users.list_logs` and the `Log`/`LogList` models
