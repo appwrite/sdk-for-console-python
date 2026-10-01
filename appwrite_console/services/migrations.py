@@ -914,7 +914,7 @@ class Migrations(Service):
 
         api_path = '/migrations/{migrationId}'
         api_params = {}
-        if migration_id is None:
+        if migration_id is None or migration_id == '':
             raise AppwriteException('Missing required parameter: "migration_id"')
         api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
 
@@ -954,7 +954,7 @@ class Migrations(Service):
 
         api_path = '/migrations/{migrationId}'
         api_params = {}
-        if migration_id is None:
+        if migration_id is None or migration_id == '':
             raise AppwriteException('Missing required parameter: "migration_id"')
         api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
 
@@ -995,7 +995,7 @@ class Migrations(Service):
 
         api_path = '/migrations/{migrationId}'
         api_params = {}
-        if migration_id is None:
+        if migration_id is None or migration_id == '':
             raise AppwriteException('Missing required parameter: "migration_id"')
         api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
 
@@ -1005,6 +1005,7 @@ class Migrations(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )

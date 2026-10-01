@@ -14,9 +14,9 @@ databases = Databases(client)
 result: Index = databases.create_index(
     database_id = '<DATABASE_ID>',
     collection_id = '<COLLECTION_ID>',
-    key = '',
+    key = '<KEY>',
     type = DatabasesIndexType.KEY,
-    attributes = [],
+    attributes = ["username"],
     orders = [OrderBy.ASC], # optional
     lengths = [] # optional
 )

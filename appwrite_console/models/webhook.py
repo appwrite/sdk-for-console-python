@@ -27,7 +27,7 @@ class Webhook(AppwriteModel):
     authusername : str
         HTTP basic authentication username.
     authpassword : str
-        HTTP basic authentication password.
+        HTTP basic authentication password. Write-only: always returned empty.
     secret : str
         Signature key which can be used to validate incoming webhook payloads. Only returned on creation and secret rotation.
     enabled : bool

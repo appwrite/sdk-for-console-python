@@ -30,6 +30,14 @@ class UsageDataPoint(AppwriteModel):
         Value when broken down by `hostname`.
     ip : Optional[str]
         Value when broken down by `ip`.
+    protocol : Optional[str]
+        Value when broken down by `protocol`.
+    accept : Optional[str]
+        Value when broken down by `accept`.
+    acceptlanguage : Optional[str]
+        Value when broken down by `acceptLanguage`.
+    querykeys : Optional[str]
+        Value when broken down by `queryKeys`.
     osname : Optional[str]
         Value when broken down by `osName`.
     clienttype : Optional[str]
@@ -54,6 +62,16 @@ class UsageDataPoint(AppwriteModel):
         City name when broken down by `city`.
     subdivisions : Optional[str]
         Region/state chain when broken down by `subdivisions`.
+    postalcode : Optional[str]
+        Postal code when broken down by `postalCode`.
+    latitude : Optional[str]
+        Latitude when broken down by `latitude`.
+    longitude : Optional[str]
+        Longitude when broken down by `longitude`.
+    timezone : Optional[str]
+        Time zone when broken down by `timeZone`.
+    weathercode : Optional[str]
+        Weather station code when broken down by `weatherCode`.
     isp : Optional[str]
         Internet service provider when broken down by `isp`.
     autonomoussystemnumber : Optional[str]
@@ -80,6 +98,10 @@ class UsageDataPoint(AppwriteModel):
     region: Optional[str] = Field(default=None, alias='region')
     hostname: Optional[str] = Field(default=None, alias='hostname')
     ip: Optional[str] = Field(default=None, alias='ip')
+    protocol: Optional[str] = Field(default=None, alias='protocol')
+    accept: Optional[str] = Field(default=None, alias='accept')
+    acceptlanguage: Optional[str] = Field(default=None, alias='acceptLanguage')
+    querykeys: Optional[str] = Field(default=None, alias='queryKeys')
     osname: Optional[str] = Field(default=None, alias='osName')
     clienttype: Optional[str] = Field(default=None, alias='clientType')
     clientname: Optional[str] = Field(default=None, alias='clientName')
@@ -92,6 +114,11 @@ class UsageDataPoint(AppwriteModel):
     continentcode: Optional[str] = Field(default=None, alias='continentCode')
     city: Optional[str] = Field(default=None, alias='city')
     subdivisions: Optional[str] = Field(default=None, alias='subdivisions')
+    postalcode: Optional[str] = Field(default=None, alias='postalCode')
+    latitude: Optional[str] = Field(default=None, alias='latitude')
+    longitude: Optional[str] = Field(default=None, alias='longitude')
+    timezone: Optional[str] = Field(default=None, alias='timeZone')
+    weathercode: Optional[str] = Field(default=None, alias='weatherCode')
     isp: Optional[str] = Field(default=None, alias='isp')
     autonomoussystemnumber: Optional[str] = Field(default=None, alias='autonomousSystemNumber')
     autonomoussystemorganization: Optional[str] = Field(default=None, alias='autonomousSystemOrganization')

@@ -56,7 +56,7 @@ class Console(Service):
 
         api_path = '/console/campaigns/{campaignId}'
         api_params = {}
-        if campaign_id is None:
+        if campaign_id is None or campaign_id == '':
             raise AppwriteException('Missing required parameter: "campaign_id"')
         api_path = api_path.replace('{campaignId}', str(self._normalize_value(campaign_id)))
 
@@ -96,7 +96,7 @@ class Console(Service):
 
         api_path = '/console/coupons/{couponId}'
         api_params = {}
-        if coupon_id is None:
+        if coupon_id is None or coupon_id == '':
             raise AppwriteException('Missing required parameter: "coupon_id"')
         api_path = api_path.replace('{couponId}', str(self._normalize_value(coupon_id)))
 
@@ -255,7 +255,7 @@ class Console(Service):
 
         api_path = '/console/plans/{planId}'
         api_params = {}
-        if plan_id is None:
+        if plan_id is None or plan_id == '':
             raise AppwriteException('Missing required parameter: "plan_id"')
         api_path = api_path.replace('{planId}', str(self._normalize_value(plan_id)))
 
@@ -326,7 +326,7 @@ class Console(Service):
 
         api_path = '/console/programs/{programId}'
         api_params = {}
-        if program_id is None:
+        if program_id is None or program_id == '':
             raise AppwriteException('Missing required parameter: "program_id"')
         api_path = api_path.replace('{programId}', str(self._normalize_value(program_id)))
 
@@ -370,7 +370,7 @@ class Console(Service):
 
         api_path = '/console/programs/{programId}/memberships'
         api_params = {}
-        if program_id is None:
+        if program_id is None or program_id == '':
             raise AppwriteException('Missing required parameter: "program_id"')
         api_path = api_path.replace('{programId}', str(self._normalize_value(program_id)))
 
@@ -457,6 +457,7 @@ class Console(Service):
             api_path,
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -769,7 +770,7 @@ class Console(Service):
         Parameters
         ----------
         template_id : ProjectEmailTemplateId
-            Email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+            Email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
         locale : Optional[ProjectEmailTemplateLocale]
             Template locale. If left empty, the fallback locale (en) will be used.
         Returns

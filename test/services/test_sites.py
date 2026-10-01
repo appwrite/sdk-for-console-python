@@ -138,7 +138,6 @@ class SitesServiceTest(unittest.TestCase):
             "key": "starter",
             "name": "Starter site",
             "tagline": "Minimal web app integrating with Appwrite.",
-            "demoUrl": "https:\/\/nextjs-starter.appwrite.network\/",
             "screenshotDark": "https:\/\/cloud.appwrite.io\/images\/sites\/templates\/template-for-blog-dark.png",
             "screenshotLight": "https:\/\/cloud.appwrite.io\/images\/sites\/templates\/template-for-blog-light.png",
             "useCases": [],
@@ -689,7 +688,7 @@ class SitesServiceTest(unittest.TestCase):
             "responseHeaders": [],
             "logs": "",
             "errors": "",
-            "duration": 0.4,
+            "duration": 1.23,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -760,7 +759,7 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.create_variable(
             '<SITE_ID>',
             '<VARIABLE_ID>',
-            '',
+            '<KEY>',
             '<VALUE>',
         )
         self.assertEqual(response.to_dict(), data)

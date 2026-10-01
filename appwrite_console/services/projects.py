@@ -6,8 +6,6 @@ from appwrite_console.utils.deprecated import deprecated
 from ..models.addon_list import AddonList
 from ..models.addon import Addon
 from ..models.addon_price import AddonPrice
-from ..models.dev_key_list import DevKeyList
-from ..models.dev_key import DevKey
 from ..models.schedule_list import ScheduleList
 from ..enums.schedule_resource_type import ScheduleResourceType
 from ..models.schedule import Schedule
@@ -46,7 +44,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/addons'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
@@ -86,7 +84,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/addons/premium-geo-db'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
@@ -130,9 +128,9 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/addons/{addonId}'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        if addon_id is None:
+        if addon_id is None or addon_id == '':
             raise AppwriteException('Missing required parameter: "addon_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
@@ -176,9 +174,9 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/addons/{addonId}'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        if addon_id is None:
+        if addon_id is None or addon_id == '':
             raise AppwriteException('Missing required parameter: "addon_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
@@ -223,9 +221,9 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/addons/{addonId}/confirmations'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        if addon_id is None:
+        if addon_id is None or addon_id == '':
             raise AppwriteException('Missing required parameter: "addon_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
@@ -270,9 +268,9 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/addons/{addon}/price'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        if addon is None:
+        if addon is None or addon == '':
             raise AppwriteException('Missing required parameter: "addon"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{addon}', str(self._normalize_value(addon)))
@@ -313,7 +311,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/console-access'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
@@ -324,202 +322,6 @@ class Projects(Service):
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
                 'accept': 'application/json',
-            },
-            api_params,
-        )
-
-        return response
-
-    def list_dev_keys(
-        self,
-        project_id: str,
-        queries: Optional[List[str]] = None,
-    ) -> DevKeyList:
-        """
-        List all the project\'s dev keys. Dev keys are project specific and allow you to bypass rate limits and get better error logging during development.'
-
-        Parameters
-        ----------
-        project_id : str
-            Project unique ID.
-        queries : Optional[List[str]]
-            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: accessedAt, expire
-        Returns
-        -------
-        DevKeyList
-            API response as a typed Pydantic model
-
-        Raises
-        ------
-        AppwriteException
-            If API request fails
-        """
-
-        api_path = '/projects/{projectId}/dev-keys'
-        api_params = {}
-        if project_id is None:
-            raise AppwriteException('Missing required parameter: "project_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        if queries is not None:
-            api_params['queries'] = self._normalize_value(queries)
-
-        response = self.client.call(
-            'get',
-            api_path,
-            {
-                'X-Appwrite-Project': self.client.get_config('project'),
-                'accept': 'application/json',
-            },
-            api_params,
-        )
-
-        return self._parse_response(response, model=DevKeyList)
-
-    def get_dev_key(
-        self,
-        project_id: str,
-        key_id: str,
-    ) -> DevKey:
-        """
-        Get a project\'s dev key by its unique ID. Dev keys are project specific and allow you to bypass rate limits and get better error logging during development.
-
-        Parameters
-        ----------
-        project_id : str
-            Project unique ID.
-        key_id : str
-            Key unique ID.
-        Returns
-        -------
-        DevKey
-            API response as a typed Pydantic model
-
-        Raises
-        ------
-        AppwriteException
-            If API request fails
-        """
-
-        api_path = '/projects/{projectId}/dev-keys/{keyId}'
-        api_params = {}
-        if project_id is None:
-            raise AppwriteException('Missing required parameter: "project_id"')
-        if key_id is None:
-            raise AppwriteException('Missing required parameter: "key_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
-
-        response = self.client.call(
-            'get',
-            api_path,
-            {
-                'X-Appwrite-Project': self.client.get_config('project'),
-                'accept': 'application/json',
-            },
-            api_params,
-        )
-
-        return self._parse_response(response, model=DevKey)
-
-    def update_dev_key(
-        self,
-        project_id: str,
-        key_id: str,
-        name: str,
-        expire: str,
-    ) -> DevKey:
-        """
-        Update a project\'s dev key by its unique ID. Use this endpoint to update a project\'s dev key name or expiration time.'
-
-        Parameters
-        ----------
-        project_id : str
-            Project unique ID.
-        key_id : str
-            Key unique ID.
-        name : str
-            Key name. Max length: 128 chars.
-        expire : str
-            Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format.
-        Returns
-        -------
-        DevKey
-            API response as a typed Pydantic model
-
-        Raises
-        ------
-        AppwriteException
-            If API request fails
-        """
-
-        api_path = '/projects/{projectId}/dev-keys/{keyId}'
-        api_params = {}
-        if project_id is None:
-            raise AppwriteException('Missing required parameter: "project_id"')
-        if key_id is None:
-            raise AppwriteException('Missing required parameter: "key_id"')
-        if name is None:
-            raise AppwriteException('Missing required parameter: "name"')
-        if expire is None:
-            raise AppwriteException('Missing required parameter: "expire"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
-        api_params['name'] = self._normalize_value(name)
-        api_params['expire'] = self._normalize_value(expire)
-
-        response = self.client.call(
-            'put',
-            api_path,
-            {
-                'X-Appwrite-Project': self.client.get_config('project'),
-                'content-type': 'application/json',
-                'accept': 'application/json',
-            },
-            api_params,
-        )
-
-        return self._parse_response(response, model=DevKey)
-
-    def delete_dev_key(
-        self,
-        project_id: str,
-        key_id: str,
-    ) -> Dict[str, Any]:
-        """
-        Delete a project\'s dev key by its unique ID. Once deleted, the key will no longer allow bypassing of rate limits and better logging of errors.
-
-        Parameters
-        ----------
-        project_id : str
-            Project unique ID.
-        key_id : str
-            Key unique ID.
-        Returns
-        -------
-        Dict[str, Any]
-            API response as a dictionary
-
-        Raises
-        ------
-        AppwriteException
-            If API request fails
-        """
-
-        api_path = '/projects/{projectId}/dev-keys/{keyId}'
-        api_params = {}
-        if project_id is None:
-            raise AppwriteException('Missing required parameter: "project_id"')
-        if key_id is None:
-            raise AppwriteException('Missing required parameter: "key_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
-
-        response = self.client.call(
-            'delete',
-            api_path,
-            {
-                'X-Appwrite-Project': self.client.get_config('project'),
-                'content-type': 'application/json',
             },
             api_params,
         )
@@ -556,7 +358,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/schedules'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         if queries is not None:
@@ -615,7 +417,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/schedules'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         if resource_type is None:
             raise AppwriteException('Missing required parameter: "resource_type"')
@@ -672,9 +474,9 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/schedules/{scheduleId}'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        if schedule_id is None:
+        if schedule_id is None or schedule_id == '':
             raise AppwriteException('Missing required parameter: "schedule_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{scheduleId}', str(self._normalize_value(schedule_id)))
@@ -715,7 +517,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/stages'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
 
@@ -761,9 +563,9 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/stages/{stageId}'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        if stage_id is None:
+        if stage_id is None or stage_id == '':
             raise AppwriteException('Missing required parameter: "stage_id"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_path = api_path.replace('{stageId}', str(self._normalize_value(stage_id)))
@@ -810,7 +612,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/status'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
@@ -857,7 +659,7 @@ class Projects(Service):
 
         api_path = '/projects/{projectId}/team'
         api_params = {}
-        if project_id is None:
+        if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')

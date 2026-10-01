@@ -191,6 +191,7 @@ class VcsServiceTest(unittest.TestCase):
             "provider": "github",
             "organization": "appwrite",
             "providerInstallationId": "5322",
+            "organizationUrl": "https:\/\/github.com\/appwrite",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(

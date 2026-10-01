@@ -6,6 +6,7 @@ class ProjectPolicyId(Enum):
     PASSWORD_HISTORY = "password-history"
     PASSWORD_STRENGTH = "password-strength"
     PASSWORD_PERSONAL_DATA = "password-personal-data"
+    PASSWORD_PWNED = "password-pwned"
     SESSION_ALERT = "session-alert"
     SESSION_DURATION = "session-duration"
     SESSION_INVALIDATION = "session-invalidation"

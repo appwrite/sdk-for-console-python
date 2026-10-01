@@ -14,9 +14,9 @@ vectors_db = VectorsDB(client)
 result: Index = vectors_db.create_index(
     database_id = '<DATABASE_ID>',
     collection_id = '<COLLECTION_ID>',
-    key = '',
+    key = '<KEY>',
     type = VectorsDBIndexType.HNSW_EUCLIDEAN,
-    attributes = [],
+    attributes = ["embeddings"],
     orders = [OrderBy.ASC], # optional
     lengths = [] # optional
 )

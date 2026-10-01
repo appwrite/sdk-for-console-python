@@ -29,7 +29,7 @@ class DedicatedDatabase(AppwriteModel):
     specification : str
         Specification identifier.
     backend : str
-        Database backend provider. Possible values: prisma, edge.
+        Database backend provider. Possible values: edge.
     hostname : str
         Database hostname for connections.
     connectionport : float
@@ -38,6 +38,8 @@ class DedicatedDatabase(AppwriteModel):
         Database username for connections.
     connectionpassword : str
         Database password for connections.
+    credentialgeneration : float
+        Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
     connectionstring : str
         Full database connection string (URI format).
     ssl : bool
@@ -45,7 +47,7 @@ class DedicatedDatabase(AppwriteModel):
     status : str
         Database status. Possible values: provisioning, ready, inactive, paused, failed, deleted, restoring, scaling.
     containerstatus : str
-        Container status for lifecycle-managed database runtimes: active or inactive.
+        Container status for lifecycle-managed database runtimes: active, inactive, or failed (a wake was declined because the backing namespace is gone).
     lastaccessedat : Optional[str]
         Last activity timestamp in ISO 8601 format.
     idleuntil : Optional[str]
@@ -60,6 +62,12 @@ class DedicatedDatabase(AppwriteModel):
         Memory allocated in MB.
     storage : float
         Storage allocated in GB.
+    storagestatus : str
+        Storage resize status. Possible values: idle (no resize in flight), resizing (the volume is growing towards storageTargetGb).
+    storagetargetgb : float
+        Size in GB the volume is growing towards while storageStatus is resizing. 0 when no resize is in flight.
+    storageresizestartedat : Optional[str]
+        Time the in-flight storage resize started, in ISO 8601 format.
     storageclass : str
         Storage class. Currently always &#039;ssd&#039;; DigitalOcean exposes a single block-storage class.
     storagemaxgb : float
@@ -87,7 +95,7 @@ class DedicatedDatabase(AppwriteModel):
     storageautoscalingthresholdpercent : float
         Storage usage percentage that triggers automatic expansion.
     storageautoscalingmaxgb : float
-        Maximum storage size in GB for autoscaling. 0 means no limit.
+        Maximum storage size in GB for autoscaling. Defaults to 3 times the specification&#039;s storage. 0 means no limit.
     maintenancewindowday : str
         Day of the week for the maintenance window. Possible values: sun, mon, tue, wed, thu, fri, sat.
     maintenancewindowhourutc : float
@@ -122,6 +130,7 @@ class DedicatedDatabase(AppwriteModel):
     connectionport: float = Field(..., alias='connectionPort')
     connectionuser: str = Field(..., alias='connectionUser')
     connectionpassword: str = Field(..., alias='connectionPassword')
+    credentialgeneration: float = Field(..., alias='credentialGeneration')
     connectionstring: str = Field(..., alias='connectionString')
     ssl: bool = Field(..., alias='ssl')
     status: str = Field(..., alias='status')
@@ -133,6 +142,9 @@ class DedicatedDatabase(AppwriteModel):
     cpu: float = Field(..., alias='cpu')
     memory: float = Field(..., alias='memory')
     storage: float = Field(..., alias='storage')
+    storagestatus: str = Field(..., alias='storageStatus')
+    storagetargetgb: float = Field(..., alias='storageTargetGb')
+    storageresizestartedat: Optional[str] = Field(default=None, alias='storageResizeStartedAt')
     storageclass: str = Field(..., alias='storageClass')
     storagemaxgb: float = Field(..., alias='storageMaxGb')
     nodepool: str = Field(..., alias='nodePool')

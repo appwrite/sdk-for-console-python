@@ -166,92 +166,6 @@ class ProjectsServiceTest(unittest.TestCase):
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
-    def test_list_dev_keys(self, m):
-        data = {
-            "total": 5.0,
-            "devKeys": [],
-        }
-        headers = {'Content-Type': 'application/json'}
-        m.request(
-            requests_mock.ANY,
-            requests_mock.ANY,
-            text=json.dumps(data),
-            headers=headers,
-        )
-        response = self.projects.list_dev_keys(
-            '<PROJECT_ID>',
-        )
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_get_dev_key(self, m):
-        data = {
-            "$id": "5e5ea5c16897e",
-            "$createdAt": "2020-10-15T06:38:00.000+00:00",
-            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "name": "Dev API Key",
-            "expire": "2020-10-15T06:38:00.000+00:00",
-            "secret": "919c2d18fb5d4...a2ae413da83346ad2",
-            "accessedAt": "2020-10-15T06:38:00.000+00:00",
-            "sdks": [],
-        }
-        headers = {'Content-Type': 'application/json'}
-        m.request(
-            requests_mock.ANY,
-            requests_mock.ANY,
-            text=json.dumps(data),
-            headers=headers,
-        )
-        response = self.projects.get_dev_key(
-            '<PROJECT_ID>',
-            '<KEY_ID>',
-        )
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_update_dev_key(self, m):
-        data = {
-            "$id": "5e5ea5c16897e",
-            "$createdAt": "2020-10-15T06:38:00.000+00:00",
-            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "name": "Dev API Key",
-            "expire": "2020-10-15T06:38:00.000+00:00",
-            "secret": "919c2d18fb5d4...a2ae413da83346ad2",
-            "accessedAt": "2020-10-15T06:38:00.000+00:00",
-            "sdks": [],
-        }
-        headers = {'Content-Type': 'application/json'}
-        m.request(
-            requests_mock.ANY,
-            requests_mock.ANY,
-            text=json.dumps(data),
-            headers=headers,
-        )
-        response = self.projects.update_dev_key(
-            '<PROJECT_ID>',
-            '<KEY_ID>',
-            '<NAME>',
-            '2020-10-15T06:38:00.000+00:00',
-        )
-        self.assertEqual(response.to_dict(), data)
-
-    @requests_mock.Mocker()
-    def test_delete_dev_key(self, m):
-        data = ''
-        headers = {'Content-Type': 'application/json'}
-        m.request(
-            requests_mock.ANY,
-            requests_mock.ANY,
-            text=json.dumps(data),
-            headers=headers,
-        )
-        response = self.projects.delete_dev_key(
-            '<PROJECT_ID>',
-            '<KEY_ID>',
-        )
-        self.assertEqual(response, data)
-
-    @requests_mock.Mocker()
     def test_list_schedules(self, m):
         data = {
             "total": 5.0,
@@ -295,7 +209,7 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             'function',
             '<RESOURCE_ID>',
-            '',
+            '0 0 * * *',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -391,7 +305,6 @@ class ProjectsServiceTest(unittest.TestCase):
             "name": "New Project",
             "teamId": "1592981250",
             "region": "fra",
-            "devKeys": [],
             "smtpEnabled": True,
             "smtpSenderName": "John Appwrite",
             "smtpSenderEmail": "john@appwrite.io",

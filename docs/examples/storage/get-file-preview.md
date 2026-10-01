@@ -15,14 +15,14 @@ result: bytes = storage.get_file_preview(
     file_id = '<FILE_ID>',
     width = 0, # optional
     height = 0, # optional
-    gravity = ImageGravity.CENTER, # optional
+    gravity = ImageGravity.AUTO, # optional
     quality = -1, # optional
     border_width = 0, # optional
-    border_color = '', # optional
+    border_color = 'FFFFFF', # optional
     border_radius = 0, # optional
     opacity = 0, # optional
     rotation = -360, # optional
-    background = '', # optional
+    background = 'FFFFFF', # optional
     output = ImageFormat.JPG, # optional
     token = '<TOKEN>' # optional
 )

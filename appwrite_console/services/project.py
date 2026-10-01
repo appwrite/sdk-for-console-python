@@ -15,13 +15,16 @@ from ..models.o_auth2_provider_list import OAuth2ProviderList
 from ..models.o_auth2_amazon import OAuth2Amazon
 from ..models.o_auth2_apple import OAuth2Apple
 from ..models.o_auth2_appwrite import OAuth2Appwrite
+from ..enums.project_o_auth2_auth0_prompt import ProjectOAuth2Auth0Prompt
 from ..models.o_auth2_auth0 import OAuth2Auth0
 from ..models.o_auth2_authentik import OAuth2Authentik
 from ..models.o_auth2_autodesk import OAuth2Autodesk
 from ..models.o_auth2_bitbucket import OAuth2Bitbucket
 from ..models.o_auth2_bitly import OAuth2Bitly
 from ..models.o_auth2_box import OAuth2Box
+from ..models.o_auth2_cloudflare import OAuth2Cloudflare
 from ..models.o_auth2_dailymotion import OAuth2Dailymotion
+from ..enums.project_o_auth2_discord_prompt import ProjectOAuth2DiscordPrompt
 from ..models.o_auth2_discord import OAuth2Discord
 from ..models.o_auth2_disqus import OAuth2Disqus
 from ..models.o_auth2_dropbox import OAuth2Dropbox
@@ -29,31 +32,41 @@ from ..models.o_auth2_etsy import OAuth2Etsy
 from ..models.o_auth2_facebook import OAuth2Facebook
 from ..models.o_auth2_figma import OAuth2Figma
 from ..models.o_auth2_fusion_auth import OAuth2FusionAuth
+from ..enums.project_o_auth2_git_hub_prompt import ProjectOAuth2GitHubPrompt
 from ..models.o_auth2_github import OAuth2Github
 from ..models.o_auth2_gitlab import OAuth2Gitlab
 from ..enums.project_o_auth2_google_prompt import ProjectOAuth2GooglePrompt
 from ..models.o_auth2_google import OAuth2Google
 from ..models.o_auth2_hugging_face import OAuth2HuggingFace
+from ..enums.project_o_auth2_kakao_prompt import ProjectOAuth2KakaoPrompt
+from ..models.o_auth2_kakao import OAuth2Kakao
 from ..models.o_auth2_keycloak import OAuth2Keycloak
 from ..models.o_auth2_kick import OAuth2Kick
 from ..models.o_auth2_linkedin import OAuth2Linkedin
+from ..enums.project_o_auth2_microsoft_prompt import ProjectOAuth2MicrosoftPrompt
 from ..models.o_auth2_microsoft import OAuth2Microsoft
 from ..models.o_auth2_notion import OAuth2Notion
 from ..enums.project_o_auth2_oidc_prompt import ProjectOAuth2OidcPrompt
 from ..models.o_auth2_oidc import OAuth2Oidc
+from ..enums.project_o_auth2_okta_prompt import ProjectOAuth2OktaPrompt
 from ..models.o_auth2_okta import OAuth2Okta
 from ..models.o_auth2_paypal import OAuth2Paypal
 from ..models.o_auth2_podio import OAuth2Podio
+from ..models.o_auth2_resend import OAuth2Resend
+from ..enums.project_o_auth2_salesforce_prompt import ProjectOAuth2SalesforcePrompt
 from ..models.o_auth2_salesforce import OAuth2Salesforce
 from ..models.o_auth2_slack import OAuth2Slack
 from ..models.o_auth2_spotify import OAuth2Spotify
 from ..models.o_auth2_stripe import OAuth2Stripe
+from ..models.o_auth2_tik_tok import OAuth2TikTok
 from ..models.o_auth2_tradeshift import OAuth2Tradeshift
 from ..models.o_auth2_twitch import OAuth2Twitch
+from ..models.o_auth2_webflow import OAuth2Webflow
 from ..models.o_auth2_word_press import OAuth2WordPress
 from ..models.o_auth2_x import OAuth2X
 from ..models.o_auth2_yahoo import OAuth2Yahoo
 from ..models.o_auth2_yandex import OAuth2Yandex
+from ..enums.project_o_auth2_zoho_prompt import ProjectOAuth2ZohoPrompt
 from ..models.o_auth2_zoho import OAuth2Zoho
 from ..models.o_auth2_zoom import OAuth2Zoom
 from ..enums.project_o_auth_provider_id import ProjectOAuthProviderId
@@ -69,6 +82,7 @@ from ..enums.project_policy_id import ProjectPolicyId
 from ..models.policy_password_dictionary import PolicyPasswordDictionary
 from ..models.policy_password_history import PolicyPasswordHistory
 from ..models.policy_password_personal_data import PolicyPasswordPersonalData
+from ..models.policy_password_pwned import PolicyPasswordPwned
 from ..models.policy_session_alert import PolicySessionAlert
 from ..models.policy_session_duration import PolicySessionDuration
 from ..models.policy_session_invalidation import PolicySessionInvalidation
@@ -87,8 +101,6 @@ from ..models.email_template_list import EmailTemplateList
 from ..enums.project_email_template_id import ProjectEmailTemplateId
 from ..enums.project_email_template_locale import ProjectEmailTemplateLocale
 from ..models.email_template import EmailTemplate
-from ..enums.project_usage_range import ProjectUsageRange
-from ..models.usage_project import UsageProject
 from ..models.variable_list import VariableList
 from ..models.variable import Variable
 
@@ -122,6 +134,7 @@ class Project(Service):
             api_path,
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -153,6 +166,7 @@ class Project(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -383,7 +397,7 @@ class Project(Service):
 
         api_path = '/project/keys/{keyId}'
         api_params = {}
-        if key_id is None:
+        if key_id is None or key_id == '':
             raise AppwriteException('Missing required parameter: "key_id"')
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
 
@@ -432,7 +446,7 @@ class Project(Service):
 
         api_path = '/project/keys/{keyId}'
         api_params = {}
-        if key_id is None:
+        if key_id is None or key_id == '':
             raise AppwriteException('Missing required parameter: "key_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -481,7 +495,7 @@ class Project(Service):
 
         api_path = '/project/keys/{keyId}'
         api_params = {}
-        if key_id is None:
+        if key_id is None or key_id == '':
             raise AppwriteException('Missing required parameter: "key_id"')
         api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
 
@@ -491,6 +505,7 @@ class Project(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -653,7 +668,7 @@ class Project(Service):
 
         api_path = '/project/mock-phones/{number}'
         api_params = {}
-        if number is None:
+        if number is None or number == '':
             raise AppwriteException('Missing required parameter: "number"')
         api_path = api_path.replace('{number}', str(self._normalize_value(number)))
 
@@ -696,7 +711,7 @@ class Project(Service):
 
         api_path = '/project/mock-phones/{number}'
         api_params = {}
-        if number is None:
+        if number is None or number == '':
             raise AppwriteException('Missing required parameter: "number"')
         if otp is None:
             raise AppwriteException('Missing required parameter: "otp"')
@@ -740,7 +755,7 @@ class Project(Service):
 
         api_path = '/project/mock-phones/{number}'
         api_params = {}
-        if number is None:
+        if number is None or number == '':
             raise AppwriteException('Missing required parameter: "number"')
         api_path = api_path.replace('{number}', str(self._normalize_value(number)))
 
@@ -750,6 +765,7 @@ class Project(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -973,7 +989,9 @@ class Project(Service):
         key_id: Optional[str] = None,
         team_id: Optional[str] = None,
         p8_file: Optional[str] = None,
+        native_client_ids: Optional[List[str]] = None,
         enabled: Optional[bool] = None,
+        native_enabled: Optional[bool] = None,
     ) -> OAuth2Apple:
         """
         Update the project OAuth2 Apple configuration.
@@ -988,8 +1006,12 @@ class Project(Service):
             'Team ID' of Apple OAuth2 app. For example: D4000000R6
         p8_file : Optional[str]
             Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
+        native_client_ids : Optional[List[str]]
+            App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
         enabled : Optional[bool]
-            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+            Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+        native_enabled : Optional[bool]
+            Native Sign in with Apple status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a Services ID or at least one native client ID to match tokens against, but no key or team ID: this method verifies a signature rather than redeeming an authorization code.
         Returns
         -------
         OAuth2Apple
@@ -1011,8 +1033,12 @@ class Project(Service):
             api_params['teamId'] = self._normalize_value(team_id)
         if p8_file is not None:
             api_params['p8File'] = self._normalize_value(p8_file)
+        if native_client_ids is not None:
+            api_params['nativeClientIds'] = self._normalize_value(native_client_ids)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if native_enabled is not None:
+            api_params['nativeEnabled'] = self._normalize_value(native_enabled)
 
         response = self.client.call(
             'patch',
@@ -1082,6 +1108,7 @@ class Project(Service):
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         endpoint: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2Auth0Prompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Auth0:
         """
@@ -1095,6 +1122,8 @@ class Project(Service):
             'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
         endpoint : Optional[str]
             Domain of Auth0 instance. For example: example.us.auth0.com
+        prompt : Optional[List[ProjectOAuth2Auth0Prompt]]
+            Array of Auth0 OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Auth0 default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -1116,6 +1145,8 @@ class Project(Service):
             api_params['clientSecret'] = self._normalize_value(client_secret)
         if endpoint is not None:
             api_params['endpoint'] = self._normalize_value(endpoint)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -1387,6 +1418,56 @@ class Project(Service):
 
         return self._parse_response(response, model=OAuth2Box)
 
+    def update_o_auth2_cloudflare(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        enabled: Optional[bool] = None,
+    ) -> OAuth2Cloudflare:
+        """
+        Update the project OAuth2 Cloudflare configuration.
+
+        Parameters
+        ----------
+        client_id : Optional[str]
+            'Client ID' of Cloudflare OAuth2 app. For example: 4b866000000000000000000000c9e4e2
+        client_secret : Optional[str]
+            'Client Secret' of Cloudflare OAuth2 app. For example: cfoc_5Q6YRl0000000000000000000000000000000000003d214f
+        enabled : Optional[bool]
+            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        Returns
+        -------
+        OAuth2Cloudflare
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/oauth2/cloudflare'
+        api_params = {}
+        if client_id is not None:
+            api_params['clientId'] = self._normalize_value(client_id)
+        if client_secret is not None:
+            api_params['clientSecret'] = self._normalize_value(client_secret)
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=OAuth2Cloudflare)
+
     def update_o_auth2_dailymotion(
         self,
         api_key: Optional[str] = None,
@@ -1441,6 +1522,7 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2DiscordPrompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Discord:
         """
@@ -1452,6 +1534,8 @@ class Project(Service):
             'Client ID' of Discord OAuth2 app. For example: 950722000000343754
         client_secret : Optional[str]
             'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
+        prompt : Optional[List[ProjectOAuth2DiscordPrompt]]
+            Array with at most one Discord OAuth2 prompt value. "none" means: skip the authorization screen for users who already authorized the app with the requested scopes. "consent" means: ask users who already authorized the app to approve it again. Pass an empty array to use the Discord default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -1471,6 +1555,8 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -1796,6 +1882,7 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2GitHubPrompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Github:
         """
@@ -1807,6 +1894,8 @@ class Project(Service):
             'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
         client_secret : Optional[str]
             'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
+        prompt : Optional[List[ProjectOAuth2GitHubPrompt]]
+            Array of GitHub OAuth2 prompt values. "select_account" means: prompt the user to select an account. Pass an empty array to use the GitHub default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -1826,6 +1915,8 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -1902,7 +1993,9 @@ class Project(Service):
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         prompt: Optional[List[ProjectOAuth2GooglePrompt]] = None,
+        native_client_ids: Optional[List[str]] = None,
         enabled: Optional[bool] = None,
+        native_enabled: Optional[bool] = None,
     ) -> OAuth2Google:
         """
         Update the project OAuth2 Google configuration.
@@ -1915,8 +2008,12 @@ class Project(Service):
             'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
         prompt : Optional[List[ProjectOAuth2GooglePrompt]]
             Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
+        native_client_ids : Optional[List[str]]
+            Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
         enabled : Optional[bool]
-            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+            Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+        native_enabled : Optional[bool]
+            Native Google sign-in status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a client ID or at least one native client ID to match tokens against, but no client secret: this method verifies a signature rather than redeeming an authorization code.
         Returns
         -------
         OAuth2Google
@@ -1936,8 +2033,12 @@ class Project(Service):
             api_params['clientSecret'] = self._normalize_value(client_secret)
         if prompt is not None:
             api_params['prompt'] = self._normalize_value(prompt)
+        if native_client_ids is not None:
+            api_params['nativeClientIds'] = self._normalize_value(native_client_ids)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if native_enabled is not None:
+            api_params['nativeEnabled'] = self._normalize_value(native_enabled)
 
         response = self.client.call(
             'patch',
@@ -2001,6 +2102,61 @@ class Project(Service):
         )
 
         return self._parse_response(response, model=OAuth2HuggingFace)
+
+    def update_o_auth2_kakao(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2KakaoPrompt]] = None,
+        enabled: Optional[bool] = None,
+    ) -> OAuth2Kakao:
+        """
+        Update the project OAuth2 Kakao configuration.
+
+        Parameters
+        ----------
+        client_id : Optional[str]
+            'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
+        client_secret : Optional[str]
+            'Client Secret' of Kakao OAuth2 app. For example: jLNVOK00000000000000000000yJebea. Generate it under Kakao Login > Security and set its status to enabled
+        prompt : Optional[List[ProjectOAuth2KakaoPrompt]]
+            Array of Kakao OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "create" means: prompt the user to sign up. "select_account" means: prompt the user to select an account. Pass an empty array to use the Kakao default.
+        enabled : Optional[bool]
+            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        Returns
+        -------
+        OAuth2Kakao
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/oauth2/kakao'
+        api_params = {}
+        if client_id is not None:
+            api_params['clientId'] = self._normalize_value(client_id)
+        if client_secret is not None:
+            api_params['clientSecret'] = self._normalize_value(client_secret)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=OAuth2Kakao)
 
     def update_o_auth2_keycloak(
         self,
@@ -2167,6 +2323,7 @@ class Project(Service):
         application_id: Optional[str] = None,
         application_secret: Optional[str] = None,
         tenant: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2MicrosoftPrompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Microsoft:
         """
@@ -2180,6 +2337,8 @@ class Project(Service):
             'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
         tenant : Optional[str]
             Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
+        prompt : Optional[List[ProjectOAuth2MicrosoftPrompt]]
+            Array of Microsoft OAuth2 prompt values. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account. Pass an empty array to use the Microsoft default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -2201,6 +2360,8 @@ class Project(Service):
             api_params['applicationSecret'] = self._normalize_value(application_secret)
         if tenant is not None:
             api_params['tenant'] = self._normalize_value(tenant)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -2353,6 +2514,7 @@ class Project(Service):
         client_secret: Optional[str] = None,
         domain: Optional[str] = None,
         authorization_server_id: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2OktaPrompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Okta:
         """
@@ -2368,6 +2530,8 @@ class Project(Service):
             Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
         authorization_server_id : Optional[str]
             Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
+        prompt : Optional[List[ProjectOAuth2OktaPrompt]]
+            Array of Okta OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Okta default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -2391,6 +2555,8 @@ class Project(Service):
             api_params['domain'] = self._normalize_value(domain)
         if authorization_server_id is not None:
             api_params['authorizationServerId'] = self._normalize_value(authorization_server_id)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -2557,10 +2723,61 @@ class Project(Service):
 
         return self._parse_response(response, model=OAuth2Podio)
 
+    def update_o_auth2_resend(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        enabled: Optional[bool] = None,
+    ) -> OAuth2Resend:
+        """
+        Update the project OAuth2 Resend configuration.
+
+        Parameters
+        ----------
+        client_id : Optional[str]
+            'Client ID' of Resend OAuth2 app. For example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        client_secret : Optional[str]
+            'Client Secret' of Resend OAuth2 app. For example: 9c1e4b00000000000000000000000000000000000000000000000000a72d5f4
+        enabled : Optional[bool]
+            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        Returns
+        -------
+        OAuth2Resend
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/oauth2/resend'
+        api_params = {}
+        if client_id is not None:
+            api_params['clientId'] = self._normalize_value(client_id)
+        if client_secret is not None:
+            api_params['clientSecret'] = self._normalize_value(client_secret)
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=OAuth2Resend)
+
     def update_o_auth2_salesforce(
         self,
         customer_key: Optional[str] = None,
         customer_secret: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2SalesforcePrompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Salesforce:
         """
@@ -2572,6 +2789,8 @@ class Project(Service):
             'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
         customer_secret : Optional[str]
             'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
+        prompt : Optional[List[ProjectOAuth2SalesforcePrompt]]
+            Array of Salesforce OAuth2 prompt values. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Salesforce default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -2591,6 +2810,8 @@ class Project(Service):
             api_params['customerKey'] = self._normalize_value(customer_key)
         if customer_secret is not None:
             api_params['customerSecret'] = self._normalize_value(customer_secret)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -2757,6 +2978,56 @@ class Project(Service):
 
         return self._parse_response(response, model=OAuth2Stripe)
 
+    def update_o_auth2_tik_tok(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        enabled: Optional[bool] = None,
+    ) -> OAuth2TikTok:
+        """
+        Update the project OAuth2 TikTok configuration.
+
+        Parameters
+        ----------
+        client_id : Optional[str]
+            'Client key' of TikTok OAuth2 app. For example: awz000000000tyw0
+        client_secret : Optional[str]
+            'Client secret' of TikTok OAuth2 app. For example: 6wXewM00000000000000000000yXnite
+        enabled : Optional[bool]
+            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        Returns
+        -------
+        OAuth2TikTok
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/oauth2/tiktok'
+        api_params = {}
+        if client_id is not None:
+            api_params['clientId'] = self._normalize_value(client_id)
+        if client_secret is not None:
+            api_params['clientSecret'] = self._normalize_value(client_secret)
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=OAuth2TikTok)
+
     def update_o_auth2_tradeshift(
         self,
         oauth2_client_id: Optional[str] = None,
@@ -2906,6 +3177,56 @@ class Project(Service):
         )
 
         return self._parse_response(response, model=OAuth2Twitch)
+
+    def update_o_auth2_webflow(
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        enabled: Optional[bool] = None,
+    ) -> OAuth2Webflow:
+        """
+        Update the project OAuth2 Webflow configuration.
+
+        Parameters
+        ----------
+        client_id : Optional[str]
+            'Client ID' of Webflow OAuth2 app. For example: 8bb20000000000000000000000000000000000000000000000000000000040dd
+        client_secret : Optional[str]
+            'Client Secret' of Webflow OAuth2 app. For example: 59bf00000000000000000000000000000000000000000000000000000000fe59
+        enabled : Optional[bool]
+            OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        Returns
+        -------
+        OAuth2Webflow
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/oauth2/webflow'
+        api_params = {}
+        if client_id is not None:
+            api_params['clientId'] = self._normalize_value(client_id)
+        if client_secret is not None:
+            api_params['clientSecret'] = self._normalize_value(client_secret)
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=OAuth2Webflow)
 
     def update_o_auth2_word_press(
         self,
@@ -3111,6 +3432,7 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
+        prompt: Optional[List[ProjectOAuth2ZohoPrompt]] = None,
         enabled: Optional[bool] = None,
     ) -> OAuth2Zoho:
         """
@@ -3122,6 +3444,8 @@ class Project(Service):
             'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
         client_secret : Optional[str]
             'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
+        prompt : Optional[List[ProjectOAuth2ZohoPrompt]]
+            Array of Zoho OAuth2 prompt values. "consent" means: prompt the user for consent. Pass an empty array to use the Zoho default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
         Returns
@@ -3141,6 +3465,8 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
 
@@ -3226,6 +3552,7 @@ class Project(Service):
         OAuth2Yandex,
         OAuth2X,
         OAuth2WordPress,
+        OAuth2Webflow,
         OAuth2Twitch,
         OAuth2Stripe,
         OAuth2Spotify,
@@ -3235,6 +3562,8 @@ class Project(Service):
         OAuth2Salesforce,
         OAuth2Yahoo,
         OAuth2HuggingFace,
+        OAuth2Resend,
+        OAuth2Cloudflare,
         OAuth2Linkedin,
         OAuth2Disqus,
         OAuth2Amazon,
@@ -3252,6 +3581,8 @@ class Project(Service):
         OAuth2Okta,
         OAuth2Kick,
         OAuth2Microsoft,
+        OAuth2TikTok,
+        OAuth2Kakao,
     ]:
         """
         Get a single OAuth2 provider configuration. Credential fields (client secret, p8 file, key/team IDs) are write-only and always returned empty.
@@ -3262,7 +3593,7 @@ class Project(Service):
             OAuth2 provider key. For example: github, google, apple.
         Returns
         -------
-        Union[OAuth2Github, OAuth2Discord, OAuth2Figma, OAuth2Dropbox, OAuth2Dailymotion, OAuth2Bitbucket, OAuth2Bitly, OAuth2Box, OAuth2Autodesk, OAuth2Google, OAuth2Zoom, OAuth2Zoho, OAuth2Yandex, OAuth2X, OAuth2WordPress, OAuth2Twitch, OAuth2Stripe, OAuth2Spotify, OAuth2Slack, OAuth2Podio, OAuth2Notion, OAuth2Salesforce, OAuth2Yahoo, OAuth2HuggingFace, OAuth2Linkedin, OAuth2Disqus, OAuth2Amazon, OAuth2Etsy, OAuth2Facebook, OAuth2Tradeshift, OAuth2Paypal, OAuth2Gitlab, OAuth2Authentik, OAuth2Auth0, OAuth2FusionAuth, OAuth2Keycloak, OAuth2Oidc, OAuth2Apple, OAuth2Okta, OAuth2Kick, OAuth2Microsoft]
+        Union[OAuth2Github, OAuth2Discord, OAuth2Figma, OAuth2Dropbox, OAuth2Dailymotion, OAuth2Bitbucket, OAuth2Bitly, OAuth2Box, OAuth2Autodesk, OAuth2Google, OAuth2Zoom, OAuth2Zoho, OAuth2Yandex, OAuth2X, OAuth2WordPress, OAuth2Webflow, OAuth2Twitch, OAuth2Stripe, OAuth2Spotify, OAuth2Slack, OAuth2Podio, OAuth2Notion, OAuth2Salesforce, OAuth2Yahoo, OAuth2HuggingFace, OAuth2Resend, OAuth2Cloudflare, OAuth2Linkedin, OAuth2Disqus, OAuth2Amazon, OAuth2Etsy, OAuth2Facebook, OAuth2Tradeshift, OAuth2Paypal, OAuth2Gitlab, OAuth2Authentik, OAuth2Auth0, OAuth2FusionAuth, OAuth2Keycloak, OAuth2Oidc, OAuth2Apple, OAuth2Okta, OAuth2Kick, OAuth2Microsoft, OAuth2TikTok, OAuth2Kakao]
             API response as one of the typed response models
 
         Raises
@@ -3334,6 +3665,9 @@ class Project(Service):
         if response.get('$id') == 'wordpress':
             return self._parse_response(response, model=OAuth2WordPress)
 
+        if response.get('$id') == 'webflow':
+            return self._parse_response(response, model=OAuth2Webflow)
+
         if response.get('$id') == 'twitch':
             return self._parse_response(response, model=OAuth2Twitch)
 
@@ -3360,6 +3694,12 @@ class Project(Service):
 
         if response.get('$id') == 'huggingface':
             return self._parse_response(response, model=OAuth2HuggingFace)
+
+        if response.get('$id') == 'resend':
+            return self._parse_response(response, model=OAuth2Resend)
+
+        if response.get('$id') == 'cloudflare':
+            return self._parse_response(response, model=OAuth2Cloudflare)
 
         if response.get('$id') == 'linkedin':
             return self._parse_response(response, model=OAuth2Linkedin)
@@ -3411,6 +3751,12 @@ class Project(Service):
 
         if response.get('$id') == 'microsoft':
             return self._parse_response(response, model=OAuth2Microsoft)
+
+        if response.get('$id') == 'tiktok':
+            return self._parse_response(response, model=OAuth2TikTok)
+
+        if response.get('$id') == 'kakao':
+            return self._parse_response(response, model=OAuth2Kakao)
 
         raise AppwriteException('Unable to match response to any known model')
 
@@ -3541,7 +3887,7 @@ class Project(Service):
 
         api_path = '/project/platforms/android/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -3647,7 +3993,7 @@ class Project(Service):
 
         api_path = '/project/platforms/apple/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -3753,7 +4099,7 @@ class Project(Service):
 
         api_path = '/project/platforms/linux/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -3859,7 +4205,7 @@ class Project(Service):
 
         api_path = '/project/platforms/web/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -3965,7 +4311,7 @@ class Project(Service):
 
         api_path = '/project/platforms/windows/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -4018,7 +4364,7 @@ class Project(Service):
 
         api_path = '/project/platforms/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
 
@@ -4075,7 +4421,7 @@ class Project(Service):
 
         api_path = '/project/platforms/{platformId}'
         api_params = {}
-        if platform_id is None:
+        if platform_id is None or platform_id == '':
             raise AppwriteException('Missing required parameter: "platform_id"')
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
 
@@ -4085,6 +4431,7 @@ class Project(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -4542,6 +4889,56 @@ class Project(Service):
 
         return self._parse_response(response, model=ProjectModel)
 
+    def update_password_pwned_policy(
+        self,
+        enabled: Optional[bool] = None,
+        sessions: Optional[bool] = None,
+        users: Optional[bool] = None,
+    ) -> ProjectModel:
+        """
+        Updating this policy allows you to control if passwords are checked against the Have I Been Pwned breach database. When enabled, every password a user signs up, signs in or resets with is checked and the result is recorded on the user as `passwordPwned`. On its own the policy only records. Enable `users` to reject a breached password when a user signs up or sets a new password, and `sessions` to refuse a sign-in with a breached password until it is reset. Only the first five characters of the password hash are ever shared with the service. Options left out keep their current value.
+
+        Parameters
+        ----------
+        enabled : Optional[bool]
+            Toggle password pwned policy. Set to true to check passwords against known data breaches and record the result on the user, or false to never check. Default is true. On its own this only records; use `users` and `sessions` to block. When changing this policy, existing passwords remain valid.
+        sessions : Optional[bool]
+            Whether a sign-in with a breached password is refused until the password is reset. Default is false, which allows the sign-in and only records the result.
+        users : Optional[bool]
+            Whether a breached password is rejected when a user signs up or sets a new password. Default is false, which allows the password and only records the result.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/policies/password-pwned'
+        api_params = {}
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+        if sessions is not None:
+            api_params['sessions'] = self._normalize_value(sessions)
+        if users is not None:
+            api_params['users'] = self._normalize_value(users)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
     def update_password_strength_policy(
         self,
         min: Optional[float] = None,
@@ -4813,6 +5210,7 @@ class Project(Service):
         PolicyPasswordHistory,
         PolicyPasswordStrength,
         PolicyPasswordPersonalData,
+        PolicyPasswordPwned,
         PolicySessionAlert,
         PolicySessionDuration,
         PolicySessionInvalidation,
@@ -4831,10 +5229,10 @@ class Project(Service):
         Parameters
         ----------
         policy_id : ProjectPolicyId
-            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
+            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
         Returns
         -------
-        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail]
+        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail]
             API response as one of the typed response models
 
         Raises
@@ -4872,6 +5270,9 @@ class Project(Service):
 
         if response.get('$id') == 'password-personal-data':
             return self._parse_response(response, model=PolicyPasswordPersonalData)
+
+        if response.get('$id') == 'password-pwned':
+            return self._parse_response(response, model=PolicyPasswordPwned)
 
         if response.get('$id') == 'session-alert':
             return self._parse_response(response, model=PolicySessionAlert)
@@ -5121,6 +5522,7 @@ class Project(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -5188,7 +5590,7 @@ class Project(Service):
         Parameters
         ----------
         template_id : ProjectEmailTemplateId
-            Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+            Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
         locale : Optional[ProjectEmailTemplateLocale]
             Custom email template locale. If left empty, the fallback locale (en) will be used.
         subject : Optional[str]
@@ -5258,7 +5660,7 @@ class Project(Service):
         Parameters
         ----------
         template_id : ProjectEmailTemplateId
-            Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession
+            Custom email template type. Can be one of: verification, magicSession, recovery, invitation, mfaChallenge, sessionAlert, otpSession, otpVerification, otpRecovery
         locale : Optional[ProjectEmailTemplateLocale]
             Custom email template locale. If left empty, the fallback locale (en) will be used.
         Returns
@@ -5291,57 +5693,6 @@ class Project(Service):
         )
 
         return self._parse_response(response, model=EmailTemplate)
-
-    def get_usage(
-        self,
-        start_date: str,
-        end_date: str,
-        period: Optional[ProjectUsageRange] = None,
-    ) -> UsageProject:
-        """
-        Get comprehensive usage statistics for your project. View metrics including network requests, bandwidth, storage, function executions, database usage, and user activity. Specify a time range with startDate and endDate, and optionally set the data granularity with period (1h or 1d). The response includes both total counts and detailed breakdowns by resource, along with historical data over the specified period.
-
-        Parameters
-        ----------
-        start_date : str
-            Starting date for the usage
-        end_date : str
-            End date for the usage
-        period : Optional[ProjectUsageRange]
-            Period used
-        Returns
-        -------
-        UsageProject
-            API response as a typed Pydantic model
-
-        Raises
-        ------
-        AppwriteException
-            If API request fails
-        """
-
-        api_path = '/project/usage'
-        api_params = {}
-        if start_date is None:
-            raise AppwriteException('Missing required parameter: "start_date"')
-        if end_date is None:
-            raise AppwriteException('Missing required parameter: "end_date"')
-        api_params['startDate'] = self._normalize_value(start_date)
-        api_params['endDate'] = self._normalize_value(end_date)
-        if period is not None:
-            api_params['period'] = self._normalize_value(period)
-
-        response = self.client.call(
-            'get',
-            api_path,
-            {
-                'X-Appwrite-Project': self.client.get_config('project'),
-                'accept': 'application/json',
-            },
-            api_params,
-        )
-
-        return self._parse_response(response, model=UsageProject)
 
     def list_variables(
         self,
@@ -5469,7 +5820,7 @@ class Project(Service):
 
         api_path = '/project/variables/{variableId}'
         api_params = {}
-        if variable_id is None:
+        if variable_id is None or variable_id == '':
             raise AppwriteException('Missing required parameter: "variable_id"')
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
 
@@ -5518,7 +5869,7 @@ class Project(Service):
 
         api_path = '/project/variables/{variableId}'
         api_params = {}
-        if variable_id is None:
+        if variable_id is None or variable_id == '':
             raise AppwriteException('Missing required parameter: "variable_id"')
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
         if key is not None:
@@ -5565,7 +5916,7 @@ class Project(Service):
 
         api_path = '/project/variables/{variableId}'
         api_params = {}
-        if variable_id is None:
+        if variable_id is None or variable_id == '':
             raise AppwriteException('Missing required parameter: "variable_id"')
         api_path = api_path.replace('{variableId}', str(self._normalize_value(variable_id)))
 
@@ -5575,6 +5926,7 @@ class Project(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )

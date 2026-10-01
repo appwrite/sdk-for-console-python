@@ -124,7 +124,7 @@ class Affiliates(Service):
 
         api_path = '/affiliates/links/{linkId}'
         api_params = {}
-        if link_id is None:
+        if link_id is None or link_id == '':
             raise AppwriteException('Missing required parameter: "link_id"')
         api_path = api_path.replace('{linkId}', str(self._normalize_value(link_id)))
 
@@ -164,7 +164,7 @@ class Affiliates(Service):
 
         api_path = '/affiliates/links/{linkId}'
         api_params = {}
-        if link_id is None:
+        if link_id is None or link_id == '':
             raise AppwriteException('Missing required parameter: "link_id"')
         api_path = api_path.replace('{linkId}', str(self._normalize_value(link_id)))
 
@@ -289,7 +289,7 @@ class Affiliates(Service):
 
         api_path = '/affiliates/rewards/{rewardId}'
         api_params = {}
-        if reward_id is None:
+        if reward_id is None or reward_id == '':
             raise AppwriteException('Missing required parameter: "reward_id"')
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')

@@ -138,7 +138,7 @@ class BackupsServiceTest(unittest.TestCase):
             '<POLICY_ID>',
             [],
             1,
-            '',
+            'schedule',
         )
         self.assertEqual(response.to_dict(), data)
 

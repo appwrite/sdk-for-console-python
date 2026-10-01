@@ -57,7 +57,7 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/detections'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
         if provider_repository_id is None:
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
@@ -126,7 +126,7 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/providerRepositories'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
@@ -190,7 +190,7 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/providerRepositories'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
@@ -242,9 +242,9 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/providerRepositories/{providerRepositoryId}'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        if provider_repository_id is None:
+        if provider_repository_id is None or provider_repository_id == '':
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
@@ -294,9 +294,9 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/providerRepositories/{providerRepositoryId}/branches'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        if provider_repository_id is None:
+        if provider_repository_id is None or provider_repository_id == '':
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
@@ -350,9 +350,9 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/providerRepositories/{providerRepositoryId}/contents'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        if provider_repository_id is None:
+        if provider_repository_id is None or provider_repository_id == '':
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
@@ -403,9 +403,9 @@ class Vcs(Service):
 
         api_path = '/vcs/github/installations/{installationId}/repositories/{repositoryId}'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        if repository_id is None:
+        if repository_id is None or repository_id == '':
             raise AppwriteException('Missing required parameter: "repository_id"')
         if provider_pull_request_id is None:
             raise AppwriteException('Missing required parameter: "provider_pull_request_id"')
@@ -499,7 +499,7 @@ class Vcs(Service):
 
         api_path = '/vcs/installations/{installationId}'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
 
@@ -539,7 +539,7 @@ class Vcs(Service):
 
         api_path = '/vcs/installations/{installationId}'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
 
@@ -549,6 +549,7 @@ class Vcs(Service):
             {
                 'X-Appwrite-Project': self.client.get_config('project'),
                 'content-type': 'application/json',
+                'accept': 'application/json',
             },
             api_params,
         )
@@ -585,7 +586,7 @@ class Vcs(Service):
 
         api_path = '/vcs/installations/{installationId}/namespaces'
         api_params = {}
-        if installation_id is None:
+        if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
         api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
         if search is not None:

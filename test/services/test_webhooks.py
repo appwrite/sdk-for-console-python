@@ -56,7 +56,7 @@ class WebhooksServiceTest(unittest.TestCase):
         )
         response = self.webhooks.create(
             '<WEBHOOK_ID>',
-            '',
+            'https://example.com/webhook',
             '<NAME>',
             [],
         )
@@ -118,7 +118,7 @@ class WebhooksServiceTest(unittest.TestCase):
         response = self.webhooks.update(
             '<WEBHOOK_ID>',
             '<NAME>',
-            '',
+            'https://example.com/webhook',
             [],
         )
         self.assertEqual(response.to_dict(), data)

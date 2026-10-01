@@ -11,7 +11,7 @@ project = Project(client)
 
 result: Variable = project.create_variable(
     variable_id = '<VARIABLE_ID>',
-    key = '',
+    key = '<KEY>',
     value = '<VALUE>',
     secret = False # optional
 )

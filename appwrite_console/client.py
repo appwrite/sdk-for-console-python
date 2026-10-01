@@ -18,12 +18,12 @@ class Client:
         self._endpoint = 'https://cloud.appwrite.io/v1'
         self._global_headers = {
             'content-type': '',
-            'user-agent': f'AppwritePythonSDK/0.6.0 ({platform.uname().system}; {platform.uname().version}; {platform.uname().machine})',
+            'user-agent': f'AppwritePythonSDK/0.7.0 ({platform.uname().system}; {platform.uname().version}; {platform.uname().machine})',
             'x-sdk-name': 'Console Python',
             'x-sdk-platform': 'console',
             'x-sdk-language': 'python',
-            'x-sdk-version': '0.6.0',
-            'X-Appwrite-Response-Format': '1.9.6',
+            'x-sdk-version': '0.7.0',
+            'X-Appwrite-Response-Format': '2.3.0',
         }
         self._config = {}
 
@@ -106,13 +106,6 @@ class Client:
         self._config['session'] = value
         return self
 
-    def set_dev_key(self, value):
-        """Your secret dev API key"""
-
-        self._global_headers['x-appwrite-dev-key'] = value
-        self._config['devkey'] = value
-        return self
-
     def set_impersonate_user_id(self, value):
         """Impersonate a user by ID"""
 
@@ -169,6 +162,15 @@ class Client:
                     files[key] = (data[key].filename, data[key].data)
                     del data[key]
             data = self.flatten(data, stringify=stringify)
+            if not files and data:
+                # Without a file, requests would fall back to a URL-encoded body.
+                files = {key: (None, value) for key, value in data.items()}
+                data = {}
+            elif not files:
+                # With no parts at all, requests would send a bare body, so close an empty multipart one.
+                boundary = os.urandom(16).hex()
+                headers['content-type'] = f'multipart/form-data; boundary={boundary}'
+                data = f'--{boundary}--\r\n'
 
         response = None
         try:
@@ -195,6 +197,9 @@ class Client:
             if response_type == 'location':
                 return response.headers.get('Location')
 
+            if response_type == 'text':
+                return response.content.decode('utf-8')
+
             if content_type.startswith('application/json'):
                 return response.json()
 
@@ -219,7 +224,11 @@ class Client:
         param_name='',
         on_progress=None,
         upload_id='',
+        response_type='json',
     ):
+        if params.get(param_name) is None:
+            return self.call('post', path, headers, params, response_type=response_type)
+
         input_file = params[param_name]
 
         if input_file.source_type == 'path':
@@ -229,13 +238,13 @@ class Client:
             size = len(input_file.data)
             input = input_file.data
 
-        if size < self._chunk_size:
+        if size < self._chunk_size or response_type == 'text':
             if input_file.source_type == 'path':
                 with open(input_file.path, 'rb') as input:
                     input_file.data = input.read()
 
             params[param_name] = input_file
-            return self.call('post', path, headers, params)
+            return self.call('post', path, headers, params, response_type=response_type)
 
         offset = 0
         counter = 0
@@ -282,6 +291,8 @@ class Client:
         final_result = None
 
         def is_upload_complete(chunk_result):
+            if not isinstance(chunk_result, dict):
+                return False
             chunks_uploaded = chunk_result.get('chunksUploaded')
             if chunks_uploaded is None:
                 return False
@@ -305,11 +316,12 @@ class Client:
                 path,
                 chunk_headers,
                 chunk_params,
+                response_type=response_type,
             )
 
         result = upload_chunk(chunks[0], upload_id_header)
         last_result = result
-        if "$id" in result:
+        if isinstance(result, dict) and "$id" in result:
             upload_id_header = result["$id"]
 
         completed_count = chunks[0]['index'] + 1
@@ -318,7 +330,7 @@ class Client:
         if on_progress is not None:
             on_progress(
                 {
-                    "$id": result.get("$id"),
+                    "$id": result.get("$id") if isinstance(result, dict) else None,
                     "progress": uploaded_size / size * 100,
                     "sizeUploaded": uploaded_size,
                     "chunksTotal": total_chunks,

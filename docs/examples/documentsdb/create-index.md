@@ -14,9 +14,9 @@ documents_db = DocumentsDB(client)
 result: Index = documents_db.create_index(
     database_id = '<DATABASE_ID>',
     collection_id = '<COLLECTION_ID>',
-    key = '',
+    key = '<KEY>',
     type = DocumentsDBIndexType.KEY,
-    attributes = [],
+    attributes = ["username"],
     orders = [OrderBy.ASC], # optional
     lengths = [] # optional
 )

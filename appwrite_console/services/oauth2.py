@@ -404,7 +404,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/grants/{grant_id}'
         api_params = {}
-        if grant_id is None:
+        if grant_id is None or grant_id == '':
             raise AppwriteException('Missing required parameter: "grant_id"')
         api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
         api_path = api_path.replace('{grant_id}', str(self._normalize_value(grant_id)))

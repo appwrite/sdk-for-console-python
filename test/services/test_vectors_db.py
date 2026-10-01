@@ -58,12 +58,6 @@ class VectorsDBServiceTest(unittest.TestCase):
         data = {
             "specifications": [],
             "total": 9.0,
-            "pricing": {
-                "storageOverageRate": 0.125,
-                "bandwidthOverageRate": 0.08,
-                "replicaRate": 1,
-                "pitrRate": 0.2,
-            },
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -659,7 +653,7 @@ class VectorsDBServiceTest(unittest.TestCase):
         response = self.vectors_db.create_index(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
             'hnsw_euclidean',
             [],
         )
@@ -688,7 +682,7 @@ class VectorsDBServiceTest(unittest.TestCase):
         response = self.vectors_db.get_index(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -705,7 +699,7 @@ class VectorsDBServiceTest(unittest.TestCase):
         response = self.vectors_db.delete_index(
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
-            '',
+            '<KEY>',
         )
         self.assertEqual(response, data)
 
@@ -726,6 +720,7 @@ class VectorsDBServiceTest(unittest.TestCase):
             "connectionPort": 5432.0,
             "connectionUser": "appwrite_user",
             "connectionPassword": "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+            "credentialGeneration": 1.0,
             "connectionString": "postgresql:\/\/user:pass@db-myproject-mydb.fra.appwrite.center:5432\/postgres?sslmode=require",
             "ssl": True,
             "status": "ready",
@@ -735,6 +730,8 @@ class VectorsDBServiceTest(unittest.TestCase):
             "cpu": 2000.0,
             "memory": 4096.0,
             "storage": 100.0,
+            "storageStatus": "resizing",
+            "storageTargetGb": 120.0,
             "storageClass": "ssd",
             "storageMaxGb": 100.0,
             "nodePool": "db-pool-4vcpu-8gb",
@@ -748,7 +745,7 @@ class VectorsDBServiceTest(unittest.TestCase):
             "pitrRetentionDays": 14.0,
             "storageAutoscaling": True,
             "storageAutoscalingThresholdPercent": 85.0,
-            "storageAutoscalingMaxGb": 500.0,
+            "storageAutoscalingMaxGb": 30.0,
             "maintenanceWindowDay": "sun",
             "maintenanceWindowHourUtc": 3.0,
             "metricsEnabled": True,

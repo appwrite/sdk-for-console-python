@@ -3,6 +3,7 @@ from ..models.base_model import AppwriteModel
 from ..enums.account_key_scopes import AccountKeyScopes
 from ..enums.authenticator_type import AuthenticatorType
 from ..enums.authentication_factor import AuthenticationFactor
+from ..enums.id_token_provider import IdTokenProvider
 from ..enums.o_auth_provider import OAuthProvider
 from ..enums.browser import Browser
 from ..enums.credit_card import CreditCard
@@ -32,6 +33,7 @@ from ..enums.template_reference_type import TemplateReferenceType
 from ..enums.vcs_reference_type import VCSReferenceType
 from ..enums.deployment_download_type import DeploymentDownloadType
 from ..enums.execution_method import ExecutionMethod
+from ..enums.conversation_type import ConversationType
 from ..enums.message_priority import MessagePriority
 from ..enums.smtp_encryption import SmtpEncryption
 from ..enums.appwrite_migration_resource import AppwriteMigrationResource
@@ -44,14 +46,21 @@ from ..enums.region import Region
 from ..enums.addon_key import AddonKey
 from ..enums.usage_range import UsageRange
 from ..enums.project_auth_method_id import ProjectAuthMethodId
+from ..enums.project_o_auth2_auth0_prompt import ProjectOAuth2Auth0Prompt
+from ..enums.project_o_auth2_discord_prompt import ProjectOAuth2DiscordPrompt
+from ..enums.project_o_auth2_git_hub_prompt import ProjectOAuth2GitHubPrompt
 from ..enums.project_o_auth2_google_prompt import ProjectOAuth2GooglePrompt
+from ..enums.project_o_auth2_kakao_prompt import ProjectOAuth2KakaoPrompt
+from ..enums.project_o_auth2_microsoft_prompt import ProjectOAuth2MicrosoftPrompt
 from ..enums.project_o_auth2_oidc_prompt import ProjectOAuth2OidcPrompt
+from ..enums.project_o_auth2_okta_prompt import ProjectOAuth2OktaPrompt
+from ..enums.project_o_auth2_salesforce_prompt import ProjectOAuth2SalesforcePrompt
+from ..enums.project_o_auth2_zoho_prompt import ProjectOAuth2ZohoPrompt
 from ..enums.project_o_auth_provider_id import ProjectOAuthProviderId
 from ..enums.project_policy_id import ProjectPolicyId
 from ..enums.project_protocol_id import ProjectProtocolId
 from ..enums.project_service_id import ProjectServiceId
 from ..enums.project_smtp_secure import ProjectSMTPSecure
-from ..enums.project_usage_range import ProjectUsageRange
 from ..enums.schedule_resource_type import ScheduleResourceType
 from ..enums.status import Status
 from ..enums.invalidation_type import InvalidationType
@@ -86,8 +95,16 @@ from ..enums.deployment_status import DeploymentStatus
 from ..enums.execution_resource_type import ExecutionResourceType
 from ..enums.execution_trigger import ExecutionTrigger
 from ..enums.execution_status import ExecutionStatus
+from ..enums.o_auth2_github_prompt import OAuth2GithubPrompt
+from ..enums.o_auth2_discord_prompt import OAuth2DiscordPrompt
 from ..enums.o_auth2_google_prompt import OAuth2GooglePrompt
+from ..enums.o_auth2_zoho_prompt import OAuth2ZohoPrompt
+from ..enums.o_auth2_salesforce_prompt import OAuth2SalesforcePrompt
+from ..enums.o_auth2_auth0_prompt import OAuth2Auth0Prompt
 from ..enums.o_auth2_oidc_prompt import OAuth2OidcPrompt
+from ..enums.o_auth2_okta_prompt import OAuth2OktaPrompt
+from ..enums.o_auth2_microsoft_prompt import OAuth2MicrosoftPrompt
+from ..enums.o_auth2_kakao_prompt import OAuth2KakaoPrompt
 from ..enums.platform_type import PlatformType
 from ..enums.proxy_rule_deployment_resource_type import ProxyRuleDeploymentResourceType
 from ..enums.proxy_rule_status import ProxyRuleStatus
@@ -110,6 +127,9 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, AuthenticationFactor):
+            return o.value
+
+        if isinstance(o, IdTokenProvider):
             return o.value
 
         if isinstance(o, OAuthProvider):
@@ -199,6 +219,9 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, ExecutionMethod):
             return o.value
 
+        if isinstance(o, ConversationType):
+            return o.value
+
         if isinstance(o, MessagePriority):
             return o.value
 
@@ -235,10 +258,34 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, ProjectAuthMethodId):
             return o.value
 
+        if isinstance(o, ProjectOAuth2Auth0Prompt):
+            return o.value
+
+        if isinstance(o, ProjectOAuth2DiscordPrompt):
+            return o.value
+
+        if isinstance(o, ProjectOAuth2GitHubPrompt):
+            return o.value
+
         if isinstance(o, ProjectOAuth2GooglePrompt):
             return o.value
 
+        if isinstance(o, ProjectOAuth2KakaoPrompt):
+            return o.value
+
+        if isinstance(o, ProjectOAuth2MicrosoftPrompt):
+            return o.value
+
         if isinstance(o, ProjectOAuth2OidcPrompt):
+            return o.value
+
+        if isinstance(o, ProjectOAuth2OktaPrompt):
+            return o.value
+
+        if isinstance(o, ProjectOAuth2SalesforcePrompt):
+            return o.value
+
+        if isinstance(o, ProjectOAuth2ZohoPrompt):
             return o.value
 
         if isinstance(o, ProjectOAuthProviderId):
@@ -254,9 +301,6 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, ProjectSMTPSecure):
-            return o.value
-
-        if isinstance(o, ProjectUsageRange):
             return o.value
 
         if isinstance(o, ScheduleResourceType):
@@ -361,10 +405,34 @@ class ValueClassEncoder(json.JSONEncoder):
         if isinstance(o, ExecutionStatus):
             return o.value
 
+        if isinstance(o, OAuth2GithubPrompt):
+            return o.value
+
+        if isinstance(o, OAuth2DiscordPrompt):
+            return o.value
+
         if isinstance(o, OAuth2GooglePrompt):
             return o.value
 
+        if isinstance(o, OAuth2ZohoPrompt):
+            return o.value
+
+        if isinstance(o, OAuth2SalesforcePrompt):
+            return o.value
+
+        if isinstance(o, OAuth2Auth0Prompt):
+            return o.value
+
         if isinstance(o, OAuth2OidcPrompt):
+            return o.value
+
+        if isinstance(o, OAuth2OktaPrompt):
+            return o.value
+
+        if isinstance(o, OAuth2MicrosoftPrompt):
+            return o.value
+
+        if isinstance(o, OAuth2KakaoPrompt):
             return o.value
 
         if isinstance(o, PlatformType):

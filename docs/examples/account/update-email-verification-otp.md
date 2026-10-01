@@ -1,18 +1,17 @@
 ```python
 from appwrite_console.client import Client
-from appwrite_console.services.teams import Teams
-from appwrite_console.models import LogList
+from appwrite_console.services.account import Account
+from appwrite_console.models import Token
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint
 client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 
-teams = Teams(client)
+account = Account(client)
 
-result: LogList = teams.list_logs(
-    team_id = '<TEAM_ID>',
-    queries = [], # optional
-    total = False # optional
+result: Token = account.update_email_verification_otp(
+    user_id = '<USER_ID>',
+    secret = '<SECRET>'
 )
 
 print(result.model_dump())

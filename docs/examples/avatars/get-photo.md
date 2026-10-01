@@ -14,7 +14,7 @@ result: bytes = avatars.get_photo(
     quality = 0, # optional
     output = 'png', # optional
     rating = 'g', # optional
-    user_id = '', # optional
+    user_id = 'current()', # optional
     email_hash = '<EMAIL_HASH>', # optional
     name = '<NAME>' # optional
 )

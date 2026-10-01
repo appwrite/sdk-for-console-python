@@ -78,7 +78,7 @@ class Notifications(Service):
 
         api_path = '/notifications/{notificationId}'
         api_params = {}
-        if notification_id is None:
+        if notification_id is None or notification_id == '':
             raise AppwriteException('Missing required parameter: "notification_id"')
         if read is None:
             raise AppwriteException('Missing required parameter: "read"')

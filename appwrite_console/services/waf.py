@@ -189,7 +189,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/bypass/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
@@ -367,7 +367,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/challenge/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
@@ -527,7 +527,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/deny/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
@@ -720,7 +720,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/rate-limit/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
@@ -900,7 +900,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/redirect/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
         if resource_type is not None:
@@ -959,7 +959,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
 
@@ -999,7 +999,7 @@ class Waf(Service):
 
         api_path = '/waf/rules/{ruleId}'
         api_params = {}
-        if rule_id is None:
+        if rule_id is None or rule_id == '':
             raise AppwriteException('Missing required parameter: "rule_id"')
         api_path = api_path.replace('{ruleId}', str(self._normalize_value(rule_id)))
 

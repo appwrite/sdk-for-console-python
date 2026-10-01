@@ -1,5 +1,51 @@
 # Change Log
 
+## 0.7.0
+
+* Breaking: Removed `account.list_logs`, `teams.list_logs`, `users.list_logs` and the `Log`/`LogList` models
+* Breaking: Removed dev keys: `projects.*_dev_key`, `client.set_dev_key`, `DevKey`, `DevKeyList`, `Project.devKeys`
+* Breaking: Removed `project.get_usage`, `UsageProject`, `MetricBreakdown` and `ProjectUsageRange`
+* Breaking: Removed `organizations.cancel_downgrade`
+* Breaking: `tables_db.cutover_migration` renamed to `tables_db.create_cutover`
+* Breaking: `update_credentials` on `mysql`, `postgresql` and `mongo` returns a `DedicatedDatabaseOperation`
+* Breaking: `domains.get_zone` returns the zone file as `str`
+* Breaking: Removed `DedicatedDatabaseSpecificationList.pricing` and `DedicatedDatabaseSpecificationPricing`; rates moved onto each specification
+* Breaking: Removed `projectName`, `region`, `organizationName`, `organizationId`, `billingPlan` and `reason` from `Block`
+* Breaking: `BillingPlanGroup.STARTER` replaced by `FREE` and `START`
+* Breaking: `OrganizationKeyScopes` devKeys and `organization.keys` scopes replaced by `ORGANIZATION_PROJECTS_KEYS_READ/WRITE`
+* Breaking: Removed `EmbeddingModel.EMBEDDING_GEMMA` and `EmbeddingModel.BGE_SMALL`
+* Breaking: Removed `DEV_KEYS`, `EXECUTIONS` and `STATS` from `QuerySuggestionResource`
+* Breaking: `UsageEventMetric` dedicated database metrics dropped the `{databaseInternalId}` segment
+* Breaking: `messaging.update_email`, `update_push` and `update_sms` reordered optional parameters; pass them by keyword
+* Breaking: New optional parameters shift positions in `update_o_auth2_*`, `create_email`, `create_document(s)`; pass them by keyword
+* Added: `growth` service with `create_conversation` and `create_installation`, plus `GrowthConversation` and `ConversationType`
+* Added: `Topic` helper in `appwrite_console.topic` for building MQTT push topics
+* Added: `account.create_id_token_session` for Apple and Google ID tokens, with `IdTokenProvider`
+* Added: OTP email verification and recovery methods on `account`
+* Added: `duration` on `create_email_password_session` and `current` on `delete_sessions`
+* Added: organization project key methods, such as `organization.create_project_key` and `create_ephemeral_project_key`
+* Added: Cloudflare, Kakao, Resend, TikTok and Webflow OAuth2 providers, with models and `update_o_auth2_*` methods
+* Added: `prompt` on Auth0, Discord, GitHub, Kakao, Microsoft, Okta, Salesforce and Zoho OAuth2, with prompt enums
+* Added: `native_client_ids` and `native_enabled` on Apple and Google OAuth2
+* Added: `password-pwned` policy, `update_password_pwned_policy`, `PolicyPasswordPwned` and `User.passwordPwned`
+* Added: Appwrite messaging provider, `create_appwrite_provider` and `update_appwrite_provider`
+* Added: `qos` and `expiry` on topics, `reply_to_email`/`reply_to_name` on emails, `channel_id` on push
+* Added: `domains.list_prices`, `DomainPricesList`, and `renewalPrice`/`renewalPeriodYears` on `DomainPrice`
+* Added: `transaction_id` on `create_document` and `create_documents` in `documents_db` and `vectors_db`
+* Added: storage resize fields and `credentialGeneration` on `DedicatedDatabase`; per-spec rates on `DedicatedDatabaseSpecification`
+* Added: `dart-3.13` and `flutter-3.47` runtimes, `jaspr` framework and `ImageGravity.AUTO`
+* Added: DocumentsDB, VectorsDB, `avatars.write` and `dedicatedDatabases.execute` project key scopes
+* Added: request and network usage dimensions, plus matching optional fields on `UsageDataPoint`
+* Added: `Project.firstAccessedAt`, `Project.mcpAccessedAt`, `Identity.providerIdToken`, `Installation.organizationUrl`
+* Added: `BillingPlan.usageAggregateOnlyMetrics`, `BillingPlan.eligibleCountries`, function and site storage on `AggregationTeam`
+* Added: `otpVerification` and `otpRecovery` email templates
+* Updated: `domains.get_price` is deprecated in favour of `domains.list_prices`
+* Updated: `DomainPrice.price`, `FrameworkAdapter.fallbackFile`, `TemplateFramework.fallbackFile` and `TemplateSite.demoUrl` are optional
+* Fixed: `get_attribute` and `get_column` parse bigint, varchar, text and spatial types
+* Fixed: `update_relationship_column` calls the correct endpoint path
+* Fixed: Multipart requests without a file are sent as `multipart/form-data`
+* Fixed: Empty strings for required path parameters raise `AppwriteException`
+
 ## 0.6.0
 
 * Breaking: `Execution.functionId` replaced by `resourceId` and `resourceType`
