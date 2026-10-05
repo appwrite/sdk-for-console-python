@@ -96,6 +96,7 @@ class Vcs(Service):
         type: VCSDetectionType,
         search: Optional[str] = None,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> Union[
         ProviderRepositoryRuntimeList,
         ProviderRepositoryFrameworkList,
@@ -113,6 +114,8 @@ class Vcs(Service):
             Search term to filter your list results. Max length: 256 chars.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit, offset, and equal on namespace.
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         Union[ProviderRepositoryRuntimeList, ProviderRepositoryFrameworkList]
@@ -136,6 +139,8 @@ class Vcs(Service):
             api_params['search'] = self._normalize_value(search)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -267,6 +272,7 @@ class Vcs(Service):
         provider_repository_id: str,
         search: Optional[str] = None,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> BranchList:
         """
         Get a list of branches from a GitHub repository in your installation. This endpoint supports filtering by a search term and pagination using query strings such as `Query.limit()`, `Query.offset()`, `Query.cursorAfter()`, and `Query.cursorBefore()`. It returns branch names along with the total number of matches. The GitHub installation must be properly configured and have access to the requested repository for this endpoint to work.
@@ -281,6 +287,8 @@ class Vcs(Service):
             Search term to filter your list results. Max length: 256 chars.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit, offset, cursorAfter, and cursorBefore
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         BranchList
@@ -304,6 +312,8 @@ class Vcs(Service):
             api_params['search'] = self._normalize_value(search)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -561,6 +571,7 @@ class Vcs(Service):
         installation_id: str,
         search: Optional[str] = None,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> VcsNamespaceList:
         """
         List provider namespaces available to a VCS installation. This can include the user personal namespace and any groups or organizations the installation can browse.
@@ -573,6 +584,8 @@ class Vcs(Service):
             Search term to filter your list results. Max length: 256 chars.
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         VcsNamespaceList
@@ -593,6 +606,8 @@ class Vcs(Service):
             api_params['search'] = self._normalize_value(search)
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',

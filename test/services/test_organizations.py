@@ -1968,6 +1968,7 @@ class OrganizationsServiceTest(unittest.TestCase):
             "databasesReadsTotal": 0.0,
             "databasesWritesTotal": 0.0,
             "backupsStorageTotal": 0.0,
+            "avatarsStorageTotal": 0.0,
             "storageTotal": 0.0,
             "authPhoneTotal": 0.0,
             "authPhoneEstimate": 0.0,

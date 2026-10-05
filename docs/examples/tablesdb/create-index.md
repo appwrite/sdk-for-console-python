@@ -2,8 +2,8 @@
 from appwrite_console.client import Client
 from appwrite_console.services.tables_db import TablesDB
 from appwrite_console.models import ColumnIndex
-from appwrite_console.enums import TablesDBIndexType
-from appwrite_console.enums import OrderBy
+from appwrite_console.enums.tables_db_index_type import TablesDBIndexType
+from appwrite_console.enums.order_by import OrderBy
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

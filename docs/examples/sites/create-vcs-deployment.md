@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.sites import Sites
 from appwrite_console.models import Deployment
-from appwrite_console.enums import VCSReferenceType
+from appwrite_console.enums.vcs_reference_type import VCSReferenceType
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

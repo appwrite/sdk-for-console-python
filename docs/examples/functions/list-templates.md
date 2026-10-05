@@ -2,8 +2,8 @@
 from appwrite_console.client import Client
 from appwrite_console.services.functions import Functions
 from appwrite_console.models import TemplateFunctionList
-from appwrite_console.enums import Runtime
-from appwrite_console.enums import FunctionTemplateUseCase
+from appwrite_console.enums.runtime import Runtime
+from appwrite_console.enums.function_template_use_case import FunctionTemplateUseCase
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

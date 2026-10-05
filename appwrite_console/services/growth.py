@@ -100,6 +100,7 @@ class Growth(Service):
             param_name,
             on_progress,
             upload_id,
+            method='post',
         )
 
         return self._parse_response(response, model=GrowthConversation)

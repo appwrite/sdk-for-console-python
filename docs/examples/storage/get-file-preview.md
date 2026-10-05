@@ -1,8 +1,8 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.storage import Storage
-from appwrite_console.enums import ImageGravity
-from appwrite_console.enums import ImageFormat
+from appwrite_console.enums.image_gravity import ImageGravity
+from appwrite_console.enums.image_format import ImageFormat
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

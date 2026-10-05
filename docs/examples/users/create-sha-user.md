@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.users import Users
 from appwrite_console.models import User
-from appwrite_console.enums import PasswordHash
+from appwrite_console.enums.password_hash import PasswordHash
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

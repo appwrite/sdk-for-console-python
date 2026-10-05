@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.backups import Backups
 from appwrite_console.models import BackupPolicy
-from appwrite_console.enums import BackupServices
+from appwrite_console.enums.backup_services import BackupServices
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

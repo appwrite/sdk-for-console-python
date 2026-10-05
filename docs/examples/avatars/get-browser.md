@@ -1,7 +1,7 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.avatars import Avatars
-from appwrite_console.enums import Browser
+from appwrite_console.enums.browser import Browser
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

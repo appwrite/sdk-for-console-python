@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.8.0
+
+* Added: `Analytics` service with property CRUD, `create_event` and `list_metrics`
+* Added: `AnalyticsDimension` and `AnalyticsInterval` enums and analytics property/metric models
+* Added: `avatars.update_photo` and `avatars.delete_photo` for custom user photos
+* Added: `Account` model, returned by `avatars.update_photo`
+* Added: `avatarsStorageTotal` to `UsageOrganization`
+* Added: Analytics values to `ProjectKeyScopes`, `QuerySuggestionResource`, `UsageEventMetric` and `UsageGaugeMetric`
+* Added: Optional `total` parameter to list methods in `console`, `locale`, `functions`, `sites`, `vcs` and others
+* Updated: `avatars.get_screenshot` docs: `headers` accepts only `Accept` and `Accept-Language`
+* Fixed: Examples import enums from their defining modules, e.g. `appwrite_console.enums.analytics_interval`
+
 ## 0.7.1
 
 * Fixed: Accepted nullable backup archive sizes and start timestamps.

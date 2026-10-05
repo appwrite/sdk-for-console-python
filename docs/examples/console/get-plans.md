@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.console import Console
 from appwrite_console.models import BillingPlanList
-from appwrite_console.enums import Platform
+from appwrite_console.enums.platform import Platform
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

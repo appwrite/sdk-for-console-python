@@ -52,6 +52,8 @@ class UsageOrganization(AppwriteModel):
         Aggregated stats for total databases  writes.
     backupsstoragetotal : float
         Aggregated stats for total backups storage.
+    avatarsstoragetotal : float
+        Aggregated stats for total custom user photos storage.
     storagetotal : float
         Aggregated stats for total storage.
     authphonetotal : float
@@ -94,6 +96,7 @@ class UsageOrganization(AppwriteModel):
     databasesreadstotal: float = Field(..., alias='databasesReadsTotal')
     databaseswritestotal: float = Field(..., alias='databasesWritesTotal')
     backupsstoragetotal: float = Field(..., alias='backupsStorageTotal')
+    avatarsstoragetotal: float = Field(..., alias='avatarsStorageTotal')
     storagetotal: float = Field(..., alias='storageTotal')
     authphonetotal: float = Field(..., alias='authPhoneTotal')
     authphoneestimate: float = Field(..., alias='authPhoneEstimate')

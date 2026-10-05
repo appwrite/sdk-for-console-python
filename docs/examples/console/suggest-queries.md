@@ -1,7 +1,7 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.console import Console
-from appwrite_console.enums import QuerySuggestionResource
+from appwrite_console.enums.query_suggestion_resource import QuerySuggestionResource
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

@@ -117,6 +117,7 @@ from .algo_bcrypt import AlgoBcrypt
 from .algo_scrypt import AlgoScrypt
 from .algo_scrypt_modified import AlgoScryptModified
 from .algo_argon2 import AlgoArgon2
+from .account import Account
 from .preferences import Preferences
 from .session import Session
 from .identity import Identity
@@ -281,6 +282,9 @@ from .affiliate_referral_list import AffiliateReferralList
 from .affiliate_reward import AffiliateReward
 from .affiliate_reward_list import AffiliateRewardList
 from .aggregation_breakdown import AggregationBreakdown
+from .analytics_metric import AnalyticsMetric
+from .analytics_metric_list import AnalyticsMetricList
+from .analytics_property import AnalyticsProperty
 from .aggregation_team import AggregationTeam
 from .backup_archive import BackupArchive
 from .dedicated_database_backup import DedicatedDatabaseBackup
@@ -385,6 +389,7 @@ from .oauth2_consent_list import Oauth2ConsentList
 from .oauth2_consent_token_list import Oauth2ConsentTokenList
 from .activity_event_list import ActivityEventList
 from .addon_list import AddonList
+from .analytics_property_list import AnalyticsPropertyList
 from .aggregation_team_list import AggregationTeamList
 from .backup_archive_list import BackupArchiveList
 from .backup_policy_list import BackupPolicyList
@@ -528,6 +533,7 @@ __all__ = [
     'AlgoScrypt',
     'AlgoScryptModified',
     'AlgoArgon2',
+    'Account',
     'Preferences',
     'Session',
     'Identity',
@@ -692,6 +698,9 @@ __all__ = [
     'AffiliateReward',
     'AffiliateRewardList',
     'AggregationBreakdown',
+    'AnalyticsMetric',
+    'AnalyticsMetricList',
+    'AnalyticsProperty',
     'AggregationTeam',
     'BackupArchive',
     'DedicatedDatabaseBackup',
@@ -796,6 +805,7 @@ __all__ = [
     'Oauth2ConsentTokenList',
     'ActivityEventList',
     'AddonList',
+    'AnalyticsPropertyList',
     'AggregationTeamList',
     'BackupArchiveList',
     'BackupPolicyList',

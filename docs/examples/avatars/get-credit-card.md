@@ -1,7 +1,7 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.avatars import Avatars
-from appwrite_console.enums import CreditCard
+from appwrite_console.enums.credit_card import CreditCard
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

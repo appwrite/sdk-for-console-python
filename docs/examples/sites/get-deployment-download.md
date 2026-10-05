@@ -1,7 +1,7 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.sites import Sites
-from appwrite_console.enums import DeploymentDownloadType
+from appwrite_console.enums.deployment_download_type import DeploymentDownloadType
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.project import Project
 from appwrite_console.models import Project as ProjectModel
-from appwrite_console.enums import ProjectAuthMethodId
+from appwrite_console.enums.project_auth_method_id import ProjectAuthMethodId
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

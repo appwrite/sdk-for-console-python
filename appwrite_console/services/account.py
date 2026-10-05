@@ -2324,9 +2324,15 @@ class Account(Service):
 
     def list_sessions(
         self,
+        total: Optional[bool] = None,
     ) -> SessionList:
         """
         Get the list of active sessions across different devices for the currently logged in user.
+
+        Parameters
+        ----------
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         SessionList
@@ -2340,6 +2346,8 @@ class Account(Service):
 
         api_path = '/account/sessions'
         api_params = {}
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',

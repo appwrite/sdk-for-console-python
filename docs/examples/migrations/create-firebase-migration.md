@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.migrations import Migrations
 from appwrite_console.models import Migration
-from appwrite_console.enums import FirebaseMigrationResource
+from appwrite_console.enums.firebase_migration_resource import FirebaseMigrationResource
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

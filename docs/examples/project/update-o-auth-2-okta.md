@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.project import Project
 from appwrite_console.models import OAuth2Okta
-from appwrite_console.enums import ProjectOAuth2OktaPrompt
+from appwrite_console.enums.project_o_auth2_okta_prompt import ProjectOAuth2OktaPrompt
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint
