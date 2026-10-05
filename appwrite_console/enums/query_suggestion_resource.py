@@ -91,6 +91,7 @@ class QuerySuggestionResource(Enum):
     RESOURCE_TOKENS = "resourcetokens"
     TRANSACTIONS = "transactions"
     TRANSACTION_LOGS = "transactionlogs"
+    ANALYTICS_PROPERTIES = "analyticsproperties"
     DEDICATED_DATABASES = "dedicateddatabases"
     DEDICATED_DATABASE_CONFIGS = "dedicateddatabaseconfigs"
     DEDICATED_DATABASE_RUNTIMES = "dedicateddatabaseruntimes"

@@ -1,15 +1,17 @@
 ```python
 from appwrite_console.client import Client
-from appwrite_console.services.locale import Locale
-from appwrite_console.models import LanguageList
+from appwrite_console.services.analytics import Analytics
+from appwrite_console.models import AnalyticsPropertyList
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint
 client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 
-locale = Locale(client)
+analytics = Analytics(client)
 
-result: LanguageList = locale.list_languages(
+result: AnalyticsPropertyList = analytics.list_properties(
+    queries = [], # optional
+    search = '<SEARCH>', # optional
     total = False # optional
 )
 

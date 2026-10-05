@@ -163,9 +163,15 @@ class Console(Service):
 
     def list_o_auth2_providers(
         self,
+        total: Optional[bool] = None,
     ) -> ConsoleOAuth2ProviderList:
         """
         List all OAuth2 providers supported by the Appwrite server, along with the parameters required to configure each provider. The response excludes mock providers but includes sandbox providers.
+
+        Parameters
+        ----------
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         ConsoleOAuth2ProviderList
@@ -179,6 +185,8 @@ class Console(Service):
 
         api_path = '/console/oauth2-providers'
         api_params = {}
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -466,9 +474,15 @@ class Console(Service):
 
     def list_organization_scopes(
         self,
+        total: Optional[bool] = None,
     ) -> ConsoleKeyScopeList:
         """
         List all scopes available for organization API keys, along with a description for each scope.
+
+        Parameters
+        ----------
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         ConsoleKeyScopeList
@@ -482,6 +496,8 @@ class Console(Service):
 
         api_path = '/console/scopes/organization'
         api_params = {}
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -497,9 +513,15 @@ class Console(Service):
 
     def list_project_scopes(
         self,
+        total: Optional[bool] = None,
     ) -> ConsoleKeyScopeList:
         """
         List all scopes available for project API keys, along with a description for each scope.
+
+        Parameters
+        ----------
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         ConsoleKeyScopeList
@@ -513,6 +535,8 @@ class Console(Service):
 
         api_path = '/console/scopes/project'
         api_params = {}
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',

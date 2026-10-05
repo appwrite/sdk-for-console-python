@@ -1,15 +1,19 @@
 from ..service import Service
 from urllib.parse import quote
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List, Optional, Union, Type, TypeVar
 from ..exception import AppwriteException
 from appwrite_console.utils.deprecated import deprecated
 from ..enums.browser import Browser
 from ..enums.credit_card import CreditCard
 from ..enums.flag import Flag
+from ..input_file import InputFile
+from ..models.account import Account
 from ..enums.browser_theme import BrowserTheme
 from ..enums.timezone import Timezone
 from ..enums.browser_permission import BrowserPermission
 from ..enums.image_format import ImageFormat
+
+T = TypeVar('T')
 
 
 class Avatars(Service):
@@ -418,6 +422,93 @@ class Avatars(Service):
 
         return response
 
+    def update_photo(
+        self,
+        file: InputFile,
+        on_progress=None,
+        model_type: Type[T] = dict,
+    ) -> Account[T]:
+        """
+        Update the profile photo of the currently authenticated user. The uploaded image takes priority over every other photo source, including OAuth2 identity photos, Gravatar, and Libravatar. Updating an already customized photo replaces it. The image must be at most 5MB and is sent in a single request.
+
+        Parameters
+        ----------
+        file : InputFile
+            Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
+        on_progress : callable, optional
+            Optional callback for upload progress
+
+        model_type : Type[T], optional
+            Pydantic model class for the user-defined data. Defaults to dict for backward compatibility.
+
+        Returns
+        -------
+        Account[T]
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/avatars/photo'
+        api_params = {}
+        if file is None:
+            raise AppwriteException('Missing required parameter: "file"')
+        api_params['file'] = self._normalize_value(file)
+
+        param_name = 'file'
+
+        upload_id = ''
+
+        response = self.client.chunked_upload(
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'multipart/form-data',
+                'accept': 'application/json',
+            },
+            api_params,
+            param_name,
+            on_progress,
+            upload_id,
+        )
+
+        return self._parse_response(response, model=Account)
+
+    def delete_photo(
+        self,
+    ) -> Dict[str, Any]:
+        """
+        Delete the profile photo of the currently authenticated user and store the built-in static placeholder in its place. The placeholder is the user's photo from then on, so it takes priority over every other photo source — OAuth2 identity photos, Gravatar, Libravatar, and initials — until a new photo is uploaded with avatars.updatePhoto.
+        Returns
+        -------
+        Dict[str, Any]
+            API response as a dictionary
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/avatars/photo'
+        api_params = {}
+
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return response
+
     def get_qr(
         self,
         text: str,
@@ -508,7 +599,7 @@ class Avatars(Service):
         url : str
             Website URL which you want to capture.
         headers : Optional[Dict[str, Any]]
-            HTTP headers to send with the browser request. Defaults to empty.
+            HTTP headers to send with the browser request. Only Accept and Accept-Language are allowed. Defaults to empty.
         viewport_width : Optional[float]
             Browser viewport width. Pass an integer between 1 to 1920. Defaults to 1280.
         viewport_height : Optional[float]

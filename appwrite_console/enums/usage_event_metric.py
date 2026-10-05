@@ -1,4 +1,7 @@
 class UsageEventMetric:
+    ANALYTICS_EVENTS = "analytics.events"
+    ANALYTICS_PAGEVIEWS = "analytics.pageviews"
+    ANALYTICS_BOTS_EVENTS = "analytics.bots.events"
     NETWORK_REQUESTS = "network.requests"
     NETWORK_INBOUND = "network.inbound"
     NETWORK_OUTBOUND = "network.outbound"
