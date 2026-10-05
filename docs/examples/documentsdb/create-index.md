@@ -2,8 +2,8 @@
 from appwrite_console.client import Client
 from appwrite_console.services.documents_db import DocumentsDB
 from appwrite_console.models import Index
-from appwrite_console.enums import DocumentsDBIndexType
-from appwrite_console.enums import OrderBy
+from appwrite_console.enums.documents_db_index_type import DocumentsDBIndexType
+from appwrite_console.enums.order_by import OrderBy
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

@@ -18,7 +18,7 @@ from appwrite_console.models import PolicyDenyDisposableEmail
 from appwrite_console.models import PolicyDenyFreeEmail
 from appwrite_console.models import PolicyDenyCorporateEmail
 from typing import Union
-from appwrite_console.enums import ProjectPolicyId
+from appwrite_console.enums.project_policy_id import ProjectPolicyId
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

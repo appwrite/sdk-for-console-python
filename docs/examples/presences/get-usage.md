@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.presences import Presences
 from appwrite_console.models import UsagePresence
-from appwrite_console.enums import UsageRange
+from appwrite_console.enums.usage_range import UsageRange
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

@@ -125,3 +125,5 @@ class ProjectKeyScopes(Enum):
     OAUTH2_READ = "oauth2.read"
     OAUTH2_WRITE = "oauth2.write"
     OAUTH2_INTROSPECT = "oauth2.introspect"
+    ANALYTICS_READ = "analytics.read"
+    ANALYTICS_WRITE = "analytics.write"

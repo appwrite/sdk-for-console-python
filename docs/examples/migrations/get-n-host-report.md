@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.migrations import Migrations
 from appwrite_console.models import MigrationReport
-from appwrite_console.enums import NHostMigrationResource
+from appwrite_console.enums.n_host_migration_resource import NHostMigrationResource
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

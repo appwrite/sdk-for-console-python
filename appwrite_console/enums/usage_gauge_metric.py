@@ -1,4 +1,5 @@
 class UsageGaugeMetric:
+    ANALYTICS_PROPERTIES = "analytics.properties"
     TEAMS = "teams"
     USERS = "users"
     MESSAGES = "messages"

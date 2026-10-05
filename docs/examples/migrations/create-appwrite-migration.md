@@ -2,8 +2,8 @@
 from appwrite_console.client import Client
 from appwrite_console.services.migrations import Migrations
 from appwrite_console.models import Migration
-from appwrite_console.enums import AppwriteMigrationResource
-from appwrite_console.enums import OnDuplicate
+from appwrite_console.enums.appwrite_migration_resource import AppwriteMigrationResource
+from appwrite_console.enums.on_duplicate import OnDuplicate
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

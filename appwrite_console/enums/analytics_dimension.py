@@ -1,0 +1,26 @@
+from enum import Enum
+
+
+class AnalyticsDimension(Enum):
+    COUNTRY = "country"
+    REGION = "region"
+    CITY = "city"
+    BROWSER = "browser"
+    OPERATINGSYSTEM = "operatingSystem"
+    DEVICE = "device"
+    SCREENSIZE = "screenSize"
+    REFERRERSOURCE = "referrerSource"
+    CHANNEL = "channel"
+    UTMSOURCE = "utmSource"
+    UTMMEDIUM = "utmMedium"
+    UTMCAMPAIGN = "utmCampaign"
+    UTMCONTENT = "utmContent"
+    UTMTERM = "utmTerm"
+    PAGE = "page"
+    HOSTNAME = "hostname"
+    ENTRYPAGE = "entryPage"
+    EXITPAGE = "exitPage"
+    TRAFFICTYPE = "trafficType"
+    BOTNAME = "botName"
+    BOTCATEGORY = "botCategory"
+    EVENTNAME = "eventName"

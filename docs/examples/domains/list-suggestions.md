@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.domains import Domains
 from appwrite_console.models import DomainSuggestionsList
-from appwrite_console.enums import DomainSuggestionType
+from appwrite_console.enums.domain_suggestion_type import DomainSuggestionType
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

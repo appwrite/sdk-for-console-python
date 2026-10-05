@@ -4,7 +4,7 @@ from appwrite_console.services.vcs import Vcs
 from appwrite_console.models import DetectionRuntime
 from appwrite_console.models import DetectionFramework
 from typing import Union
-from appwrite_console.enums import VCSDetectionType
+from appwrite_console.enums.vcs_detection_type import VCSDetectionType
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

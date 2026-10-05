@@ -4,7 +4,7 @@ from appwrite_console.services.organizations import Organizations
 from appwrite_console.models import Organization
 from appwrite_console.models import PaymentAuthentication
 from typing import Union
-from appwrite_console.enums import Platform
+from appwrite_console.enums.platform import Platform
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

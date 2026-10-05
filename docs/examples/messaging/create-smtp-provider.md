@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.messaging import Messaging
 from appwrite_console.models import Provider
-from appwrite_console.enums import SmtpEncryption
+from appwrite_console.enums.smtp_encryption import SmtpEncryption
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

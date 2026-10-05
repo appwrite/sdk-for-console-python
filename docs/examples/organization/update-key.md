@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.organization import Organization
 from appwrite_console.models import Key
-from appwrite_console.enums import OrganizationKeyScopes
+from appwrite_console.enums.organization_key_scopes import OrganizationKeyScopes
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

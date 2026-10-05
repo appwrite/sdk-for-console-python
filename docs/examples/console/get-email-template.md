@@ -2,8 +2,8 @@
 from appwrite_console.client import Client
 from appwrite_console.services.console import Console
 from appwrite_console.models import EmailTemplate
-from appwrite_console.enums import ProjectEmailTemplateId
-from appwrite_console.enums import ProjectEmailTemplateLocale
+from appwrite_console.enums.project_email_template_id import ProjectEmailTemplateId
+from appwrite_console.enums.project_email_template_locale import ProjectEmailTemplateLocale
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

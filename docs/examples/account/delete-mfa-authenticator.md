@@ -1,7 +1,7 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.account import Account
-from appwrite_console.enums import AuthenticatorType
+from appwrite_console.enums.authenticator_type import AuthenticatorType
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

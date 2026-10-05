@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.account import Account
 from appwrite_console.models import Session
-from appwrite_console.enums import IdTokenProvider
+from appwrite_console.enums.id_token_provider import IdTokenProvider
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

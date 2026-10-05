@@ -3,7 +3,7 @@ from appwrite_console.client import Client
 from appwrite_console.services.growth import Growth
 from appwrite_console.input_file import InputFile
 from appwrite_console.models import GrowthConversation
-from appwrite_console.enums import ConversationType
+from appwrite_console.enums.conversation_type import ConversationType
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint

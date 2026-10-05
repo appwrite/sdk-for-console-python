@@ -2,7 +2,7 @@
 from appwrite_console.client import Client
 from appwrite_console.services.project import Project
 from appwrite_console.models import EphemeralKey
-from appwrite_console.enums import ProjectKeyScopes
+from appwrite_console.enums.project_key_scopes import ProjectKeyScopes
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint
