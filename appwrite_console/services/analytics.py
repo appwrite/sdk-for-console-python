@@ -326,7 +326,7 @@ class Analytics(Service):
         scroll_depth : Optional[float]
             Scroll depth percentage 0-100.
         engagement_time : Optional[float]
-            Engagement time in seconds.
+            Engagement time in seconds, 0-4294967295.
         props : Optional[List[str]]
             Custom string properties as a flat key=value list (max 32 entries, alternating key,value).
         user_id : Optional[str]

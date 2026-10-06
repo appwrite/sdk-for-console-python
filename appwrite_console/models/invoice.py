@@ -43,13 +43,13 @@ class Invoice(AppwriteModel):
         Credits used.
     currency : str
         Currency the invoice is in
-    clientsecret : str
+    clientsecret : Optional[str]
         Client secret for processing failed payments in front-end
     status : str
         Invoice status
     type : str
         Invoice type. Can be one of `subscription`, `domain_purchase`, `domain_renewal`, `domain_transfer`, or `addon_*`.
-    lasterror : str
+    lasterror : Optional[str]
         Last payment error associated with the invoice
     dueat : str
         Invoice due date.
@@ -75,10 +75,10 @@ class Invoice(AppwriteModel):
     grossamount: float = Field(..., alias='grossAmount')
     creditsused: float = Field(..., alias='creditsUsed')
     currency: str = Field(..., alias='currency')
-    clientsecret: str = Field(..., alias='clientSecret')
+    clientsecret: Optional[str] = Field(default=None, alias='clientSecret')
     status: str = Field(..., alias='status')
     type: str = Field(..., alias='type')
-    lasterror: str = Field(..., alias='lastError')
+    lasterror: Optional[str] = Field(default=None, alias='lastError')
     dueat: str = Field(..., alias='dueAt')
     xfrom: str = Field(..., alias='from')
     to: str = Field(..., alias='to')

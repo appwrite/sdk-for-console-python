@@ -26,23 +26,23 @@ class PaymentMethod(AppwriteModel):
         User ID from the payment provider.
     userid : str
         ID of the Team.
-    expirymonth : float
+    expirymonth : Optional[float]
         Expiry month of the payment method.
-    expiryyear : float
+    expiryyear : Optional[float]
         Expiry year of the payment method.
-    last4 : str
+    last4 : Optional[str]
         Last 4 digit of the payment method
-    brand : str
+    brand : Optional[str]
         Payment method brand
-    name : str
+    name : Optional[str]
         Name of the owner
-    mandateid : str
+    mandateid : Optional[str]
         Mandate ID of the payment method
-    country : str
+    country : Optional[str]
         Country of the payment method
-    state : str
+    state : Optional[str]
         State of the payment method
-    lasterror : str
+    lasterror : Optional[str]
         Last payment error associated with the payment method.
     default : bool
         True when it&#039;s the default payment method.
@@ -60,15 +60,15 @@ class PaymentMethod(AppwriteModel):
     clientsecret: str = Field(..., alias='clientSecret')
     provideruserid: str = Field(..., alias='providerUserId')
     userid: str = Field(..., alias='userId')
-    expirymonth: float = Field(..., alias='expiryMonth')
-    expiryyear: float = Field(..., alias='expiryYear')
-    last4: str = Field(..., alias='last4')
-    brand: str = Field(..., alias='brand')
-    name: str = Field(..., alias='name')
-    mandateid: str = Field(..., alias='mandateId')
-    country: str = Field(..., alias='country')
-    state: str = Field(..., alias='state')
-    lasterror: str = Field(..., alias='lastError')
+    expirymonth: Optional[float] = Field(default=None, alias='expiryMonth')
+    expiryyear: Optional[float] = Field(default=None, alias='expiryYear')
+    last4: Optional[str] = Field(default=None, alias='last4')
+    brand: Optional[str] = Field(default=None, alias='brand')
+    name: Optional[str] = Field(default=None, alias='name')
+    mandateid: Optional[str] = Field(default=None, alias='mandateId')
+    country: Optional[str] = Field(default=None, alias='country')
+    state: Optional[str] = Field(default=None, alias='state')
+    lasterror: Optional[str] = Field(default=None, alias='lastError')
     default: bool = Field(..., alias='default')
     expired: bool = Field(..., alias='expired')
     failed: bool = Field(..., alias='failed')

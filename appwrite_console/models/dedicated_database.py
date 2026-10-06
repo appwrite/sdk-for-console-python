@@ -20,9 +20,9 @@ class DedicatedDatabase(AppwriteModel):
         Project ID that owns this database.
     name : str
         Database display name.
-    api : str
+    api : Optional[str]
         Product API that owns this database: tablesdb, documentsdb, vectorsdb, mysql, postgresql, or mongodb.
-    engine : str
+    engine : Optional[str]
         Database engine: postgresql, mysql, or mongodb. Null until the backing reports one.
     version : str
         Database engine version.
@@ -32,13 +32,13 @@ class DedicatedDatabase(AppwriteModel):
         Database backend provider. Possible values: edge.
     hostname : str
         Database hostname for connections.
-    connectionport : float
+    connectionport : Optional[float]
         Database port for connections. Derived from the engine when the backing has not reported one yet.
     connectionuser : str
         Database username for connections.
     connectionpassword : str
         Database password for connections.
-    credentialgeneration : float
+    credentialgeneration : Optional[float]
         Committed generation of the primary connection credentials. Null until the rotation contract has been initialized.
     connectionstring : str
         Full database connection string (URI format).
@@ -121,16 +121,16 @@ class DedicatedDatabase(AppwriteModel):
     updatedat: str = Field(..., alias='$updatedAt')
     projectid: str = Field(..., alias='projectId')
     name: str = Field(..., alias='name')
-    api: str = Field(..., alias='api')
-    engine: str = Field(..., alias='engine')
+    api: Optional[str] = Field(default=None, alias='api')
+    engine: Optional[str] = Field(default=None, alias='engine')
     version: str = Field(..., alias='version')
     specification: str = Field(..., alias='specification')
     backend: str = Field(..., alias='backend')
     hostname: str = Field(..., alias='hostname')
-    connectionport: float = Field(..., alias='connectionPort')
+    connectionport: Optional[float] = Field(default=None, alias='connectionPort')
     connectionuser: str = Field(..., alias='connectionUser')
     connectionpassword: str = Field(..., alias='connectionPassword')
-    credentialgeneration: float = Field(..., alias='credentialGeneration')
+    credentialgeneration: Optional[float] = Field(default=None, alias='credentialGeneration')
     connectionstring: str = Field(..., alias='connectionString')
     ssl: bool = Field(..., alias='ssl')
     status: str = Field(..., alias='status')

@@ -39,21 +39,21 @@ class Organization(AppwriteModel, Generic[T]):
         Organization&#039;s billing plan.
     billingemail : str
         Billing email set for the organization.
-    billingstartdate : str
+    billingstartdate : Optional[str]
         Billing cycle start date.
-    billingcurrentinvoicedate : str
+    billingcurrentinvoicedate : Optional[str]
         Current invoice cycle start date.
-    billingnextinvoicedate : str
+    billingnextinvoicedate : Optional[str]
         Next invoice cycle start date.
     billingtrialstartdate : Optional[str]
         Start date of trial.
-    billingtrialdays : float
+    billingtrialdays : Optional[float]
         Number of trial days.
-    billingaggregationid : str
+    billingaggregationid : Optional[str]
         Current active aggregation id.
-    billinginvoiceid : str
+    billinginvoiceid : Optional[str]
         Current active aggregation id.
-    paymentmethodid : str
+    paymentmethodid : Optional[str]
         Default payment method.
     billingaddressid : Optional[str]
         Default payment method.
@@ -99,14 +99,14 @@ class Organization(AppwriteModel, Generic[T]):
     billingplanid: str = Field(..., alias='billingPlanId')
     billingplandetails: BillingPlan = Field(..., alias='billingPlanDetails')
     billingemail: str = Field(..., alias='billingEmail')
-    billingstartdate: str = Field(..., alias='billingStartDate')
-    billingcurrentinvoicedate: str = Field(..., alias='billingCurrentInvoiceDate')
-    billingnextinvoicedate: str = Field(..., alias='billingNextInvoiceDate')
+    billingstartdate: Optional[str] = Field(default=None, alias='billingStartDate')
+    billingcurrentinvoicedate: Optional[str] = Field(default=None, alias='billingCurrentInvoiceDate')
+    billingnextinvoicedate: Optional[str] = Field(default=None, alias='billingNextInvoiceDate')
     billingtrialstartdate: Optional[str] = Field(default=None, alias='billingTrialStartDate')
-    billingtrialdays: float = Field(..., alias='billingTrialDays')
-    billingaggregationid: str = Field(..., alias='billingAggregationId')
-    billinginvoiceid: str = Field(..., alias='billingInvoiceId')
-    paymentmethodid: str = Field(..., alias='paymentMethodId')
+    billingtrialdays: Optional[float] = Field(default=None, alias='billingTrialDays')
+    billingaggregationid: Optional[str] = Field(default=None, alias='billingAggregationId')
+    billinginvoiceid: Optional[str] = Field(default=None, alias='billingInvoiceId')
+    paymentmethodid: Optional[str] = Field(default=None, alias='paymentMethodId')
     billingaddressid: Optional[str] = Field(default=None, alias='billingAddressId')
     backuppaymentmethodid: Optional[str] = Field(default=None, alias='backupPaymentMethodId')
     status: str = Field(..., alias='status')
