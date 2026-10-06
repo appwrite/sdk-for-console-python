@@ -20,7 +20,7 @@ class DedicatedDatabaseBranch(AppwriteModel):
         Unix timestamp when the branch expires.
     host : str
         Branch hostname for direct connections.
-    port : float
+    port : Optional[float]
         Branch port. Null until the backing reports one.
     database : str
         Advertised catalog the client connects to. MySQL/MariaDB use default; Postgres uses the routing label.
@@ -41,7 +41,7 @@ class DedicatedDatabaseBranch(AppwriteModel):
     namespace: str = Field(..., alias='namespace')
     expiresat: float = Field(..., alias='expiresAt')
     host: str = Field(..., alias='host')
-    port: float = Field(..., alias='port')
+    port: Optional[float] = Field(default=None, alias='port')
     database: str = Field(..., alias='database')
     username: str = Field(..., alias='username')
     password: str = Field(..., alias='password')

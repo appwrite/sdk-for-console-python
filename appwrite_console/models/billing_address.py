@@ -16,23 +16,23 @@ class BillingAddress(AppwriteModel):
         User ID
     streetaddress : str
         Street address
-    addressline2 : str
+    addressline2 : Optional[str]
         Address line 2
     country : str
         Address country
     city : str
         city
-    state : str
+    state : Optional[str]
         state
-    postalcode : str
+    postalcode : Optional[str]
         postal code
     """
 
     id: str = Field(..., alias='$id')
     userid: str = Field(..., alias='userId')
     streetaddress: str = Field(..., alias='streetAddress')
-    addressline2: str = Field(..., alias='addressLine2')
+    addressline2: Optional[str] = Field(default=None, alias='addressLine2')
     country: str = Field(..., alias='country')
     city: str = Field(..., alias='city')
-    state: str = Field(..., alias='state')
-    postalcode: str = Field(..., alias='postalCode')
+    state: Optional[str] = Field(default=None, alias='state')
+    postalcode: Optional[str] = Field(default=None, alias='postalCode')

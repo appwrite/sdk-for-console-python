@@ -15,7 +15,7 @@ class EstimationUpdatePlan(AppwriteModel):
         Total amount
     grossamount : float
         Gross payable amount
-    discount : float
+    discount : Optional[float]
         Discount amount
     credits : float
         Credits amount
@@ -33,7 +33,7 @@ class EstimationUpdatePlan(AppwriteModel):
 
     amount: float = Field(..., alias='amount')
     grossamount: float = Field(..., alias='grossAmount')
-    discount: float = Field(..., alias='discount')
+    discount: Optional[float] = Field(default=None, alias='discount')
     credits: float = Field(..., alias='credits')
     items: List[EstimationItem] = Field(..., alias='items')
     discounts: List[EstimationItem] = Field(..., alias='discounts')

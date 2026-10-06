@@ -1,5 +1,17 @@
 # Change Log
 
+## 0.8.1
+
+* Fixed: `Organization` accepts null `paymentMethodId`, billing dates, trial days and billing aggregation/invoice IDs
+* Fixed: `PaymentMethod` accepts null card details, `mandateId`, `state` and `lastError`
+* Fixed: `Invoice` accepts null `clientSecret` and `lastError`
+* Fixed: `DedicatedDatabaseRestoration` accepts null `targetTime`, `startedAt`, `completedAt`, `sourceDatabaseId` and `backupId`
+* Fixed: `DedicatedDatabase` accepts null `api`, `engine`, `connectionPort` and `credentialGeneration`, and `DedicatedDatabaseBranch` accepts null `port`
+* Fixed: `BillingAddress` accepts null `addressLine2`, `state` and `postalCode`
+* Fixed: `Estimation` and `EstimationUpdatePlan` accept null `discount`
+* Fixed: `UsageBillingPlan` accepts null resource usage for plans that only define credits
+* Updated: `analytics.create_event` docs: `engagement_time` accepts 0-4294967295
+
 ## 0.8.0
 
 * Added: `Analytics` service with property CRUD, `create_event` and `list_metrics`
