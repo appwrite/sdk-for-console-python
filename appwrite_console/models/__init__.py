@@ -375,7 +375,6 @@ from .oauth2_par import Oauth2PAR
 from .oauth2_token import Oauth2Token
 from .oauth2_consent import Oauth2Consent
 from .oauth2_consent_token import Oauth2ConsentToken
-from .waf_rule import WafRule
 from .waf_rule_bypass import WafRuleBypass
 from .waf_rule_deny import WafRuleDeny
 from .waf_rule_challenge import WafRuleChallenge
@@ -792,7 +791,6 @@ __all__ = [
     'Oauth2Token',
     'Oauth2Consent',
     'Oauth2ConsentToken',
-    'WafRule',
     'WafRuleBypass',
     'WafRuleDeny',
     'WafRuleChallenge',

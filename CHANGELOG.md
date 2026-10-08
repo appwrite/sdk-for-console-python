@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.10.0
+
+* Breaking: `waf.get_rule` returns the model for the rule's `action` instead of `WafRule`, which is removed
+* Breaking: `WafRuleList.rules` holds the action-specific rule models, so their fields are no longer dropped
+
 ## 0.9.0
 
 * Breaking: `analytics.create_property` and `update_property` drop the `timezone` parameter
