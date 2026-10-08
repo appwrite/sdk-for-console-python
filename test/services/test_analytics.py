@@ -38,11 +38,11 @@ class AnalyticsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "name": "My Website",
             "domain": "example.com",
-            "timezone": "UTC",
             "enabled": True,
             "public": True,
             "allowedOrigins": [],
-            "snippetId": "snp_a1b2c3d4e5",
+            "accessedAt": "2020-10-15T06:38:00.000+00:00",
+            "firstAccessedAt": "2020-10-15T06:38:00.000+00:00",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -65,11 +65,11 @@ class AnalyticsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "name": "My Website",
             "domain": "example.com",
-            "timezone": "UTC",
             "enabled": True,
             "public": True,
             "allowedOrigins": [],
-            "snippetId": "snp_a1b2c3d4e5",
+            "accessedAt": "2020-10-15T06:38:00.000+00:00",
+            "firstAccessedAt": "2020-10-15T06:38:00.000+00:00",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -91,11 +91,11 @@ class AnalyticsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "name": "My Website",
             "domain": "example.com",
-            "timezone": "UTC",
             "enabled": True,
             "public": True,
             "allowedOrigins": [],
-            "snippetId": "snp_a1b2c3d4e5",
+            "accessedAt": "2020-10-15T06:38:00.000+00:00",
+            "firstAccessedAt": "2020-10-15T06:38:00.000+00:00",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(

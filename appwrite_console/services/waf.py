@@ -75,7 +75,7 @@ class Waf(Service):
         description: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleBypass:
         """
         Create a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -96,7 +96,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to create the rule in a disabled state.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -153,7 +153,7 @@ class Waf(Service):
         description: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleBypass:
         """
         Update a bypass WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -174,7 +174,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to disable the rule.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -230,7 +230,7 @@ class Waf(Service):
         challenge_type: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
         difficulty: Optional[float] = None,
         ttl: Optional[float] = None,
     ) -> WafRuleChallenge:
@@ -255,7 +255,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to create the rule in a disabled state.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         difficulty : Optional[float]
             Challenge difficulty from 1 (easiest) to 5 (hardest). Higher values demand more client-side proof-of-work.
@@ -323,7 +323,7 @@ class Waf(Service):
         challenge_type: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
         difficulty: Optional[float] = None,
         ttl: Optional[float] = None,
     ) -> WafRuleChallenge:
@@ -348,7 +348,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to disable the rule.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         difficulty : Optional[float]
             Challenge difficulty from 1 (easiest) to 5 (hardest). Higher values demand more client-side proof-of-work.
@@ -413,7 +413,7 @@ class Waf(Service):
         description: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleDeny:
         """
         Create a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -434,7 +434,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to create the rule in a disabled state.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -491,7 +491,7 @@ class Waf(Service):
         description: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleDeny:
         """
         Update a deny WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -512,7 +512,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to disable the rule.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -572,7 +572,7 @@ class Waf(Service):
         max_bucket_size: Optional[float] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleRateLimit:
         """
         Create a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -603,7 +603,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to create the rule in a disabled state.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -676,7 +676,7 @@ class Waf(Service):
         max_bucket_size: Optional[float] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleRateLimit:
         """
         Update a rate limit WAF rule. Use `key` to choose the counter: `ip` limits per client IP, while `userId` limits per authenticated user (requests without an authenticated user skip `userId` rules). Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -705,7 +705,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to disable the rule.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -770,7 +770,7 @@ class Waf(Service):
         description: Optional[str] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleRedirect:
         """
         Create a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -795,7 +795,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to create the rule in a disabled state.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------
@@ -860,7 +860,7 @@ class Waf(Service):
         status_code: Optional[float] = None,
         priority: Optional[float] = None,
         enabled: Optional[bool] = None,
-        conditions: Optional[str] = None,
+        conditions: Optional[List[str]] = None,
     ) -> WafRuleRedirect:
         """
         Update a redirect WAF rule. Conditions can match request attributes including `ip` (plain IPs or CIDR blocks like `10.0.0.0/8`), `method`, `path`, `host`, `country`, `continent`, `headers.<name>`, `query.<key>`, `queryKeys`, `userAgent`, `os`, `osVersion`, `browser`, and `browserVersion`. Conditions on `city` and `state` require the premium Geo DB addon.
@@ -885,7 +885,7 @@ class Waf(Service):
             Evaluation priority. Lower numbers run earlier.
         enabled : Optional[bool]
             Set to false to disable the rule.
-        conditions : Optional[str]
+        conditions : Optional[List[str]]
             Array of condition strings generated using the WAF Condition builder. Maximum of 100 conditions are allowed, each 4096 characters long.
         Returns
         -------

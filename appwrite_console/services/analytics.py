@@ -27,7 +27,7 @@ class Analytics(Service):
         Parameters
         ----------
         queries : Optional[List[str]]
-            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, domain, timezone, enabled, public, snippetId
+            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, domain, enabled, public
         search : Optional[str]
             Search term to filter your list results. Matches the property ID, name and domain. Max length: 256 chars.
         total : Optional[bool]
@@ -69,7 +69,6 @@ class Analytics(Service):
         property_id: str,
         name: str,
         domain: Optional[str] = None,
-        timezone: Optional[str] = None,
         enabled: Optional[bool] = None,
         public: Optional[bool] = None,
         allowed_origins: Optional[List[str]] = None,
@@ -85,8 +84,6 @@ class Analytics(Service):
             Human-readable name for this property.
         domain : Optional[str]
             Primary domain to track (e.g. example.com). Optional for native apps.
-        timezone : Optional[str]
-            IANA timezone used for daily boundaries.
         enabled : Optional[bool]
             Whether tracking is enabled.
         public : Optional[bool]
@@ -114,8 +111,6 @@ class Analytics(Service):
         api_params['name'] = self._normalize_value(name)
         if domain is not None:
             api_params['domain'] = self._normalize_value(domain)
-        if timezone is not None:
-            api_params['timezone'] = self._normalize_value(timezone)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
         if public is not None:
@@ -181,7 +176,6 @@ class Analytics(Service):
         property_id: str,
         name: Optional[str] = None,
         domain: Optional[str] = None,
-        timezone: Optional[str] = None,
         enabled: Optional[bool] = None,
         public: Optional[bool] = None,
         allowed_origins: Optional[List[str]] = None,
@@ -197,8 +191,6 @@ class Analytics(Service):
             Human-readable name for this property.
         domain : Optional[str]
             Primary domain to track (e.g. example.com). Pass an empty string to clear it.
-        timezone : Optional[str]
-            IANA timezone used for daily boundaries.
         enabled : Optional[bool]
             Whether tracking is enabled.
         public : Optional[bool]
@@ -225,8 +217,6 @@ class Analytics(Service):
             api_params['name'] = self._normalize_value(name)
         if domain is not None:
             api_params['domain'] = self._normalize_value(domain)
-        if timezone is not None:
-            api_params['timezone'] = self._normalize_value(timezone)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
         if public is not None:
@@ -310,7 +300,7 @@ class Analytics(Service):
         Parameters
         ----------
         property_id : str
-            Analytics property ID or snippet ID identifying the property.
+            Analytics property ID.
         name : str
             Event name. "pageview" is just a conventional event name; events are not modeled specially.
         url : str

@@ -18,6 +18,7 @@ from .policy_deny_aliased_email import PolicyDenyAliasedEmail
 from .policy_deny_disposable_email import PolicyDenyDisposableEmail
 from .policy_deny_free_email import PolicyDenyFreeEmail
 from .policy_deny_corporate_email import PolicyDenyCorporateEmail
+from .policy_passkey import PolicyPasskey
 
 
 class PolicyList(AppwriteModel):
@@ -28,7 +29,7 @@ class PolicyList(AppwriteModel):
     ----------
     total : float
         Total number of policies in the given project.
-    policies : List[Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail]]
+    policies : List[Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail, PolicyPasskey]]
         List of policies.
     """
 
@@ -51,5 +52,6 @@ class PolicyList(AppwriteModel):
             PolicyDenyDisposableEmail,
             PolicyDenyFreeEmail,
             PolicyDenyCorporateEmail,
+            PolicyPasskey,
         ]
     ] = Field(..., alias='policies')

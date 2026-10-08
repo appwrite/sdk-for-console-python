@@ -20,16 +20,16 @@ class AnalyticsProperty(AppwriteModel):
         Human-readable name of the tracked website or application.
     domain : str
         Primary domain being tracked (e.g. example.com). May be empty for native apps.
-    timezone : str
-        IANA timezone used to define the daily boundary for stats.
     enabled : bool
         Whether tracking is currently active.
     public : bool
         Whether stats for this property are publicly viewable.
     allowedorigins : List[Any]
         List of origins allowed to send tracking events. Use [&quot;*&quot;] to allow all.
-    snippetid : str
-        Unique identifier for the tracking script snippet.
+    accessedat : str
+        Most recent event date in ISO 8601 format. This attribute is only updated again after 24 hours.
+    firstaccessedat : str
+        First event date in ISO 8601 format. Empty until the property receives its first event.
     """
 
     id: str = Field(..., alias='$id')
@@ -37,8 +37,8 @@ class AnalyticsProperty(AppwriteModel):
     updatedat: str = Field(..., alias='$updatedAt')
     name: str = Field(..., alias='name')
     domain: str = Field(..., alias='domain')
-    timezone: str = Field(..., alias='timezone')
     enabled: bool = Field(..., alias='enabled')
     public: bool = Field(..., alias='public')
     allowedorigins: List[Any] = Field(..., alias='allowedOrigins')
-    snippetid: str = Field(..., alias='snippetId')
+    accessedat: str = Field(..., alias='accessedAt')
+    firstaccessedat: str = Field(..., alias='firstAccessedAt')
