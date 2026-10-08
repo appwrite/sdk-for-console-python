@@ -83,7 +83,7 @@ class Oauth2(Service):
         prompt: Optional[str] = None,
         max_age: Optional[float] = None,
         authorization_details: Optional[str] = None,
-        resource: Optional[str] = None,
+        resource: Optional[List[Dict[str, Any]]] = None,
         audience: Optional[str] = None,
         request_uri: Optional[str] = None,
     ) -> Oauth2Authorize:
@@ -114,7 +114,7 @@ class Oauth2(Service):
             OIDC max_age paraleter for customization of consent screen. Maximum allowable elapsed time in seconds since the user last authenticated. If exceeded, re-authentication is required.
         authorization_details : Optional[str]
             Rich authorization request. JSON array of objects, each with a `type` and project-defined fields
-        resource : Optional[str]
+        resource : Optional[List[Dict[str, Any]]]
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
@@ -187,7 +187,7 @@ class Oauth2(Service):
         prompt: Optional[str] = None,
         max_age: Optional[float] = None,
         authorization_details: Optional[str] = None,
-        resource: Optional[str] = None,
+        resource: Optional[List[Dict[str, Any]]] = None,
         audience: Optional[str] = None,
         request_uri: Optional[str] = None,
     ) -> Oauth2Authorize:
@@ -218,7 +218,7 @@ class Oauth2(Service):
             OIDC max_age paraleter for customization of consent screen. Maximum allowable elapsed time in seconds since the user last authenticated. If exceeded, re-authentication is required.
         authorization_details : Optional[str]
             Rich authorization request. JSON array of objects, each with a `type` and project-defined fields
-        resource : Optional[str]
+        resource : Optional[List[Dict[str, Any]]]
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
@@ -284,7 +284,7 @@ class Oauth2(Service):
         client_id: Optional[str] = None,
         scope: Optional[str] = None,
         authorization_details: Optional[str] = None,
-        resource: Optional[str] = None,
+        resource: Optional[List[Dict[str, Any]]] = None,
         audience: Optional[str] = None,
     ) -> Oauth2DeviceAuthorization:
         """
@@ -298,7 +298,7 @@ class Oauth2(Service):
             Space-separated OAuth2 scopes. Can include project scopes, and built-in scopes: `openid`, `email`, `profile`.
         authorization_details : Optional[str]
             Rich authorization request. JSON array of objects, each with a `type` and project-defined fields
-        resource : Optional[str]
+        resource : Optional[List[Dict[str, Any]]]
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
@@ -611,7 +611,7 @@ class Oauth2(Service):
         prompt: Optional[str] = None,
         max_age: Optional[float] = None,
         authorization_details: Optional[str] = None,
-        resource: Optional[str] = None,
+        resource: Optional[List[Dict[str, Any]]] = None,
         audience: Optional[str] = None,
     ) -> Oauth2PAR:
         """
@@ -641,7 +641,7 @@ class Oauth2(Service):
             OIDC max_age parameter for customization of consent screen.
         authorization_details : Optional[str]
             Rich authorization request. JSON array of objects, each with a `type` and project-defined fields
-        resource : Optional[str]
+        resource : Optional[List[Dict[str, Any]]]
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.
@@ -857,7 +857,7 @@ class Oauth2(Service):
         client_secret: Optional[str] = None,
         code_verifier: Optional[str] = None,
         redirect_uri: Optional[str] = None,
-        resource: Optional[str] = None,
+        resource: Optional[List[Dict[str, Any]]] = None,
         audience: Optional[str] = None,
     ) -> Oauth2Token:
         """
@@ -881,7 +881,7 @@ class Oauth2(Service):
             PKCE code verifier. Required for public apps.
         redirect_uri : Optional[str]
             Redirect URI. Required for `authorization_code` grant type.
-        resource : Optional[str]
+        resource : Optional[List[Dict[str, Any]]]
             RFC 8707 resource indicator URI or URI list. Each value must be an absolute URI without a fragment.
         audience : Optional[str]
             Compatibility alias for a single OAuth2 resource indicator URI.

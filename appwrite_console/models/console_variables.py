@@ -36,8 +36,6 @@ class ConsoleVariables(AppwriteModel):
         List of configured VCS providers that can host public repositories.
     app_domain_enabled : bool
         Defines if main domain is configured. If so, custom domains can be created.
-    app_assistant_enabled : bool
-        Defines if AI assistant is enabled.
     app_domain_sites : str
         A comma separated list of domains to use for site URLs.
     app_domain_functions : str
@@ -91,7 +89,6 @@ class ConsoleVariables(AppwriteModel):
         alias='_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES',
     )
     app_domain_enabled: bool = Field(..., alias='_APP_DOMAIN_ENABLED')
-    app_assistant_enabled: bool = Field(..., alias='_APP_ASSISTANT_ENABLED')
     app_domain_sites: str = Field(..., alias='_APP_DOMAIN_SITES')
     app_domain_functions: str = Field(..., alias='_APP_DOMAIN_FUNCTIONS')
     app_options_force_https: str = Field(..., alias='_APP_OPTIONS_FORCE_HTTPS')
