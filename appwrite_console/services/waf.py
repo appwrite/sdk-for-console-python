@@ -9,7 +9,6 @@ from ..models.waf_rule_challenge import WafRuleChallenge
 from ..models.waf_rule_deny import WafRuleDeny
 from ..models.waf_rule_rate_limit import WafRuleRateLimit
 from ..models.waf_rule_redirect import WafRuleRedirect
-from ..models.waf_rule import WafRule
 
 
 class Waf(Service):
@@ -938,7 +937,13 @@ class Waf(Service):
     def get_rule(
         self,
         rule_id: str,
-    ) -> WafRule:
+    ) -> Union[
+        WafRuleBypass,
+        WafRuleDeny,
+        WafRuleChallenge,
+        WafRuleRateLimit,
+        WafRuleRedirect,
+    ]:
         """
         Get a WAF rule by its ID.
 
@@ -948,8 +953,8 @@ class Waf(Service):
             Rule ID.
         Returns
         -------
-        WafRule
-            API response as a typed Pydantic model
+        Union[WafRuleBypass, WafRuleDeny, WafRuleChallenge, WafRuleRateLimit, WafRuleRedirect]
+            API response as one of the typed response models
 
         Raises
         ------
@@ -972,8 +977,25 @@ class Waf(Service):
             },
             api_params,
         )
+        if not isinstance(response, dict):
+            raise AppwriteException('Expected object response when hydrating a response model')
 
-        return self._parse_response(response, model=WafRule)
+        if response.get('action') == 'bypass':
+            return self._parse_response(response, model=WafRuleBypass)
+
+        if response.get('action') == 'deny':
+            return self._parse_response(response, model=WafRuleDeny)
+
+        if response.get('action') == 'challenge':
+            return self._parse_response(response, model=WafRuleChallenge)
+
+        if response.get('action') == 'rateLimit':
+            return self._parse_response(response, model=WafRuleRateLimit)
+
+        if response.get('action') == 'redirect':
+            return self._parse_response(response, model=WafRuleRedirect)
+
+        raise AppwriteException('Unable to match response to any known model')
 
     def delete_rule(
         self,
