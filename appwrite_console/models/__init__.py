@@ -220,6 +220,7 @@ from .policy_session_limit import PolicySessionLimit
 from .policy_user_limit import PolicyUserLimit
 from .policy_membership_privacy import PolicyMembershipPrivacy
 from .policy_mfa_factors import PolicyMfaFactors
+from .policy_passkey import PolicyPasskey
 from .policy_deny_aliased_email import PolicyDenyAliasedEmail
 from .policy_deny_disposable_email import PolicyDenyDisposableEmail
 from .policy_deny_free_email import PolicyDenyFreeEmail
@@ -636,6 +637,7 @@ __all__ = [
     'PolicyUserLimit',
     'PolicyMembershipPrivacy',
     'PolicyMfaFactors',
+    'PolicyPasskey',
     'PolicyDenyAliasedEmail',
     'PolicyDenyDisposableEmail',
     'PolicyDenyFreeEmail',
