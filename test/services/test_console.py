@@ -498,7 +498,6 @@ class ConsoleServiceTest(unittest.TestCase):
             "_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION": [],
             "_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES": [],
             "_APP_DOMAIN_ENABLED": True,
-            "_APP_ASSISTANT_ENABLED": True,
             "_APP_DOMAIN_SITES": "sites.localhost,sites.example.com",
             "_APP_DOMAIN_FUNCTIONS": "functions.localhost",
             "_APP_OPTIONS_FORCE_HTTPS": "enabled",

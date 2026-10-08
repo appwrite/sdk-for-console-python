@@ -94,6 +94,7 @@ from ..models.policy_deny_aliased_email import PolicyDenyAliasedEmail
 from ..models.policy_deny_disposable_email import PolicyDenyDisposableEmail
 from ..models.policy_deny_free_email import PolicyDenyFreeEmail
 from ..models.policy_deny_corporate_email import PolicyDenyCorporateEmail
+from ..models.policy_passkey import PolicyPasskey
 from ..enums.project_protocol_id import ProjectProtocolId
 from ..enums.project_service_id import ProjectServiceId
 from ..enums.project_smtp_secure import ProjectSMTPSecure
@@ -184,7 +185,7 @@ class Project(Service):
         Parameters
         ----------
         method_id : ProjectAuthMethodId
-            Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone
+            Auth Method ID. Possible values: email-password,magic-url,email-otp,anonymous,invites,jwt,phone,passkey
         enabled : bool
             Auth method status.
         Returns
@@ -5222,6 +5223,7 @@ class Project(Service):
         PolicyDenyDisposableEmail,
         PolicyDenyFreeEmail,
         PolicyDenyCorporateEmail,
+        PolicyPasskey,
     ]:
         """
         Get a policy by its unique ID. This endpoint returns the current configuration for the requested project policy.
@@ -5229,10 +5231,10 @@ class Project(Service):
         Parameters
         ----------
         policy_id : ProjectPolicyId
-            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email.
+            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
         Returns
         -------
-        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail]
+        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail, PolicyPasskey]
             API response as one of the typed response models
 
         Raises
@@ -5306,6 +5308,9 @@ class Project(Service):
 
         if response.get('$id') == 'deny-corporate-email':
             return self._parse_response(response, model=PolicyDenyCorporateEmail)
+
+        if response.get('$id') == 'passkey':
+            return self._parse_response(response, model=PolicyPasskey)
 
         raise AppwriteException('Unable to match response to any known model')
 

@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.9.0
+
+* Breaking: `analytics.create_property` and `update_property` drop the `timezone` parameter
+* Breaking: `AnalyticsProperty` drops `timezone` and `snippetid`, adds `accessedat` and `firstaccessedat`
+* Breaking: `ConsoleVariables.app_assistant_enabled` removed
+* Added: optional `state` parameter on `create_o_auth2_session` and `create_o_auth2_token`
+* Added: `PolicyPasskey` model returned by `project.get_policy`, and `passkey` policy and auth method IDs
+* Fixed: a file exactly one chunk in size uploads in a single request
+* Updated: requests send `X-Appwrite-Response-Format` `2.4.0`
+
 ## 0.8.1
 
 * Fixed: `Organization` accepts null `paymentMethodId`, billing dates, trial days and billing aggregation/invoice IDs

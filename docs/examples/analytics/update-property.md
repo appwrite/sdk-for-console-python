@@ -13,7 +13,6 @@ result: AnalyticsProperty = analytics.update_property(
     property_id = '<PROPERTY_ID>',
     name = '<NAME>', # optional
     domain = '<DOMAIN>', # optional
-    timezone = '<TIMEZONE>', # optional
     enabled = False, # optional
     public = False, # optional
     allowed_origins = [] # optional
