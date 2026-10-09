@@ -14,9 +14,10 @@ result: Schedule = projects.create_schedule(
     project_id = '<PROJECT_ID>',
     resource_type = ScheduleResourceType.FUNCTION,
     resource_id = '<RESOURCE_ID>',
-    schedule = '0 0 * * *',
+    schedule = '0 0 * * *', # optional
     active = False, # optional
-    data = {} # optional
+    data = {}, # optional
+    interval = 0 # optional
 )
 
 print(result.model_dump())

@@ -209,7 +209,6 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             'function',
             '<RESOURCE_ID>',
-            '0 0 * * *',
         )
         self.assertEqual(response.to_dict(), data)
 

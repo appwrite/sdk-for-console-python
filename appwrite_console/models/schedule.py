@@ -26,6 +26,8 @@ class Schedule(AppwriteModel):
         The project ID associated with this schedule.
     schedule : str
         The CRON schedule expression.
+    interval : Optional[float]
+        Minutes between runs. 0 when the schedule has no interval.
     data : Dict[str, Any]
         Schedule data used to store resource-specific context needed for execution.
     active : bool
@@ -42,6 +44,7 @@ class Schedule(AppwriteModel):
     resourceupdatedat: str = Field(..., alias='resourceUpdatedAt')
     projectid: str = Field(..., alias='projectId')
     schedule: str = Field(..., alias='schedule')
+    interval: Optional[float] = Field(default=None, alias='interval')
     data: Dict[str, Any] = Field(..., alias='data')
     active: bool = Field(..., alias='active')
     region: str = Field(..., alias='region')
