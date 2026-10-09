@@ -383,9 +383,10 @@ class Projects(Service):
         project_id: str,
         resource_type: ScheduleResourceType,
         resource_id: str,
-        schedule: str,
+        schedule: Optional[str] = None,
         active: Optional[bool] = None,
         data: Optional[Dict[str, Any]] = None,
+        interval: Optional[float] = None,
     ) -> Schedule:
         """
         Create a new schedule for a resource.
@@ -398,12 +399,14 @@ class Projects(Service):
             The resource type for the schedule. Possible values: function, execution, message, backup.
         resource_id : str
             The resource ID to associate with this schedule.
-        schedule : str
-            Schedule CRON expression.
+        schedule : Optional[str]
+            Schedule CRON expression. Cannot be combined with interval.
         active : Optional[bool]
             Whether the schedule is active.
         data : Optional[Dict[str, Any]]
             Schedule data as a JSON string. Used to store resource-specific context needed for execution.
+        interval : Optional[float]
+            Minutes between runs, for function schedules only. Use 0 to disable. Cannot be combined with schedule.
         Returns
         -------
         Schedule
@@ -423,16 +426,17 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "resource_type"')
         if resource_id is None:
             raise AppwriteException('Missing required parameter: "resource_id"')
-        if schedule is None:
-            raise AppwriteException('Missing required parameter: "schedule"')
         api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
         api_params['resourceType'] = self._normalize_value(resource_type)
         api_params['resourceId'] = self._normalize_value(resource_id)
-        api_params['schedule'] = self._normalize_value(schedule)
+        if schedule is not None:
+            api_params['schedule'] = self._normalize_value(schedule)
         if active is not None:
             api_params['active'] = self._normalize_value(active)
         if data is not None:
             api_params['data'] = self._normalize_value(data)
+        if interval is not None:
+            api_params['interval'] = self._normalize_value(interval)
 
         response = self.client.call(
             'post',

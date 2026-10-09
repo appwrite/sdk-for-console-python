@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.11.0
+
+* Added: optional `interval` parameter on `functions.create`, `functions.update` and `projects.create_schedule`
+* Updated: `schedule` is optional on `projects.create_schedule`; pass either `schedule` or `interval`
+* Added: `interval` on the `Function` and `Schedule` models, `functions_interval_minimum` on `BillingPlan`
+
 ## 0.10.0
 
 * Breaking: `waf.get_rule` returns the model for the rule's `action` instead of `WafRule`, which is removed
