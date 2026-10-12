@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -36,3 +36,28 @@ class UsageResources(AppwriteModel):
     resourceid: str = Field(..., alias='resourceId')
     type: str = Field(..., alias='type')
     specification: str = Field(..., alias='specification')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'name' not in data:
+            data['name'] = ''
+        if 'value' not in data:
+            data['value'] = 0
+        if 'amount' not in data:
+            data['amount'] = 0
+        if 'rate' not in data:
+            data['rate'] = 0
+        if 'desc' not in data:
+            data['desc'] = ''
+        if 'resourceId' not in data and 'resourceid' not in data:
+            data['resourceId'] = ''
+        if 'type' not in data:
+            data['type'] = ''
+        if 'specification' not in data:
+            data['specification'] = ''
+        return data

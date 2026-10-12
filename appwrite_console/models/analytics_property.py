@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -42,3 +42,32 @@ class AnalyticsProperty(AppwriteModel):
     allowedorigins: List[Any] = Field(..., alias='allowedOrigins')
     accessedat: str = Field(..., alias='accessedAt')
     firstaccessedat: str = Field(..., alias='firstAccessedAt')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'domain' not in data:
+            data['domain'] = ''
+        if 'enabled' not in data:
+            data['enabled'] = True
+        if 'public' not in data:
+            data['public'] = False
+        if 'allowedOrigins' not in data and 'allowedorigins' not in data:
+            data['allowedOrigins'] = ['*']
+        if 'accessedAt' not in data and 'accessedat' not in data:
+            data['accessedAt'] = ''
+        if 'firstAccessedAt' not in data and 'firstaccessedat' not in data:
+            data['firstAccessedAt'] = ''
+        return data

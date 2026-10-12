@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .aggregation_breakdown import AggregationBreakdown
@@ -107,3 +107,70 @@ class AggregationTeam(AppwriteModel):
     amount: float = Field(..., alias='amount')
     breakdown: List[AggregationBreakdown] = Field(..., alias='breakdown')
     resources: List[UsageResources] = Field(..., alias='resources')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if '$permissions' not in data and 'permissions' not in data:
+            data['$permissions'] = []
+        if 'from' not in data and 'xfrom' not in data:
+            data['from'] = ''
+        if 'to' not in data:
+            data['to'] = ''
+        if 'usageStorage' not in data and 'usagestorage' not in data:
+            data['usageStorage'] = 0
+        if 'usageTotalStorage' not in data and 'usagetotalstorage' not in data:
+            data['usageTotalStorage'] = 0
+        if 'usageFilesStorage' not in data and 'usagefilesstorage' not in data:
+            data['usageFilesStorage'] = 0
+        if 'usageDeploymentsStorage' not in data and 'usagedeploymentsstorage' not in data:
+            data['usageDeploymentsStorage'] = 0
+        if 'usageBuildsStorage' not in data and 'usagebuildsstorage' not in data:
+            data['usageBuildsStorage'] = 0
+        if 'usageDatabasesStorage' not in data and 'usagedatabasesstorage' not in data:
+            data['usageDatabasesStorage'] = 0
+        if 'usageFunctionsStorage' not in data and 'usagefunctionsstorage' not in data:
+            data['usageFunctionsStorage'] = 0
+        if 'usageSitesStorage' not in data and 'usagesitesstorage' not in data:
+            data['usageSitesStorage'] = 0
+        if 'usageUsers' not in data and 'usageusers' not in data:
+            data['usageUsers'] = 0
+        if 'usageExecutions' not in data and 'usageexecutions' not in data:
+            data['usageExecutions'] = 0
+        if 'usageBandwidth' not in data and 'usagebandwidth' not in data:
+            data['usageBandwidth'] = 0
+        if 'usageRealtime' not in data and 'usagerealtime' not in data:
+            data['usageRealtime'] = 0
+        if 'usageRealtimeMessages' not in data and 'usagerealtimemessages' not in data:
+            data['usageRealtimeMessages'] = 0
+        if 'usageRealtimeBandwidth' not in data and 'usagerealtimebandwidth' not in data:
+            data['usageRealtimeBandwidth'] = 0
+        if 'additionalMembers' not in data and 'additionalmembers' not in data:
+            data['additionalMembers'] = 0
+        if 'additionalMemberAmount' not in data and 'additionalmemberamount' not in data:
+            data['additionalMemberAmount'] = 0
+        if 'additionalStorageAmount' not in data and 'additionalstorageamount' not in data:
+            data['additionalStorageAmount'] = 0
+        if 'additionalUsersAmount' not in data and 'additionalusersamount' not in data:
+            data['additionalUsersAmount'] = 0
+        if 'additionalExecutionsAmount' not in data and 'additionalexecutionsamount' not in data:
+            data['additionalExecutionsAmount'] = 0
+        if 'additionalBandwidthAmount' not in data and 'additionalbandwidthamount' not in data:
+            data['additionalBandwidthAmount'] = 0
+        if 'additionalRealtimeAmount' not in data and 'additionalrealtimeamount' not in data:
+            data['additionalRealtimeAmount'] = 0
+        if 'plan' not in data:
+            data['plan'] = ''
+        if 'amount' not in data:
+            data['amount'] = 0
+        return data

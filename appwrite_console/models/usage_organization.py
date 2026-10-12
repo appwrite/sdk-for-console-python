@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .metric import Metric
@@ -107,3 +107,52 @@ class UsageOrganization(AppwriteModel):
     realtimemessagestotal: float = Field(..., alias='realtimeMessagesTotal')
     realtimebandwidth: List[Metric] = Field(..., alias='realtimeBandwidth')
     realtimebandwidthtotal: float = Field(..., alias='realtimeBandwidthTotal')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'imageTransformationsTotal' not in data and 'imagetransformationstotal' not in data:
+            data['imageTransformationsTotal'] = 0
+        if 'screenshotsGeneratedTotal' not in data and 'screenshotsgeneratedtotal' not in data:
+            data['screenshotsGeneratedTotal'] = 0
+        if 'usersTotal' not in data and 'userstotal' not in data:
+            data['usersTotal'] = 0
+        if 'executionsTotal' not in data and 'executionstotal' not in data:
+            data['executionsTotal'] = 0
+        if 'executionsMBSecondsTotal' not in data and 'executionsmbsecondstotal' not in data:
+            data['executionsMBSecondsTotal'] = 0
+        if 'buildsMBSecondsTotal' not in data and 'buildsmbsecondstotal' not in data:
+            data['buildsMBSecondsTotal'] = 0
+        if 'filesStorageTotal' not in data and 'filesstoragetotal' not in data:
+            data['filesStorageTotal'] = 0
+        if 'buildsStorageTotal' not in data and 'buildsstoragetotal' not in data:
+            data['buildsStorageTotal'] = 0
+        if 'deploymentsStorageTotal' not in data and 'deploymentsstoragetotal' not in data:
+            data['deploymentsStorageTotal'] = 0
+        if 'databasesStorageTotal' not in data and 'databasesstoragetotal' not in data:
+            data['databasesStorageTotal'] = 0
+        if 'databasesReadsTotal' not in data and 'databasesreadstotal' not in data:
+            data['databasesReadsTotal'] = 0
+        if 'databasesWritesTotal' not in data and 'databaseswritestotal' not in data:
+            data['databasesWritesTotal'] = 0
+        if 'backupsStorageTotal' not in data and 'backupsstoragetotal' not in data:
+            data['backupsStorageTotal'] = 0
+        if 'avatarsStorageTotal' not in data and 'avatarsstoragetotal' not in data:
+            data['avatarsStorageTotal'] = 0
+        if 'storageTotal' not in data and 'storagetotal' not in data:
+            data['storageTotal'] = 0
+        if 'authPhoneTotal' not in data and 'authphonetotal' not in data:
+            data['authPhoneTotal'] = 0
+        if 'authPhoneEstimate' not in data and 'authphoneestimate' not in data:
+            data['authPhoneEstimate'] = 0
+        if 'realtimeConnectionsTotal' not in data and 'realtimeconnectionstotal' not in data:
+            data['realtimeConnectionsTotal'] = 0
+        if 'realtimeMessagesTotal' not in data and 'realtimemessagestotal' not in data:
+            data['realtimeMessagesTotal'] = 0
+        if 'realtimeBandwidthTotal' not in data and 'realtimebandwidthtotal' not in data:
+            data['realtimeBandwidthTotal'] = 0
+        return data

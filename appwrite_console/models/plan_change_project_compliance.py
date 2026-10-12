@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .plan_change_resource_compliance import PlanChangeResourceCompliance
@@ -28,3 +28,18 @@ class PlanChangeProjectCompliance(AppwriteModel):
     iscompliant: bool = Field(..., alias='isCompliant')
     resources: List[PlanChangeResourceCompliance] = Field(..., alias='resources')
     error: Optional[str] = Field(default=None, alias='error')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'isCompliant' not in data and 'iscompliant' not in data:
+            data['isCompliant'] = True
+        return data

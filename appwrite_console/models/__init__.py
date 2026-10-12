@@ -213,6 +213,7 @@ from .policy_password_history import PolicyPasswordHistory
 from .policy_password_strength import PolicyPasswordStrength
 from .policy_password_personal_data import PolicyPasswordPersonalData
 from .policy_password_pwned import PolicyPasswordPwned
+from .policy_password_rotation import PolicyPasswordRotation
 from .policy_session_alert import PolicySessionAlert
 from .policy_session_duration import PolicySessionDuration
 from .policy_session_invalidation import PolicySessionInvalidation
@@ -258,6 +259,10 @@ from .console_key_scope import ConsoleKeyScope
 from .console_key_scope_list import ConsoleKeyScopeList
 from .mfa_challenge import MfaChallenge
 from .mfa_challenge_secret import MfaChallengeSecret
+from .token_secret import TokenSecret
+from .passkey import Passkey
+from .passkey_challenge import PasskeyChallenge
+from .passkey_list import PasskeyList
 from .mfa_recovery_codes import MfaRecoveryCodes
 from .mfa_type import MfaType
 from .mfa_factors import MfaFactors
@@ -629,6 +634,7 @@ __all__ = [
     'PolicyPasswordStrength',
     'PolicyPasswordPersonalData',
     'PolicyPasswordPwned',
+    'PolicyPasswordRotation',
     'PolicySessionAlert',
     'PolicySessionDuration',
     'PolicySessionInvalidation',
@@ -674,6 +680,10 @@ __all__ = [
     'ConsoleKeyScopeList',
     'MfaChallenge',
     'MfaChallengeSecret',
+    'TokenSecret',
+    'Passkey',
+    'PasskeyChallenge',
+    'PasskeyList',
     'MfaRecoveryCodes',
     'MfaType',
     'MfaFactors',

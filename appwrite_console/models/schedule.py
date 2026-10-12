@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -48,3 +48,34 @@ class Schedule(AppwriteModel):
     data: Dict[str, Any] = Field(..., alias='data')
     active: bool = Field(..., alias='active')
     region: str = Field(..., alias='region')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'resourceType' not in data and 'resourcetype' not in data:
+            data['resourceType'] = ''
+        if 'resourceId' not in data and 'resourceid' not in data:
+            data['resourceId'] = ''
+        if 'resourceUpdatedAt' not in data and 'resourceupdatedat' not in data:
+            data['resourceUpdatedAt'] = ''
+        if 'projectId' not in data and 'projectid' not in data:
+            data['projectId'] = ''
+        if 'schedule' not in data:
+            data['schedule'] = ''
+        if 'data' not in data:
+            data['data'] = []
+        if 'active' not in data:
+            data['active'] = False
+        if 'region' not in data:
+            data['region'] = ''
+        return data

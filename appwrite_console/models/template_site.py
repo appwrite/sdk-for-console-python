@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .template_framework import TemplateFramework
@@ -53,3 +53,32 @@ class TemplateSite(AppwriteModel):
     providerowner: str = Field(..., alias='providerOwner')
     providerversion: str = Field(..., alias='providerVersion')
     variables: List[TemplateVariable] = Field(..., alias='variables')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'key' not in data:
+            data['key'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'tagline' not in data:
+            data['tagline'] = ''
+        if 'screenshotDark' not in data and 'screenshotdark' not in data:
+            data['screenshotDark'] = ''
+        if 'screenshotLight' not in data and 'screenshotlight' not in data:
+            data['screenshotLight'] = ''
+        if 'useCases' not in data and 'usecases' not in data:
+            data['useCases'] = []
+        if 'vcsProvider' not in data and 'vcsprovider' not in data:
+            data['vcsProvider'] = ''
+        if 'providerRepositoryId' not in data and 'providerrepositoryid' not in data:
+            data['providerRepositoryId'] = ''
+        if 'providerOwner' not in data and 'providerowner' not in data:
+            data['providerOwner'] = ''
+        if 'providerVersion' not in data and 'providerversion' not in data:
+            data['providerVersion'] = ''
+        return data

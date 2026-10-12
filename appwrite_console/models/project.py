@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .project_auth_method import ProjectAuthMethod
@@ -170,3 +170,56 @@ class Project(AppwriteModel):
     oauth2serverusercodeformat: Optional[str] = Field(default=None, alias='oAuth2ServerUserCodeFormat')
     oauth2serverdevicecodeduration: Optional[float] = Field(default=None, alias='oAuth2ServerDeviceCodeDuration')
     oauth2serverdiscoveryurl: Optional[str] = Field(default=None, alias='oAuth2ServerDiscoveryUrl')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'teamId' not in data and 'teamid' not in data:
+            data['teamId'] = ''
+        if 'region' not in data:
+            data['region'] = 'fra'
+        if 'smtpEnabled' not in data and 'smtpenabled' not in data:
+            data['smtpEnabled'] = False
+        if 'smtpSenderName' not in data and 'smtpsendername' not in data:
+            data['smtpSenderName'] = ''
+        if 'smtpSenderEmail' not in data and 'smtpsenderemail' not in data:
+            data['smtpSenderEmail'] = ''
+        if 'smtpReplyToName' not in data and 'smtpreplytoname' not in data:
+            data['smtpReplyToName'] = ''
+        if 'smtpReplyToEmail' not in data and 'smtpreplytoemail' not in data:
+            data['smtpReplyToEmail'] = ''
+        if 'smtpHost' not in data and 'smtphost' not in data:
+            data['smtpHost'] = ''
+        if 'smtpPort' not in data and 'smtpport' not in data:
+            data['smtpPort'] = 0
+        if 'smtpUsername' not in data and 'smtpusername' not in data:
+            data['smtpUsername'] = ''
+        if 'smtpPassword' not in data and 'smtppassword' not in data:
+            data['smtpPassword'] = ''
+        if 'smtpSecure' not in data and 'smtpsecure' not in data:
+            data['smtpSecure'] = ''
+        if 'pingCount' not in data and 'pingcount' not in data:
+            data['pingCount'] = 0
+        if 'pingedAt' not in data and 'pingedat' not in data:
+            data['pingedAt'] = ''
+        if 'labels' not in data:
+            data['labels'] = []
+        if 'status' not in data:
+            data['status'] = 'active'
+        if 'onboarding' not in data:
+            data['onboarding'] = []
+        if 'consoleAccessedAt' not in data and 'consoleaccessedat' not in data:
+            data['consoleAccessedAt'] = ''
+        return data

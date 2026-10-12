@@ -12,7 +12,8 @@ project = Project(client)
 result: PlatformAndroid = project.create_android_platform(
     platform_id = '<PLATFORM_ID>',
     name = '<NAME>',
-    application_id = '<APPLICATION_ID>'
+    application_id = '<APPLICATION_ID>',
+    fingerprints = [] # optional
 )
 
 print(result.model_dump())

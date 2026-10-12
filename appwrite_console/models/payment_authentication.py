@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -30,3 +30,24 @@ class PaymentAuthentication(AppwriteModel):
     invoiceid: str = Field(..., alias='invoiceId')
     addonid: str = Field(..., alias='addonId')
     projectid: str = Field(..., alias='projectId')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'message' not in data:
+            data['message'] = 'Your payment requires authentication'
+        if 'clientSecret' not in data and 'clientsecret' not in data:
+            data['clientSecret'] = ''
+        if 'organizationId' not in data and 'organizationid' not in data:
+            data['organizationId'] = ''
+        if 'invoiceId' not in data and 'invoiceid' not in data:
+            data['invoiceId'] = ''
+        if 'addonId' not in data and 'addonid' not in data:
+            data['addonId'] = ''
+        if 'projectId' not in data and 'projectid' not in data:
+            data['projectId'] = ''
+        return data

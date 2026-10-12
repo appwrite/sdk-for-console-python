@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .database_status_connections import DatabaseStatusConnections
@@ -57,3 +57,30 @@ class DatabaseStatus(AppwriteModel):
     syncstateconfirmed: Optional[bool] = Field(default=None, alias='syncStateConfirmed')
     replicas: List[DatabaseStatusReplica] = Field(..., alias='replicas')
     volumes: List[DatabaseStatusVolume] = Field(..., alias='volumes')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'health' not in data:
+            data['health'] = 'unknown'
+        if 'ready' not in data:
+            data['ready'] = False
+        if 'engine' not in data:
+            data['engine'] = 'postgresql'
+        if 'version' not in data:
+            data['version'] = ''
+        if 'uptime' not in data:
+            data['uptime'] = 0
+        if 'syncMode' not in data and 'syncmode' not in data:
+            data['syncMode'] = 'async'
+        if 'syncDegraded' not in data and 'syncdegraded' not in data:
+            data['syncDegraded'] = False
+        if 'syncAcknowledgements' not in data and 'syncacknowledgements' not in data:
+            data['syncAcknowledgements'] = 0
+        if 'syncStandbyCount' not in data and 'syncstandbycount' not in data:
+            data['syncStandbyCount'] = 0
+        return data

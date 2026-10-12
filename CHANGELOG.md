@@ -1,5 +1,18 @@
 # Change Log
 
+## 0.12.0
+
+* Breaking: `teams.create_membership` takes `membership_id` third; pass later arguments by keyword
+* Added: `account` passkey methods: `create_passkey`, `update_passkey_verification`, `create_passkey_token`, `update_passkey_token`
+* Added: `account.list_passkeys`, `get_passkey`, `update_passkey` and `delete_passkey`
+* Added: `users.list_passkeys`, `get_passkey`, `update_passkey` and `delete_passkey`
+* Added: `project.update_passkey_policy` to set the relying party ID passkeys are bound to
+* Added: `Passkey`, `PasskeyList`, `PasskeyChallenge` and `TokenSecret` models
+* Added: `fingerprints` on Android platform create and update, and on `PlatformAndroid`
+* Added: optional `membership_id` on `teams.create_membership`
+* Added: `project.update_password_rotation_policy` and the `PolicyPasswordRotation` model
+* Fixed: response models fill missing fields from spec defaults instead of throwing
+
 ## 0.11.0
 
 * Added: optional `interval` parameter on `functions.create`, `functions.update` and `projects.create_schedule`

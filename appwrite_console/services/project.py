@@ -83,6 +83,7 @@ from ..models.policy_password_dictionary import PolicyPasswordDictionary
 from ..models.policy_password_history import PolicyPasswordHistory
 from ..models.policy_password_personal_data import PolicyPasswordPersonalData
 from ..models.policy_password_pwned import PolicyPasswordPwned
+from ..models.policy_password_rotation import PolicyPasswordRotation
 from ..models.policy_session_alert import PolicySessionAlert
 from ..models.policy_session_duration import PolicySessionDuration
 from ..models.policy_session_invalidation import PolicySessionInvalidation
@@ -3810,6 +3811,7 @@ class Project(Service):
         platform_id: str,
         name: str,
         application_id: str,
+        fingerprints: Optional[List[str]] = None,
     ) -> PlatformAndroid:
         """
         Create a new Android platform for your project. Use this endpoint to register a new Android platform where your users will run your application which will interact with the Appwrite API.
@@ -3822,6 +3824,8 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         application_id : str
             Android application ID. Max length: 256 chars.
+        fingerprints : Optional[List[str]]
+            SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`.
         Returns
         -------
         PlatformAndroid
@@ -3844,6 +3848,8 @@ class Project(Service):
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['applicationId'] = self._normalize_value(application_id)
+        if fingerprints is not None:
+            api_params['fingerprints'] = self._normalize_value(fingerprints)
 
         response = self.client.call(
             'post',
@@ -3863,9 +3869,10 @@ class Project(Service):
         platform_id: str,
         name: str,
         application_id: str,
+        fingerprints: Optional[List[str]] = None,
     ) -> PlatformAndroid:
         """
-        Update an Android platform by its unique ID. Use this endpoint to update the platform's name or application ID.
+        Update an Android platform by its unique ID. Use this endpoint to update the platform's name, application ID or signing certificate fingerprints.
 
         Parameters
         ----------
@@ -3875,6 +3882,8 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         application_id : str
             Android application ID. Max length: 256 chars.
+        fingerprints : Optional[List[str]]
+            SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`. Omit to keep the current list, or pass an empty array to clear it.
         Returns
         -------
         PlatformAndroid
@@ -3897,6 +3906,8 @@ class Project(Service):
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['applicationId'] = self._normalize_value(application_id)
+        if fingerprints is not None:
+            api_params['fingerprints'] = self._normalize_value(fingerprints)
 
         response = self.client.call(
             'put',
@@ -4767,6 +4778,47 @@ class Project(Service):
 
         return self._parse_response(response, model=ProjectModel)
 
+    def update_passkey_policy(
+        self,
+        rp_id: str,
+    ) -> ProjectModel:
+        """
+        Set the relying party ID passkeys are bound to: the domain of your application. Passkeys work on the project's web platforms on that domain or its subdomains, and on the domain itself for Apple apps. A localhost web platform enables passkeys for local development without a relying party ID. The relying party ID cannot change while users have passkeys, and any change invalidates ceremonies in progress.
+
+        Parameters
+        ----------
+        rp_id : str
+            Relying party ID: the domain of your application, such as `example.com`. Use `localhost` for local development, or an empty string to unset it.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/policies/passkey'
+        api_params = {}
+        if rp_id is None:
+            raise AppwriteException('Missing required parameter: "rp_id"')
+        api_params['rpId'] = self._normalize_value(rp_id)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
     def update_password_dictionary_policy(
         self,
         enabled: bool,
@@ -4926,6 +4978,51 @@ class Project(Service):
             api_params['sessions'] = self._normalize_value(sessions)
         if users is not None:
             api_params['users'] = self._normalize_value(users)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
+    def update_password_rotation_policy(
+        self,
+        enabled: Optional[bool] = None,
+        max_age: Optional[float] = None,
+    ) -> ProjectModel:
+        """
+        Require a password reset when an email/password sign-in uses a password older than the configured maximum age. Options left out keep their current value.
+
+        Parameters
+        ----------
+        enabled : Optional[bool]
+            Enable password rotation. Disabled by default.
+        max_age : Optional[float]
+            Maximum password age in seconds. Minimum allowed value is 86400 seconds (1 day), and maximum is 10 years, which is 315360000 seconds. Defaults to 1 year, which is 31536000 seconds.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/policies/password-rotation'
+        api_params = {}
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+        if max_age is not None:
+            api_params['maxAge'] = self._normalize_value(max_age)
 
         response = self.client.call(
             'patch',
@@ -5212,6 +5309,7 @@ class Project(Service):
         PolicyPasswordStrength,
         PolicyPasswordPersonalData,
         PolicyPasswordPwned,
+        PolicyPasswordRotation,
         PolicySessionAlert,
         PolicySessionDuration,
         PolicySessionInvalidation,
@@ -5231,10 +5329,10 @@ class Project(Service):
         Parameters
         ----------
         policy_id : ProjectPolicyId
-            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
+            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
         Returns
         -------
-        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail, PolicyPasskey]
+        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicyPasswordRotation, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail, PolicyPasskey]
             API response as one of the typed response models
 
         Raises
@@ -5275,6 +5373,9 @@ class Project(Service):
 
         if response.get('$id') == 'password-pwned':
             return self._parse_response(response, model=PolicyPasswordPwned)
+
+        if response.get('$id') == 'password-rotation':
+            return self._parse_response(response, model=PolicyPasswordRotation)
 
         if response.get('$id') == 'session-alert':
             return self._parse_response(response, model=PolicySessionAlert)

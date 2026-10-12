@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -42,3 +42,28 @@ class Topic(AppwriteModel):
     subscribe: List[Any] = Field(..., alias='subscribe')
     qos: Optional[float] = Field(default=None, alias='qos')
     expiry: Optional[float] = Field(default=None, alias='expiry')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'emailTotal' not in data and 'emailtotal' not in data:
+            data['emailTotal'] = 0
+        if 'smsTotal' not in data and 'smstotal' not in data:
+            data['smsTotal'] = 0
+        if 'pushTotal' not in data and 'pushtotal' not in data:
+            data['pushTotal'] = 0
+        if 'subscribe' not in data:
+            data['subscribe'] = ['users']
+        return data

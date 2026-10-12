@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -42,3 +42,30 @@ class AffiliateReferral(AppwriteModel):
     attributedat: str = Field(..., alias='attributedAt')
     expiresat: str = Field(..., alias='expiresAt')
     convertedat: Optional[str] = Field(default=None, alias='convertedAt')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'linkId' not in data and 'linkid' not in data:
+            data['linkId'] = ''
+        if 'referredUserMaskedId' not in data and 'referredusermaskedid' not in data:
+            data['referredUserMaskedId'] = ''
+        if 'referredUserCountry' not in data and 'referredusercountry' not in data:
+            data['referredUserCountry'] = ''
+        if 'status' not in data:
+            data['status'] = ''
+        if 'attributedAt' not in data and 'attributedat' not in data:
+            data['attributedAt'] = ''
+        if 'expiresAt' not in data and 'expiresat' not in data:
+            data['expiresAt'] = ''
+        return data

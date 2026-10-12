@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -96,3 +96,68 @@ class MigrationReport(AppwriteModel):
     version: str = Field(..., alias='version')
     oauth2_provider: float = Field(..., alias='oauth2-provider')
     backup_policy: float = Field(..., alias='backup-policy')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'user' not in data:
+            data['user'] = 0
+        if 'team' not in data:
+            data['team'] = 0
+        if 'database' not in data:
+            data['database'] = 0
+        if 'row' not in data:
+            data['row'] = 0
+        if 'file' not in data:
+            data['file'] = 0
+        if 'bucket' not in data:
+            data['bucket'] = 0
+        if 'function' not in data:
+            data['function'] = 0
+        if 'platform' not in data:
+            data['platform'] = 0
+        if 'api-key' not in data and 'api_key' not in data:
+            data['api-key'] = 0
+        if 'project-variable' not in data and 'project_variable' not in data:
+            data['project-variable'] = 0
+        if 'webhook' not in data:
+            data['webhook'] = 0
+        if 'auth-methods' not in data and 'auth_methods' not in data:
+            data['auth-methods'] = 0
+        if 'project-protocols' not in data and 'project_protocols' not in data:
+            data['project-protocols'] = 0
+        if 'project-labels' not in data and 'project_labels' not in data:
+            data['project-labels'] = 0
+        if 'project-services' not in data and 'project_services' not in data:
+            data['project-services'] = 0
+        if 'policies' not in data:
+            data['policies'] = 0
+        if 'smtp' not in data:
+            data['smtp'] = 0
+        if 'rule' not in data:
+            data['rule'] = 0
+        if 'project-email-template' not in data and 'project_email_template' not in data:
+            data['project-email-template'] = 0
+        if 'site' not in data:
+            data['site'] = 0
+        if 'provider' not in data:
+            data['provider'] = 0
+        if 'topic' not in data:
+            data['topic'] = 0
+        if 'subscriber' not in data:
+            data['subscriber'] = 0
+        if 'message' not in data:
+            data['message'] = 0
+        if 'size' not in data:
+            data['size'] = 0
+        if 'version' not in data:
+            data['version'] = ''
+        if 'oauth2-provider' not in data and 'oauth2_provider' not in data:
+            data['oauth2-provider'] = 0
+        if 'backup-policy' not in data and 'backup_policy' not in data:
+            data['backup-policy'] = 0
+        return data

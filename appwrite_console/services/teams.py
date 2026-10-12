@@ -570,6 +570,7 @@ class Teams(Service):
         self,
         team_id: str,
         roles: List[str],
+        membership_id: Optional[str] = None,
         email: Optional[str] = None,
         user_id: Optional[str] = None,
         phone: Optional[str] = None,
@@ -591,6 +592,8 @@ class Teams(Service):
             Team ID.
         roles : List[str]
             Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
+        membership_id : Optional[str]
+            Membership ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
         email : Optional[str]
             Email of the new team member.
         user_id : Optional[str]
@@ -619,6 +622,8 @@ class Teams(Service):
         if roles is None:
             raise AppwriteException('Missing required parameter: "roles"')
         api_path = api_path.replace('{teamId}', str(self._normalize_value(team_id)))
+        if membership_id is not None:
+            api_params['membershipId'] = self._normalize_value(membership_id)
         if email is not None:
             api_params['email'] = self._normalize_value(email)
         if user_id is not None:

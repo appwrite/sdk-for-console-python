@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -105,3 +105,64 @@ class ConsoleVariables(AppwriteModel):
     maxindexlength: float = Field(..., alias='maxIndexLength')
     supportforintegerids: bool = Field(..., alias='supportForIntegerIds')
     app_console_email_verification: str = Field(..., alias='_APP_CONSOLE_EMAIL_VERIFICATION')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '_APP_DOMAIN_TARGET_CNAME' not in data and 'app_domain_target_cname' not in data:
+            data['_APP_DOMAIN_TARGET_CNAME'] = ''
+        if '_APP_DOMAIN_TARGET_A' not in data and 'app_domain_target_a' not in data:
+            data['_APP_DOMAIN_TARGET_A'] = ''
+        if '_APP_DOMAIN_TARGET_AAAA' not in data and 'app_domain_target_aaaa' not in data:
+            data['_APP_DOMAIN_TARGET_AAAA'] = ''
+        if '_APP_DOMAIN_TARGET_CAA' not in data and 'app_domain_target_caa' not in data:
+            data['_APP_DOMAIN_TARGET_CAA'] = ''
+        if '_APP_USAGE_STATS' not in data and 'app_usage_stats' not in data:
+            data['_APP_USAGE_STATS'] = ''
+        if '_APP_VCS_ENABLED' not in data and 'app_vcs_enabled' not in data:
+            data['_APP_VCS_ENABLED'] = False
+        if '_APP_VCS_PROVIDERS' not in data and 'app_vcs_providers' not in data:
+            data['_APP_VCS_PROVIDERS'] = []
+        if '_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION' not in data and 'app_vcs_providers_with_repository_creation' not in data:
+            data['_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION'] = []
+        if '_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES' not in data and 'app_vcs_providers_with_public_repositories' not in data:
+            data['_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES'] = []
+        if '_APP_DOMAIN_ENABLED' not in data and 'app_domain_enabled' not in data:
+            data['_APP_DOMAIN_ENABLED'] = False
+        if '_APP_DOMAIN_SITES' not in data and 'app_domain_sites' not in data:
+            data['_APP_DOMAIN_SITES'] = ''
+        if '_APP_DOMAIN_FUNCTIONS' not in data and 'app_domain_functions' not in data:
+            data['_APP_DOMAIN_FUNCTIONS'] = ''
+        if '_APP_OPTIONS_FORCE_HTTPS' not in data and 'app_options_force_https' not in data:
+            data['_APP_OPTIONS_FORCE_HTTPS'] = ''
+        if '_APP_DOMAINS_NAMESERVERS' not in data and 'app_domains_nameservers' not in data:
+            data['_APP_DOMAINS_NAMESERVERS'] = ''
+        if '_APP_DB_ADAPTER' not in data and 'app_db_adapter' not in data:
+            data['_APP_DB_ADAPTER'] = 'mariadb'
+        if 'supportForRelationships' not in data and 'supportforrelationships' not in data:
+            data['supportForRelationships'] = True
+        if 'supportForOperators' not in data and 'supportforoperators' not in data:
+            data['supportForOperators'] = True
+        if 'supportForSpatials' not in data and 'supportforspatials' not in data:
+            data['supportForSpatials'] = True
+        if 'supportForSpatialIndexNull' not in data and 'supportforspatialindexnull' not in data:
+            data['supportForSpatialIndexNull'] = False
+        if 'supportForFulltextWildcard' not in data and 'supportforfulltextwildcard' not in data:
+            data['supportForFulltextWildcard'] = True
+        if 'supportForMultipleFulltextIndexes' not in data and 'supportformultiplefulltextindexes' not in data:
+            data['supportForMultipleFulltextIndexes'] = True
+        if 'supportForAttributeResizing' not in data and 'supportforattributeresizing' not in data:
+            data['supportForAttributeResizing'] = True
+        if 'supportForSchemas' not in data and 'supportforschemas' not in data:
+            data['supportForSchemas'] = True
+        if 'maxIndexLength' not in data and 'maxindexlength' not in data:
+            data['maxIndexLength'] = 768
+        if 'supportForIntegerIds' not in data and 'supportforintegerids' not in data:
+            data['supportForIntegerIds'] = True
+        if '_APP_CONSOLE_EMAIL_VERIFICATION' not in data and 'app_console_email_verification' not in data:
+            data['_APP_CONSOLE_EMAIL_VERIFICATION'] = ''
+        return data

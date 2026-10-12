@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from ..enums.database_type import DatabaseType
@@ -61,3 +61,24 @@ class Database(AppwriteModel):
     lifecyclestate: Optional[str] = Field(default=None, alias='lifecycleState')
     policies: Optional[List[BackupPolicy]] = Field(default=None, alias='policies')
     archives: Optional[List[BackupArchive]] = Field(default=None, alias='archives')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'enabled' not in data:
+            data['enabled'] = True
+        if 'type' not in data:
+            data['type'] = 'legacy'
+        return data

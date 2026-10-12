@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -42,3 +42,32 @@ class DowngradeFeedback(AppwriteModel):
     teamid: str = Field(..., alias='teamId')
     userid: str = Field(..., alias='userId')
     version: str = Field(..., alias='version')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'title' not in data:
+            data['title'] = ''
+        if 'message' not in data:
+            data['message'] = ''
+        if 'fromPlanId' not in data and 'fromplanid' not in data:
+            data['fromPlanId'] = ''
+        if 'toPlanId' not in data and 'toplanid' not in data:
+            data['toPlanId'] = ''
+        if 'teamId' not in data and 'teamid' not in data:
+            data['teamId'] = ''
+        if 'userId' not in data and 'userid' not in data:
+            data['userId'] = ''
+        if 'version' not in data:
+            data['version'] = ''
+        return data
