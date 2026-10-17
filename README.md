@@ -49,9 +49,9 @@ sit alongside `appwrite` in the same environment.
 from appwrite_console.client import Client
 
 client = Client()
-client.set_endpoint(&#039;https://cloud.appwrite.io/v1&#039;)
-client.set_project(&#039;console&#039;)
-client.set_session(&#039;your-console-session&#039;)
+client.set_endpoint('https://cloud.appwrite.io/v1')
+client.set_project('console')
+client.set_session('your-console-session')
 ```
 
 Console endpoints authenticate as a Console user, not with a project API key. Use
@@ -83,13 +83,13 @@ Projects are scoped to an organization:
 from appwrite_console.services.organization import Organization
 
 organization = Organization(client)
-organization.client.set_organization(&#039;your-organization-id&#039;)
+organization.client.set_organization('your-organization-id')
 
 projects = organization.list_projects()
 for project in projects.projects:
     print(project.id, project.name)
 
-project = organization.get_project(&#039;your-project-id&#039;)
+project = organization.get_project('your-project-id')
 ```
 
 ### Queries
@@ -99,7 +99,7 @@ from appwrite_console.query import Query
 
 result = organization.list_projects(queries=[
     Query.limit(25),
-    Query.order_desc(&#039;$createdAt&#039;),
+    Query.order_desc('$createdAt'),
 ])
 ```
 
@@ -109,7 +109,7 @@ result = organization.list_projects(queries=[
 from appwrite_console.exception import AppwriteException
 
 try:
-    project = organization.get_project(&#039;missing-project&#039;)
+    project = organization.get_project('missing-project')
 except AppwriteException as error:
     print(error.message, error.code, error.type)
 ```
@@ -123,9 +123,9 @@ from appwrite_console.services.organization import Organization
 from appwrite_console.exception import AppwriteException
 
 client = Client()
-client.set_endpoint(&#039;https://cloud.appwrite.io/v1&#039;)
-client.set_project(&#039;console&#039;)
-client.set_session(&#039;your-console-session&#039;)
+client.set_endpoint('https://cloud.appwrite.io/v1')
+client.set_project('console')
+client.set_session('your-console-session')
 
 organizations = Organizations(client)
 organization = Organization(client)
@@ -135,9 +135,9 @@ try:
         client.set_organization(team.id)
 
         for project in organization.list_projects().projects:
-            print(f&#039;{team.name} / {project.name} ({project.id})&#039;)
+            print(f'{team.name} / {project.name} ({project.id})')
 except AppwriteException as error:
-    print(f&#039;Error: {error.message}&#039;)
+    print(f'Error: {error.message}')
 ```
 
 ## Contribution
