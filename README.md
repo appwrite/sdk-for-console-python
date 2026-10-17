@@ -1,12 +1,11 @@
 # Appwrite Console Python SDK
 
-![License](https://img.shields.io/github/license/appwrite/sdk-for-console-python.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-2.4.0-blue.svg?style=flat-square)
-[![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
-[![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
+![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-2.5.0-blue.svg?style=flat-square)
+[![X Account](https://img.shields.io/badge/follow-%40appwrite-000000?logo=x&style=flat-square)](https://x.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK targets Appwrite server version 2.4.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-console-python/releases) when APIs differ.
+**This SDK targets Appwrite server version 2.5.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-console-python/releases) when APIs differ.
 
 Appwrite is an open-source backend as a service server that abstracts and simplifies complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Console Python SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
@@ -14,18 +13,17 @@ Appwrite is an open-source backend as a service server that abstracts and simpli
 
 ## Installation
 
-To install via [PyPI](https://pypi.org/):
+Requires Python 3.9 or later. Install the [`appwrite-console`](https://pypi.org/project/appwrite-console/) package from PyPI:
 
 ```bash
 pip install appwrite-console
 ```
 
-Or with `uv`:
+Or with [uv](https://docs.astral.sh/uv/):
 
 ```bash
 uv add appwrite-console
 ```
-
 
 ## Getting Started
 
@@ -51,9 +49,9 @@ sit alongside `appwrite` in the same environment.
 from appwrite_console.client import Client
 
 client = Client()
-client.set_endpoint('https://cloud.appwrite.io/v1')
-client.set_project('console')
-client.set_session('your-console-session')
+client.set_endpoint(&#039;https://cloud.appwrite.io/v1&#039;)
+client.set_project(&#039;console&#039;)
+client.set_session(&#039;your-console-session&#039;)
 ```
 
 Console endpoints authenticate as a Console user, not with a project API key. Use
@@ -85,13 +83,13 @@ Projects are scoped to an organization:
 from appwrite_console.services.organization import Organization
 
 organization = Organization(client)
-organization.client.set_organization('your-organization-id')
+organization.client.set_organization(&#039;your-organization-id&#039;)
 
 projects = organization.list_projects()
 for project in projects.projects:
     print(project.id, project.name)
 
-project = organization.get_project('your-project-id')
+project = organization.get_project(&#039;your-project-id&#039;)
 ```
 
 ### Queries
@@ -101,7 +99,7 @@ from appwrite_console.query import Query
 
 result = organization.list_projects(queries=[
     Query.limit(25),
-    Query.order_desc('$createdAt'),
+    Query.order_desc(&#039;$createdAt&#039;),
 ])
 ```
 
@@ -111,7 +109,7 @@ result = organization.list_projects(queries=[
 from appwrite_console.exception import AppwriteException
 
 try:
-    project = organization.get_project('missing-project')
+    project = organization.get_project(&#039;missing-project&#039;)
 except AppwriteException as error:
     print(error.message, error.code, error.type)
 ```
@@ -125,9 +123,9 @@ from appwrite_console.services.organization import Organization
 from appwrite_console.exception import AppwriteException
 
 client = Client()
-client.set_endpoint('https://cloud.appwrite.io/v1')
-client.set_project('console')
-client.set_session('your-console-session')
+client.set_endpoint(&#039;https://cloud.appwrite.io/v1&#039;)
+client.set_project(&#039;console&#039;)
+client.set_session(&#039;your-console-session&#039;)
 
 organizations = Organizations(client)
 organization = Organization(client)
@@ -137,15 +135,14 @@ try:
         client.set_organization(team.id)
 
         for project in organization.list_projects().projects:
-            print(f'{team.name} / {project.name} ({project.id})')
+            print(f&#039;{team.name} / {project.name} ({project.id})&#039;)
 except AppwriteException as error:
-    print(f'Error: {error.message}')
+    print(f&#039;Error: {error.message}&#039;)
 ```
-
 
 ## Contribution
 
-This library is auto-generated by Appwrite custom [SDK Generator](https://github.com/appwrite/sdk-generator). To learn more about how you can help us improve this SDK, please check the [contribution guide](https://github.com/appwrite/sdk-generator/blob/master/CONTRIBUTING.md) before sending a pull-request.
+This library is auto-generated by Appwrite custom [SDK Generator](https://github.com/appwrite/sdk-generator). To learn more about how you can help us improve this SDK, please check the [contribution guide](https://github.com/appwrite/sdk-generator/blob/main/CONTRIBUTING.md) before sending a pull-request.
 
 ## License
 
