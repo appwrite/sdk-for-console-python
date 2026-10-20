@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.14.0
+
+* Added: `strip_metadata` on `storage.create_bucket`, `update_bucket` and the `Bucket` model
+* Fixed: `databases.list_documents` and `tables_db.list_rows` docs say SDK models fill the system fields that aggregate, groupBy and distinct results omit with empty values
+
 ## 0.13.0
 
 * Breaking: requests send `X-Appwrite-Response-Format: 2.5.0`; responses follow the 2.5 shapes

@@ -47,6 +47,7 @@ class StorageServiceTest(unittest.TestCase):
             "encryption": True,
             "antivirus": True,
             "transformations": True,
+            "stripMetadata": True,
             "totalSize": 128.0,
         }
         headers = {'Content-Type': 'application/json'}
@@ -79,6 +80,7 @@ class StorageServiceTest(unittest.TestCase):
             "encryption": True,
             "antivirus": True,
             "transformations": True,
+            "stripMetadata": True,
             "totalSize": 128.0,
         }
         headers = {'Content-Type': 'application/json'}
@@ -110,6 +112,7 @@ class StorageServiceTest(unittest.TestCase):
             "encryption": True,
             "antivirus": True,
             "transformations": True,
+            "stripMetadata": True,
             "totalSize": 128.0,
         }
         headers = {'Content-Type': 'application/json'}
