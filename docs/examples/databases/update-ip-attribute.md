@@ -15,7 +15,8 @@ result: AttributeIp = databases.update_ip_attribute(
     key = '<KEY>',
     required = False,
     default = '192.0.2.0',
-    new_key = '<NEW_KEY>' # optional
+    new_key = '<NEW_KEY>', # optional
+    description = '<DESCRIPTION>' # optional
 )
 
 print(result.model_dump())

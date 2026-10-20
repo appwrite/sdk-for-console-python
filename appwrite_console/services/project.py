@@ -5,6 +5,7 @@ from ..exception import AppwriteException
 from appwrite_console.utils.deprecated import deprecated
 from ..models.project import Project as ProjectModel
 from ..enums.project_auth_method_id import ProjectAuthMethodId
+from ..models.project_list import ProjectList
 from ..models.key_list import KeyList
 from ..enums.project_key_scopes import ProjectKeyScopes
 from ..models.key import Key
@@ -83,6 +84,7 @@ from ..models.policy_password_dictionary import PolicyPasswordDictionary
 from ..models.policy_password_history import PolicyPasswordHistory
 from ..models.policy_password_personal_data import PolicyPasswordPersonalData
 from ..models.policy_password_pwned import PolicyPasswordPwned
+from ..models.policy_password_rotation import PolicyPasswordRotation
 from ..models.policy_session_alert import PolicySessionAlert
 from ..models.policy_session_duration import PolicySessionDuration
 from ..models.policy_session_invalidation import PolicySessionInvalidation
@@ -221,6 +223,225 @@ class Project(Service):
 
         return self._parse_response(response, model=ProjectModel)
 
+    def list_environments(
+        self,
+        queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
+    ) -> ProjectList:
+        """
+        Get a list of all environments of the project. You can use the query params to filter your results.
+
+        Parameters
+        ----------
+        queries : Optional[List[str]]
+            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, teamId, labels, search, accessedAt, status, parentId
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
+        Returns
+        -------
+        ProjectList
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/environments'
+        api_params = {}
+        if queries is not None:
+            api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
+
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectList)
+
+    def create_environment(
+        self,
+        environment_id: str,
+        name: str,
+    ) -> ProjectModel:
+        """
+        Create a new environment of the project. An environment is a separate project in the same organization and region, with its own resources and users. Its usage is billed under the project it belongs to.
+
+        Parameters
+        ----------
+        environment_id : str
+            Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, and hyphen. Can't start with a special char. Max length is 36 chars.
+        name : str
+            Environment name. Max length: 128 chars.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/environments'
+        api_params = {}
+        if environment_id is None:
+            raise AppwriteException('Missing required parameter: "environment_id"')
+        if name is None:
+            raise AppwriteException('Missing required parameter: "name"')
+        api_params['environmentId'] = self._normalize_value(environment_id)
+        api_params['name'] = self._normalize_value(name)
+
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
+    def get_environment(
+        self,
+        environment_id: str,
+    ) -> ProjectModel:
+        """
+        Get an environment of the project by its unique ID.
+
+        Parameters
+        ----------
+        environment_id : str
+            Environment unique ID.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/environments/{environmentId}'
+        api_params = {}
+        if environment_id is None or environment_id == '':
+            raise AppwriteException('Missing required parameter: "environment_id"')
+        api_path = api_path.replace('{environmentId}', str(self._normalize_value(environment_id)))
+
+        response = self.client.call(
+            'get',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
+    def update_environment(
+        self,
+        environment_id: str,
+        name: str,
+    ) -> ProjectModel:
+        """
+        Update the name of an environment of the project.
+
+        Parameters
+        ----------
+        environment_id : str
+            Environment unique ID.
+        name : str
+            Environment name. Max length: 128 chars.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/environments/{environmentId}'
+        api_params = {}
+        if environment_id is None or environment_id == '':
+            raise AppwriteException('Missing required parameter: "environment_id"')
+        if name is None:
+            raise AppwriteException('Missing required parameter: "name"')
+        api_path = api_path.replace('{environmentId}', str(self._normalize_value(environment_id)))
+        api_params['name'] = self._normalize_value(name)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
+    def delete_environment(
+        self,
+        environment_id: str,
+    ) -> Dict[str, Any]:
+        """
+        Delete an environment of the project, with all of its resources and users.
+
+        Parameters
+        ----------
+        environment_id : str
+            Environment unique ID.
+        Returns
+        -------
+        Dict[str, Any]
+            API response as a dictionary
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/environments/{environmentId}'
+        api_params = {}
+        if environment_id is None or environment_id == '':
+            raise AppwriteException('Missing required parameter: "environment_id"')
+        api_path = api_path.replace('{environmentId}', str(self._normalize_value(environment_id)))
+
+        response = self.client.call(
+            'delete',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return response
+
     def list_keys(
         self,
         queries: Optional[List[str]] = None,
@@ -271,6 +492,7 @@ class Project(Service):
         name: str,
         scopes: List[ProjectKeyScopes],
         expire: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> Key:
         """
         Create a new API key. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
@@ -287,6 +509,8 @@ class Project(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         expire : Optional[str]
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+        description : Optional[str]
+            Optional description for the key.
         Returns
         -------
         Key
@@ -311,6 +535,8 @@ class Project(Service):
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
             api_params['expire'] = self._normalize_value(expire)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -420,6 +646,7 @@ class Project(Service):
         name: str,
         scopes: List[ProjectKeyScopes],
         expire: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> Key:
         """
         Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
@@ -434,6 +661,8 @@ class Project(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         expire : Optional[str]
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+        description : Optional[str]
+            Optional description for the key.
         Returns
         -------
         Key
@@ -458,6 +687,8 @@ class Project(Service):
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
             api_params['expire'] = self._normalize_value(expire)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'put',
@@ -990,8 +1221,8 @@ class Project(Service):
         key_id: Optional[str] = None,
         team_id: Optional[str] = None,
         p8_file: Optional[str] = None,
-        native_client_ids: Optional[List[str]] = None,
         enabled: Optional[bool] = None,
+        native_client_ids: Optional[List[str]] = None,
         native_enabled: Optional[bool] = None,
     ) -> OAuth2Apple:
         """
@@ -1007,10 +1238,10 @@ class Project(Service):
             'Team ID' of Apple OAuth2 app. For example: D4000000R6
         p8_file : Optional[str]
             Contents of the Apple OAuth2 app .p8 private key file. The secret key wrapped by the PEM markers is 200 characters long. For example: -----BEGIN PRIVATE KEY-----MIGTAg...jy2Xbna-----END PRIVATE KEY-----
-        native_client_ids : Optional[List[str]]
-            App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
         enabled : Optional[bool]
             Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+        native_client_ids : Optional[List[str]]
+            App bundle IDs accepted as ID token audiences for native Sign in with Apple. For example: com.example.app. Together with the Services ID, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
         native_enabled : Optional[bool]
             Native Sign in with Apple status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a Services ID or at least one native client ID to match tokens against, but no key or team ID: this method verifies a signature rather than redeeming an authorization code.
         Returns
@@ -1034,10 +1265,10 @@ class Project(Service):
             api_params['teamId'] = self._normalize_value(team_id)
         if p8_file is not None:
             api_params['p8File'] = self._normalize_value(p8_file)
-        if native_client_ids is not None:
-            api_params['nativeClientIds'] = self._normalize_value(native_client_ids)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if native_client_ids is not None:
+            api_params['nativeClientIds'] = self._normalize_value(native_client_ids)
         if native_enabled is not None:
             api_params['nativeEnabled'] = self._normalize_value(native_enabled)
 
@@ -1109,8 +1340,8 @@ class Project(Service):
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         endpoint: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2Auth0Prompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2Auth0Prompt]] = None,
     ) -> OAuth2Auth0:
         """
         Update the project OAuth2 Auth0 configuration.
@@ -1123,10 +1354,10 @@ class Project(Service):
             'Client Secret' of Auth0 OAuth2 app. For example: zXz0000-00000000000000000000000000000-00000000000000000000PJafnF
         endpoint : Optional[str]
             Domain of Auth0 instance. For example: example.us.auth0.com
-        prompt : Optional[List[ProjectOAuth2Auth0Prompt]]
-            Array of Auth0 OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Auth0 default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2Auth0Prompt]]
+            Array of Auth0 OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Auth0 default.
         Returns
         -------
         OAuth2Auth0
@@ -1146,10 +1377,10 @@ class Project(Service):
             api_params['clientSecret'] = self._normalize_value(client_secret)
         if endpoint is not None:
             api_params['endpoint'] = self._normalize_value(endpoint)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -1523,8 +1754,8 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2DiscordPrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2DiscordPrompt]] = None,
     ) -> OAuth2Discord:
         """
         Update the project OAuth2 Discord configuration.
@@ -1535,10 +1766,10 @@ class Project(Service):
             'Client ID' of Discord OAuth2 app. For example: 950722000000343754
         client_secret : Optional[str]
             'Client Secret' of Discord OAuth2 app. For example: YmPXnM000000000000000000002zFg5D
-        prompt : Optional[List[ProjectOAuth2DiscordPrompt]]
-            Array with at most one Discord OAuth2 prompt value. "none" means: skip the authorization screen for users who already authorized the app with the requested scopes. "consent" means: ask users who already authorized the app to approve it again. Pass an empty array to use the Discord default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2DiscordPrompt]]
+            Array with at most one Discord OAuth2 prompt value. "none" means: skip the authorization screen for users who already authorized the app with the requested scopes. "consent" means: ask users who already authorized the app to approve it again. Pass an empty array to use the Discord default.
         Returns
         -------
         OAuth2Discord
@@ -1556,10 +1787,10 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -1883,8 +2114,8 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2GitHubPrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2GitHubPrompt]] = None,
     ) -> OAuth2Github:
         """
         Update the project OAuth2 GitHub configuration.
@@ -1895,10 +2126,10 @@ class Project(Service):
             'OAuth2 app Client ID, or App ID' of GitHub OAuth2 app. For example: e4d87900000000540733. Example of wrong value: 370006
         client_secret : Optional[str]
             'Client Secret' of GitHub OAuth2 app. For example: 5e07c00000000000000000000000000000198bcc
-        prompt : Optional[List[ProjectOAuth2GitHubPrompt]]
-            Array of GitHub OAuth2 prompt values. "select_account" means: prompt the user to select an account. Pass an empty array to use the GitHub default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2GitHubPrompt]]
+            Array of GitHub OAuth2 prompt values. "select_account" means: prompt the user to select an account. Pass an empty array to use the GitHub default.
         Returns
         -------
         OAuth2Github
@@ -1916,10 +2147,10 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -1994,8 +2225,8 @@ class Project(Service):
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         prompt: Optional[List[ProjectOAuth2GooglePrompt]] = None,
-        native_client_ids: Optional[List[str]] = None,
         enabled: Optional[bool] = None,
+        native_client_ids: Optional[List[str]] = None,
         native_enabled: Optional[bool] = None,
     ) -> OAuth2Google:
         """
@@ -2009,10 +2240,10 @@ class Project(Service):
             'Client Secret' of Google OAuth2 app. For example: GOCSPX-2k8gsR0000000000000000VNahJj
         prompt : Optional[List[ProjectOAuth2GooglePrompt]]
             Array of Google OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. Must not be specified with other values. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account.
-        native_client_ids : Optional[List[str]]
-            Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
         enabled : Optional[bool]
             Browser-based OAuth2 sign-in status. Set to true to enable new session creation through the redirect flow. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid. Has no effect on native sign-in, which is controlled by nativeEnabled only.
+        native_client_ids : Optional[List[str]]
+            Additional OAuth2 client IDs accepted as ID token audiences for native sign-in (Android and iOS client IDs). Together with the client ID, which is always accepted, these are the only client IDs whose tokens are trusted. Pass an empty array to clear the list.
         native_enabled : Optional[bool]
             Native Google sign-in status. This is the only switch for creating sessions from ID tokens obtained on device and is independent of enabled. Needs a client ID or at least one native client ID to match tokens against, but no client secret: this method verifies a signature rather than redeeming an authorization code.
         Returns
@@ -2034,10 +2265,10 @@ class Project(Service):
             api_params['clientSecret'] = self._normalize_value(client_secret)
         if prompt is not None:
             api_params['prompt'] = self._normalize_value(prompt)
-        if native_client_ids is not None:
-            api_params['nativeClientIds'] = self._normalize_value(native_client_ids)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if native_client_ids is not None:
+            api_params['nativeClientIds'] = self._normalize_value(native_client_ids)
         if native_enabled is not None:
             api_params['nativeEnabled'] = self._normalize_value(native_enabled)
 
@@ -2108,8 +2339,8 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2KakaoPrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2KakaoPrompt]] = None,
     ) -> OAuth2Kakao:
         """
         Update the project OAuth2 Kakao configuration.
@@ -2120,10 +2351,10 @@ class Project(Service):
             'REST API key' of Kakao OAuth2 app. For example: 839ff5000000000000000000013206de
         client_secret : Optional[str]
             'Client Secret' of Kakao OAuth2 app. For example: jLNVOK00000000000000000000yJebea. Generate it under Kakao Login > Security and set its status to enabled
-        prompt : Optional[List[ProjectOAuth2KakaoPrompt]]
-            Array of Kakao OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "create" means: prompt the user to sign up. "select_account" means: prompt the user to select an account. Pass an empty array to use the Kakao default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2KakaoPrompt]]
+            Array of Kakao OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "create" means: prompt the user to sign up. "select_account" means: prompt the user to select an account. Pass an empty array to use the Kakao default.
         Returns
         -------
         OAuth2Kakao
@@ -2141,10 +2372,10 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -2324,8 +2555,8 @@ class Project(Service):
         application_id: Optional[str] = None,
         application_secret: Optional[str] = None,
         tenant: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2MicrosoftPrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2MicrosoftPrompt]] = None,
     ) -> OAuth2Microsoft:
         """
         Update the project OAuth2 Microsoft configuration.
@@ -2338,10 +2569,10 @@ class Project(Service):
             'Entra ID Application Secret, also known as Client Secret' of Microsoft OAuth2 app. For example: A1bC2dE3fH4iJ5kL6mN7oP8qR9sT0u
         tenant : Optional[str]
             Microsoft Entra ID tenant identifier. Use 'common', 'organizations', 'consumers' or a specific tenant ID. For example: common
-        prompt : Optional[List[ProjectOAuth2MicrosoftPrompt]]
-            Array of Microsoft OAuth2 prompt values. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account. Pass an empty array to use the Microsoft default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2MicrosoftPrompt]]
+            Array of Microsoft OAuth2 prompt values. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. "select_account" means: prompt the user to select an account. Pass an empty array to use the Microsoft default.
         Returns
         -------
         OAuth2Microsoft
@@ -2361,10 +2592,10 @@ class Project(Service):
             api_params['applicationSecret'] = self._normalize_value(application_secret)
         if tenant is not None:
             api_params['tenant'] = self._normalize_value(tenant)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -2515,8 +2746,8 @@ class Project(Service):
         client_secret: Optional[str] = None,
         domain: Optional[str] = None,
         authorization_server_id: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2OktaPrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2OktaPrompt]] = None,
     ) -> OAuth2Okta:
         """
         Update the project OAuth2 Okta configuration.
@@ -2531,10 +2762,10 @@ class Project(Service):
             Okta company domain. Required when enabling the provider. For example: trial-6400025.okta.com. Example of wrong value: trial-6400025-admin.okta.com, or https://trial-6400025.okta.com/
         authorization_server_id : Optional[str]
             Custom Authorization Servers. Optional, can be left empty or unconfigured. For example: aus000000000000000h7z
-        prompt : Optional[List[ProjectOAuth2OktaPrompt]]
-            Array of Okta OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Okta default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2OktaPrompt]]
+            Array of Okta OAuth2 prompt values. If "none" is included, it must be the only element. "none" means: don't display any authentication or consent screens. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Okta default.
         Returns
         -------
         OAuth2Okta
@@ -2556,10 +2787,10 @@ class Project(Service):
             api_params['domain'] = self._normalize_value(domain)
         if authorization_server_id is not None:
             api_params['authorizationServerId'] = self._normalize_value(authorization_server_id)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -2778,8 +3009,8 @@ class Project(Service):
         self,
         customer_key: Optional[str] = None,
         customer_secret: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2SalesforcePrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2SalesforcePrompt]] = None,
     ) -> OAuth2Salesforce:
         """
         Update the project OAuth2 Salesforce configuration.
@@ -2790,10 +3021,10 @@ class Project(Service):
             'Consumer Key' of Salesforce OAuth2 app. For example: 3MVG9I0000000000000000000000000000000000000000000000000000000000000000000000000C5Aejq
         customer_secret : Optional[str]
             'Consumer Secret' of Salesforce OAuth2 app. For example: 3w000000000000e2
-        prompt : Optional[List[ProjectOAuth2SalesforcePrompt]]
-            Array of Salesforce OAuth2 prompt values. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Salesforce default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2SalesforcePrompt]]
+            Array of Salesforce OAuth2 prompt values. "login" means: prompt the user to re-authenticate. "consent" means: prompt the user for consent. Pass an empty array to use the Salesforce default.
         Returns
         -------
         OAuth2Salesforce
@@ -2811,10 +3042,10 @@ class Project(Service):
             api_params['customerKey'] = self._normalize_value(customer_key)
         if customer_secret is not None:
             api_params['customerSecret'] = self._normalize_value(customer_secret)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -3433,8 +3664,8 @@ class Project(Service):
         self,
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
-        prompt: Optional[List[ProjectOAuth2ZohoPrompt]] = None,
         enabled: Optional[bool] = None,
+        prompt: Optional[List[ProjectOAuth2ZohoPrompt]] = None,
     ) -> OAuth2Zoho:
         """
         Update the project OAuth2 Zoho configuration.
@@ -3445,10 +3676,10 @@ class Project(Service):
             'Client ID' of Zoho OAuth2 app. For example: 1000.83C178000000000000000000RPNX0B
         client_secret : Optional[str]
             'Client Secret' of Zoho OAuth2 app. For example: fb5cac000000000000000000000000000000a68f6e
-        prompt : Optional[List[ProjectOAuth2ZohoPrompt]]
-            Array of Zoho OAuth2 prompt values. "consent" means: prompt the user for consent. Pass an empty array to use the Zoho default.
         enabled : Optional[bool]
             OAuth2 sign-in method status. Set to true to enable new session creation. Setting to true will trigger end-to-end credentials validation, and will throw if the credentials are invalid.
+        prompt : Optional[List[ProjectOAuth2ZohoPrompt]]
+            Array of Zoho OAuth2 prompt values. "consent" means: prompt the user for consent. Pass an empty array to use the Zoho default.
         Returns
         -------
         OAuth2Zoho
@@ -3466,10 +3697,10 @@ class Project(Service):
             api_params['clientId'] = self._normalize_value(client_id)
         if client_secret is not None:
             api_params['clientSecret'] = self._normalize_value(client_secret)
-        if prompt is not None:
-            api_params['prompt'] = self._normalize_value(prompt)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
+        if prompt is not None:
+            api_params['prompt'] = self._normalize_value(prompt)
 
         response = self.client.call(
             'patch',
@@ -3810,6 +4041,7 @@ class Project(Service):
         platform_id: str,
         name: str,
         application_id: str,
+        fingerprints: Optional[List[str]] = None,
     ) -> PlatformAndroid:
         """
         Create a new Android platform for your project. Use this endpoint to register a new Android platform where your users will run your application which will interact with the Appwrite API.
@@ -3822,6 +4054,8 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         application_id : str
             Android application ID. Max length: 256 chars.
+        fingerprints : Optional[List[str]]
+            SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`.
         Returns
         -------
         PlatformAndroid
@@ -3844,6 +4078,8 @@ class Project(Service):
         api_params['platformId'] = self._normalize_value(platform_id)
         api_params['name'] = self._normalize_value(name)
         api_params['applicationId'] = self._normalize_value(application_id)
+        if fingerprints is not None:
+            api_params['fingerprints'] = self._normalize_value(fingerprints)
 
         response = self.client.call(
             'post',
@@ -3863,9 +4099,10 @@ class Project(Service):
         platform_id: str,
         name: str,
         application_id: str,
+        fingerprints: Optional[List[str]] = None,
     ) -> PlatformAndroid:
         """
-        Update an Android platform by its unique ID. Use this endpoint to update the platform's name or application ID.
+        Update an Android platform by its unique ID. Use this endpoint to update the platform's name, application ID or signing certificate fingerprints.
 
         Parameters
         ----------
@@ -3875,6 +4112,8 @@ class Project(Service):
             Platform name. Max length: 128 chars.
         application_id : str
             Android application ID. Max length: 256 chars.
+        fingerprints : Optional[List[str]]
+            SHA-256 fingerprints of the certificates your app is signed with, such as "14:6D:E9:...:2B:6A". Passkeys created in the app are accepted when its signature matches one. Find them under App signing in Play Console, or with `./gradlew signingReport`. Omit to keep the current list, or pass an empty array to clear it.
         Returns
         -------
         PlatformAndroid
@@ -3897,6 +4136,8 @@ class Project(Service):
         api_path = api_path.replace('{platformId}', str(self._normalize_value(platform_id)))
         api_params['name'] = self._normalize_value(name)
         api_params['applicationId'] = self._normalize_value(application_id)
+        if fingerprints is not None:
+            api_params['fingerprints'] = self._normalize_value(fingerprints)
 
         response = self.client.call(
             'put',
@@ -4811,14 +5052,19 @@ class Project(Service):
     def update_password_dictionary_policy(
         self,
         enabled: bool,
+        deny_list: Optional[List[str]] = None,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if new passwords are checked against most common passwords dictionary. When enabled, and user changes their password, password must not be contained in the dictionary.
+
+        Custom denyList entries use case-sensitive equality and apply only while this policy is enabled. Omit denyList or pass null to preserve it, pass an array to replace it, or pass [] to clear it. Entries are stored without trimming or deduplication. Existing passwords remain valid for sign-in and password confirmation. The combined serialized project authentication configuration must fit within 16,384 characters, even when each list meets its entry limits.
 
         Parameters
         ----------
         enabled : bool
             Toggle password dictionary policy. Set to true if you want password change to block passwords in the dictionary, or false to allow them. When changing this policy, existing passwords remain valid.
+        deny_list : Optional[List[str]]
+            Custom blocked values using case-sensitive equality. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
         Returns
         -------
         ProjectModel
@@ -4835,6 +5081,8 @@ class Project(Service):
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
         api_params['enabled'] = self._normalize_value(enabled)
+        if deny_list is not None:
+            api_params['denyList'] = self._normalize_value(deny_list)
 
         response = self.client.call(
             'patch',
@@ -4893,14 +5141,20 @@ class Project(Service):
     def update_password_personal_data_policy(
         self,
         enabled: bool,
+        deny_list: Optional[List[str]] = None,
     ) -> ProjectModel:
         """
         Updating this policy allows you to control if password strength is checked against personal data. When enabled, and user sets or changes their password, the password must not contain user ID, name, email or phone number.
+
+        Custom denyList entries use case-insensitive substring matching and apply only while this policy is enabled. Omit denyList or pass null to preserve it, pass an array to replace it, or pass [] to clear it. Entries are stored without trimming or deduplication. Existing passwords remain valid for sign-in and password confirmation. The combined serialized project authentication configuration must fit within 16,384 characters, even when each list meets its entry limits.
+        Password recovery also checks the recovered user profile, closing the previous gap in profile-based personal-data validation.
 
         Parameters
         ----------
         enabled : bool
             Toggle password personal data policy. Set to true if you want to block passwords including user's personal data, or false to allow it. When changing this policy, existing passwords remain valid.
+        deny_list : Optional[List[str]]
+            Custom blocked values using case-insensitive substring matching. Up to 100 entries of 1 to 256 characters. Omit or pass null to preserve, an array to replace, or [] to clear. Combined authentication settings must fit within 16,384 characters.
         Returns
         -------
         ProjectModel
@@ -4917,6 +5171,8 @@ class Project(Service):
         if enabled is None:
             raise AppwriteException('Missing required parameter: "enabled"')
         api_params['enabled'] = self._normalize_value(enabled)
+        if deny_list is not None:
+            api_params['denyList'] = self._normalize_value(deny_list)
 
         response = self.client.call(
             'patch',
@@ -4967,6 +5223,51 @@ class Project(Service):
             api_params['sessions'] = self._normalize_value(sessions)
         if users is not None:
             api_params['users'] = self._normalize_value(users)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProjectModel)
+
+    def update_password_rotation_policy(
+        self,
+        enabled: Optional[bool] = None,
+        max_age: Optional[float] = None,
+    ) -> ProjectModel:
+        """
+        Require a password reset when an email/password sign-in uses a password older than the configured maximum age. Options left out keep their current value.
+
+        Parameters
+        ----------
+        enabled : Optional[bool]
+            Enable password rotation. Disabled by default.
+        max_age : Optional[float]
+            Maximum password age in seconds. Minimum allowed value is 86400 seconds (1 day), and maximum is 10 years, which is 315360000 seconds. Defaults to 1 year, which is 31536000 seconds.
+        Returns
+        -------
+        ProjectModel
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/project/policies/password-rotation'
+        api_params = {}
+        if enabled is not None:
+            api_params['enabled'] = self._normalize_value(enabled)
+        if max_age is not None:
+            api_params['maxAge'] = self._normalize_value(max_age)
 
         response = self.client.call(
             'patch',
@@ -5253,6 +5554,7 @@ class Project(Service):
         PolicyPasswordStrength,
         PolicyPasswordPersonalData,
         PolicyPasswordPwned,
+        PolicyPasswordRotation,
         PolicySessionAlert,
         PolicySessionDuration,
         PolicySessionInvalidation,
@@ -5272,10 +5574,10 @@ class Project(Service):
         Parameters
         ----------
         policy_id : ProjectPolicyId
-            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
+            Policy ID. Can be one of: password-dictionary, password-history, password-strength, password-personal-data, password-pwned, password-rotation, session-alert, session-duration, session-invalidation, session-limit, user-limit, membership-privacy, mfa-factors, deny-aliased-email, deny-disposable-email, deny-free-email, deny-corporate-email, passkey.
         Returns
         -------
-        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail, PolicyPasskey]
+        Union[PolicyPasswordDictionary, PolicyPasswordHistory, PolicyPasswordStrength, PolicyPasswordPersonalData, PolicyPasswordPwned, PolicyPasswordRotation, PolicySessionAlert, PolicySessionDuration, PolicySessionInvalidation, PolicySessionLimit, PolicyUserLimit, PolicyMembershipPrivacy, PolicyMfaFactors, PolicyDenyAliasedEmail, PolicyDenyDisposableEmail, PolicyDenyFreeEmail, PolicyDenyCorporateEmail, PolicyPasskey]
             API response as one of the typed response models
 
         Raises
@@ -5316,6 +5618,9 @@ class Project(Service):
 
         if response.get('$id') == 'password-pwned':
             return self._parse_response(response, model=PolicyPasswordPwned)
+
+        if response.get('$id') == 'password-rotation':
+            return self._parse_response(response, model=PolicyPasswordRotation)
 
         if response.get('$id') == 'session-alert':
             return self._parse_response(response, model=PolicySessionAlert)
@@ -5790,6 +6095,7 @@ class Project(Service):
         key: str,
         value: str,
         secret: Optional[bool] = None,
+        description: Optional[str] = None,
     ) -> Variable:
         """
         Create a new project environment variable. These variables can be accessed by all functions and sites in the project.
@@ -5804,6 +6110,8 @@ class Project(Service):
             Variable value. Max length: 8192 chars.
         secret : Optional[bool]
             Secret variables can be updated or deleted, but only projects can read them during build and runtime.
+        description : Optional[str]
+            Optional description for the variable.
         Returns
         -------
         Variable
@@ -5828,6 +6136,8 @@ class Project(Service):
         api_params['value'] = self._normalize_value(value)
         if secret is not None:
             api_params['secret'] = self._normalize_value(secret)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -5888,6 +6198,7 @@ class Project(Service):
         key: Optional[str] = None,
         value: Optional[str] = None,
         secret: Optional[bool] = None,
+        description: Optional[str] = None,
     ) -> Variable:
         """
         Update variable by its unique ID.
@@ -5902,6 +6213,8 @@ class Project(Service):
             Variable value. Max length: 8192 chars.
         secret : Optional[bool]
             Secret variables can be updated or deleted, but only projects can read them during build and runtime.
+        description : Optional[str]
+            Optional description for the variable.
         Returns
         -------
         Variable
@@ -5924,6 +6237,8 @@ class Project(Service):
             api_params['value'] = self._normalize_value(value)
         if secret is not None:
             api_params['secret'] = self._normalize_value(secret)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'put',

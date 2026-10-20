@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -72,3 +72,30 @@ class PaymentMethod(AppwriteModel):
     default: bool = Field(..., alias='default')
     expired: bool = Field(..., alias='expired')
     failed: bool = Field(..., alias='failed')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if '$permissions' not in data and 'permissions' not in data:
+            data['$permissions'] = []
+        if 'providerMethodId' not in data and 'providermethodid' not in data:
+            data['providerMethodId'] = ''
+        if 'clientSecret' not in data and 'clientsecret' not in data:
+            data['clientSecret'] = ''
+        if 'providerUserId' not in data and 'provideruserid' not in data:
+            data['providerUserId'] = ''
+        if 'userId' not in data and 'userid' not in data:
+            data['userId'] = ''
+        if 'default' not in data:
+            data['default'] = False
+        return data

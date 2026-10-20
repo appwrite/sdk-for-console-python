@@ -27,7 +27,7 @@ class Analytics(Service):
         Parameters
         ----------
         queries : Optional[List[str]]
-            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, domain, enabled, public
+            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, domain, enabled
         search : Optional[str]
             Search term to filter your list results. Matches the property ID, name and domain. Max length: 256 chars.
         total : Optional[bool]
@@ -70,7 +70,6 @@ class Analytics(Service):
         name: str,
         domain: Optional[str] = None,
         enabled: Optional[bool] = None,
-        public: Optional[bool] = None,
         allowed_origins: Optional[List[str]] = None,
     ) -> AnalyticsProperty:
         """
@@ -85,9 +84,7 @@ class Analytics(Service):
         domain : Optional[str]
             Primary domain to track (e.g. example.com). Optional for native apps.
         enabled : Optional[bool]
-            Whether tracking is enabled.
-        public : Optional[bool]
-            Whether stats are publicly viewable.
+            Whether the property accepts events. Events sent to a disabled property are rejected as not found.
         allowed_origins : Optional[List[str]]
             Allowed origins for tracking. Use ["*"] to allow all.
         Returns
@@ -113,8 +110,6 @@ class Analytics(Service):
             api_params['domain'] = self._normalize_value(domain)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
-        if public is not None:
-            api_params['public'] = self._normalize_value(public)
         if allowed_origins is not None:
             api_params['allowedOrigins'] = self._normalize_value(allowed_origins)
 
@@ -177,7 +172,6 @@ class Analytics(Service):
         name: Optional[str] = None,
         domain: Optional[str] = None,
         enabled: Optional[bool] = None,
-        public: Optional[bool] = None,
         allowed_origins: Optional[List[str]] = None,
     ) -> AnalyticsProperty:
         """
@@ -192,9 +186,7 @@ class Analytics(Service):
         domain : Optional[str]
             Primary domain to track (e.g. example.com). Pass an empty string to clear it.
         enabled : Optional[bool]
-            Whether tracking is enabled.
-        public : Optional[bool]
-            Whether stats are publicly viewable.
+            Whether the property accepts events. Events sent to a disabled property are rejected as not found.
         allowed_origins : Optional[List[str]]
             Allowed origins for tracking. Use ["*"] to allow all.
         Returns
@@ -219,8 +211,6 @@ class Analytics(Service):
             api_params['domain'] = self._normalize_value(domain)
         if enabled is not None:
             api_params['enabled'] = self._normalize_value(enabled)
-        if public is not None:
-            api_params['public'] = self._normalize_value(public)
         if allowed_origins is not None:
             api_params['allowedOrigins'] = self._normalize_value(allowed_origins)
 
@@ -391,6 +381,7 @@ class Analytics(Service):
         start_at: Optional[str] = None,
         end_at: Optional[str] = None,
         limit: Optional[float] = None,
+        total: Optional[bool] = None,
     ) -> AnalyticsMetricList:
         """
         Read analytics metrics (visitors, sessions, pageviews, events, bounceRate, …) for a property over a date range.
@@ -420,6 +411,8 @@ class Analytics(Service):
             Explicit window end in ISO 8601. Defaults to the current time.
         limit : Optional[float]
             Maximum number of ranked values to return.
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         AnalyticsMetricList
@@ -450,6 +443,8 @@ class Analytics(Service):
             api_params['endAt'] = self._normalize_value(end_at)
         if limit is not None:
             api_params['limit'] = self._normalize_value(limit)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',

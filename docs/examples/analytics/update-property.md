@@ -14,7 +14,6 @@ result: AnalyticsProperty = analytics.update_property(
     name = '<NAME>', # optional
     domain = '<DOMAIN>', # optional
     enabled = False, # optional
-    public = False, # optional
     allowed_origins = [] # optional
 )
 

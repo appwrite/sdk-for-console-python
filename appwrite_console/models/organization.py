@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast, Generic, TypeVar, Type
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .preferences import Preferences
@@ -122,6 +122,41 @@ class Organization(AppwriteModel, Generic[T]):
     markedfordeletion: bool = Field(..., alias='markedForDeletion')
     platform: str = Field(..., alias='platform')
     projects: List[Any] = Field(..., alias='projects')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'total' not in data:
+            data['total'] = 0
+        if 'budgetAlerts' not in data and 'budgetalerts' not in data:
+            data['budgetAlerts'] = [75]
+        if 'billingPlan' not in data and 'billingplan' not in data:
+            data['billingPlan'] = 'tier-0'
+        if 'billingPlanId' not in data and 'billingplanid' not in data:
+            data['billingPlanId'] = 'tier-0'
+        if 'billingEmail' not in data and 'billingemail' not in data:
+            data['billingEmail'] = ''
+        if 'status' not in data:
+            data['status'] = 'draft'
+        if 'markedForDeletion' not in data and 'markedfordeletion' not in data:
+            data['markedForDeletion'] = False
+        if 'platform' not in data:
+            data['platform'] = 'appwrite'
+        if 'projects' not in data:
+            data['projects'] = []
+        return data
 
     @classmethod
     def with_data(cls, data: Dict[str, Any], model_type: Type[T] = dict) -> 'Organization[T]':

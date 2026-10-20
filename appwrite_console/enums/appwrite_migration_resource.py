@@ -40,4 +40,5 @@ class AppwriteMigrationResource(Enum):
     PROJECT_LABELS = "project-labels"
     PROJECT_SERVICES = "project-services"
     PROJECT_EMAIL_TEMPLATE = "project-email-template"
+    PROJECT_ENVIRONMENT = "project-environment"
     RULE = "rule"

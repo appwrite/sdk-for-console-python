@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .column_boolean import ColumnBoolean
@@ -41,6 +41,8 @@ class Table(AppwriteModel):
         Database ID.
     name : str
         Table name.
+    description : str
+        Optional description for the table.
     enabled : bool
         Table enabled. Can be &#039;enabled&#039; or &#039;disabled&#039;. When disabled, the table is inaccessible to users, but remains accessible to Server SDKs using API keys.
     rowsecurity : bool
@@ -61,6 +63,7 @@ class Table(AppwriteModel):
     permissions: List[Any] = Field(..., alias='$permissions')
     databaseid: str = Field(..., alias='databaseId')
     name: str = Field(..., alias='name')
+    description: str = Field(..., alias='description')
     enabled: bool = Field(..., alias='enabled')
     rowsecurity: bool = Field(..., alias='rowSecurity')
     columns: List[
@@ -88,3 +91,38 @@ class Table(AppwriteModel):
     indexes: List[ColumnIndex] = Field(..., alias='indexes')
     bytesmax: float = Field(..., alias='bytesMax')
     bytesused: float = Field(..., alias='bytesUsed')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if '$permissions' not in data and 'permissions' not in data:
+            data['$permissions'] = []
+        if 'databaseId' not in data and 'databaseid' not in data:
+            data['databaseId'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'description' not in data:
+            data['description'] = ''
+        if 'enabled' not in data:
+            data['enabled'] = True
+        if 'rowSecurity' not in data and 'rowsecurity' not in data:
+            data['rowSecurity'] = False
+        if 'columns' not in data:
+            data['columns'] = []
+        if 'indexes' not in data:
+            data['indexes'] = []
+        if 'bytesMax' not in data and 'bytesmax' not in data:
+            data['bytesMax'] = 0
+        if 'bytesUsed' not in data and 'bytesused' not in data:
+            data['bytesUsed'] = 0
+        return data

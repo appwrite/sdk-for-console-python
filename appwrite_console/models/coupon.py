@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -36,3 +36,26 @@ class Coupon(AppwriteModel):
     campaign: str = Field(..., alias='campaign')
     status: str = Field(..., alias='status')
     onlyneworgs: bool = Field(..., alias='onlyNewOrgs')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'code' not in data:
+            data['code'] = ''
+        if 'credits' not in data:
+            data['credits'] = 0
+        if 'expiration' not in data:
+            data['expiration'] = ''
+        if 'campaign' not in data:
+            data['campaign'] = ''
+        if 'status' not in data:
+            data['status'] = ''
+        if 'onlyNewOrgs' not in data and 'onlyneworgs' not in data:
+            data['onlyNewOrgs'] = False
+        return data

@@ -12,11 +12,11 @@ messaging = Messaging(client)
 
 result: Message = messaging.update_push(
     message_id = '<MESSAGE_ID>',
-    title = '<TITLE>', # optional
-    body = '<BODY>', # optional
     topics = [], # optional
     users = [], # optional
     targets = [], # optional
+    title = '<TITLE>', # optional
+    body = '<BODY>', # optional
     data = {}, # optional
     action = '<ACTION>', # optional
     image = '<ID1:ID2>', # optional

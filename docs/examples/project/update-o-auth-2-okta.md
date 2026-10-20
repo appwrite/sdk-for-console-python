@@ -15,8 +15,8 @@ result: OAuth2Okta = project.update_o_auth2_okta(
     client_secret = '<CLIENT_SECRET>', # optional
     domain = 'example.com', # optional
     authorization_server_id = '<AUTHORIZATION_SERVER_ID>', # optional
-    prompt = [ProjectOAuth2OktaPrompt.NONE], # optional
-    enabled = False # optional
+    enabled = False, # optional
+    prompt = [ProjectOAuth2OktaPrompt.NONE] # optional
 )
 
 print(result.model_dump())

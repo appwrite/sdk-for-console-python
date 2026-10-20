@@ -104,6 +104,7 @@ class Functions(Service):
         runtime_specification: Optional[str] = None,
         deployment_retention: Optional[float] = None,
         interval: Optional[float] = None,
+        description: Optional[str] = None,
     ) -> Function:
         """
         Create a new function. You can pass a list of [permissions](https://appwrite.io/docs/permissions) to allow different project users or team with access to execute the function using the client API.
@@ -156,6 +157,8 @@ class Functions(Service):
             Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
         interval : Optional[float]
             Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule.
+        description : Optional[str]
+            Optional description for the function.
         Returns
         -------
         Function
@@ -218,6 +221,8 @@ class Functions(Service):
             api_params['deploymentRetention'] = self._normalize_value(deployment_retention)
         if interval is not None:
             api_params['interval'] = self._normalize_value(interval)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -479,6 +484,8 @@ class Functions(Service):
         runtime_specification: Optional[str] = None,
         deployment_retention: Optional[float] = None,
         interval: Optional[float] = None,
+        description: Optional[str] = None,
+        email_enabled: Optional[bool] = None,
     ) -> Function:
         """
         Update function by its unique ID.
@@ -531,6 +538,10 @@ class Functions(Service):
             Days to keep non-active deployments before deletion. Value 0 means all deployments will be kept.
         interval : Optional[float]
             Minutes between scheduled executions. Appwrite picks when within each interval the function runs. Use 0 to disable. Cannot be combined with schedule. When omitted, the current interval is kept unless schedule is set.
+        description : Optional[str]
+            Optional description for the function.
+        email_enabled : Optional[bool]
+            Enable inbound email triggering for this function. When false or omitted on create, SMTP recipients are rejected. Opt-in; default is off.
         Returns
         -------
         Function
@@ -592,6 +603,10 @@ class Functions(Service):
             api_params['deploymentRetention'] = self._normalize_value(deployment_retention)
         if interval is not None:
             api_params['interval'] = self._normalize_value(interval)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
+        if email_enabled is not None:
+            api_params['emailEnabled'] = self._normalize_value(email_enabled)
 
         response = self.client.call(
             'put',
@@ -1484,6 +1499,7 @@ class Functions(Service):
         key: str,
         value: str,
         secret: Optional[bool] = None,
+        description: Optional[str] = None,
     ) -> Variable:
         """
         Create a new function environment variable. These variables can be accessed in the function at runtime as environment variables.
@@ -1500,6 +1516,8 @@ class Functions(Service):
             Variable value. Max length: 8192 chars.
         secret : Optional[bool]
             Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+        description : Optional[str]
+            Optional description for the variable.
         Returns
         -------
         Variable
@@ -1527,6 +1545,8 @@ class Functions(Service):
         api_params['value'] = self._normalize_value(value)
         if secret is not None:
             api_params['secret'] = self._normalize_value(secret)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -1594,6 +1614,7 @@ class Functions(Service):
         key: Optional[str] = None,
         value: Optional[str] = None,
         secret: Optional[bool] = None,
+        description: Optional[str] = None,
     ) -> Variable:
         """
         Update variable by its unique ID.
@@ -1610,6 +1631,8 @@ class Functions(Service):
             Variable value. Max length: 8192 chars.
         secret : Optional[bool]
             Secret variables can be updated or deleted, but only functions can read them during build and runtime.
+        description : Optional[str]
+            Optional description for the variable.
         Returns
         -------
         Variable
@@ -1635,6 +1658,8 @@ class Functions(Service):
             api_params['value'] = self._normalize_value(value)
         if secret is not None:
             api_params['secret'] = self._normalize_value(secret)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'put',

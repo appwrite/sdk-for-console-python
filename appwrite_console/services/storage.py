@@ -80,6 +80,7 @@ class Storage(Service):
         encryption: Optional[bool] = None,
         antivirus: Optional[bool] = None,
         transformations: Optional[bool] = None,
+        description: Optional[str] = None,
     ) -> Bucket:
         """
         Create a new storage bucket.
@@ -97,7 +98,7 @@ class Storage(Service):
         enabled : Optional[bool]
             Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
         maximum_file_size : Optional[float]
-            Maximum file size allowed in bytes. Maximum allowed value is 5GB.
+            Maximum file size allowed in bytes. Maximum allowed value is 0B.
         allowed_file_extensions : Optional[List[str]]
             Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
         compression : Optional[Compression]
@@ -108,6 +109,8 @@ class Storage(Service):
             Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
         transformations : Optional[bool]
             Are image transformations enabled?
+        description : Optional[str]
+            Optional description for the bucket.
         Returns
         -------
         Bucket
@@ -145,6 +148,8 @@ class Storage(Service):
             api_params['antivirus'] = self._normalize_value(antivirus)
         if transformations is not None:
             api_params['transformations'] = self._normalize_value(transformations)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -212,6 +217,7 @@ class Storage(Service):
         encryption: Optional[bool] = None,
         antivirus: Optional[bool] = None,
         transformations: Optional[bool] = None,
+        description: Optional[str] = None,
     ) -> Bucket:
         """
         Update a storage bucket by its unique ID.
@@ -229,7 +235,7 @@ class Storage(Service):
         enabled : Optional[bool]
             Is bucket enabled? When set to 'disabled', users cannot access the files in this bucket but Server SDKs with and API key can still access the bucket. No files are lost when this is toggled.
         maximum_file_size : Optional[float]
-            Maximum file size allowed in bytes. Maximum allowed value is 5GB.
+            Maximum file size allowed in bytes. Maximum allowed value is 0B.
         allowed_file_extensions : Optional[List[str]]
             Allowed file extensions. Maximum of 100 extensions are allowed, each 64 characters long.
         compression : Optional[Compression]
@@ -240,6 +246,8 @@ class Storage(Service):
             Is virus scanning enabled? For file size above 20MB AntiVirus scanning is skipped even if it's enabled
         transformations : Optional[bool]
             Are image transformations enabled?
+        description : Optional[str]
+            Optional description for the bucket.
         Returns
         -------
         Bucket
@@ -277,6 +285,8 @@ class Storage(Service):
             api_params['antivirus'] = self._normalize_value(antivirus)
         if transformations is not None:
             api_params['transformations'] = self._normalize_value(transformations)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'put',

@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from ..enums.o_auth2_oidc_prompt import OAuth2OidcPrompt
@@ -43,3 +43,30 @@ class OAuth2Oidc(AppwriteModel):
     tokenurl: str = Field(..., alias='tokenURL')
     userinfourl: str = Field(..., alias='userInfoURL')
     maxage: Optional[float] = Field(default=None, alias='maxAge')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'enabled' not in data:
+            data['enabled'] = False
+        if 'clientId' not in data and 'clientid' not in data:
+            data['clientId'] = ''
+        if 'clientSecret' not in data and 'clientsecret' not in data:
+            data['clientSecret'] = ''
+        if 'prompt' not in data:
+            data['prompt'] = []
+        if 'wellKnownURL' not in data and 'wellknownurl' not in data:
+            data['wellKnownURL'] = ''
+        if 'authorizationURL' not in data and 'authorizationurl' not in data:
+            data['authorizationURL'] = ''
+        if 'tokenURL' not in data and 'tokenurl' not in data:
+            data['tokenURL'] = ''
+        if 'userInfoURL' not in data and 'userinfourl' not in data:
+            data['userInfoURL'] = ''
+        return data

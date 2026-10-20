@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .usage_resources import UsageResources
@@ -82,3 +82,52 @@ class Invoice(AppwriteModel):
     dueat: str = Field(..., alias='dueAt')
     xfrom: str = Field(..., alias='from')
     to: str = Field(..., alias='to')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if '$permissions' not in data and 'permissions' not in data:
+            data['$permissions'] = []
+        if 'teamId' not in data and 'teamid' not in data:
+            data['teamId'] = ''
+        if 'aggregationId' not in data and 'aggregationid' not in data:
+            data['aggregationId'] = ''
+        if 'plan' not in data:
+            data['plan'] = 'tier-0'
+        if 'usage' not in data:
+            data['usage'] = []
+        if 'amount' not in data:
+            data['amount'] = 0
+        if 'tax' not in data:
+            data['tax'] = 0
+        if 'taxAmount' not in data and 'taxamount' not in data:
+            data['taxAmount'] = 0
+        if 'vat' not in data:
+            data['vat'] = 0
+        if 'vatAmount' not in data and 'vatamount' not in data:
+            data['vatAmount'] = 0
+        if 'grossAmount' not in data and 'grossamount' not in data:
+            data['grossAmount'] = 0
+        if 'creditsUsed' not in data and 'creditsused' not in data:
+            data['creditsUsed'] = 0
+        if 'currency' not in data:
+            data['currency'] = 'USD'
+        if 'status' not in data:
+            data['status'] = ''
+        if 'type' not in data:
+            data['type'] = 'subscription'
+        if 'from' not in data and 'xfrom' not in data:
+            data['from'] = ''
+        if 'to' not in data:
+            data['to'] = ''
+        return data
