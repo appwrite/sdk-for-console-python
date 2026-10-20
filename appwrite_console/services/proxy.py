@@ -83,7 +83,7 @@ class Proxy(Service):
         Parameters
         ----------
         queries : Optional[List[str]]
-            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: domain, type, trigger, deploymentResourceType, deploymentResourceId, deploymentId, deploymentVcsProviderBranch
+            Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: domain, type, trigger, deploymentResourceType, deploymentResourceId, deploymentId, deploymentVcsProviderBranch, protocol
         total : Optional[bool]
             When set to false, the total count returned will be 0 and will not be calculated.
         Returns
@@ -318,6 +318,58 @@ class Proxy(Service):
             raise AppwriteException('Missing required parameter: "site_id"')
         api_params['domain'] = self._normalize_value(domain)
         api_params['siteId'] = self._normalize_value(site_id)
+        if branch is not None:
+            api_params['branch'] = self._normalize_value(branch)
+
+        response = self.client.call(
+            'post',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return self._parse_response(response, model=ProxyRule)
+
+    def create_smtp_rule(
+        self,
+        domain: str,
+        function_id: str,
+        branch: Optional[str] = None,
+    ) -> ProxyRule:
+        """
+        Create an SMTP ingress rule that asynchronously executes an Appwrite Function for incoming email.
+
+        Parameters
+        ----------
+        domain : str
+            Domain that receives email.
+        function_id : str
+            ID of function to execute.
+        branch : Optional[str]
+            Name of VCS branch to deploy changes automatically.
+        Returns
+        -------
+        ProxyRule
+            API response as a typed Pydantic model
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/proxy/rules/smtp'
+        api_params = {}
+        if domain is None:
+            raise AppwriteException('Missing required parameter: "domain"')
+        if function_id is None:
+            raise AppwriteException('Missing required parameter: "function_id"')
+        api_params['domain'] = self._normalize_value(domain)
+        api_params['functionId'] = self._normalize_value(function_id)
         if branch is not None:
             api_params['branch'] = self._normalize_value(branch)
 

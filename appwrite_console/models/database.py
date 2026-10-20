@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from ..enums.database_type import DatabaseType
@@ -18,6 +18,8 @@ class Database(AppwriteModel):
         Database ID.
     name : str
         Database name.
+    description : str
+        Optional description for the database.
     createdat : str
         Database creation date in ISO 8601 format.
     updatedat : str
@@ -48,6 +50,7 @@ class Database(AppwriteModel):
 
     id: str = Field(..., alias='$id')
     name: str = Field(..., alias='name')
+    description: str = Field(..., alias='description')
     createdat: str = Field(..., alias='$createdAt')
     updatedat: str = Field(..., alias='$updatedAt')
     enabled: bool = Field(..., alias='enabled')
@@ -61,3 +64,26 @@ class Database(AppwriteModel):
     lifecyclestate: Optional[str] = Field(default=None, alias='lifecycleState')
     policies: Optional[List[BackupPolicy]] = Field(default=None, alias='policies')
     archives: Optional[List[BackupArchive]] = Field(default=None, alias='archives')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'description' not in data:
+            data['description'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'enabled' not in data:
+            data['enabled'] = True
+        if 'type' not in data:
+            data['type'] = 'legacy'
+        return data

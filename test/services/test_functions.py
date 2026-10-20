@@ -38,6 +38,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "execute": [],
             "name": "My Function",
+            "description": "Sends a welcome email to newly registered users.",
             "enabled": True,
             "live": True,
             "logging": True,
@@ -65,6 +66,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "providerPaths": [],
             "buildSpecification": "s-1vcpu-512mb",
             "runtimeSpecification": "s-1vcpu-512mb",
+            "emailEnabled": True,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -169,6 +171,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "execute": [],
             "name": "My Function",
+            "description": "Sends a welcome email to newly registered users.",
             "enabled": True,
             "live": True,
             "logging": True,
@@ -196,6 +199,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "providerPaths": [],
             "buildSpecification": "s-1vcpu-512mb",
             "runtimeSpecification": "s-1vcpu-512mb",
+            "emailEnabled": True,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -217,6 +221,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "execute": [],
             "name": "My Function",
+            "description": "Sends a welcome email to newly registered users.",
             "enabled": True,
             "live": True,
             "logging": True,
@@ -244,6 +249,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "providerPaths": [],
             "buildSpecification": "s-1vcpu-512mb",
             "runtimeSpecification": "s-1vcpu-512mb",
+            "emailEnabled": True,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -281,6 +287,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "execute": [],
             "name": "My Function",
+            "description": "Sends a welcome email to newly registered users.",
             "enabled": True,
             "live": True,
             "logging": True,
@@ -308,6 +315,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "providerPaths": [],
             "buildSpecification": "s-1vcpu-512mb",
             "runtimeSpecification": "s-1vcpu-512mb",
+            "emailEnabled": True,
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -770,6 +778,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "key": "API_KEY",
+            "description": "Stripe secret key used at checkout.",
             "value": "myPa$$word1",
             "secret": True,
             "resourceType": "function",
@@ -797,6 +806,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "key": "API_KEY",
+            "description": "Stripe secret key used at checkout.",
             "value": "myPa$$word1",
             "secret": True,
             "resourceType": "function",
@@ -822,6 +832,7 @@ class FunctionsServiceTest(unittest.TestCase):
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "key": "API_KEY",
+            "description": "Stripe secret key used at checkout.",
             "value": "myPa$$word1",
             "secret": True,
             "resourceType": "function",

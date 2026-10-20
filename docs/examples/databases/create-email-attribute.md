@@ -15,7 +15,8 @@ result: AttributeEmail = databases.create_email_attribute(
     key = '<KEY>',
     required = False,
     default = 'email@example.com', # optional
-    array = False # optional
+    array = False, # optional
+    description = '<DESCRIPTION>' # optional
 )
 
 print(result.model_dump())

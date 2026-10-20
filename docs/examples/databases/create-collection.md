@@ -19,7 +19,8 @@ result: Collection = databases.create_collection(
     document_security = False, # optional
     enabled = False, # optional
     attributes = [], # optional
-    indexes = [] # optional
+    indexes = [], # optional
+    description = '<DESCRIPTION>' # optional
 )
 
 print(result.model_dump())

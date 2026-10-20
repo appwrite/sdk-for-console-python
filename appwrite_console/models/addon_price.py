@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -36,3 +36,28 @@ class AddonPrice(AppwriteModel):
     totalcycledays: float = Field(..., alias='totalCycleDays')
     currency: str = Field(..., alias='currency')
     billingcycleend: str = Field(..., alias='billingCycleEnd')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'addonKey' not in data and 'addonkey' not in data:
+            data['addonKey'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'monthlyPrice' not in data and 'monthlyprice' not in data:
+            data['monthlyPrice'] = 0
+        if 'proratedAmount' not in data and 'proratedamount' not in data:
+            data['proratedAmount'] = 0
+        if 'remainingDays' not in data and 'remainingdays' not in data:
+            data['remainingDays'] = 0
+        if 'totalCycleDays' not in data and 'totalcycledays' not in data:
+            data['totalCycleDays'] = 0
+        if 'currency' not in data:
+            data['currency'] = 'USD'
+        if 'billingCycleEnd' not in data and 'billingcycleend' not in data:
+            data['billingCycleEnd'] = ''
+        return data

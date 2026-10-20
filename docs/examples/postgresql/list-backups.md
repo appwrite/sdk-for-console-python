@@ -11,7 +11,8 @@ postgresql = Postgresql(client)
 
 result: DedicatedDatabaseBackupList = postgresql.list_backups(
     database_id = '<DATABASE_ID>',
-    queries = [] # optional
+    queries = [], # optional
+    total = False # optional
 )
 
 print(result.model_dump())

@@ -12,7 +12,9 @@ account = Account(client)
 result: Target = account.create_push_target(
     target_id = '<TARGET_ID>',
     identifier = '<IDENTIFIER>',
-    provider_id = '<PROVIDER_ID>' # optional
+    provider_id = '<PROVIDER_ID>', # optional
+    bundle_id = '<BUNDLE_ID>', # optional
+    environment = 'sandbox' # optional
 )
 
 print(result.model_dump())

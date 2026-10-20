@@ -42,6 +42,7 @@ class Organizations(Service):
         self,
         queries: Optional[List[str]] = None,
         search: Optional[str] = None,
+        total: Optional[bool] = None,
         model_type: Type[T] = dict,
     ) -> OrganizationList[T]:
         """
@@ -53,6 +54,8 @@ class Organizations(Service):
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total, billingPlan, paymentMethodId, backupPaymentMethodId, platform
         search : Optional[str]
             Search term to filter your list results. Max length: 256 chars.
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         model_type : Type[T], optional
             Pydantic model class for the user-defined data. Defaults to dict for backward compatibility.
 
@@ -73,6 +76,8 @@ class Organizations(Service):
             api_params['queries'] = self._normalize_value(queries)
         if search is not None:
             api_params['search'] = self._normalize_value(search)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -595,6 +600,7 @@ class Organizations(Service):
         self,
         organization_id: str,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> AggregationTeamList:
         """
         Get a list of all aggregations for an organization.
@@ -605,6 +611,8 @@ class Organizations(Service):
             Organization ID
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: teamId, aggregationId, from, to
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         AggregationTeamList
@@ -623,6 +631,8 @@ class Organizations(Service):
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -939,6 +949,7 @@ class Organizations(Service):
         self,
         organization_id: str,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> CreditList:
         """
         List all credits for an organization.
@@ -949,6 +960,8 @@ class Organizations(Service):
             Organization ID
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: teamId, couponId, credits, expiration, status
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         CreditList
@@ -967,6 +980,8 @@ class Organizations(Service):
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1280,6 +1295,7 @@ class Organizations(Service):
         self,
         organization_id: str,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> InvoiceList:
         """
         List all invoices for an organization.
@@ -1290,6 +1306,8 @@ class Organizations(Service):
             Organization ID
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: teamId, aggregationId, type, amount, currency, from, to, dueAt, attempts, status, grossAmount
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         InvoiceList
@@ -1308,6 +1326,8 @@ class Organizations(Service):
         api_path = api_path.replace('{organizationId}', str(self._normalize_value(organization_id)))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',

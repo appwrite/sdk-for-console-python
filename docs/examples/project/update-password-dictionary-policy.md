@@ -10,7 +10,8 @@ client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 project = Project(client)
 
 result: ProjectModel = project.update_password_dictionary_policy(
-    enabled = False
+    enabled = False,
+    deny_list = [] # optional
 )
 
 print(result.model_dump())

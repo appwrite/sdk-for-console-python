@@ -13,8 +13,8 @@ project = Project(client)
 result: OAuth2Github = project.update_o_auth2_git_hub(
     client_id = '<CLIENT_ID>', # optional
     client_secret = '<CLIENT_SECRET>', # optional
-    prompt = [ProjectOAuth2GitHubPrompt.SELECT_ACCOUNT], # optional
-    enabled = False # optional
+    enabled = False, # optional
+    prompt = [ProjectOAuth2GitHubPrompt.SELECT_ACCOUNT] # optional
 )
 
 print(result.model_dump())

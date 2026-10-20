@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .plan_change_resource_compliance import PlanChangeResourceCompliance
@@ -35,3 +35,20 @@ class PlanChangeLimits(AppwriteModel):
     domains: PlanChangeResourceCompliance = Field(..., alias='domains')
     noncompliantprojects: float = Field(..., alias='nonCompliantProjects')
     projectcompliance: List[PlanChangeProjectCompliance] = Field(..., alias='projectCompliance')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'canChangePlan' not in data and 'canchangeplan' not in data:
+            data['canChangePlan'] = True
+        if 'unsupportedAddons' not in data and 'unsupportedaddons' not in data:
+            data['unsupportedAddons'] = []
+        if 'nonCompliantProjects' not in data and 'noncompliantprojects' not in data:
+            data['nonCompliantProjects'] = 0
+        if 'projectCompliance' not in data and 'projectcompliance' not in data:
+            data['projectCompliance'] = []
+        return data

@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -24,3 +24,20 @@ class ConsoleOAuth2ProviderParameter(AppwriteModel):
     name: str = Field(..., alias='name')
     example: str = Field(..., alias='example')
     hint: str = Field(..., alias='hint')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'example' not in data:
+            data['example'] = ''
+        if 'hint' not in data:
+            data['hint'] = ''
+        return data

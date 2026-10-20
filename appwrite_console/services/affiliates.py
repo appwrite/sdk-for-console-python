@@ -18,6 +18,7 @@ class Affiliates(Service):
     def list_links(
         self,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> AffiliateLinkList:
         """
         List affiliate links for the current account.
@@ -26,6 +27,8 @@ class Affiliates(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, status
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         AffiliateLinkList
@@ -41,6 +44,8 @@ class Affiliates(Service):
         api_params = {}
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -184,6 +189,7 @@ class Affiliates(Service):
     def list_referrals(
         self,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> AffiliateReferralList:
         """
         List referrals attributed to the current account's affiliate links. Responses include privacy-safe metadata only (truncated user ID and signup country), never email or name. Referrals are created automatically on signup when the invite cookie is present.
@@ -192,6 +198,8 @@ class Affiliates(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: linkId, referredUserMaskedId, referredUserCountry, status, attributedAt, expiresAt, convertedAt
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         AffiliateReferralList
@@ -207,6 +215,8 @@ class Affiliates(Service):
         api_params = {}
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -223,6 +233,7 @@ class Affiliates(Service):
     def list_rewards(
         self,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> AffiliateRewardList:
         """
         List rewards earned by the current account from affiliate link conversions.
@@ -231,6 +242,8 @@ class Affiliates(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: linkId, referralId, amount, status, teamId, creditId
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         AffiliateRewardList
@@ -246,6 +259,8 @@ class Affiliates(Service):
         api_params = {}
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',

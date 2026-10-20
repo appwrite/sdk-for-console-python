@@ -81,11 +81,12 @@ class Messaging(Service):
         cc: Optional[List[str]] = None,
         bcc: Optional[List[str]] = None,
         attachments: Optional[List[str]] = None,
-        reply_to_email: Optional[str] = None,
-        reply_to_name: Optional[str] = None,
         draft: Optional[bool] = None,
         html: Optional[bool] = None,
         scheduled_at: Optional[str] = None,
+        reply_to_email: Optional[str] = None,
+        reply_to_name: Optional[str] = None,
+        emails: Optional[List[str]] = None,
     ) -> Message:
         """
         Create a new email message.
@@ -110,16 +111,18 @@ class Messaging(Service):
             Array of target IDs to be added as BCC.
         attachments : Optional[List[str]]
             Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
-        reply_to_email : Optional[str]
-            Email address to reply to. If not set, defaults to the sender email address.
-        reply_to_name : Optional[str]
-            Name of the reply to recipient. If not set, defaults to the sender name.
         draft : Optional[bool]
             Is message a draft
         html : Optional[bool]
             Is content of type HTML
         scheduled_at : Optional[str]
             Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+        reply_to_email : Optional[str]
+            Email address to reply to. If not set, defaults to the sender email address.
+        reply_to_name : Optional[str]
+            Name of the reply to recipient. If not set, defaults to the sender name.
+        emails : Optional[List[str]]
+            List of email addresses to send the message to. Use this to deliver to recipients that are not backed by an Appwrite user, target, or topic.
         Returns
         -------
         Message
@@ -154,16 +157,18 @@ class Messaging(Service):
             api_params['bcc'] = self._normalize_value(bcc)
         if attachments is not None:
             api_params['attachments'] = self._normalize_value(attachments)
-        if reply_to_email is not None:
-            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
-        if reply_to_name is not None:
-            api_params['replyToName'] = self._normalize_value(reply_to_name)
         if draft is not None:
             api_params['draft'] = self._normalize_value(draft)
         if html is not None:
             api_params['html'] = self._normalize_value(html)
         if scheduled_at is not None:
             api_params['scheduledAt'] = self._normalize_value(scheduled_at)
+        if reply_to_email is not None:
+            api_params['replyToEmail'] = self._normalize_value(reply_to_email)
+        if reply_to_name is not None:
+            api_params['replyToName'] = self._normalize_value(reply_to_name)
+        if emails is not None:
+            api_params['emails'] = self._normalize_value(emails)
 
         response = self.client.call(
             'post',
@@ -181,19 +186,20 @@ class Messaging(Service):
     def update_email(
         self,
         message_id: str,
-        subject: Optional[str] = None,
-        content: Optional[str] = None,
         topics: Optional[List[str]] = None,
         users: Optional[List[str]] = None,
         targets: Optional[List[str]] = None,
+        subject: Optional[str] = None,
+        content: Optional[str] = None,
+        draft: Optional[bool] = None,
+        html: Optional[bool] = None,
         cc: Optional[List[str]] = None,
         bcc: Optional[List[str]] = None,
+        scheduled_at: Optional[str] = None,
         attachments: Optional[List[str]] = None,
         reply_to_email: Optional[str] = None,
         reply_to_name: Optional[str] = None,
-        draft: Optional[bool] = None,
-        html: Optional[bool] = None,
-        scheduled_at: Optional[str] = None,
+        emails: Optional[List[str]] = None,
     ) -> Message:
         """
         Update an email message by its unique ID. This endpoint only works on messages that are in draft status. Messages that are already processing, sent, or failed cannot be updated.
@@ -202,32 +208,34 @@ class Messaging(Service):
         ----------
         message_id : str
             Message ID.
-        subject : Optional[str]
-            Email Subject.
-        content : Optional[str]
-            Email Content.
         topics : Optional[List[str]]
             List of Topic IDs.
         users : Optional[List[str]]
             List of User IDs.
         targets : Optional[List[str]]
             List of Targets IDs.
+        subject : Optional[str]
+            Email Subject.
+        content : Optional[str]
+            Email Content.
+        draft : Optional[bool]
+            Is message a draft
+        html : Optional[bool]
+            Is content of type HTML
         cc : Optional[List[str]]
             Array of target IDs to be added as CC.
         bcc : Optional[List[str]]
             Array of target IDs to be added as BCC.
+        scheduled_at : Optional[str]
+            Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
         attachments : Optional[List[str]]
             Array of compound ID strings of bucket IDs and file IDs to be attached to the email. They should be formatted as <BUCKET_ID>:<FILE_ID>.
         reply_to_email : Optional[str]
             Email address to reply to. Pass an empty string to restore the provider or sender default.
         reply_to_name : Optional[str]
             Name of the reply to recipient. Pass an empty string to restore the provider or sender default.
-        draft : Optional[bool]
-            Is message a draft
-        html : Optional[bool]
-            Is content of type HTML
-        scheduled_at : Optional[str]
-            Scheduled delivery time for message in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+        emails : Optional[List[str]]
+            List of email addresses to send the message to. Use this to deliver to recipients that are not backed by an Appwrite user, target, or topic.
         Returns
         -------
         Message
@@ -244,32 +252,34 @@ class Messaging(Service):
         if message_id is None or message_id == '':
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
-        if subject is not None:
-            api_params['subject'] = self._normalize_value(subject)
-        if content is not None:
-            api_params['content'] = self._normalize_value(content)
         if topics is not None:
             api_params['topics'] = self._normalize_value(topics)
         if users is not None:
             api_params['users'] = self._normalize_value(users)
         if targets is not None:
             api_params['targets'] = self._normalize_value(targets)
+        if subject is not None:
+            api_params['subject'] = self._normalize_value(subject)
+        if content is not None:
+            api_params['content'] = self._normalize_value(content)
+        if draft is not None:
+            api_params['draft'] = self._normalize_value(draft)
+        if html is not None:
+            api_params['html'] = self._normalize_value(html)
         if cc is not None:
             api_params['cc'] = self._normalize_value(cc)
         if bcc is not None:
             api_params['bcc'] = self._normalize_value(bcc)
+        if scheduled_at is not None:
+            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
         if attachments is not None:
             api_params['attachments'] = self._normalize_value(attachments)
         if reply_to_email is not None:
             api_params['replyToEmail'] = self._normalize_value(reply_to_email)
         if reply_to_name is not None:
             api_params['replyToName'] = self._normalize_value(reply_to_name)
-        if draft is not None:
-            api_params['draft'] = self._normalize_value(draft)
-        if html is not None:
-            api_params['html'] = self._normalize_value(html)
-        if scheduled_at is not None:
-            api_params['scheduledAt'] = self._normalize_value(scheduled_at)
+        if emails is not None:
+            api_params['emails'] = self._normalize_value(emails)
 
         response = self.client.call(
             'patch',
@@ -423,11 +433,11 @@ class Messaging(Service):
     def update_push(
         self,
         message_id: str,
-        title: Optional[str] = None,
-        body: Optional[str] = None,
         topics: Optional[List[str]] = None,
         users: Optional[List[str]] = None,
         targets: Optional[List[str]] = None,
+        title: Optional[str] = None,
+        body: Optional[str] = None,
         data: Optional[Dict[str, Any]] = None,
         action: Optional[str] = None,
         image: Optional[str] = None,
@@ -450,16 +460,16 @@ class Messaging(Service):
         ----------
         message_id : str
             Message ID.
-        title : Optional[str]
-            Title for push notification.
-        body : Optional[str]
-            Body for push notification.
         topics : Optional[List[str]]
             List of Topic IDs.
         users : Optional[List[str]]
             List of User IDs.
         targets : Optional[List[str]]
             List of Targets IDs.
+        title : Optional[str]
+            Title for push notification.
+        body : Optional[str]
+            Body for push notification.
         data : Optional[Dict[str, Any]]
             Additional Data for push notification.
         action : Optional[str]
@@ -504,16 +514,16 @@ class Messaging(Service):
         if message_id is None or message_id == '':
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
-        if title is not None:
-            api_params['title'] = self._normalize_value(title)
-        if body is not None:
-            api_params['body'] = self._normalize_value(body)
         if topics is not None:
             api_params['topics'] = self._normalize_value(topics)
         if users is not None:
             api_params['users'] = self._normalize_value(users)
         if targets is not None:
             api_params['targets'] = self._normalize_value(targets)
+        if title is not None:
+            api_params['title'] = self._normalize_value(title)
+        if body is not None:
+            api_params['body'] = self._normalize_value(body)
         if data is not None:
             api_params['data'] = self._normalize_value(data)
         if action is not None:
@@ -631,10 +641,10 @@ class Messaging(Service):
     def update_sms(
         self,
         message_id: str,
-        content: Optional[str] = None,
         topics: Optional[List[str]] = None,
         users: Optional[List[str]] = None,
         targets: Optional[List[str]] = None,
+        content: Optional[str] = None,
         draft: Optional[bool] = None,
         scheduled_at: Optional[str] = None,
     ) -> Message:
@@ -645,14 +655,14 @@ class Messaging(Service):
         ----------
         message_id : str
             Message ID.
-        content : Optional[str]
-            Email Content.
         topics : Optional[List[str]]
             List of Topic IDs.
         users : Optional[List[str]]
             List of User IDs.
         targets : Optional[List[str]]
             List of Targets IDs.
+        content : Optional[str]
+            Email Content.
         draft : Optional[bool]
             Is message a draft
         scheduled_at : Optional[str]
@@ -673,14 +683,14 @@ class Messaging(Service):
         if message_id is None or message_id == '':
             raise AppwriteException('Missing required parameter: "message_id"')
         api_path = api_path.replace('{messageId}', str(self._normalize_value(message_id)))
-        if content is not None:
-            api_params['content'] = self._normalize_value(content)
         if topics is not None:
             api_params['topics'] = self._normalize_value(topics)
         if users is not None:
             api_params['users'] = self._normalize_value(users)
         if targets is not None:
             api_params['targets'] = self._normalize_value(targets)
+        if content is not None:
+            api_params['content'] = self._normalize_value(content)
         if draft is not None:
             api_params['draft'] = self._normalize_value(draft)
         if scheduled_at is not None:
@@ -1054,7 +1064,7 @@ class Messaging(Service):
         qos : Optional[float]
             Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
         expiry : Optional[float]
-            Default message retention in seconds for offline delivery. Max 7 days (604800).
+            Default message retention in seconds for offline delivery. Max 7 days (604800). Applies to topics with a null expiry; the lowest across enabled Appwrite providers wins.
         Returns
         -------
         Provider
@@ -1116,7 +1126,7 @@ class Messaging(Service):
         qos : Optional[float]
             Default QoS for topics on this provider (0 or 1). Null lets the subscriber choose.
         expiry : Optional[float]
-            Default message retention in seconds for offline delivery. Max 7 days (604800).
+            Default message retention in seconds for offline delivery. Max 7 days (604800). Applies to topics with a null expiry; the lowest across enabled Appwrite providers wins.
         Returns
         -------
         Provider
@@ -2936,6 +2946,7 @@ class Messaging(Service):
         subscribe: Optional[List[str]] = None,
         qos: Optional[float] = None,
         expiry: Optional[float] = None,
+        description: Optional[str] = None,
     ) -> Topic:
         """
         Create a new topic.
@@ -2951,7 +2962,9 @@ class Messaging(Service):
         qos : Optional[float]
             MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
         expiry : Optional[float]
-            Message retention in seconds for offline delivery. Max 7 days (604800).
+            Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
+        description : Optional[str]
+            Optional description for the topic.
         Returns
         -------
         Topic
@@ -2977,6 +2990,8 @@ class Messaging(Service):
             api_params['qos'] = self._normalize_value(qos)
         if expiry is not None:
             api_params['expiry'] = self._normalize_value(expiry)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -3038,6 +3053,7 @@ class Messaging(Service):
         subscribe: Optional[List[str]] = None,
         qos: Optional[float] = None,
         expiry: Optional[float] = None,
+        description: Optional[str] = None,
     ) -> Topic:
         """
         Update a topic by its unique ID.
@@ -3053,7 +3069,9 @@ class Messaging(Service):
         qos : Optional[float]
             MQTT delivery quality of service for this topic. 0 is fire-and-forget (delivered only to clients connected at publish time). 1 persists each message and replays it when a client reconnects without having acknowledged it. Null lets the subscriber choose.
         expiry : Optional[float]
-            Message retention in seconds for offline delivery. Max 7 days (604800).
+            Message retention in seconds for offline delivery. Max 7 days (604800). Null inherits the lowest expiry of the project's enabled Appwrite providers, or the 7-day ledger window if none sets one.
+        description : Optional[str]
+            Optional description for the topic.
         Returns
         -------
         Topic
@@ -3078,6 +3096,8 @@ class Messaging(Service):
             api_params['qos'] = self._normalize_value(qos)
         if expiry is not None:
             api_params['expiry'] = self._normalize_value(expiry)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'patch',

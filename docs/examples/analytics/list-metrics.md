@@ -19,7 +19,8 @@ result: AnalyticsMetricList = analytics.list_metrics(
     date_range = '<DATE_RANGE>', # optional
     start_at = '2020-10-15T06:38:00.000+00:00', # optional
     end_at = '2020-10-15T06:38:00.000+00:00', # optional
-    limit = 1 # optional
+    limit = 1, # optional
+    total = False # optional
 )
 
 print(result.model_dump())

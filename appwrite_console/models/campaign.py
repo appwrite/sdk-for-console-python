@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .review import Review
@@ -49,3 +49,20 @@ class Campaign(AppwriteModel):
     reviews: Optional[List[Review]] = Field(default=None, alias='reviews')
     onlyneworgs: Optional[bool] = Field(default=None, alias='onlyNewOrgs')
     footer: Optional[bool] = Field(default=None, alias='footer')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if 'template' not in data:
+            data['template'] = ''
+        if 'title' not in data:
+            data['title'] = ''
+        if 'description' not in data:
+            data['description'] = ''
+        return data
