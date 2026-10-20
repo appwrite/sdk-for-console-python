@@ -38,6 +38,8 @@ class Bucket(AppwriteModel):
         Virus scanning is enabled.
     transformations : bool
         Image transformations are enabled.
+    stripmetadata : bool
+        Metadata such as location, device and capture time is removed from uploaded images.
     totalsize : float
         Total size of this bucket in bytes.
     """
@@ -56,6 +58,7 @@ class Bucket(AppwriteModel):
     encryption: bool = Field(..., alias='encryption')
     antivirus: bool = Field(..., alias='antivirus')
     transformations: bool = Field(..., alias='transformations')
+    stripmetadata: bool = Field(..., alias='stripMetadata')
     totalsize: float = Field(..., alias='totalSize')
 
     @model_validator(mode='before')
@@ -93,6 +96,8 @@ class Bucket(AppwriteModel):
             data['antivirus'] = True
         if 'transformations' not in data:
             data['transformations'] = True
+        if 'stripMetadata' not in data and 'stripmetadata' not in data:
+            data['stripMetadata'] = False
         if 'totalSize' not in data and 'totalsize' not in data:
             data['totalSize'] = 0
         return data

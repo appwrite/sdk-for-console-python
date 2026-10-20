@@ -23,6 +23,7 @@
 * Added: `membership_id` on `teams.create_membership`, and `deny_list` on the password dictionary and personal data policies
 * Added: `Query` aggregates, `group_by`, `having`, `distinct`, joins, `relationship`, `covers`, `spatial_equals`, `page` and `Query.builder()`
 * Added: `trigram` index type, `Project.parent_id`, `ConsoleVariables` support flags and `BillingPlan.environments` and `functions_allow_cron`
+* Added: `strip_metadata` on `storage.create_bucket`, `update_bucket` and the `Bucket` model
 * Updated: package classifiers list Python 3.13
 
 ## 0.12.0

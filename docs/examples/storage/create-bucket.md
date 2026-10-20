@@ -24,7 +24,8 @@ result: Bucket = storage.create_bucket(
     encryption = False, # optional
     antivirus = False, # optional
     transformations = False, # optional
-    description = '<DESCRIPTION>' # optional
+    description = '<DESCRIPTION>', # optional
+    strip_metadata = False # optional
 )
 
 print(result.model_dump())
