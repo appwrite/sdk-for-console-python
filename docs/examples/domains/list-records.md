@@ -11,7 +11,8 @@ domains = Domains(client)
 
 result: DnsRecordsList = domains.list_records(
     domain_id = '<DOMAIN_ID>',
-    queries = [] # optional
+    queries = [], # optional
+    total = False # optional
 )
 
 print(result.model_dump())

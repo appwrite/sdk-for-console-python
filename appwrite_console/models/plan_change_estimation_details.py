@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -39,3 +39,30 @@ class PlanChangeEstimationDetails(AppwriteModel):
     nextinvoicedate: str = Field(..., alias='nextInvoiceDate')
     items: List[Any] = Field(..., alias='items')
     discounts: List[Any] = Field(..., alias='discounts')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'currency' not in data:
+            data['currency'] = 'USD'
+        if 'grossAmount' not in data and 'grossamount' not in data:
+            data['grossAmount'] = 0
+        if 'credits' not in data:
+            data['credits'] = 0
+        if 'organizationCredits' not in data and 'organizationcredits' not in data:
+            data['organizationCredits'] = 0
+        if 'discount' not in data:
+            data['discount'] = 0
+        if 'amount' not in data:
+            data['amount'] = 0
+        if 'nextInvoiceDate' not in data and 'nextinvoicedate' not in data:
+            data['nextInvoiceDate'] = ''
+        if 'items' not in data:
+            data['items'] = []
+        if 'discounts' not in data:
+            data['discounts'] = []
+        return data

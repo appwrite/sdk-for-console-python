@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -168,3 +168,102 @@ class DedicatedDatabase(AppwriteModel):
     sqlapimaxbytes: float = Field(..., alias='sqlApiMaxBytes')
     sqlapitimeoutseconds: float = Field(..., alias='sqlApiTimeoutSeconds')
     error: str = Field(..., alias='error')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'projectId' not in data and 'projectid' not in data:
+            data['projectId'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'version' not in data:
+            data['version'] = ''
+        if 'specification' not in data:
+            data['specification'] = ''
+        if 'backend' not in data:
+            data['backend'] = ''
+        if 'hostname' not in data:
+            data['hostname'] = ''
+        if 'connectionUser' not in data and 'connectionuser' not in data:
+            data['connectionUser'] = ''
+        if 'connectionPassword' not in data and 'connectionpassword' not in data:
+            data['connectionPassword'] = ''
+        if 'connectionString' not in data and 'connectionstring' not in data:
+            data['connectionString'] = ''
+        if 'ssl' not in data:
+            data['ssl'] = False
+        if 'status' not in data:
+            data['status'] = 'provisioning'
+        if 'containerStatus' not in data and 'containerstatus' not in data:
+            data['containerStatus'] = ''
+        if 'lifecycleState' not in data and 'lifecyclestate' not in data:
+            data['lifecycleState'] = ''
+        if 'idleTimeoutMinutes' not in data and 'idletimeoutminutes' not in data:
+            data['idleTimeoutMinutes'] = 15
+        if 'cpu' not in data:
+            data['cpu'] = 500
+        if 'memory' not in data:
+            data['memory'] = 512
+        if 'storage' not in data:
+            data['storage'] = 10
+        if 'storageStatus' not in data and 'storagestatus' not in data:
+            data['storageStatus'] = 'idle'
+        if 'storageTargetGb' not in data and 'storagetargetgb' not in data:
+            data['storageTargetGb'] = 0
+        if 'storageClass' not in data and 'storageclass' not in data:
+            data['storageClass'] = 'ssd'
+        if 'storageMaxGb' not in data and 'storagemaxgb' not in data:
+            data['storageMaxGb'] = 0
+        if 'nodePool' not in data and 'nodepool' not in data:
+            data['nodePool'] = ''
+        if 'replicas' not in data:
+            data['replicas'] = 0
+        if 'syncMode' not in data and 'syncmode' not in data:
+            data['syncMode'] = ''
+        if 'networkMaxConnections' not in data and 'networkmaxconnections' not in data:
+            data['networkMaxConnections'] = 100
+        if 'networkIdleTimeoutSeconds' not in data and 'networkidletimeoutseconds' not in data:
+            data['networkIdleTimeoutSeconds'] = 900
+        if 'networkIPAllowlist' not in data and 'networkipallowlist' not in data:
+            data['networkIPAllowlist'] = []
+        if 'backupEnabled' not in data and 'backupenabled' not in data:
+            data['backupEnabled'] = True
+        if 'pitr' not in data:
+            data['pitr'] = True
+        if 'pitrRetentionDays' not in data and 'pitrretentiondays' not in data:
+            data['pitrRetentionDays'] = 7
+        if 'storageAutoscaling' not in data and 'storageautoscaling' not in data:
+            data['storageAutoscaling'] = True
+        if 'storageAutoscalingThresholdPercent' not in data and 'storageautoscalingthresholdpercent' not in data:
+            data['storageAutoscalingThresholdPercent'] = 85
+        if 'storageAutoscalingMaxGb' not in data and 'storageautoscalingmaxgb' not in data:
+            data['storageAutoscalingMaxGb'] = 0
+        if 'maintenanceWindowDay' not in data and 'maintenancewindowday' not in data:
+            data['maintenanceWindowDay'] = 'sun'
+        if 'maintenanceWindowHourUtc' not in data and 'maintenancewindowhourutc' not in data:
+            data['maintenanceWindowHourUtc'] = 3
+        if 'metricsEnabled' not in data and 'metricsenabled' not in data:
+            data['metricsEnabled'] = False
+        if 'sqlApiEnabled' not in data and 'sqlapienabled' not in data:
+            data['sqlApiEnabled'] = True
+        if 'sqlApiAllowedStatements' not in data and 'sqlapiallowedstatements' not in data:
+            data['sqlApiAllowedStatements'] = ['SELECT', 'INSERT', 'UPDATE', 'DELETE']
+        if 'sqlApiMaxRows' not in data and 'sqlapimaxrows' not in data:
+            data['sqlApiMaxRows'] = 10000
+        if 'sqlApiMaxBytes' not in data and 'sqlapimaxbytes' not in data:
+            data['sqlApiMaxBytes'] = 10485760
+        if 'sqlApiTimeoutSeconds' not in data and 'sqlapitimeoutseconds' not in data:
+            data['sqlApiTimeoutSeconds'] = 30
+        if 'error' not in data:
+            data['error'] = ''
+        return data

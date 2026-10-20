@@ -180,6 +180,7 @@ class Account(Service):
     def list_billing_addresses(
         self,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> BillingAddressList:
         """
         List all billing addresses for a user.
@@ -188,6 +189,8 @@ class Account(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, expired, failed
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         BillingAddressList
@@ -203,6 +206,8 @@ class Account(Service):
         api_params = {}
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -887,6 +892,7 @@ class Account(Service):
     def list_invoices(
         self,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> InvoiceList:
         """
         List all invoices tied to an account.
@@ -895,6 +901,8 @@ class Account(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: teamId, aggregationId, type, amount, currency, from, to, dueAt, attempts, status, grossAmount
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         InvoiceList
@@ -910,6 +918,8 @@ class Account(Service):
         api_params = {}
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -1947,6 +1957,7 @@ class Account(Service):
     def list_payment_methods(
         self,
         queries: Optional[List[str]] = None,
+        total: Optional[bool] = None,
     ) -> PaymentMethodList:
         """
         List payment methods for this account.
@@ -1955,6 +1966,8 @@ class Account(Service):
         ----------
         queries : Optional[List[str]]
             Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, expired, failed
+        total : Optional[bool]
+            When set to false, the total count returned will be 0 and will not be calculated.
         Returns
         -------
         PaymentMethodList
@@ -1970,6 +1983,8 @@ class Account(Service):
         api_params = {}
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
+        if total is not None:
+            api_params['total'] = self._normalize_value(total)
 
         response = self.client.call(
             'get',
@@ -2445,6 +2460,8 @@ class Account(Service):
 
         Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface.
 
+        The new password must satisfy the project's enabled password policies, including custom deny lists. Dictionary entries match the entire password case-sensitively; personal-data terms match substrings case-insensitively. Personal-data validation runs after token verification against the recovered user's ID, name, email, and phone, closing the previous recovery gap for profile-based checks. A rejected password leaves the existing credentials unchanged and the recovery token usable.
+
         Parameters
         ----------
         user_id : str
@@ -2545,6 +2562,8 @@ class Account(Service):
     ) -> Token:
         """
         Use this endpoint to complete the user password recovery process using the 6-digit code that was emailed by [createRecoveryOTP](https://appwrite.io/docs/references/cloud/client-web/account#createRecoveryOTP). Pass the **userId** of the user along with the **secret** code from the email and the new **password** to set. If confirmed, this route will return a 200 status code, the code is consumed and the user's password is updated.
+
+        The new password must satisfy the project's enabled password policies, including custom deny lists. Dictionary entries match the entire password case-sensitively; personal-data terms match substrings case-insensitively. Personal-data validation runs after token verification against the recovered user's ID, name, email, and phone, closing the previous recovery gap for profile-based checks. A rejected password leaves the existing credentials unchanged and the recovery token usable.
 
         Parameters
         ----------
@@ -3210,6 +3229,8 @@ class Account(Service):
         target_id: str,
         identifier: str,
         provider_id: Optional[str] = None,
+        bundle_id: Optional[str] = None,
+        environment: Optional[str] = None,
     ) -> Target:
         """
         Use this endpoint to register a device for push notifications. Provide a target ID (custom or generated using ID.unique()), a device identifier (usually a device token), and optionally specify which provider should send notifications to this target. The target is automatically linked to the current session and includes device information like brand and model. A session holds one push target per provider, so if one already exists this endpoint updates and returns that target instead of creating a second one, and a device that rotates its token is never notified twice.
@@ -3222,6 +3243,10 @@ class Account(Service):
             The target identifier (token, email, phone etc.)
         provider_id : Optional[str]
             Provider ID. Message will be sent to this target from the specified provider ID. If no provider ID is set the first setup provider will be used.
+        bundle_id : Optional[str]
+            App bundle ID of the device registering an APNs token. Without `providerId`, routes the target to the enabled APNs provider for this bundle ID and `environment`.
+        environment : Optional[str]
+            APNs environment the token belongs to, `sandbox` or `production`. Used with `bundleId`.
         Returns
         -------
         Target
@@ -3243,6 +3268,10 @@ class Account(Service):
         api_params['identifier'] = self._normalize_value(identifier)
         if provider_id is not None:
             api_params['providerId'] = self._normalize_value(provider_id)
+        if bundle_id is not None:
+            api_params['bundleId'] = self._normalize_value(bundle_id)
+        if environment is not None:
+            api_params['environment'] = self._normalize_value(environment)
 
         response = self.client.call(
             'post',
@@ -3261,6 +3290,8 @@ class Account(Service):
         self,
         target_id: str,
         identifier: str,
+        bundle_id: Optional[str] = None,
+        environment: Optional[str] = None,
     ) -> Target:
         """
         Update the currently logged in user's push notification target. You can modify the target's identifier (device token) and provider ID (token, email, phone etc.). The target must exist and belong to the current user. If you change the provider ID, notifications will be sent through the new messaging provider instead.
@@ -3271,6 +3302,10 @@ class Account(Service):
             Target ID.
         identifier : str
             The target identifier (token, email, phone etc.)
+        bundle_id : Optional[str]
+            App bundle ID of the device registering an APNs token. Routes an APNs target to the enabled APNs provider for this bundle ID and `environment`.
+        environment : Optional[str]
+            APNs environment the token belongs to, `sandbox` or `production`. Used with `bundleId`.
         Returns
         -------
         Target
@@ -3290,6 +3325,10 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "identifier"')
         api_path = api_path.replace('{targetId}', str(self._normalize_value(target_id)))
         api_params['identifier'] = self._normalize_value(identifier)
+        if bundle_id is not None:
+            api_params['bundleId'] = self._normalize_value(bundle_id)
+        if environment is not None:
+            api_params['environment'] = self._normalize_value(environment)
 
         response = self.client.call(
             'put',

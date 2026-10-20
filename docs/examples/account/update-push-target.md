@@ -11,7 +11,9 @@ account = Account(client)
 
 result: Target = account.update_push_target(
     target_id = '<TARGET_ID>',
-    identifier = '<IDENTIFIER>'
+    identifier = '<IDENTIFIER>',
+    bundle_id = '<BUNDLE_ID>', # optional
+    environment = 'sandbox' # optional
 )
 
 print(result.model_dump())

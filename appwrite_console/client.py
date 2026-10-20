@@ -9,6 +9,7 @@ from threading import Lock
 from .input_file import InputFile
 from .exception import AppwriteException
 from .encoders.value_class_encoder import ValueClassEncoder
+from .query import Query
 
 
 class Client:
@@ -18,12 +19,12 @@ class Client:
         self._endpoint = 'https://cloud.appwrite.io/v1'
         self._global_headers = {
             'content-type': '',
-            'user-agent': f'AppwritePythonSDK/0.12.0 ({platform.uname().system}; {platform.uname().version}; {platform.uname().machine})',
+            'user-agent': f'AppwritePythonSDK/0.13.0 ({platform.uname().system}; {platform.uname().version}; {platform.uname().machine})',
             'x-sdk-name': 'Console Python',
             'x-sdk-platform': 'console',
             'x-sdk-language': 'python',
-            'x-sdk-version': '0.12.0',
-            'X-Appwrite-Response-Format': '2.4.0',
+            'x-sdk-version': '0.13.0',
+            'X-Appwrite-Response-Format': '2.5.0',
         }
         self._config = {}
 
@@ -140,6 +141,8 @@ class Client:
 
         if params is None:
             params = {}
+
+        params = {key: Query._flatten(value) for key, value in params.items()}
 
         data = {}
         files = {}
@@ -368,13 +371,10 @@ class Client:
 
     def flatten(self, data, prefix='', stringify=False):
         output = {}
-        i = 0
+        entries = data.items() if isinstance(data, dict) else enumerate(data)
 
-        for key in data:
-            value = data[key] if isinstance(data, dict) else key
-            finalKey = prefix + '[' + key + ']' if prefix else key
-            finalKey = prefix + '[' + str(i) + ']' if isinstance(data, list) else finalKey
-            i += 1
+        for key, value in entries:
+            finalKey = f'{prefix}[{key}]' if prefix or isinstance(data, list) else key
 
             if isinstance(value, list) or isinstance(value, dict):
                 output = {**output, **self.flatten(value, finalKey, stringify)}

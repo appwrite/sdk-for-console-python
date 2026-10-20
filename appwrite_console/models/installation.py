@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -33,3 +33,22 @@ class Installation(AppwriteModel):
     organization: str = Field(..., alias='organization')
     providerinstallationid: str = Field(..., alias='providerInstallationId')
     organizationurl: str = Field(..., alias='organizationUrl')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'providerInstallationId' not in data and 'providerinstallationid' not in data:
+            data['providerInstallationId'] = ''
+        if 'organizationUrl' not in data and 'organizationurl' not in data:
+            data['organizationUrl'] = ''
+        return data

@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from ..enums.detection_runtime_type import DetectionRuntimeType
@@ -29,3 +29,20 @@ class DetectionRuntime(AppwriteModel):
     runtime: str = Field(..., alias='runtime')
     entrypoint: str = Field(..., alias='entrypoint')
     commands: str = Field(..., alias='commands')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'type' not in data:
+            data['type'] = 'runtime'
+        if 'runtime' not in data:
+            data['runtime'] = ''
+        if 'entrypoint' not in data:
+            data['entrypoint'] = ''
+        if 'commands' not in data:
+            data['commands'] = ''
+        return data

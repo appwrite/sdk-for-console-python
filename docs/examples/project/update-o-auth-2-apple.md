@@ -14,8 +14,8 @@ result: OAuth2Apple = project.update_o_auth2_apple(
     key_id = '<KEY_ID>', # optional
     team_id = '<TEAM_ID>', # optional
     p8_file = '<P8_FILE>', # optional
-    native_client_ids = [], # optional
     enabled = False, # optional
+    native_client_ids = [], # optional
     native_enabled = False # optional
 )
 

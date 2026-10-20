@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -42,3 +42,28 @@ class AffiliateReward(AppwriteModel):
     status: str = Field(..., alias='status')
     teamid: Optional[str] = Field(default=None, alias='teamId')
     creditid: Optional[str] = Field(default=None, alias='creditId')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'userId' not in data and 'userid' not in data:
+            data['userId'] = ''
+        if 'linkId' not in data and 'linkid' not in data:
+            data['linkId'] = ''
+        if 'referralId' not in data and 'referralid' not in data:
+            data['referralId'] = ''
+        if 'amount' not in data:
+            data['amount'] = 0
+        if 'status' not in data:
+            data['status'] = ''
+        return data

@@ -11,7 +11,8 @@ organizations = Organizations(client)
 
 result: CreditList = organizations.list_credits(
     organization_id = '<ORGANIZATION_ID>',
-    queries = [] # optional
+    queries = [], # optional
+    total = False # optional
 )
 
 print(result.model_dump())

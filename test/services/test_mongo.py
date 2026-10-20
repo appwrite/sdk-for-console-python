@@ -914,6 +914,7 @@ class MongoServiceTest(unittest.TestCase):
             "databaseId": "5e5ea5c16897e",
             "projectId": "5e5ea5c16897e",
             "type": "backup",
+            "restoreMode": "clone",
             "status": "completed",
             "error": "",
         }
@@ -937,6 +938,7 @@ class MongoServiceTest(unittest.TestCase):
             "databaseId": "5e5ea5c16897e",
             "projectId": "5e5ea5c16897e",
             "type": "backup",
+            "restoreMode": "clone",
             "status": "completed",
             "error": "",
         }
@@ -948,6 +950,31 @@ class MongoServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.mongo.get_restoration(
+            '<DATABASE_ID>',
+            '<RESTORATION_ID>',
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_promote_restoration(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "databaseId": "5e5ea5c16897e",
+            "projectId": "5e5ea5c16897e",
+            "type": "backup",
+            "restoreMode": "clone",
+            "status": "completed",
+            "error": "",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            requests_mock.ANY,
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.mongo.promote_restoration(
             '<DATABASE_ID>',
             '<RESTORATION_ID>',
         )

@@ -19,7 +19,8 @@ result: AttributeRelationship = databases.create_relationship_attribute(
     two_way = False, # optional
     key = '<KEY>', # optional
     two_way_key = '<TWO_WAY_KEY>', # optional
-    on_delete = RelationMutate.CASCADE # optional
+    on_delete = RelationMutate.CASCADE, # optional
+    description = '<DESCRIPTION>' # optional
 )
 
 print(result.model_dump())

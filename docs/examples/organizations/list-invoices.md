@@ -11,7 +11,8 @@ organizations = Organizations(client)
 
 result: InvoiceList = organizations.list_invoices(
     organization_id = '<ORGANIZATION_ID>',
-    queries = [] # optional
+    queries = [], # optional
+    total = False # optional
 )
 
 print(result.model_dump())

@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -42,3 +42,28 @@ class ProviderRepository(AppwriteModel):
     authorized: bool = Field(..., alias='authorized')
     pushedat: str = Field(..., alias='pushedAt')
     variables: List[Any] = Field(..., alias='variables')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'id' not in data:
+            data['id'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'provider' not in data:
+            data['provider'] = ''
+        if 'private' not in data:
+            data['private'] = False
+        if 'defaultBranch' not in data and 'defaultbranch' not in data:
+            data['defaultBranch'] = ''
+        if 'providerInstallationId' not in data and 'providerinstallationid' not in data:
+            data['providerInstallationId'] = ''
+        if 'authorized' not in data:
+            data['authorized'] = False
+        if 'variables' not in data:
+            data['variables'] = []
+        return data

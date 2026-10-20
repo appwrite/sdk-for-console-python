@@ -13,8 +13,8 @@ project = Project(client)
 result: OAuth2Salesforce = project.update_o_auth2_salesforce(
     customer_key = '<CUSTOMER_KEY>', # optional
     customer_secret = '<CUSTOMER_SECRET>', # optional
-    prompt = [ProjectOAuth2SalesforcePrompt.LOGIN], # optional
-    enabled = False # optional
+    enabled = False, # optional
+    prompt = [ProjectOAuth2SalesforcePrompt.LOGIN] # optional
 )
 
 print(result.model_dump())
