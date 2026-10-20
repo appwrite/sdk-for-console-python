@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from .template_runtime import TemplateRuntime
@@ -65,3 +65,46 @@ class TemplateFunction(AppwriteModel):
     providerversion: str = Field(..., alias='providerVersion')
     variables: List[TemplateVariable] = Field(..., alias='variables')
     scopes: List[Any] = Field(..., alias='scopes')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'icon' not in data:
+            data['icon'] = ''
+        if 'id' not in data:
+            data['id'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'tagline' not in data:
+            data['tagline'] = ''
+        if 'permissions' not in data:
+            data['permissions'] = []
+        if 'events' not in data:
+            data['events'] = []
+        if 'cron' not in data:
+            data['cron'] = ''
+        if 'timeout' not in data:
+            data['timeout'] = 15
+        if 'useCases' not in data and 'usecases' not in data:
+            data['useCases'] = []
+        if 'runtimes' not in data:
+            data['runtimes'] = []
+        if 'instructions' not in data:
+            data['instructions'] = ''
+        if 'vcsProvider' not in data and 'vcsprovider' not in data:
+            data['vcsProvider'] = ''
+        if 'providerRepositoryId' not in data and 'providerrepositoryid' not in data:
+            data['providerRepositoryId'] = ''
+        if 'providerOwner' not in data and 'providerowner' not in data:
+            data['providerOwner'] = ''
+        if 'providerVersion' not in data and 'providerversion' not in data:
+            data['providerVersion'] = ''
+        if 'variables' not in data:
+            data['variables'] = []
+        if 'scopes' not in data:
+            data['scopes'] = []
+        return data

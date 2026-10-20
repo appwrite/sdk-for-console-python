@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -60,3 +60,34 @@ class Notification(AppwriteModel):
     read: Optional[bool] = Field(default=None, alias='read')
     firstseen: Optional[str] = Field(default=None, alias='firstSeen')
     lastseen: Optional[str] = Field(default=None, alias='lastSeen')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'type' not in data:
+            data['type'] = 'info'
+        if 'channel' not in data:
+            data['channel'] = ''
+        if 'resourceType' not in data and 'resourcetype' not in data:
+            data['resourceType'] = ''
+        if 'resourceId' not in data and 'resourceid' not in data:
+            data['resourceId'] = ''
+        if 'parentResourceType' not in data and 'parentresourcetype' not in data:
+            data['parentResourceType'] = ''
+        if 'parentResourceId' not in data and 'parentresourceid' not in data:
+            data['parentResourceId'] = ''
+        if 'title' not in data:
+            data['title'] = ''
+        if 'body' not in data:
+            data['body'] = ''
+        return data

@@ -110,6 +110,7 @@ from ..enums.o_auth2_kakao_prompt import OAuth2KakaoPrompt
 from ..enums.platform_type import PlatformType
 from ..enums.proxy_rule_deployment_resource_type import ProxyRuleDeploymentResourceType
 from ..enums.proxy_rule_status import ProxyRuleStatus
+from ..enums.proxy_rule_protocol import ProxyRuleProtocol
 from ..enums.message_status import MessageStatus
 from ..enums.billing_plan_group import BillingPlanGroup
 from ..enums.domain_transfer_status_enum import DomainTransferStatusEnum
@@ -450,6 +451,9 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, ProxyRuleStatus):
+            return o.value
+
+        if isinstance(o, ProxyRuleProtocol):
             return o.value
 
         if isinstance(o, MessageStatus):

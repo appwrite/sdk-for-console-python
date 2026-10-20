@@ -1,5 +1,30 @@
 # Change Log
 
+## 0.13.0
+
+* Breaking: requests send `X-Appwrite-Response-Format: 2.5.0`; responses follow the 2.5 shapes
+* Breaking: removed `Topic.any()`, `Topic.all()` and `ResolvedTopic`; build topics with `Topic.path()`
+* Breaking: `analytics.create_property` and `update_property` drop `public`, and `AnalyticsProperty.public` is removed
+* Breaking: `tables_db`, `documents_db` and `vectors_db` `create` and `update` take `description` before `specification`
+* Breaking: `messaging.create_email` takes `draft`, `html` and `scheduled_at` before `reply_to_email` and `reply_to_name`
+* Breaking: `messaging.update_email`, `update_push` and `update_sms` take `topics`, `users` and `targets` before the content
+* Breaking: `project.update_o_auth2_auth0`, `discord`, `git_hub`, `kakao`, `microsoft`, `okta`, `salesforce` and `zoho` take `enabled` before `prompt`; `apple` and `google` take `enabled` before `native_client_ids`
+* Breaking: `organizations.list` takes `total` before `model_type`
+* Added: `project` `list_environments`, `create_environment`, `get_environment`, `update_environment` and `delete_environment`
+* Added: `project.update_password_rotation_policy`, the `PolicyPasswordRotation` model and `ProjectPolicyId.PASSWORD_ROTATION`
+* Added: `mongo`, `mysql` and `postgresql` `promote_restoration`, and `restore_mode`, `target_name` and `auto_promote` on `create_restoration`
+* Added: `proxy.create_smtp_rule`, the `ProxyRuleProtocol` enum and `ProxyRule.protocol`
+* Added: `create_query` on `databases`, `documents_db` and `tables_db` to send list queries in the request body
+* Added: optional `description` on create and update for databases, collections, tables, attributes, columns, indexes, buckets, functions, sites, variables, topics, webhooks and keys
+* Added: `email_enabled` on `functions.update` and `Function`, and `ExecutionTrigger.EMAIL`
+* Added: `total` on more list methods, such as `backups`, `domains`, `mongo`, `mysql`, `postgresql` and billing lists
+* Added: `bundle_id` and `environment` on `account.create_push_target` and `update_push_target`
+* Added: `fingerprints` on `project.create_android_platform`, `update_android_platform` and `PlatformAndroid`
+* Added: `membership_id` on `teams.create_membership`, and `deny_list` on the password dictionary and personal data policies
+* Added: `Query` aggregates, `group_by`, `having`, `distinct`, joins, `relationship`, `covers`, `spatial_equals`, `page` and `Query.builder()`
+* Added: `trigram` index type, `Project.parent_id`, `ConsoleVariables` support flags and `BillingPlan.environments` and `functions_allow_cron`
+* Updated: package classifiers list Python 3.13
+
 ## 0.12.0
 
 * Added: `account` passkey methods `listPasskeys`, `createPasskey`, `getPasskey`, `updatePasskey`, `deletePasskey` and `updatePasskeyVerification`

@@ -213,6 +213,7 @@ from .policy_password_history import PolicyPasswordHistory
 from .policy_password_strength import PolicyPasswordStrength
 from .policy_password_personal_data import PolicyPasswordPersonalData
 from .policy_password_pwned import PolicyPasswordPwned
+from .policy_password_rotation import PolicyPasswordRotation
 from .policy_session_alert import PolicySessionAlert
 from .policy_session_duration import PolicySessionDuration
 from .policy_session_invalidation import PolicySessionInvalidation
@@ -633,6 +634,7 @@ __all__ = [
     'PolicyPasswordStrength',
     'PolicyPasswordPersonalData',
     'PolicyPasswordPwned',
+    'PolicyPasswordRotation',
     'PolicySessionAlert',
     'PolicySessionDuration',
     'PolicySessionInvalidation',

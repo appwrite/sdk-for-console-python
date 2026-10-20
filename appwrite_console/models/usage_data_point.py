@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -126,3 +126,14 @@ class UsageDataPoint(AppwriteModel):
     connectionusagetype: Optional[str] = Field(default=None, alias='connectionUsageType')
     connectionorganization: Optional[str] = Field(default=None, alias='connectionOrganization')
     teamid: Optional[str] = Field(default=None, alias='teamId')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'value' not in data:
+            data['value'] = 0
+        return data

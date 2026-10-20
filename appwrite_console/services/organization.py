@@ -1127,6 +1127,7 @@ class Organization(Service):
         name: str,
         scopes: List[ProjectKeyScopes],
         expire: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> Key:
         """
         Create a new API key for a project in your organization. It's recommended to have multiple API keys with strict scopes for separate functions within your project.
@@ -1145,6 +1146,8 @@ class Organization(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         expire : Optional[str]
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+        description : Optional[str]
+            Optional description for the key.
         Returns
         -------
         Key
@@ -1172,6 +1175,8 @@ class Organization(Service):
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
             api_params['expire'] = self._normalize_value(expire)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'post',
@@ -1294,6 +1299,7 @@ class Organization(Service):
         name: str,
         scopes: List[ProjectKeyScopes],
         expire: Optional[str] = None,
+        description: Optional[str] = None,
     ) -> Key:
         """
         Update a project key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
@@ -1310,6 +1316,8 @@ class Organization(Service):
             Key scopes list. Maximum of 200 scopes are allowed.
         expire : Optional[str]
             Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+        description : Optional[str]
+            Optional description for the key.
         Returns
         -------
         Key
@@ -1337,6 +1345,8 @@ class Organization(Service):
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
             api_params['expire'] = self._normalize_value(expire)
+        if description is not None:
+            api_params['description'] = self._normalize_value(description)
 
         response = self.client.call(
             'put',

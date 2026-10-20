@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -45,3 +45,34 @@ class Credit(AppwriteModel):
     total: float = Field(..., alias='total')
     expiration: str = Field(..., alias='expiration')
     status: str = Field(..., alias='status')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if '$permissions' not in data and 'permissions' not in data:
+            data['$permissions'] = []
+        if 'couponId' not in data and 'couponid' not in data:
+            data['couponId'] = ''
+        if 'userId' not in data and 'userid' not in data:
+            data['userId'] = ''
+        if 'teamId' not in data and 'teamid' not in data:
+            data['teamId'] = ''
+        if 'credits' not in data:
+            data['credits'] = 0
+        if 'total' not in data:
+            data['total'] = 0
+        if 'expiration' not in data:
+            data['expiration'] = ''
+        if 'status' not in data:
+            data['status'] = ''
+        return data

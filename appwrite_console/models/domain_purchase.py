@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from ..enums.domain_purchase_status import DomainPurchaseStatus
@@ -43,3 +43,32 @@ class DomainPurchase(AppwriteModel):
     clientsecret: str = Field(..., alias='clientSecret')
     amount: float = Field(..., alias='amount')
     currency: str = Field(..., alias='currency')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'domainId' not in data and 'domainid' not in data:
+            data['domainId'] = ''
+        if 'domain' not in data:
+            data['domain'] = ''
+        if 'organizationId' not in data and 'organizationid' not in data:
+            data['organizationId'] = ''
+        if 'status' not in data:
+            data['status'] = 'pending'
+        if 'clientSecret' not in data and 'clientsecret' not in data:
+            data['clientSecret'] = ''
+        if 'amount' not in data:
+            data['amount'] = 0
+        if 'currency' not in data:
+            data['currency'] = 'USD'
+        return data

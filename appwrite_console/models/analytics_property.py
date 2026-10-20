@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 
@@ -22,8 +22,6 @@ class AnalyticsProperty(AppwriteModel):
         Primary domain being tracked (e.g. example.com). May be empty for native apps.
     enabled : bool
         Whether tracking is currently active.
-    public : bool
-        Whether stats for this property are publicly viewable.
     allowedorigins : List[Any]
         List of origins allowed to send tracking events. Use [&quot;*&quot;] to allow all.
     accessedat : str
@@ -38,7 +36,33 @@ class AnalyticsProperty(AppwriteModel):
     name: str = Field(..., alias='name')
     domain: str = Field(..., alias='domain')
     enabled: bool = Field(..., alias='enabled')
-    public: bool = Field(..., alias='public')
     allowedorigins: List[Any] = Field(..., alias='allowedOrigins')
     accessedat: str = Field(..., alias='accessedAt')
     firstaccessedat: str = Field(..., alias='firstAccessedAt')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if '$id' not in data and 'id' not in data:
+            data['$id'] = ''
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'name' not in data:
+            data['name'] = ''
+        if 'domain' not in data:
+            data['domain'] = ''
+        if 'enabled' not in data:
+            data['enabled'] = True
+        if 'allowedOrigins' not in data and 'allowedorigins' not in data:
+            data['allowedOrigins'] = ['*']
+        if 'accessedAt' not in data and 'accessedat' not in data:
+            data['accessedAt'] = ''
+        if 'firstAccessedAt' not in data and 'firstaccessedat' not in data:
+            data['firstAccessedAt'] = ''
+        return data

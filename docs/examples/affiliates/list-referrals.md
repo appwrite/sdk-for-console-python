@@ -10,7 +10,8 @@ client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 affiliates = Affiliates(client)
 
 result: AffiliateReferralList = affiliates.list_referrals(
-    queries = [] # optional
+    queries = [], # optional
+    total = False # optional
 )
 
 print(result.model_dump())

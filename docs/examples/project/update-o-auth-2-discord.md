@@ -13,8 +13,8 @@ project = Project(client)
 result: OAuth2Discord = project.update_o_auth2_discord(
     client_id = '<CLIENT_ID>', # optional
     client_secret = '<CLIENT_SECRET>', # optional
-    prompt = [ProjectOAuth2DiscordPrompt.NONE], # optional
-    enabled = False # optional
+    enabled = False, # optional
+    prompt = [ProjectOAuth2DiscordPrompt.NONE] # optional
 )
 
 print(result.model_dump())

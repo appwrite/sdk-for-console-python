@@ -14,7 +14,6 @@ result: AnalyticsProperty = analytics.create_property(
     name = '<NAME>',
     domain = '<DOMAIN>', # optional
     enabled = False, # optional
-    public = False, # optional
     allowed_origins = [] # optional
 )
 

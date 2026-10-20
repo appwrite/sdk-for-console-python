@@ -15,7 +15,8 @@ result: ColumnBoolean = tables_db.create_boolean_column(
     key = '<KEY>',
     required = False,
     default = False, # optional
-    array = False # optional
+    array = False, # optional
+    description = '<DESCRIPTION>' # optional
 )
 
 print(result.model_dump())

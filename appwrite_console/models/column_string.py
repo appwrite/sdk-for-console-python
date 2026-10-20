@@ -1,5 +1,5 @@
 from typing import Any, Dict, List, Optional, Union, cast
-from pydantic import Field, PrivateAttr
+from pydantic import Field, PrivateAttr, model_validator
 
 from .base_model import AppwriteModel
 from ..enums.column_status import ColumnStatus
@@ -13,6 +13,8 @@ class ColumnString(AppwriteModel):
     ----------
     key : str
         Column Key.
+    description : str
+        Optional description for the column.
     type : str
         Column type.
     status : ColumnStatus
@@ -36,6 +38,7 @@ class ColumnString(AppwriteModel):
     """
 
     key: str = Field(..., alias='key')
+    description: str = Field(..., alias='description')
     type: str = Field(..., alias='type')
     status: ColumnStatus = Field(..., alias='status')
     error: str = Field(..., alias='error')
@@ -46,3 +49,28 @@ class ColumnString(AppwriteModel):
     size: float = Field(..., alias='size')
     default: Optional[str] = Field(default=None, alias='default')
     encrypt: Optional[bool] = Field(default=None, alias='encrypt')
+
+    @model_validator(mode='before')
+    @classmethod
+    def _apply_defaults(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        data = dict(data)
+        if 'key' not in data:
+            data['key'] = ''
+        if 'description' not in data:
+            data['description'] = ''
+        if 'type' not in data:
+            data['type'] = ''
+        if 'error' not in data:
+            data['error'] = ''
+        if 'required' not in data:
+            data['required'] = False
+        if '$createdAt' not in data and 'createdat' not in data:
+            data['$createdAt'] = ''
+        if '$updatedAt' not in data and 'updatedat' not in data:
+            data['$updatedAt'] = ''
+        if 'size' not in data:
+            data['size'] = 0
+        return data
