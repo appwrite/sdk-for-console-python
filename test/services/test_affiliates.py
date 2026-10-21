@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -22,12 +24,20 @@ class AffiliatesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.affiliates.list_links()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/links',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -42,13 +52,26 @@ class AffiliatesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.affiliates.create_link(
             '<LINK_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/links',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'linkId',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -64,7 +87,7 @@ class AffiliatesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -72,6 +95,14 @@ class AffiliatesServiceTest(unittest.TestCase):
         response = self.affiliates.get_link(
             '<LINK_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/links/<LINK_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -79,7 +110,7 @@ class AffiliatesServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -87,6 +118,14 @@ class AffiliatesServiceTest(unittest.TestCase):
         response = self.affiliates.delete_link(
             '<LINK_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/links/<LINK_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -97,12 +136,20 @@ class AffiliatesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.affiliates.list_referrals()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/referrals',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -113,12 +160,20 @@ class AffiliatesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.affiliates.list_rewards()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/rewards',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -135,7 +190,7 @@ class AffiliatesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -144,5 +199,19 @@ class AffiliatesServiceTest(unittest.TestCase):
             '<REWARD_ID>',
             'claimed',
             '<ORGANIZATION_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/affiliates/rewards/<REWARD_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'status',
+                'organizationId',
+            },
         )
         self.assertEqual(response.to_dict(), data)

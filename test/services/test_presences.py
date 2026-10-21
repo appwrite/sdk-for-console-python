@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -22,12 +24,20 @@ class PresencesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.presences.list()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/presences',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -39,12 +49,20 @@ class PresencesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.presences.get_usage()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/presences/usage',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -59,7 +77,7 @@ class PresencesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -67,6 +85,14 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.get(
             '<PRESENCE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/presences/<PRESENCE_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -81,7 +107,7 @@ class PresencesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PUT',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -89,6 +115,19 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.upsert(
             '<PRESENCE_ID>',
             '<STATUS>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/presences/<PRESENCE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'status',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -104,7 +143,7 @@ class PresencesServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -112,6 +151,14 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.update(
             '<PRESENCE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/presences/<PRESENCE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -119,7 +166,7 @@ class PresencesServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -127,4 +174,12 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.delete(
             '<PRESENCE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/presences/<PRESENCE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)

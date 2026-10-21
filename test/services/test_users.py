@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -22,12 +24,20 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.users.list()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -52,13 +62,26 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.users.create(
             '<USER_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -84,7 +107,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -93,6 +116,21 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/argon2',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -118,7 +156,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -127,6 +165,21 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/bcrypt',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -138,12 +191,20 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.users.list_identities()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/identities',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -151,7 +212,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -159,6 +220,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.delete_identity(
             '<IDENTITY_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/identities/<IDENTITY_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -183,7 +252,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -192,6 +261,21 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/md5',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -217,7 +301,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -226,6 +310,21 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/phpass',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -251,7 +350,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -265,6 +364,26 @@ class UsersServiceTest(unittest.TestCase):
             1,
             1,
             1,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/scrypt',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+                'passwordSalt',
+                'passwordCpu',
+                'passwordMemory',
+                'passwordParallel',
+                'passwordLength',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -290,7 +409,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -302,6 +421,24 @@ class UsersServiceTest(unittest.TestCase):
             '<PASSWORD_SALT>',
             '<PASSWORD_SALT_SEPARATOR>',
             '<PASSWORD_SIGNER_KEY>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/scrypt-modified',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+                'passwordSalt',
+                'passwordSaltSeparator',
+                'passwordSignerKey',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -327,7 +464,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -336,6 +473,21 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/sha',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'userId',
+                'email',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -350,12 +502,20 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.users.get_usage()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/usage',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -380,7 +540,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -388,6 +548,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.get(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -395,7 +563,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -403,6 +571,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.delete(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -427,7 +603,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -435,6 +611,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_email(
             '<USER_ID>',
             'email@example.com',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/email',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'email',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -460,7 +649,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -468,6 +657,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_impersonator(
             '<USER_ID>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/impersonator',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'impersonator',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -478,7 +680,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -486,6 +688,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.create_jwt(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/jwts',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -510,7 +720,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PUT',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -518,6 +728,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_labels(
             '<USER_ID>',
             [],
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/labels',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'labels',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -529,7 +752,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -537,6 +760,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.list_memberships(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/memberships',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -561,7 +792,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -569,6 +800,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_mfa(
             '<USER_ID>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'mfa',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -594,7 +838,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -602,6 +846,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_mfa(
             '<USER_ID>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'mfa',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -610,7 +867,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -619,6 +876,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'totp',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/authenticators/totp',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -626,7 +891,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -635,6 +900,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             'totp',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/authenticators/totp',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -648,7 +921,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -657,6 +930,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<CHALLENGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/challenges/<CHALLENGE_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -670,7 +951,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -678,6 +959,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.list_mfa_factors(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/factors',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -691,7 +980,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -699,6 +988,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.list_mfa_factors(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/factors',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -708,7 +1005,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -716,6 +1013,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.get_mfa_recovery_codes(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/recovery-codes',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -725,7 +1030,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -733,6 +1038,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.get_mfa_recovery_codes(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/recovery-codes',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -742,7 +1055,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PUT',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -750,6 +1063,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_mfa_recovery_codes(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/recovery-codes',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -759,7 +1080,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PUT',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -767,6 +1088,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_mfa_recovery_codes(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/recovery-codes',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -776,7 +1105,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -784,6 +1113,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.create_mfa_recovery_codes(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/recovery-codes',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -793,7 +1130,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -801,6 +1138,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.create_mfa_recovery_codes(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/mfa/recovery-codes',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -825,7 +1170,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -833,6 +1178,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_name(
             '<USER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/name',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -844,7 +1202,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -852,6 +1210,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.list_passkeys(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/passkeys',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -865,7 +1231,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -874,6 +1240,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<PASSKEY_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/passkeys/<PASSKEY_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -887,7 +1261,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -897,6 +1271,19 @@ class UsersServiceTest(unittest.TestCase):
             '<PASSKEY_ID>',
             '<NAME>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/passkeys/<PASSKEY_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'name',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -904,7 +1291,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -913,6 +1300,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<PASSKEY_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/passkeys/<PASSKEY_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -937,7 +1332,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -945,6 +1340,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_password(
             '<USER_ID>',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/password',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -970,7 +1378,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -979,6 +1387,19 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '+12065550100',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/phone',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'number',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -986,7 +1407,7 @@ class UsersServiceTest(unittest.TestCase):
         data = {}
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -994,6 +1415,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.get_prefs(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/prefs',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1001,7 +1430,7 @@ class UsersServiceTest(unittest.TestCase):
         data = {}
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1009,6 +1438,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_prefs(
             '<USER_ID>',
             {},
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/prefs',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'prefs',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1020,7 +1462,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1028,6 +1470,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.list_sessions(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/sessions',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1065,7 +1515,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1073,6 +1523,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.create_session(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/sessions',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1080,7 +1538,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1088,6 +1546,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.delete_sessions(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/sessions',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1095,7 +1561,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1104,6 +1570,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<SESSION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/sessions/<SESSION_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1128,7 +1602,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1136,6 +1610,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_status(
             '<USER_ID>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/status',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'status',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1147,7 +1634,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1155,6 +1642,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.list_targets(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/targets',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1171,7 +1666,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1181,6 +1676,21 @@ class UsersServiceTest(unittest.TestCase):
             '<TARGET_ID>',
             'email',
             '<IDENTIFIER>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/targets',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'targetId',
+                'providerType',
+                'identifier',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1198,7 +1708,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1207,6 +1717,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<TARGET_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/targets/<TARGET_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1223,7 +1741,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1232,6 +1750,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<TARGET_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/targets/<TARGET_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1239,7 +1765,7 @@ class UsersServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1248,6 +1774,14 @@ class UsersServiceTest(unittest.TestCase):
             '<USER_ID>',
             '<TARGET_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/targets/<TARGET_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1262,7 +1796,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1270,6 +1804,14 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.create_token(
             '<USER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/tokens',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1294,7 +1836,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1302,6 +1844,19 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_email_verification(
             '<USER_ID>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/verification',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'emailVerification',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1327,7 +1882,7 @@ class UsersServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1335,5 +1890,18 @@ class UsersServiceTest(unittest.TestCase):
         response = self.users.update_phone_verification(
             '<USER_ID>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/users/<USER_ID>/verification/phone',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'phoneVerification',
+            },
         )
         self.assertEqual(response.to_dict(), data)

@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -24,7 +26,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -33,6 +35,20 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<PROVIDER_REPOSITORY_ID>',
             'runtime',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/detections',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerRepositoryId',
+                'type',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -45,7 +61,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -53,6 +69,19 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.list_repositories(
             '<INSTALLATION_ID>',
             'runtime',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/providerRepositories',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'type',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -72,7 +101,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -81,6 +110,20 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<NAME>',
             True,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/providerRepositories',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'name',
+                'private',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -100,7 +143,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -109,6 +152,14 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<PROVIDER_REPOSITORY_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/providerRepositories/<PROVIDER_REPOSITORY_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -119,7 +170,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -128,6 +179,14 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<PROVIDER_REPOSITORY_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/providerRepositories/<PROVIDER_REPOSITORY_ID>/branches',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -138,7 +197,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -147,6 +206,14 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<PROVIDER_REPOSITORY_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/providerRepositories/<PROVIDER_REPOSITORY_ID>/contents',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -154,7 +221,7 @@ class VcsServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -163,6 +230,19 @@ class VcsServiceTest(unittest.TestCase):
             '<INSTALLATION_ID>',
             '<REPOSITORY_ID>',
             '<PROVIDER_PULL_REQUEST_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/github/installations/<INSTALLATION_ID>/repositories/<REPOSITORY_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerPullRequestId',
+            },
         )
         self.assertEqual(response, data)
 
@@ -174,12 +254,20 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.vcs.list_installations()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/installations',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -195,7 +283,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -203,6 +291,14 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.get_installation(
             '<INSTALLATION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/installations/<INSTALLATION_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -210,7 +306,7 @@ class VcsServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -218,6 +314,14 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.delete_installation(
             '<INSTALLATION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/installations/<INSTALLATION_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -228,7 +332,7 @@ class VcsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -236,4 +340,12 @@ class VcsServiceTest(unittest.TestCase):
         response = self.vcs.list_namespaces(
             '<INSTALLATION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/vcs/installations/<INSTALLATION_ID>/namespaces',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)

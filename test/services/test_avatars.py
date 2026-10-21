@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -19,7 +21,7 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
@@ -27,6 +29,14 @@ class AvatarsServiceTest(unittest.TestCase):
         response = self.avatars.get_browser(
             'aa',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/browsers/aa',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -34,7 +44,7 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
@@ -42,6 +52,14 @@ class AvatarsServiceTest(unittest.TestCase):
         response = self.avatars.get_credit_card(
             'amex',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/credit-cards/amex',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -49,13 +67,26 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
         )
         response = self.avatars.get_favicon(
             'https://example.com',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/favicon',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'url',
+            },
         )
         self.assertEqual(response, data)
 
@@ -64,7 +95,7 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
@@ -72,6 +103,14 @@ class AvatarsServiceTest(unittest.TestCase):
         response = self.avatars.get_flag(
             'af',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/flags/af',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -79,13 +118,26 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
         )
         response = self.avatars.get_image(
             'https://example.com',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/image',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'url',
+            },
         )
         self.assertEqual(response, data)
 
@@ -94,12 +146,20 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
         )
         response = self.avatars.get_initials()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/initials',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -107,12 +167,20 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
         )
         response = self.avatars.get_photo()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/photo',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -137,13 +205,26 @@ class AvatarsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PUT',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.avatars.update_photo(
             InputFile.from_bytes(bytearray(), "example.file"),
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/photo',
+        )
+        sent = set(re.findall(r'form-data; name="([^"\[]+)', request.body.decode('latin-1')))
+        self.assertEqual(
+            sent,
+            {
+                'file',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -152,12 +233,20 @@ class AvatarsServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.avatars.delete_photo()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/photo',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -165,13 +254,26 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
         )
         response = self.avatars.get_qr(
             '<TEXT>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/qr',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'text',
+            },
         )
         self.assertEqual(response, data)
 
@@ -180,12 +282,25 @@ class AvatarsServiceTest(unittest.TestCase):
         data = bytearray()
         headers = {'Content-Type': 'application/octet-stream'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             body=data,
             headers=headers,
         )
         response = self.avatars.get_screenshot(
             'https://example.com',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/avatars/screenshots',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'url',
+            },
         )
         self.assertEqual(response, data)

@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -22,12 +24,20 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.messaging.list_messages()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -46,7 +56,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -55,6 +65,21 @@ class MessagingServiceTest(unittest.TestCase):
             '<MESSAGE_ID>',
             '<SUBJECT>',
             '<CONTENT>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/email',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'messageId',
+                'subject',
+                'content',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -74,7 +99,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -82,6 +107,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_email(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/email/<MESSAGE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -100,13 +133,26 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.messaging.create_push(
             '<MESSAGE_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/push',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'messageId',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -126,7 +172,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -134,6 +180,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_push(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/push/<MESSAGE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -152,7 +206,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -160,6 +214,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_sms(
             '<MESSAGE_ID>',
             '<CONTENT>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/sms',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'messageId',
+                'content',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -179,7 +247,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -187,6 +255,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_sms(
             '<MESSAGE_ID>',
             '<CONTENT>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/sms',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'messageId',
+                'content',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -206,7 +288,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -214,6 +296,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_sms(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/sms/<MESSAGE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -232,7 +322,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -240,6 +330,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_sms(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/sms/<MESSAGE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -258,7 +356,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -266,6 +364,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.get_message(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/<MESSAGE_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -273,7 +379,7 @@ class MessagingServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -281,6 +387,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.delete(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/<MESSAGE_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -291,7 +405,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -299,6 +413,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.list_targets(
             '<MESSAGE_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/messages/<MESSAGE_ID>/targets',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -309,12 +431,20 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.messaging.list_providers()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -331,7 +461,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -339,6 +469,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_apns_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/apns',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -356,7 +500,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -364,6 +508,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_apns_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/apns',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -381,7 +539,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -389,6 +547,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_apns_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/apns/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -405,7 +571,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -413,6 +579,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_apns_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/apns/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -429,7 +603,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -437,6 +611,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_appwrite_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/appwrite',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -454,7 +642,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -462,6 +650,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_appwrite_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/appwrite/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -478,7 +674,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -486,6 +682,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_fcm_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/fcm',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -503,7 +713,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -511,6 +721,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_fcm_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/fcm',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -528,7 +752,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -536,6 +760,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_fcm_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/fcm/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -552,7 +784,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -560,6 +792,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_fcm_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/fcm/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -576,7 +816,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -584,6 +824,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_mailgun_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/mailgun',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -601,7 +855,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -609,6 +863,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_mailgun_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/mailgun/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -625,7 +887,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -633,6 +895,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_msg91_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/msg91',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -650,7 +926,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -658,6 +934,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_msg91_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/msg91/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -674,7 +958,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -682,6 +966,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_resend_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/resend',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -699,7 +997,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -707,6 +1005,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_resend_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/resend/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -723,7 +1029,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -731,6 +1037,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_sendgrid_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/sendgrid',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -748,7 +1068,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -756,6 +1076,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_sendgrid_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/sendgrid/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -772,7 +1100,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -780,6 +1108,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_ses_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/ses',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -797,7 +1139,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -805,6 +1147,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_ses_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/ses/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -821,7 +1171,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -830,6 +1180,21 @@ class MessagingServiceTest(unittest.TestCase):
             '<PROVIDER_ID>',
             '<NAME>',
             '<HOST>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/smtp',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+                'host',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -847,7 +1212,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -856,6 +1221,21 @@ class MessagingServiceTest(unittest.TestCase):
             '<PROVIDER_ID>',
             '<NAME>',
             '<HOST>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/smtp',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+                'host',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -873,7 +1253,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -881,6 +1261,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_smtp_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/smtp/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -897,7 +1285,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -905,6 +1293,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_smtp_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/smtp/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -921,7 +1317,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -929,6 +1325,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_telesign_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/telesign',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -946,7 +1356,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -954,6 +1364,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_telesign_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/telesign/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -970,7 +1388,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -978,6 +1396,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_textmagic_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/textmagic',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -995,7 +1427,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1003,6 +1435,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_textmagic_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/textmagic/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1019,7 +1459,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1027,6 +1467,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_twilio_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/twilio',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1044,7 +1498,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1052,6 +1506,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_twilio_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/twilio/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1068,7 +1530,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1076,6 +1538,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_vonage_provider(
             '<PROVIDER_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/vonage',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'providerId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1093,7 +1569,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1101,6 +1577,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_vonage_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/vonage/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1117,7 +1601,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1125,6 +1609,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.get_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/<PROVIDER_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1132,7 +1624,7 @@ class MessagingServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1140,6 +1632,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.delete_provider(
             '<PROVIDER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/providers/<PROVIDER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1150,12 +1650,20 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.messaging.list_topics()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1173,7 +1681,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1181,6 +1689,20 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.create_topic(
             '<TOPIC_ID>',
             '<NAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'topicId',
+                'name',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1199,7 +1721,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1207,6 +1729,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.get_topic(
             '<TOPIC_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1224,7 +1754,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1232,6 +1762,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.update_topic(
             '<TOPIC_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1239,7 +1777,7 @@ class MessagingServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1247,6 +1785,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.delete_topic(
             '<TOPIC_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1257,7 +1803,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1265,6 +1811,14 @@ class MessagingServiceTest(unittest.TestCase):
         response = self.messaging.list_subscribers(
             '<TOPIC_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>/subscribers',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1291,7 +1845,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1300,6 +1854,20 @@ class MessagingServiceTest(unittest.TestCase):
             '<TOPIC_ID>',
             '<SUBSCRIBER_ID>',
             '<TARGET_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>/subscribers',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'subscriberId',
+                'targetId',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -1327,7 +1895,7 @@ class MessagingServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1336,6 +1904,14 @@ class MessagingServiceTest(unittest.TestCase):
             '<TOPIC_ID>',
             '<SUBSCRIBER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>/subscribers/<SUBSCRIBER_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1343,7 +1919,7 @@ class MessagingServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -1352,4 +1928,12 @@ class MessagingServiceTest(unittest.TestCase):
             '<TOPIC_ID>',
             '<SUBSCRIBER_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/messaging/topics/<TOPIC_ID>/subscribers/<SUBSCRIBER_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
