@@ -1,6 +1,8 @@
 import json
+import re
 import requests_mock
 import unittest
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from appwrite_console.client import Client
 from appwrite_console.input_file import InputFile
@@ -22,12 +24,20 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
         )
         response = self.migrations.list()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -57,7 +67,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -67,6 +77,22 @@ class MigrationsServiceTest(unittest.TestCase):
             'https://example.com',
             '<PROJECT_ID>',
             '<API_KEY>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/appwrite',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'resources',
+                'endpoint',
+                'projectId',
+                'apiKey',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -105,7 +131,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -115,6 +141,21 @@ class MigrationsServiceTest(unittest.TestCase):
             'https://example.com',
             '<PROJECT_ID>',
             '<KEY>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/appwrite/report',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'endpoint',
+                'projectID',
+                'key',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -145,7 +186,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -154,6 +195,21 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
             '<FILENAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/csv/exports',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'databaseId',
+                'collectionId',
+                'filename',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -184,7 +240,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -194,6 +250,22 @@ class MigrationsServiceTest(unittest.TestCase):
             '<FILE_ID>',
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/csv/imports',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'bucketId',
+                'fileId',
+                'databaseId',
+                'collectionId',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -224,7 +296,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -232,6 +304,20 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.create_firebase_migration(
             [],
             '<SERVICE_ACCOUNT>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/firebase',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'resources',
+                'serviceAccount',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -270,7 +356,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -278,6 +364,19 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.get_firebase_report(
             [],
             '<SERVICE_ACCOUNT>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/firebase/report',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'serviceAccount',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -308,7 +407,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -317,6 +416,21 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
             '<FILENAME>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/json/exports',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'databaseId',
+                'collectionId',
+                'filename',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -347,7 +461,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -357,6 +471,22 @@ class MigrationsServiceTest(unittest.TestCase):
             '<FILE_ID>',
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/json/imports',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'bucketId',
+                'fileId',
+                'databaseId',
+                'collectionId',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -387,7 +517,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -400,6 +530,25 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE>',
             '<USERNAME>',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/nhost',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'resources',
+                'subdomain',
+                'region',
+                'adminSecret',
+                'database',
+                'username',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -438,7 +587,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -451,6 +600,24 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE>',
             '<USERNAME>',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/nhost/report',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'subdomain',
+                'region',
+                'adminSecret',
+                'database',
+                'username',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -481,7 +648,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'POST',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -493,6 +660,24 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_HOST>',
             '<USERNAME>',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/supabase',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(
+            sent,
+            {
+                'resources',
+                'endpoint',
+                'apiKey',
+                'databaseHost',
+                'username',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -531,7 +716,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -543,6 +728,23 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_HOST>',
             '<USERNAME>',
             'password',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/supabase/report',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(
+            sent,
+            {
+                'endpoint',
+                'apiKey',
+                'databaseHost',
+                'username',
+                'password',
+            },
         )
         self.assertEqual(response.to_dict(), data)
 
@@ -573,7 +775,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'GET',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -581,6 +783,14 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.get(
             '<MIGRATION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/<MIGRATION_ID>',
+        )
+        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -610,7 +820,7 @@ class MigrationsServiceTest(unittest.TestCase):
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'PATCH',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -618,6 +828,14 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.retry(
             '<MIGRATION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/<MIGRATION_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -625,7 +843,7 @@ class MigrationsServiceTest(unittest.TestCase):
         data = ''
         headers = {'Content-Type': 'application/json'}
         m.request(
-            requests_mock.ANY,
+            'DELETE',
             requests_mock.ANY,
             text=json.dumps(data),
             headers=headers,
@@ -633,4 +851,12 @@ class MigrationsServiceTest(unittest.TestCase):
         response = self.migrations.delete(
             '<MIGRATION_ID>',
         )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/migrations/<MIGRATION_ID>',
+        )
+        sent = set(json.loads(request.body or '{}'))
+        self.assertEqual(sent, set())
         self.assertEqual(response, data)
