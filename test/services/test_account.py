@@ -50,8 +50,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -85,6 +85,7 @@ class AccountServiceTest(unittest.TestCase):
             '<USER_ID>',
             'email@example.com',
             'password',
+            name='<NAME>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -92,13 +93,14 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'email',
-                'password',
+                'userId': '<USER_ID>',
+                'email': 'email@example.com',
+                'password': 'password',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -120,8 +122,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -137,15 +139,23 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_billing_addresses()
+        response = self.account.list_billing_addresses(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/billing-addresses',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -168,6 +178,9 @@ class AccountServiceTest(unittest.TestCase):
             '<COUNTRY>',
             '<CITY>',
             '<STREET_ADDRESS>',
+            address_line2='<ADDRESS_LINE2>',
+            state='<STATE>',
+            postal_code='<POSTAL_CODE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -175,13 +188,16 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/billing-addresses',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'country',
-                'city',
-                'streetAddress',
+                'country': '<COUNTRY>',
+                'city': '<CITY>',
+                'streetAddress': '<STREET_ADDRESS>',
+                'addressLine2': '<ADDRESS_LINE2>',
+                'state': '<STATE>',
+                'postalCode': '<POSTAL_CODE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -211,8 +227,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/billing-addresses/<BILLING_ADDRESS_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -236,6 +252,9 @@ class AccountServiceTest(unittest.TestCase):
             '<COUNTRY>',
             '<CITY>',
             '<STREET_ADDRESS>',
+            address_line2='<ADDRESS_LINE2>',
+            state='<STATE>',
+            postal_code='<POSTAL_CODE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -243,13 +262,16 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/billing-addresses/<BILLING_ADDRESS_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'country',
-                'city',
-                'streetAddress',
+                'country': '<COUNTRY>',
+                'city': '<CITY>',
+                'streetAddress': '<STREET_ADDRESS>',
+                'addressLine2': '<ADDRESS_LINE2>',
+                'state': '<STATE>',
+                'postalCode': '<POSTAL_CODE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -273,8 +295,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/billing-addresses/<BILLING_ADDRESS_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -290,15 +312,23 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_consents()
+        response = self.account.list_consents(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/consents',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -331,8 +361,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/consents/<CONSENT_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -354,8 +384,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/consents/<CONSENT_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -373,6 +403,8 @@ class AccountServiceTest(unittest.TestCase):
         )
         response = self.account.list_consent_tokens(
             '<CONSENT_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -380,8 +412,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/consents/<CONSENT_ID>/tokens',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -416,8 +453,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/consents/<CONSENT_ID>/tokens/<TOKEN_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -440,8 +477,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/consents/<CONSENT_ID>/tokens/<TOKEN_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -472,8 +509,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/coupons/<COUPON_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -513,12 +550,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'email',
-                'password',
+                'email': 'email@example.com',
+                'password': 'password',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -536,15 +573,23 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_identities()
+        response = self.account.list_identities(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/identities',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -566,8 +611,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/identities/<IDENTITY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -583,15 +628,23 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_invoices()
+        response = self.account.list_invoices(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/invoices',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -606,15 +659,22 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.create_jwt()
+        response = self.account.create_jwt(
+            duration=1,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/jwts',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'duration': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -630,15 +690,22 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_keys()
+        response = self.account.list_keys(
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/keys',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -665,6 +732,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_key(
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -672,12 +740,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/keys',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'scopes',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -712,8 +781,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/keys/<KEY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -741,6 +810,7 @@ class AccountServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -748,12 +818,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'scopes',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -777,8 +848,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -809,7 +880,7 @@ class AccountServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.account.update_mfa(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -817,11 +888,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'mfa',
+                'mfa': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -848,8 +919,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/authenticators/totp',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -874,8 +945,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/authenticators/totp',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -915,11 +986,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/authenticators/totp',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'otp',
+                'otp': '<OTP>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -961,11 +1032,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/authenticators/totp',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'otp',
+                'otp': '<OTP>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -989,8 +1060,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/authenticators/totp',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1012,8 +1083,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/authenticators/totp',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1040,11 +1111,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/challenges',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'factor',
+                'factor': 'email',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1073,11 +1144,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/challenges',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'factor',
+                'factor': 'email',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1132,12 +1203,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/challenges',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'challengeId',
-                'otp',
+                'challengeId': '<CHALLENGE_ID>',
+                'otp': '<OTP>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1192,12 +1263,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/challenges',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'challengeId',
-                'otp',
+                'challengeId': '<CHALLENGE_ID>',
+                'otp': '<OTP>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1225,8 +1296,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/factors',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1252,8 +1323,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/factors',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1275,8 +1346,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/recovery-codes',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1298,8 +1369,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/recovery-codes',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1321,8 +1392,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/recovery-codes',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1344,8 +1415,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/recovery-codes',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1367,8 +1438,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/recovery-codes',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1390,8 +1461,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/mfa/recovery-codes',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1430,11 +1501,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/name',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1452,15 +1523,23 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_passkeys()
+        response = self.account.list_passkeys(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/passkeys',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1479,15 +1558,24 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.create_passkey()
+        response = self.account.create_passkey(
+            passkey_id='<PASSKEY_ID>',
+            name='<NAME>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/passkeys',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'passkeyId': '<PASSKEY_ID>',
+                'name': '<NAME>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1515,8 +1603,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/passkeys/<PASSKEY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1545,11 +1633,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/passkeys/<PASSKEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1573,8 +1661,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/passkeys/<PASSKEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1603,11 +1691,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/passkeys/<PASSKEY_ID>/verification',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'credential',
+                'credential': {},
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1641,6 +1729,7 @@ class AccountServiceTest(unittest.TestCase):
         )
         response = self.account.update_password(
             'password',
+            old_password='password',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1648,11 +1737,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/password',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'password',
+                'password': 'password',
+                'oldPassword': 'password',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1670,15 +1760,23 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_payment_methods()
+        response = self.account.list_payment_methods(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/payment-methods',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1710,8 +1808,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/payment-methods',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1745,8 +1843,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/payment-methods/<PAYMENT_METHOD_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1775,6 +1873,7 @@ class AccountServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
             1,
             1,
+            state='<STATE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1782,12 +1881,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/payment-methods/<PAYMENT_METHOD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'expiryMonth',
-                'expiryYear',
+                'expiryMonth': 1,
+                'expiryYear': 1,
+                'state': '<STATE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1811,8 +1911,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/payment-methods/<PAYMENT_METHOD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1841,6 +1941,7 @@ class AccountServiceTest(unittest.TestCase):
             '<PAYMENT_METHOD_ID>',
             '<PROVIDER_METHOD_ID>',
             '<NAME>',
+            state='<STATE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1848,12 +1949,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/payment-methods/<PAYMENT_METHOD_ID>/provider',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'providerMethodId',
-                'name',
+                'providerMethodId': '<PROVIDER_METHOD_ID>',
+                'name': '<NAME>',
+                'state': '<STATE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1889,8 +1991,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/payment-methods/<PAYMENT_METHOD_ID>/setup',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1930,12 +2032,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/phone',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'phone',
-                'password',
+                'phone': '+12065550100',
+                'password': 'password',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1957,8 +2059,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/prefs',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1997,11 +2099,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/prefs',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'prefs',
+                'prefs': {},
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2033,12 +2135,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/recovery',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'email',
-                'url',
+                'email': 'email@example.com',
+                'url': 'https://example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2071,13 +2173,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/recovery',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
-                'password',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
+                'password': 'password',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2101,6 +2203,7 @@ class AccountServiceTest(unittest.TestCase):
         )
         response = self.account.create_recovery_otp(
             'email@example.com',
+            phrase=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2108,11 +2211,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/recovery/otp',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'email',
+                'email': 'email@example.com',
+                'phrase': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2145,13 +2249,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/recovery/otp',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
-                'password',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
+                'password': 'password',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2169,15 +2273,22 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.list_sessions()
+        response = self.account.list_sessions(
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/sessions',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2190,15 +2301,22 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.delete_sessions()
+        response = self.account.delete_sessions(
+            current=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/sessions',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'current': False,
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2248,8 +2366,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/anonymous',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2295,6 +2413,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_email_password_session(
             'email@example.com',
             'password',
+            duration=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2302,12 +2421,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'email',
-                'password',
+                'email': 'email@example.com',
+                'password': 'password',
+                'duration': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2355,6 +2475,10 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_id_token_session(
             'apple',
             '<ID_TOKEN>',
+            nonce='<NONCE>',
+            access_token='<ACCESS_TOKEN>',
+            access_token_expiry=1,
+            name='<NAME>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2362,12 +2486,16 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/id-token',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'provider',
-                'idToken',
+                'provider': 'apple',
+                'idToken': '<ID_TOKEN>',
+                'nonce': '<NONCE>',
+                'accessToken': '<ACCESS_TOKEN>',
+                'accessTokenExpiry': 1,
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2422,12 +2550,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/magic-url',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2444,6 +2572,10 @@ class AccountServiceTest(unittest.TestCase):
         )
         response = self.account.create_o_auth2_session(
             'amazon',
+            success='https://example.com',
+            failure='https://example.com',
+            scopes=[],
+            state='<STATE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2451,8 +2583,15 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/oauth2/amazon',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'success': ['https://example.com'],
+                'failure': ['https://example.com'],
+                'state': ['<STATE>'],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2505,12 +2644,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/phone',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2565,12 +2704,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/token',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2624,8 +2763,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/<SESSION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2677,8 +2816,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/<SESSION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2700,8 +2839,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/sessions/<SESSION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2738,8 +2877,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/status',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2764,6 +2903,9 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_push_target(
             '<TARGET_ID>',
             '<IDENTIFIER>',
+            provider_id='<PROVIDER_ID>',
+            bundle_id='<BUNDLE_ID>',
+            environment='sandbox',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2771,12 +2913,15 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/targets/push',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'targetId',
-                'identifier',
+                'targetId': '<TARGET_ID>',
+                'identifier': '<IDENTIFIER>',
+                'providerId': '<PROVIDER_ID>',
+                'bundleId': '<BUNDLE_ID>',
+                'environment': 'sandbox',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2803,6 +2948,8 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.update_push_target(
             '<TARGET_ID>',
             '<IDENTIFIER>',
+            bundle_id='<BUNDLE_ID>',
+            environment='sandbox',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2810,11 +2957,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/targets/<TARGET_ID>/push',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'identifier',
+                'identifier': '<IDENTIFIER>',
+                'bundleId': '<BUNDLE_ID>',
+                'environment': 'sandbox',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2838,8 +2987,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/targets/<TARGET_ID>/push',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2862,6 +3011,7 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_email_token(
             '<USER_ID>',
             'email@example.com',
+            phrase=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2869,12 +3019,13 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/tokens/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'email',
+                'userId': '<USER_ID>',
+                'email': 'email@example.com',
+                'phrase': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2899,6 +3050,8 @@ class AccountServiceTest(unittest.TestCase):
         response = self.account.create_magic_url_token(
             '<USER_ID>',
             'email@example.com',
+            url='https://example.com',
+            phrase=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2906,12 +3059,14 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/tokens/magic-url',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'email',
+                'userId': '<USER_ID>',
+                'email': 'email@example.com',
+                'url': 'https://example.com',
+                'phrase': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2928,6 +3083,10 @@ class AccountServiceTest(unittest.TestCase):
         )
         response = self.account.create_o_auth2_token(
             'amazon',
+            success='https://example.com',
+            failure='https://example.com',
+            scopes=[],
+            state='<STATE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2935,8 +3094,15 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/tokens/oauth2/amazon',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'success': ['https://example.com'],
+                'failure': ['https://example.com'],
+                'state': ['<STATE>'],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2962,8 +3128,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/tokens/passkey',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2993,12 +3159,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/tokens/passkey',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'challengeId',
-                'credential',
+                'challengeId': '<CHALLENGE_ID>',
+                'credential': {},
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3030,12 +3196,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/tokens/phone',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'phone',
+                'userId': '<USER_ID>',
+                'phone': '+12065550100',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3066,11 +3232,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'url',
+                'url': 'https://example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3101,11 +3267,11 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'url',
+                'url': 'https://example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3137,12 +3303,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3174,12 +3340,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3201,15 +3367,22 @@ class AccountServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.account.create_email_verification_otp()
+        response = self.account.create_email_verification_otp(
+            phrase=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/account/verifications/email/otp',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'phrase': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3239,12 +3412,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/email/otp',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3273,8 +3446,8 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/phone',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3304,12 +3477,12 @@ class AccountServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/account/verifications/phone',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)

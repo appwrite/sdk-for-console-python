@@ -19,13 +19,13 @@ class AnalyticsMetric(AppwriteModel):
     sessions : float
         Unique sessions in the requested range.
     pageviews : Optional[float]
-        Total pageview events (events with name=&quot;pageview&quot;) in the requested range. Only the flat aggregate computes it; null on breakdown and time-series rows.
+        Total page and screen view events (events named &quot;pageview&quot; or &quot;screen_view&quot;) in the requested range. The flat aggregate and the time series compute it; null on breakdown rows.
     events : float
         Total events in the requested range.
     visits : Optional[float]
         Total sessions with activity in the requested range. Only the flat aggregate computes it; null on breakdown and time-series rows.
     bouncerate : Optional[float]
-        Share of single-event sessions, as a percentage. Only the flat aggregate computes it; null on breakdown and time-series rows.
+        Share of bounced visits, as a percentage; a visit is a bounce unless it records two or more page or screen views, at least one interaction, or ten seconds or more of activity. An interaction is any event that is neither a view nor automatic measurement such as &quot;app_foregrounded&quot;, &quot;engagement_time&quot; or &quot;scroll_depth&quot;. Only the flat aggregate computes it; null on breakdown and time-series rows.
     visitduration : Optional[float]
         Average session length in seconds, measured first event to last event. Single-event sessions count as 0. Only the flat aggregate computes it; null on breakdown and time-series rows.
     viewspervisit : Optional[float]

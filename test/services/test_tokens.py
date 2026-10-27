@@ -32,6 +32,8 @@ class TokensServiceTest(unittest.TestCase):
         response = self.tokens.list(
             '<BUCKET_ID>',
             '<FILE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -39,8 +41,13 @@ class TokensServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tokens/buckets/<BUCKET_ID>/files/<FILE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -64,6 +71,7 @@ class TokensServiceTest(unittest.TestCase):
         response = self.tokens.create_file_token(
             '<BUCKET_ID>',
             '<FILE_ID>',
+            expire='2020-10-15T06:38:00.000+00:00',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -71,8 +79,13 @@ class TokensServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tokens/buckets/<BUCKET_ID>/files/<FILE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'expire': '2020-10-15T06:38:00.000+00:00',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -102,8 +115,8 @@ class TokensServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tokens/<TOKEN_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -126,6 +139,7 @@ class TokensServiceTest(unittest.TestCase):
         )
         response = self.tokens.update(
             '<TOKEN_ID>',
+            expire='2020-10-15T06:38:00.000+00:00',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -133,8 +147,13 @@ class TokensServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tokens/<TOKEN_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'expire': '2020-10-15T06:38:00.000+00:00',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -156,6 +175,6 @@ class TokensServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tokens/<TOKEN_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)

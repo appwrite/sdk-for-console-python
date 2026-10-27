@@ -78,6 +78,8 @@ class ConsoleVariables(AppwriteModel):
         Whether email verification for console users is required. Can be &quot;true&quot; or &quot;false&quot;.
     app_domain_email : str
         Appwrite-owned zone for function testing email addresses, delivered to {functionId}@{projectId}.{zone}. Empty when inbound email is not configured.
+    app_domain_target_smtp : str
+        MX target a custom inbound email (SMTP) domain must point at. Empty when inbound email is not configured.
     """
 
     app_domain_target_cname: str = Field(..., alias='_APP_DOMAIN_TARGET_CNAME')
@@ -120,6 +122,7 @@ class ConsoleVariables(AppwriteModel):
     supportforintegerids: bool = Field(..., alias='supportForIntegerIds')
     app_console_email_verification: str = Field(..., alias='_APP_CONSOLE_EMAIL_VERIFICATION')
     app_domain_email: str = Field(..., alias='_APP_DOMAIN_EMAIL')
+    app_domain_target_smtp: str = Field(..., alias='_APP_DOMAIN_TARGET_SMTP')
 
     @model_validator(mode='before')
     @classmethod
@@ -190,4 +193,6 @@ class ConsoleVariables(AppwriteModel):
             data['_APP_CONSOLE_EMAIL_VERIFICATION'] = ''
         if '_APP_DOMAIN_EMAIL' not in data and 'app_domain_email' not in data:
             data['_APP_DOMAIN_EMAIL'] = ''
+        if '_APP_DOMAIN_TARGET_SMTP' not in data and 'app_domain_target_smtp' not in data:
+            data['_APP_DOMAIN_TARGET_SMTP'] = ''
         return data

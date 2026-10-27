@@ -51,7 +51,7 @@ class Oauth2(Service):
         api_params = {}
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         api_params['grant_id'] = self._normalize_value(grant_id)
         if authorization_details is not None:
             api_params['authorization_details'] = self._normalize_value(authorization_details)
@@ -133,7 +133,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/authorize'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if client_id is not None:
             api_params['client_id'] = self._normalize_value(client_id)
         if redirect_uri is not None:
@@ -237,7 +237,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/authorize'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if client_id is not None:
             api_params['client_id'] = self._normalize_value(client_id)
         if redirect_uri is not None:
@@ -315,7 +315,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/device_authorization'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if client_id is not None:
             api_params['client_id'] = self._normalize_value(client_id)
         if scope is not None:
@@ -365,7 +365,7 @@ class Oauth2(Service):
         api_params = {}
         if user_code is None:
             raise AppwriteException('Missing required parameter: "user_code"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         api_params['user_code'] = self._normalize_value(user_code)
 
         response = self.client.call(
@@ -406,8 +406,8 @@ class Oauth2(Service):
         api_params = {}
         if grant_id is None or grant_id == '':
             raise AppwriteException('Missing required parameter: "grant_id"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
-        api_path = api_path.replace('{grant_id}', str(self._normalize_value(grant_id)))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
+        api_path = api_path.replace('{grant_id}', self._encode_path(grant_id))
 
         response = self.client.call(
             'get',
@@ -459,7 +459,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/logout'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if id_token_hint is not None:
             api_params['id_token_hint'] = self._normalize_value(id_token_hint)
         if logout_hint is not None:
@@ -523,7 +523,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/logout'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if id_token_hint is not None:
             api_params['id_token_hint'] = self._normalize_value(id_token_hint)
         if logout_hint is not None:
@@ -579,7 +579,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/organizations'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if limit is not None:
             api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
@@ -664,7 +664,7 @@ class Oauth2(Service):
             raise AppwriteException('Missing required parameter: "redirect_uri"')
         if response_type is None:
             raise AppwriteException('Missing required parameter: "response_type"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         api_params['client_id'] = self._normalize_value(client_id)
         api_params['redirect_uri'] = self._normalize_value(redirect_uri)
         api_params['response_type'] = self._normalize_value(response_type)
@@ -731,7 +731,7 @@ class Oauth2(Service):
 
         api_path = '/oauth2/{project_id}/projects'
         api_params = {}
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         if limit is not None:
             api_params['limit'] = self._normalize_value(limit)
         if offset is not None:
@@ -776,7 +776,7 @@ class Oauth2(Service):
         api_params = {}
         if grant_id is None:
             raise AppwriteException('Missing required parameter: "grant_id"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         api_params['grant_id'] = self._normalize_value(grant_id)
 
         response = self.client.call(
@@ -826,7 +826,7 @@ class Oauth2(Service):
         api_params = {}
         if token is None:
             raise AppwriteException('Missing required parameter: "token"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         api_params['token'] = self._normalize_value(token)
         if token_type_hint is not None:
             api_params['token_type_hint'] = self._normalize_value(token_type_hint)
@@ -900,7 +900,7 @@ class Oauth2(Service):
         api_params = {}
         if grant_type is None:
             raise AppwriteException('Missing required parameter: "grant_type"')
-        api_path = api_path.replace('{project_id}', str(self._normalize_value(self.client.get_config('project'))))
+        api_path = api_path.replace('{project_id}', self._encode_path(self.client.get_config('project')))
         api_params['grant_type'] = self._normalize_value(grant_type)
         if code is not None:
             api_params['code'] = self._normalize_value(code)

@@ -29,15 +29,25 @@ class MigrationsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.migrations.list()
+        response = self.migrations.list(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/migrations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -77,6 +87,7 @@ class MigrationsServiceTest(unittest.TestCase):
             'https://example.com',
             '<PROJECT_ID>',
             '<API_KEY>',
+            on_duplicate='fail',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -84,14 +95,15 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/appwrite',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'resources',
-                'endpoint',
-                'projectId',
-                'apiKey',
+                'resources': [],
+                'endpoint': 'https://example.com',
+                'projectId': '<PROJECT_ID>',
+                'apiKey': '<API_KEY>',
+                'onDuplicate': 'fail',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -148,13 +160,13 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/appwrite/report',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'endpoint',
-                'projectID',
-                'key',
+                'endpoint': ['https://example.com'],
+                'projectID': ['<PROJECT_ID>'],
+                'key': ['<KEY>'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -195,6 +207,13 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
             '<FILENAME>',
+            columns=[],
+            queries=[],
+            delimiter='<DELIMITER>',
+            enclosure='<ENCLOSURE>',
+            escape='<ESCAPE>',
+            header=False,
+            notify=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -202,13 +221,20 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/csv/exports',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'databaseId',
-                'collectionId',
-                'filename',
+                'databaseId': '<DATABASE_ID>',
+                'collectionId': '<COLLECTION_ID>',
+                'filename': '<FILENAME>',
+                'columns': [],
+                'queries': [],
+                'delimiter': '<DELIMITER>',
+                'enclosure': '<ENCLOSURE>',
+                'escape': '<ESCAPE>',
+                'header': False,
+                'notify': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -250,6 +276,8 @@ class MigrationsServiceTest(unittest.TestCase):
             '<FILE_ID>',
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
+            internal_file=False,
+            on_duplicate='fail',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -257,14 +285,16 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/csv/imports',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'bucketId',
-                'fileId',
-                'databaseId',
-                'collectionId',
+                'bucketId': '<BUCKET_ID>',
+                'fileId': '<FILE_ID>',
+                'databaseId': '<DATABASE_ID>',
+                'collectionId': '<COLLECTION_ID>',
+                'internalFile': False,
+                'onDuplicate': 'fail',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -311,12 +341,12 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/firebase',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'resources',
-                'serviceAccount',
+                'resources': [],
+                'serviceAccount': '<SERVICE_ACCOUNT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -371,11 +401,11 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/firebase/report',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'serviceAccount',
+                'serviceAccount': ['<SERVICE_ACCOUNT>'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -416,6 +446,9 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
             '<FILENAME>',
+            columns=[],
+            queries=[],
+            notify=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -423,13 +456,16 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/json/exports',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'databaseId',
-                'collectionId',
-                'filename',
+                'databaseId': '<DATABASE_ID>',
+                'collectionId': '<COLLECTION_ID>',
+                'filename': '<FILENAME>',
+                'columns': [],
+                'queries': [],
+                'notify': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -471,6 +507,8 @@ class MigrationsServiceTest(unittest.TestCase):
             '<FILE_ID>',
             '<DATABASE_ID>',
             '<COLLECTION_ID>',
+            internal_file=False,
+            on_duplicate='fail',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -478,14 +516,16 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/json/imports',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'bucketId',
-                'fileId',
-                'databaseId',
-                'collectionId',
+                'bucketId': '<BUCKET_ID>',
+                'fileId': '<FILE_ID>',
+                'databaseId': '<DATABASE_ID>',
+                'collectionId': '<COLLECTION_ID>',
+                'internalFile': False,
+                'onDuplicate': 'fail',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -530,6 +570,7 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE>',
             '<USERNAME>',
             'password',
+            port=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -537,17 +578,18 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/nhost',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'resources',
-                'subdomain',
-                'region',
-                'adminSecret',
-                'database',
-                'username',
-                'password',
+                'resources': [],
+                'subdomain': '<SUBDOMAIN>',
+                'region': '<REGION>',
+                'adminSecret': '<ADMIN_SECRET>',
+                'database': '<DATABASE>',
+                'username': '<USERNAME>',
+                'password': 'password',
+                'port': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -600,6 +642,7 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE>',
             '<USERNAME>',
             'password',
+            port=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -607,16 +650,17 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/nhost/report',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'subdomain',
-                'region',
-                'adminSecret',
-                'database',
-                'username',
-                'password',
+                'subdomain': ['<SUBDOMAIN>'],
+                'region': ['<REGION>'],
+                'adminSecret': ['<ADMIN_SECRET>'],
+                'database': ['<DATABASE>'],
+                'username': ['<USERNAME>'],
+                'password': ['password'],
+                'port': ['1'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -660,6 +704,7 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_HOST>',
             '<USERNAME>',
             'password',
+            port=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -667,16 +712,17 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/supabase',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'resources',
-                'endpoint',
-                'apiKey',
-                'databaseHost',
-                'username',
-                'password',
+                'resources': [],
+                'endpoint': 'https://example.com',
+                'apiKey': '<API_KEY>',
+                'databaseHost': '<DATABASE_HOST>',
+                'username': '<USERNAME>',
+                'password': 'password',
+                'port': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -728,6 +774,7 @@ class MigrationsServiceTest(unittest.TestCase):
             '<DATABASE_HOST>',
             '<USERNAME>',
             'password',
+            port=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -735,15 +782,16 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/supabase/report',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'endpoint',
-                'apiKey',
-                'databaseHost',
-                'username',
-                'password',
+                'endpoint': ['https://example.com'],
+                'apiKey': ['<API_KEY>'],
+                'databaseHost': ['<DATABASE_HOST>'],
+                'username': ['<USERNAME>'],
+                'password': ['password'],
+                'port': ['1'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -789,8 +837,8 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/<MIGRATION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -834,8 +882,8 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/<MIGRATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -857,6 +905,6 @@ class MigrationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/migrations/<MIGRATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)

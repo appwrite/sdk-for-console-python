@@ -29,15 +29,23 @@ class BackupsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.backups.list_archives()
+        response = self.backups.list_archives(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/backups/archives',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -61,6 +69,7 @@ class BackupsServiceTest(unittest.TestCase):
         )
         response = self.backups.create_archive(
             [],
+            resource_id='<RESOURCE_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -68,11 +77,12 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/archives',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'services',
+                'services': [],
+                'resourceId': '<RESOURCE_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -105,8 +115,8 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/archives/<ARCHIVE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -128,8 +138,8 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/archives/<ARCHIVE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -145,15 +155,23 @@ class BackupsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.backups.list_policies()
+        response = self.backups.list_policies(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/backups/policies',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -182,6 +200,9 @@ class BackupsServiceTest(unittest.TestCase):
             [],
             1,
             'schedule',
+            name='<NAME>',
+            resource_id='<RESOURCE_ID>',
+            enabled=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -189,14 +210,17 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/policies',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'policyId',
-                'services',
-                'retention',
-                'schedule',
+                'policyId': '<POLICY_ID>',
+                'name': '<NAME>',
+                'services': [],
+                'resourceId': '<RESOURCE_ID>',
+                'enabled': False,
+                'retention': 1,
+                'schedule': 'schedule',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -231,8 +255,8 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/policies/<POLICY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -258,6 +282,10 @@ class BackupsServiceTest(unittest.TestCase):
         )
         response = self.backups.update_policy(
             '<POLICY_ID>',
+            name='<NAME>',
+            retention=1,
+            schedule='schedule',
+            enabled=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -265,8 +293,16 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/policies/<POLICY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': '<NAME>',
+                'retention': 1,
+                'schedule': 'schedule',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -288,8 +324,8 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/policies/<POLICY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -316,6 +352,8 @@ class BackupsServiceTest(unittest.TestCase):
         response = self.backups.create_restoration(
             '<ARCHIVE_ID>',
             [],
+            new_resource_id='<NEW_RESOURCE_ID>',
+            new_resource_name='<NEW_RESOURCE_NAME>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -323,12 +361,14 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/restoration',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'archiveId',
-                'services',
+                'archiveId': '<ARCHIVE_ID>',
+                'services': [],
+                'newResourceId': '<NEW_RESOURCE_ID>',
+                'newResourceName': '<NEW_RESOURCE_NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -346,15 +386,23 @@ class BackupsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.backups.list_restorations()
+        response = self.backups.list_restorations(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/backups/restorations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -387,6 +435,6 @@ class BackupsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/backups/restorations/<RESTORATION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)

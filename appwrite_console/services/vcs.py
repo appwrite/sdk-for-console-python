@@ -63,7 +63,7 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
         api_params['providerRepositoryId'] = self._normalize_value(provider_repository_id)
         api_params['type'] = self._normalize_value(type)
         if provider_root_directory is not None:
@@ -133,7 +133,7 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
         api_params['type'] = self._normalize_value(type)
         if search is not None:
             api_params['search'] = self._normalize_value(search)
@@ -201,7 +201,7 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if private is None:
             raise AppwriteException('Missing required parameter: "private"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
         api_params['name'] = self._normalize_value(name)
         api_params['private'] = self._normalize_value(private)
         if provider_namespace is not None:
@@ -251,8 +251,8 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         if provider_repository_id is None or provider_repository_id == '':
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
+        api_path = api_path.replace('{providerRepositoryId}', self._encode_path(provider_repository_id))
 
         response = self.client.call(
             'get',
@@ -306,8 +306,8 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         if provider_repository_id is None or provider_repository_id == '':
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
+        api_path = api_path.replace('{providerRepositoryId}', self._encode_path(provider_repository_id))
         if search is not None:
             api_params['search'] = self._normalize_value(search)
         if queries is not None:
@@ -364,8 +364,8 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "installation_id"')
         if provider_repository_id is None or provider_repository_id == '':
             raise AppwriteException('Missing required parameter: "provider_repository_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_path = api_path.replace('{providerRepositoryId}', str(self._normalize_value(provider_repository_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
+        api_path = api_path.replace('{providerRepositoryId}', self._encode_path(provider_repository_id))
         if provider_root_directory is not None:
             api_params['providerRootDirectory'] = self._normalize_value(provider_root_directory)
         if provider_reference is not None:
@@ -419,8 +419,8 @@ class Vcs(Service):
             raise AppwriteException('Missing required parameter: "repository_id"')
         if provider_pull_request_id is None:
             raise AppwriteException('Missing required parameter: "provider_pull_request_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
-        api_path = api_path.replace('{repositoryId}', str(self._normalize_value(repository_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
+        api_path = api_path.replace('{repositoryId}', self._encode_path(repository_id))
         api_params['providerPullRequestId'] = self._normalize_value(provider_pull_request_id)
 
         response = self.client.call(
@@ -511,7 +511,7 @@ class Vcs(Service):
         api_params = {}
         if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
 
         response = self.client.call(
             'get',
@@ -551,7 +551,7 @@ class Vcs(Service):
         api_params = {}
         if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
 
         response = self.client.call(
             'delete',
@@ -601,7 +601,7 @@ class Vcs(Service):
         api_params = {}
         if installation_id is None or installation_id == '':
             raise AppwriteException('Missing required parameter: "installation_id"')
-        api_path = api_path.replace('{installationId}', str(self._normalize_value(installation_id)))
+        api_path = api_path.replace('{installationId}', self._encode_path(installation_id))
         if search is not None:
             api_params['search'] = self._normalize_value(search)
         if queries is not None:

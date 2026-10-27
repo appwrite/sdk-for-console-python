@@ -31,6 +31,15 @@ class UsageServiceTest(unittest.TestCase):
         )
         response = self.usage.list_events(
             [],
+            queries=[],
+            interval='1m',
+            dimensions=[],
+            start_at='2020-10-15T06:38:00.000+00:00',
+            end_at='2020-10-15T06:38:00.000+00:00',
+            order_by='time',
+            order_dir='asc',
+            limit=1,
+            offset=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -38,8 +47,19 @@ class UsageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/usage/events',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'interval': ['1m'],
+                'startAt': ['2020-10-15T06:38:00.000+00:00'],
+                'endAt': ['2020-10-15T06:38:00.000+00:00'],
+                'orderBy': ['time'],
+                'orderDir': ['asc'],
+                'limit': ['1'],
+                'offset': ['1'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -57,6 +77,16 @@ class UsageServiceTest(unittest.TestCase):
         )
         response = self.usage.list_gauges(
             [],
+            queries=[],
+            interval='1m',
+            dimensions=[],
+            start_at='2020-10-15T06:38:00.000+00:00',
+            end_at='2020-10-15T06:38:00.000+00:00',
+            order_by='time',
+            order_dir='asc',
+            limit=1,
+            offset=1,
+            aggregate='last',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -64,6 +94,18 @@ class UsageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/usage/gauges',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'interval': ['1m'],
+                'startAt': ['2020-10-15T06:38:00.000+00:00'],
+                'endAt': ['2020-10-15T06:38:00.000+00:00'],
+                'orderBy': ['time'],
+                'orderDir': ['asc'],
+                'limit': ['1'],
+                'offset': ['1'],
+                'aggregate': ['last'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)

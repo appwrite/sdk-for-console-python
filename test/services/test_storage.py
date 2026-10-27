@@ -29,15 +29,25 @@ class StorageServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.storage.list_buckets()
+        response = self.storage.list_buckets(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/storage/buckets',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -70,6 +80,17 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.create_bucket(
             '<BUCKET_ID>',
             '<NAME>',
+            permissions=[],
+            file_security=False,
+            enabled=False,
+            maximum_file_size=1,
+            allowed_file_extensions=[],
+            compression='none',
+            encryption=False,
+            antivirus=False,
+            transformations=False,
+            description='<DESCRIPTION>',
+            strip_metadata=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -77,12 +98,23 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'bucketId',
-                'name',
+                'bucketId': '<BUCKET_ID>',
+                'name': '<NAME>',
+                'permissions': [],
+                'fileSecurity': False,
+                'enabled': False,
+                'maximumFileSize': 1,
+                'allowedFileExtensions': [],
+                'compression': 'none',
+                'encryption': False,
+                'antivirus': False,
+                'transformations': False,
+                'description': '<DESCRIPTION>',
+                'stripMetadata': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -123,8 +155,8 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -157,6 +189,17 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.update_bucket(
             '<BUCKET_ID>',
             '<NAME>',
+            permissions=[],
+            file_security=False,
+            enabled=False,
+            maximum_file_size=1,
+            allowed_file_extensions=[],
+            compression='none',
+            encryption=False,
+            antivirus=False,
+            transformations=False,
+            description='<DESCRIPTION>',
+            strip_metadata=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -164,11 +207,22 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
+                'permissions': [],
+                'fileSecurity': False,
+                'enabled': False,
+                'maximumFileSize': 1,
+                'allowedFileExtensions': [],
+                'compression': 'none',
+                'encryption': False,
+                'antivirus': False,
+                'transformations': False,
+                'description': '<DESCRIPTION>',
+                'stripMetadata': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -192,8 +246,8 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -211,6 +265,9 @@ class StorageServiceTest(unittest.TestCase):
         )
         response = self.storage.list_files(
             '<BUCKET_ID>',
+            queries=[],
+            search='<SEARCH>',
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -218,8 +275,14 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -253,6 +316,8 @@ class StorageServiceTest(unittest.TestCase):
             '<BUCKET_ID>',
             '<FILE_ID>',
             InputFile.from_bytes(bytearray(), "example.file"),
+            permissions=[],
+            folder='photos/2026',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -260,12 +325,19 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files',
         )
-        sent = set(re.findall(r'form-data; name="([^"\[]+)', request.body.decode('latin-1')))
+        sent = dict(
+            re.findall(
+                r'form-data; name="([^"\[]+)[^\r\n]*\r\n(?:[^\r\n]+\r\n)*\r\n(.*?)\r\n--',
+                request.body.decode('latin-1'),
+                re.S,
+            )
+        )
         self.assertEqual(
             sent,
             {
-                'fileId',
-                'file',
+                'fileId': '<FILE_ID>',
+                'file': '',
+                'folder': 'photos/2026',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -307,8 +379,8 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files/<FILE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -341,6 +413,8 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.update_file(
             '<BUCKET_ID>',
             '<FILE_ID>',
+            name='name',
+            permissions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -348,8 +422,14 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files/<FILE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': 'name',
+                'permissions': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -372,8 +452,8 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files/<FILE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -389,6 +469,7 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.get_file_download(
             '<BUCKET_ID>',
             '<FILE_ID>',
+            token='<TOKEN>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -396,8 +477,13 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files/<FILE_ID>/download',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'token': ['<TOKEN>'],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -413,6 +499,18 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.get_file_preview(
             '<BUCKET_ID>',
             '<FILE_ID>',
+            width=1,
+            height=1,
+            gravity='auto',
+            quality=1,
+            border_width=1,
+            border_color='FFFFFF',
+            border_radius=1,
+            opacity=1.0,
+            rotation=1,
+            background='FFFFFF',
+            output='jpg',
+            token='<TOKEN>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -420,8 +518,24 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files/<FILE_ID>/preview',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'width': ['1'],
+                'height': ['1'],
+                'gravity': ['auto'],
+                'quality': ['1'],
+                'borderWidth': ['1'],
+                'borderColor': ['FFFFFF'],
+                'borderRadius': ['1'],
+                'opacity': ['1.0'],
+                'rotation': ['1'],
+                'background': ['FFFFFF'],
+                'output': ['jpg'],
+                'token': ['<TOKEN>'],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -437,6 +551,7 @@ class StorageServiceTest(unittest.TestCase):
         response = self.storage.get_file_view(
             '<BUCKET_ID>',
             '<FILE_ID>',
+            token='<TOKEN>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -444,6 +559,11 @@ class StorageServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/storage/buckets/<BUCKET_ID>/files/<FILE_ID>/view',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'token': ['<TOKEN>'],
+            },
+        )
         self.assertEqual(response, data)

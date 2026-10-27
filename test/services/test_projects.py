@@ -38,8 +38,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/addons',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -71,8 +71,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/addons/premium-geo-db',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -105,8 +105,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/addons/<ADDON_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -129,8 +129,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/addons/<ADDON_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -163,8 +163,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/addons/<ADDON_ID>/confirmations',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -196,8 +196,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/addons/baa/price',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -219,8 +219,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/console-access',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -238,6 +238,8 @@ class ProjectsServiceTest(unittest.TestCase):
         )
         response = self.projects.list_schedules(
             '<PROJECT_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -245,8 +247,13 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/schedules',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -275,6 +282,10 @@ class ProjectsServiceTest(unittest.TestCase):
             '<PROJECT_ID>',
             'function',
             '<RESOURCE_ID>',
+            schedule='0 0 * * *',
+            active=False,
+            data={},
+            interval=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -282,12 +293,16 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/schedules',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'resourceType',
-                'resourceId',
+                'resourceType': 'function',
+                'resourceId': '<RESOURCE_ID>',
+                'schedule': '0 0 * * *',
+                'active': False,
+                'data': {},
+                'interval': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -324,8 +339,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/schedules/<SCHEDULE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -349,8 +364,8 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/stages',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -372,6 +387,7 @@ class ProjectsServiceTest(unittest.TestCase):
         response = self.projects.update_stage(
             '<PROJECT_ID>',
             '<STAGE_ID>',
+            skip=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -379,8 +395,13 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/stages/<STAGE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'skip': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -403,11 +424,11 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/status',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'status',
+                'status': 'active',
             },
         )
         self.assertEqual(response, data)
@@ -459,11 +480,11 @@ class ProjectsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/projects/<PROJECT_ID>/team',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'teamId',
+                'teamId': '<TEAM_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)

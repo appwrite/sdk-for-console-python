@@ -1,5 +1,23 @@
 # Change Log
 
+## 0.15.0
+
+* Breaking: Python 3.9 is no longer supported; requires Python 3.10 or later
+* Updated: requests send `X-Appwrite-Response-Format: 2.6.2`
+* Updated: redirects are no longer followed; a 3xx raises `AppwriteException` naming the `Location`
+* Fixed: path parameters of `.` or `..` raise `AppwriteException`
+* Added: `project.update_deny_realtime_guests_policy`, the `PolicyDenyRealtimeGuests` model and `ProjectPolicyId.DENY_REALTIME_GUESTS`
+* Added: `project.delete_sessions` to sign every user out of a project
+* Added: `console.update_sources` to link pre-sign-up sources to the current user
+* Added: `deploymentretention`, `deploymentretentionmax` and `deploymentsretentioncount` on `BillingPlan`
+* Added: `app_domain_target_smtp` on `ConsoleVariables`
+* Added: `AnalyticsDimension.BROWSERVERSION` and `OPERATINGSYSTEMVERSION`
+* Added: `python-3.15`, `deno-2.9`, `go-1.27` and `rust-1.99` to `Runtime` and `BuildRuntime`
+* Added: video and analytics annotation values to `QuerySuggestionResource`
+* Fixed: path parameters and chunked-upload IDs are percent-encoded as one URL segment
+* Updated: requires `requests>=2.34.2` and `urllib3>=2.8.0`
+* Updated: docs for DNS record names, WAF conditions, scrypt limits and deployment retention
+
 ## 0.14.0
 
 * Added: `strip_metadata` on `storage.create_bucket`, `update_bucket` and the `Bucket` model

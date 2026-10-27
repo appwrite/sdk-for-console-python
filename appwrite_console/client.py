@@ -6,6 +6,7 @@ import sys
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from threading import Lock
+from urllib.parse import quote
 from .input_file import InputFile
 from .exception import AppwriteException
 from .encoders.value_class_encoder import ValueClassEncoder
@@ -19,12 +20,12 @@ class Client:
         self._endpoint = 'https://cloud.appwrite.io/v1'
         self._global_headers = {
             'content-type': '',
-            'user-agent': f'AppwritePythonSDK/0.14.0 ({platform.uname().system}; {platform.uname().version}; {platform.uname().machine})',
+            'user-agent': f'AppwritePythonSDK/0.15.0 ({platform.uname().system}; {platform.uname().version}; {platform.uname().machine})',
             'x-sdk-name': 'Console Python',
             'x-sdk-platform': 'console',
             'x-sdk-language': 'python',
-            'x-sdk-version': '0.14.0',
-            'X-Appwrite-Response-Format': '2.5.0',
+            'x-sdk-version': '0.15.0',
+            'X-Appwrite-Response-Format': '2.6.2',
         }
         self._config = {}
 
@@ -185,10 +186,17 @@ class Client:
                 files=files,
                 headers=headers,
                 verify=(not self._self_signed),
-                allow_redirects=False if response_type == 'location' else True,
+                # A redirect would carry the API key to wherever it points, possibly another host.
+                allow_redirects=False,
             )
 
             response.raise_for_status()
+
+            if response_type != 'location' and 300 <= response.status_code < 400:
+                location = response.headers.get('Location', '')
+                raise AppwriteException(
+                    f'Redirect to {location} not followed', response.status_code, None, response.text
+                )
 
             warnings = response.headers.get('x-appwrite-warning')
             if warnings:
@@ -207,6 +215,8 @@ class Client:
                 return response.json()
 
             return response._content
+        except AppwriteException:
+            raise
         except Exception as e:
             if response != None:
                 content_type = response.headers['Content-Type']
@@ -254,8 +264,10 @@ class Client:
         counter = 0
 
         if upload_id:
+            if upload_id in ('.', '..'):
+                raise AppwriteException('Path parameter cannot be "." or ".."')
             try:
-                result = self.call('get', path + '/' + upload_id, headers)
+                result = self.call('get', path + '/' + quote(upload_id, safe="!*'()"), headers)
                 counter = result['chunksUploaded']
             except:
                 pass

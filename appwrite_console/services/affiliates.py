@@ -131,7 +131,7 @@ class Affiliates(Service):
         api_params = {}
         if link_id is None or link_id == '':
             raise AppwriteException('Missing required parameter: "link_id"')
-        api_path = api_path.replace('{linkId}', str(self._normalize_value(link_id)))
+        api_path = api_path.replace('{linkId}', self._encode_path(link_id))
 
         response = self.client.call(
             'get',
@@ -171,7 +171,7 @@ class Affiliates(Service):
         api_params = {}
         if link_id is None or link_id == '':
             raise AppwriteException('Missing required parameter: "link_id"')
-        api_path = api_path.replace('{linkId}', str(self._normalize_value(link_id)))
+        api_path = api_path.replace('{linkId}', self._encode_path(link_id))
 
         response = self.client.call(
             'delete',
@@ -310,7 +310,7 @@ class Affiliates(Service):
             raise AppwriteException('Missing required parameter: "status"')
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-        api_path = api_path.replace('{rewardId}', str(self._normalize_value(reward_id)))
+        api_path = api_path.replace('{rewardId}', self._encode_path(reward_id))
         api_params['status'] = self._normalize_value(status)
         api_params['organizationId'] = self._normalize_value(organization_id)
 

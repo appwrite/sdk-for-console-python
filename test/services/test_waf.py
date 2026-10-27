@@ -29,15 +29,25 @@ class WafServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.waf.list_rules()
+        response = self.waf.list_rules(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/waf/rules',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -69,6 +79,11 @@ class WafServiceTest(unittest.TestCase):
             '<RULE_ID>',
             'api',
             '<NAME>',
+            resource_id='<RESOURCE_ID>',
+            description='<DESCRIPTION>',
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -76,13 +91,18 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/bypass',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'ruleId',
-                'resourceType',
-                'name',
+                'ruleId': '<RULE_ID>',
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -114,6 +134,13 @@ class WafServiceTest(unittest.TestCase):
         )
         response = self.waf.update_bypass_rule(
             '<RULE_ID>',
+            resource_type='api',
+            resource_id='<RESOURCE_ID>',
+            name='<NAME>',
+            description='<DESCRIPTION>',
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -121,8 +148,19 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/bypass/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -157,6 +195,14 @@ class WafServiceTest(unittest.TestCase):
             '<RULE_ID>',
             'api',
             '<NAME>',
+            resource_id='<RESOURCE_ID>',
+            description='<DESCRIPTION>',
+            challenge_type='compute',
+            priority=1,
+            enabled=False,
+            conditions=[],
+            difficulty=1,
+            ttl=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -164,13 +210,21 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/challenge',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'ruleId',
-                'resourceType',
-                'name',
+                'ruleId': '<RULE_ID>',
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'challengeType': 'compute',
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
+                'difficulty': 1,
+                'ttl': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -205,6 +259,16 @@ class WafServiceTest(unittest.TestCase):
         )
         response = self.waf.update_challenge_rule(
             '<RULE_ID>',
+            resource_type='api',
+            resource_id='<RESOURCE_ID>',
+            name='<NAME>',
+            description='<DESCRIPTION>',
+            challenge_type='compute',
+            priority=1,
+            enabled=False,
+            conditions=[],
+            difficulty=1,
+            ttl=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -212,8 +276,22 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/challenge/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'challengeType': 'compute',
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
+                'difficulty': 1,
+                'ttl': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -245,6 +323,11 @@ class WafServiceTest(unittest.TestCase):
             '<RULE_ID>',
             'api',
             '<NAME>',
+            resource_id='<RESOURCE_ID>',
+            description='<DESCRIPTION>',
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -252,13 +335,18 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/deny',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'ruleId',
-                'resourceType',
-                'name',
+                'ruleId': '<RULE_ID>',
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -290,6 +378,13 @@ class WafServiceTest(unittest.TestCase):
         )
         response = self.waf.update_deny_rule(
             '<RULE_ID>',
+            resource_type='api',
+            resource_id='<RESOURCE_ID>',
+            name='<NAME>',
+            description='<DESCRIPTION>',
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -297,8 +392,19 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/deny/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -337,6 +443,14 @@ class WafServiceTest(unittest.TestCase):
             '<NAME>',
             1,
             1,
+            resource_id='<RESOURCE_ID>',
+            description='<DESCRIPTION>',
+            key='ip',
+            strategy='fixedWindow',
+            max_bucket_size=1,
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -344,15 +458,23 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/rate-limit',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'ruleId',
-                'resourceType',
-                'name',
-                'limit',
-                'interval',
+                'ruleId': '<RULE_ID>',
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'limit': 1,
+                'interval': 1,
+                'key': 'ip',
+                'strategy': 'fixedWindow',
+                'maxBucketSize': 1,
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -389,6 +511,17 @@ class WafServiceTest(unittest.TestCase):
         )
         response = self.waf.update_rate_limit_rule(
             '<RULE_ID>',
+            resource_type='api',
+            resource_id='<RESOURCE_ID>',
+            name='<NAME>',
+            description='<DESCRIPTION>',
+            limit=1,
+            interval=1,
+            key='ip',
+            max_bucket_size=1,
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -396,8 +529,23 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/rate-limit/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'limit': 1,
+                'interval': 1,
+                'key': 'ip',
+                'maxBucketSize': 1,
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -433,6 +581,11 @@ class WafServiceTest(unittest.TestCase):
             '<NAME>',
             '<LOCATION>',
             1,
+            resource_id='<RESOURCE_ID>',
+            description='<DESCRIPTION>',
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -440,15 +593,20 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/redirect',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'ruleId',
-                'resourceType',
-                'name',
-                'location',
-                'statusCode',
+                'ruleId': '<RULE_ID>',
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'location': '<LOCATION>',
+                'statusCode': 1,
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -482,6 +640,15 @@ class WafServiceTest(unittest.TestCase):
         )
         response = self.waf.update_redirect_rule(
             '<RULE_ID>',
+            resource_type='api',
+            resource_id='<RESOURCE_ID>',
+            name='<NAME>',
+            description='<DESCRIPTION>',
+            location='<LOCATION>',
+            status_code=1,
+            priority=1,
+            enabled=False,
+            conditions=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -489,8 +656,21 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/redirect/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'resourceType': 'api',
+                'resourceId': '<RESOURCE_ID>',
+                'name': '<NAME>',
+                'description': '<DESCRIPTION>',
+                'location': '<LOCATION>',
+                'statusCode': 1,
+                'priority': 1,
+                'enabled': False,
+                'conditions': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -527,8 +707,8 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/<RULE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -550,6 +730,6 @@ class WafServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/waf/rules/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
