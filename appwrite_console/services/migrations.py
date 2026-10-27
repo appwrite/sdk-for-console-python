@@ -916,7 +916,7 @@ class Migrations(Service):
         api_params = {}
         if migration_id is None or migration_id == '':
             raise AppwriteException('Missing required parameter: "migration_id"')
-        api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
+        api_path = api_path.replace('{migrationId}', self._encode_path(migration_id))
 
         response = self.client.call(
             'get',
@@ -956,7 +956,7 @@ class Migrations(Service):
         api_params = {}
         if migration_id is None or migration_id == '':
             raise AppwriteException('Missing required parameter: "migration_id"')
-        api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
+        api_path = api_path.replace('{migrationId}', self._encode_path(migration_id))
 
         response = self.client.call(
             'patch',
@@ -997,7 +997,7 @@ class Migrations(Service):
         api_params = {}
         if migration_id is None or migration_id == '':
             raise AppwriteException('Missing required parameter: "migration_id"')
-        api_path = api_path.replace('{migrationId}', str(self._normalize_value(migration_id)))
+        api_path = api_path.replace('{migrationId}', self._encode_path(migration_id))
 
         response = self.client.call(
             'delete',

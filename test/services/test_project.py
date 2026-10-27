@@ -60,8 +60,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -81,8 +81,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -124,7 +124,7 @@ class ProjectServiceTest(unittest.TestCase):
         )
         response = self.project.update_auth_method(
             'email-password',
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -132,11 +132,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/auth-methods/email-password',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -154,15 +154,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_environments()
+        response = self.project.list_environments(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/environments',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -212,12 +220,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/environments',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'environmentId',
-                'name',
+                'environmentId': '<ENVIRONMENT_ID>',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -268,8 +276,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/environments/<ENVIRONMENT_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -319,11 +327,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/environments/<ENVIRONMENT_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -347,8 +355,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/environments/<ENVIRONMENT_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -364,15 +372,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_keys()
+        response = self.project.list_keys(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/keys',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -400,6 +416,8 @@ class ProjectServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -407,13 +425,15 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/keys',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'keyId',
-                'name',
-                'scopes',
+                'keyId': '<KEY_ID>',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -449,12 +469,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/keys/ephemeral',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'scopes',
-                'duration',
+                'scopes': [],
+                'duration': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -489,8 +509,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/keys/<KEY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -518,6 +538,8 @@ class ProjectServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -525,12 +547,14 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'scopes',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -554,8 +578,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -604,11 +628,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/labels',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'labels',
+                'labels': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -626,15 +650,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_mock_phones()
+        response = self.project.list_mock_phones(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/mock-phones',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -662,12 +694,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/mock-phones',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'number',
-                'otp',
+                'number': '+12065550100',
+                'otp': '<OTP>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -696,8 +728,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/mock-phones/+12065550100',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -725,11 +757,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/mock-phones/+12065550100',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'otp',
+                'otp': '<OTP>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -753,8 +785,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/mock-phones/+12065550100',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -770,15 +802,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_o_auth2_providers()
+        response = self.project.list_o_auth2_providers(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -819,8 +859,22 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_o_auth2_server(
-            True,
+            False,
             'https://example.com',
+            scopes=[],
+            authorization_details_types=[],
+            access_token_duration=1,
+            refresh_token_duration=1,
+            public_access_token_duration=1,
+            public_refresh_token_duration=1,
+            installation_access_token_duration=1,
+            confidential_pkce=False,
+            verification_url='https://example.com',
+            user_code_length=1,
+            user_code_format='numeric',
+            device_code_duration=1,
+            default_scopes=[],
+            installation_scopes=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -828,12 +882,26 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/oauth2-server',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
-                'authorizationUrl',
+                'enabled': False,
+                'authorizationUrl': 'https://example.com',
+                'scopes': [],
+                'authorizationDetailsTypes': [],
+                'accessTokenDuration': 1,
+                'refreshTokenDuration': 1,
+                'publicAccessTokenDuration': 1,
+                'publicRefreshTokenDuration': 1,
+                'installationAccessTokenDuration': 1,
+                'confidentialPkce': False,
+                'verificationUrl': 'https://example.com',
+                'userCodeLength': 1,
+                'userCodeFormat': 'numeric',
+                'deviceCodeDuration': 1,
+                'defaultScopes': [],
+                'installationScopes': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -853,15 +921,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_amazon()
+        response = self.project.update_o_auth2_amazon(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/amazon',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -883,15 +962,34 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_apple()
+        response = self.project.update_o_auth2_apple(
+            service_id='<SERVICE_ID>',
+            key_id='<KEY_ID>',
+            team_id='<TEAM_ID>',
+            p8_file='<P8_FILE>',
+            enabled=False,
+            native_client_ids=[],
+            native_enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/apple',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'serviceId': '<SERVICE_ID>',
+                'keyId': '<KEY_ID>',
+                'teamId': '<TEAM_ID>',
+                'p8File': '<P8_FILE>',
+                'enabled': False,
+                'nativeClientIds': [],
+                'nativeEnabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -909,15 +1007,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_appwrite()
+        response = self.project.update_o_auth2_appwrite(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/appwrite',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -937,15 +1046,30 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_auth0()
+        response = self.project.update_o_auth2_auth0(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            endpoint='<ENDPOINT>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/auth0',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'endpoint': '<ENDPOINT>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -964,15 +1088,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_authentik()
+        response = self.project.update_o_auth2_authentik(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            endpoint='<ENDPOINT>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/authentik',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'endpoint': '<ENDPOINT>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -990,15 +1127,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_autodesk()
+        response = self.project.update_o_auth2_autodesk(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/autodesk',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1016,15 +1164,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_bitbucket()
+        response = self.project.update_o_auth2_bitbucket(
+            key='<KEY>',
+            secret='<SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/bitbucket',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'key': '<KEY>',
+                'secret': '<SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1042,15 +1201,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_bitly()
+        response = self.project.update_o_auth2_bitly(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/bitly',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1068,15 +1238,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_box()
+        response = self.project.update_o_auth2_box(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/box',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1094,15 +1275,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_cloudflare()
+        response = self.project.update_o_auth2_cloudflare(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/cloudflare',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1120,15 +1312,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_dailymotion()
+        response = self.project.update_o_auth2_dailymotion(
+            api_key='<API_KEY>',
+            api_secret='<API_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/dailymotion',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'apiKey': '<API_KEY>',
+                'apiSecret': '<API_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1147,15 +1350,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_discord()
+        response = self.project.update_o_auth2_discord(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/discord',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1173,15 +1389,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_disqus()
+        response = self.project.update_o_auth2_disqus(
+            public_key='<PUBLIC_KEY>',
+            secret_key='<SECRET_KEY>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/disqus',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'publicKey': '<PUBLIC_KEY>',
+                'secretKey': '<SECRET_KEY>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1199,15 +1426,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_dropbox()
+        response = self.project.update_o_auth2_dropbox(
+            app_key='<APP_KEY>',
+            app_secret='<APP_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/dropbox',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'appKey': '<APP_KEY>',
+                'appSecret': '<APP_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1225,15 +1463,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_etsy()
+        response = self.project.update_o_auth2_etsy(
+            key_string='<KEY_STRING>',
+            shared_secret='<SHARED_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/etsy',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'keyString': '<KEY_STRING>',
+                'sharedSecret': '<SHARED_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1251,15 +1500,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_facebook()
+        response = self.project.update_o_auth2_facebook(
+            app_id='<APP_ID>',
+            app_secret='<APP_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/facebook',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'appId': '<APP_ID>',
+                'appSecret': '<APP_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1277,15 +1537,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_figma()
+        response = self.project.update_o_auth2_figma(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/figma',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1304,15 +1575,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_fusion_auth()
+        response = self.project.update_o_auth2_fusion_auth(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            endpoint='<ENDPOINT>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/fusionauth',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'endpoint': '<ENDPOINT>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1331,15 +1615,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_git_hub()
+        response = self.project.update_o_auth2_git_hub(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/github',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1358,15 +1655,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_gitlab()
+        response = self.project.update_o_auth2_gitlab(
+            application_id='<APPLICATION_ID>',
+            secret='<SECRET>',
+            endpoint='https://example.com',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/gitlab',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'applicationId': '<APPLICATION_ID>',
+                'secret': '<SECRET>',
+                'endpoint': 'https://example.com',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1387,15 +1697,32 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_google()
+        response = self.project.update_o_auth2_google(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            prompt=[],
+            enabled=False,
+            native_client_ids=[],
+            native_enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/google',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'prompt': [],
+                'enabled': False,
+                'nativeClientIds': [],
+                'nativeEnabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1413,15 +1740,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_hugging_face()
+        response = self.project.update_o_auth2_hugging_face(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/huggingface',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1440,15 +1778,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_kakao()
+        response = self.project.update_o_auth2_kakao(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/kakao',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1468,15 +1819,30 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_keycloak()
+        response = self.project.update_o_auth2_keycloak(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            endpoint='<ENDPOINT>',
+            realm_name='<REALM_NAME>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/keycloak',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'endpoint': '<ENDPOINT>',
+                'realmName': '<REALM_NAME>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1494,15 +1860,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_kick()
+        response = self.project.update_o_auth2_kick(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/kick',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1520,15 +1897,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_linkedin()
+        response = self.project.update_o_auth2_linkedin(
+            client_id='<CLIENT_ID>',
+            primary_client_secret='<PRIMARY_CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/linkedin',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'primaryClientSecret': '<PRIMARY_CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1548,15 +1936,30 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_microsoft()
+        response = self.project.update_o_auth2_microsoft(
+            application_id='<APPLICATION_ID>',
+            application_secret='<APPLICATION_SECRET>',
+            tenant='<TENANT>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/microsoft',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'applicationId': '<APPLICATION_ID>',
+                'applicationSecret': '<APPLICATION_SECRET>',
+                'tenant': '<TENANT>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1574,15 +1977,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_notion()
+        response = self.project.update_o_auth2_notion(
+            oauth_client_id='<OAUTH_CLIENT_ID>',
+            oauth_client_secret='<OAUTH_CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/notion',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'oauthClientId': '<OAUTH_CLIENT_ID>',
+                'oauthClientSecret': '<OAUTH_CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1605,15 +2019,38 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_oidc()
+        response = self.project.update_o_auth2_oidc(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            well_known_url='https://example.com',
+            authorization_url='https://example.com',
+            token_url='https://example.com',
+            user_info_url='https://example.com',
+            prompt=[],
+            max_age=1,
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/oidc',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'wellKnownURL': 'https://example.com',
+                'authorizationURL': 'https://example.com',
+                'tokenURL': 'https://example.com',
+                'userInfoURL': 'https://example.com',
+                'prompt': [],
+                'maxAge': 1,
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1634,15 +2071,32 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_okta()
+        response = self.project.update_o_auth2_okta(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            domain='example.com',
+            authorization_server_id='<AUTHORIZATION_SERVER_ID>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/okta',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'domain': 'example.com',
+                'authorizationServerId': '<AUTHORIZATION_SERVER_ID>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1660,15 +2114,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_paypal()
+        response = self.project.update_o_auth2_paypal(
+            client_id='<CLIENT_ID>',
+            secret_key='<SECRET_KEY>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/paypal',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'secretKey': '<SECRET_KEY>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1686,15 +2151,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_paypal_sandbox()
+        response = self.project.update_o_auth2_paypal_sandbox(
+            client_id='<CLIENT_ID>',
+            secret_key='<SECRET_KEY>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/paypalSandbox',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'secretKey': '<SECRET_KEY>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1712,15 +2188,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_podio()
+        response = self.project.update_o_auth2_podio(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/podio',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1738,15 +2225,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_resend()
+        response = self.project.update_o_auth2_resend(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/resend',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1765,15 +2263,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_salesforce()
+        response = self.project.update_o_auth2_salesforce(
+            customer_key='<CUSTOMER_KEY>',
+            customer_secret='<CUSTOMER_SECRET>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/salesforce',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'customerKey': '<CUSTOMER_KEY>',
+                'customerSecret': '<CUSTOMER_SECRET>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1791,15 +2302,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_slack()
+        response = self.project.update_o_auth2_slack(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/slack',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1817,15 +2339,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_spotify()
+        response = self.project.update_o_auth2_spotify(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/spotify',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1843,15 +2376,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_stripe()
+        response = self.project.update_o_auth2_stripe(
+            client_id='<CLIENT_ID>',
+            api_secret_key='<API_SECRET_KEY>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/stripe',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'apiSecretKey': '<API_SECRET_KEY>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1869,15 +2413,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_tik_tok()
+        response = self.project.update_o_auth2_tik_tok(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/tiktok',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1895,15 +2450,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_tradeshift()
+        response = self.project.update_o_auth2_tradeshift(
+            oauth2_client_id='<OAUTH2_CLIENT_ID>',
+            oauth2_client_secret='<OAUTH2_CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/tradeshift',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'oauth2ClientId': '<OAUTH2_CLIENT_ID>',
+                'oauth2ClientSecret': '<OAUTH2_CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1921,15 +2487,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_tradeshift_sandbox()
+        response = self.project.update_o_auth2_tradeshift_sandbox(
+            oauth2_client_id='<OAUTH2_CLIENT_ID>',
+            oauth2_client_secret='<OAUTH2_CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/tradeshiftBox',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'oauth2ClientId': '<OAUTH2_CLIENT_ID>',
+                'oauth2ClientSecret': '<OAUTH2_CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1947,15 +2524,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_twitch()
+        response = self.project.update_o_auth2_twitch(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/twitch',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1973,15 +2561,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_webflow()
+        response = self.project.update_o_auth2_webflow(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/webflow',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1999,15 +2598,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_word_press()
+        response = self.project.update_o_auth2_word_press(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/wordpress',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2025,15 +2635,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_x()
+        response = self.project.update_o_auth2_x(
+            customer_key='<CUSTOMER_KEY>',
+            secret_key='<SECRET_KEY>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/x',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'customerKey': '<CUSTOMER_KEY>',
+                'secretKey': '<SECRET_KEY>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2051,15 +2672,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_yahoo()
+        response = self.project.update_o_auth2_yahoo(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/yahoo',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2077,15 +2709,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_yandex()
+        response = self.project.update_o_auth2_yandex(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/yandex',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2104,15 +2747,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_zoho()
+        response = self.project.update_o_auth2_zoho(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+            prompt=[],
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/zoho',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+                'prompt': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2130,15 +2786,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_o_auth2_zoom()
+        response = self.project.update_o_auth2_zoom(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/oauth2/zoom',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2166,8 +2833,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/oauth2/amazon',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2183,15 +2850,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_platforms()
+        response = self.project.list_platforms(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/platforms',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2216,6 +2891,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<PLATFORM_ID>',
             '<NAME>',
             '<APPLICATION_ID>',
+            fingerprints=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2223,13 +2899,14 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/android',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'platformId',
-                'name',
-                'applicationId',
+                'platformId': '<PLATFORM_ID>',
+                'name': '<NAME>',
+                'applicationId': '<APPLICATION_ID>',
+                'fingerprints': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2256,6 +2933,7 @@ class ProjectServiceTest(unittest.TestCase):
             '<PLATFORM_ID>',
             '<NAME>',
             '<APPLICATION_ID>',
+            fingerprints=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2263,12 +2941,13 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/android/<PLATFORM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'applicationId',
+                'name': '<NAME>',
+                'applicationId': '<APPLICATION_ID>',
+                'fingerprints': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2301,13 +2980,13 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/apple',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'platformId',
-                'name',
-                'bundleIdentifier',
+                'platformId': '<PLATFORM_ID>',
+                'name': '<NAME>',
+                'bundleIdentifier': '<BUNDLE_IDENTIFIER>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2340,12 +3019,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/apple/<PLATFORM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'bundleIdentifier',
+                'name': '<NAME>',
+                'bundleIdentifier': '<BUNDLE_IDENTIFIER>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2378,13 +3057,13 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/linux',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'platformId',
-                'name',
-                'packageName',
+                'platformId': '<PLATFORM_ID>',
+                'name': '<NAME>',
+                'packageName': '<PACKAGE_NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2417,12 +3096,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/linux/<PLATFORM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'packageName',
+                'name': '<NAME>',
+                'packageName': '<PACKAGE_NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2455,13 +3134,13 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/web',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'platformId',
-                'name',
-                'hostname',
+                'platformId': '<PLATFORM_ID>',
+                'name': '<NAME>',
+                'hostname': 'app.example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2494,12 +3173,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/web/<PLATFORM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'hostname',
+                'name': '<NAME>',
+                'hostname': 'app.example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2532,13 +3211,13 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/windows',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'platformId',
-                'name',
-                'packageIdentifierName',
+                'platformId': '<PLATFORM_ID>',
+                'name': '<NAME>',
+                'packageIdentifierName': '<PACKAGE_IDENTIFIER_NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2571,12 +3250,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/windows/<PLATFORM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'packageIdentifierName',
+                'name': '<NAME>',
+                'packageIdentifierName': '<PACKAGE_IDENTIFIER_NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2607,8 +3286,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/<PLATFORM_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2630,8 +3309,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/platforms/<PLATFORM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2647,15 +3326,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_policies()
+        response = self.project.list_policies(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/policies',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2696,7 +3383,7 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_deny_aliased_email_policy(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2704,11 +3391,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/deny-aliased-email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2751,7 +3438,7 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_deny_corporate_email_policy(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2759,11 +3446,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/deny-corporate-email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2806,7 +3493,7 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_deny_disposable_email_policy(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2814,11 +3501,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/deny-disposable-email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2861,7 +3548,7 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_deny_free_email_policy(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2869,11 +3556,66 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/deny-free-email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_update_deny_realtime_guests_policy(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "name": "New Project",
+            "teamId": "1592981250",
+            "region": "fra",
+            "smtpEnabled": True,
+            "smtpSenderName": "John Appwrite",
+            "smtpSenderEmail": "john@appwrite.io",
+            "smtpReplyToName": "Support Team",
+            "smtpReplyToEmail": "support@appwrite.io",
+            "smtpHost": "mail.appwrite.io",
+            "smtpPort": 25.0,
+            "smtpUsername": "emailuser",
+            "smtpPassword": "smtp-password",
+            "smtpSecure": "tls",
+            "pingCount": 1.0,
+            "pingedAt": "2020-10-15T06:38:00.000+00:00",
+            "labels": [],
+            "status": "active",
+            "onboarding": {},
+            "authMethods": [],
+            "services": [],
+            "protocols": [],
+            "blocks": [],
+            "consoleAccessedAt": "2020-10-15T06:38:00.000+00:00",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.update_deny_realtime_guests_policy(
+            False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/policies/deny-realtime-guests',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2915,15 +3657,32 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_membership_privacy_policy()
+        response = self.project.update_membership_privacy_policy(
+            user_id=False,
+            user_email=False,
+            user_phone=False,
+            user_name=False,
+            user_mfa=False,
+            user_accessed_at=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/policies/membership-privacy',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'userId': False,
+                'userEmail': False,
+                'userPhone': False,
+                'userName': False,
+                'userMFA': False,
+                'userAccessedAt': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2963,15 +3722,28 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_mfa_factors_policy()
+        response = self.project.update_mfa_factors_policy(
+            totp=False,
+            email=False,
+            phone=False,
+            custom=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/policies/mfa-factors',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'totp': False,
+                'email': False,
+                'phone': False,
+                'custom': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3020,11 +3792,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/passkey',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'rpId',
+                'rpId': '<RP_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3067,7 +3839,8 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_password_dictionary_policy(
-            True,
+            False,
+            deny_list=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3075,11 +3848,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/password-dictionary',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
+                'denyList': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3130,11 +3904,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/password-history',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'total',
+                'total': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3177,7 +3951,8 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_password_personal_data_policy(
-            True,
+            False,
+            deny_list=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3185,11 +3960,12 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/password-personal-data',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
+                'denyList': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3231,15 +4007,26 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_password_pwned_policy()
+        response = self.project.update_password_pwned_policy(
+            enabled=False,
+            sessions=False,
+            users=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/policies/password-pwned',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'enabled': False,
+                'sessions': False,
+                'users': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3279,15 +4066,24 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_password_rotation_policy()
+        response = self.project.update_password_rotation_policy(
+            enabled=False,
+            max_age=1,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/policies/password-rotation',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'enabled': False,
+                'maxAge': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3307,15 +4103,30 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_password_strength_policy()
+        response = self.project.update_password_strength_policy(
+            min=1,
+            uppercase=False,
+            lowercase=False,
+            number=False,
+            symbols=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/policies/password-strength',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'min': 1,
+                'uppercase': False,
+                'lowercase': False,
+                'number': False,
+                'symbols': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3356,7 +4167,7 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_session_alert_policy(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3364,11 +4175,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/session-alert',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3419,11 +4230,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/session-duration',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'duration',
+                'duration': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3466,7 +4277,7 @@ class ProjectServiceTest(unittest.TestCase):
             headers=headers,
         )
         response = self.project.update_session_invalidation_policy(
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3474,11 +4285,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/session-invalidation',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3529,11 +4340,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/session-limit',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'total',
+                'total': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3584,11 +4395,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/user-limit',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'total',
+                'total': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3616,8 +4427,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/policies/password-dictionary',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3659,7 +4470,7 @@ class ProjectServiceTest(unittest.TestCase):
         )
         response = self.project.update_protocol(
             'rest',
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3667,11 +4478,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/protocols/rest',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3715,7 +4526,7 @@ class ProjectServiceTest(unittest.TestCase):
         )
         response = self.project.update_service(
             'account',
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3723,14 +4534,35 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/services/account',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'enabled',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_delete_sessions(self, m):
+        data = ''
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'DELETE',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.delete_sessions()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/sessions',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
+        self.assertEqual(response, data)
 
     @requests_mock.Mocker()
     def test_update_smtp(self, m):
@@ -3769,15 +4601,40 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.update_smtp()
+        response = self.project.update_smtp(
+            host='example.com',
+            port=1,
+            username='<USERNAME>',
+            password='password',
+            sender_email='email@example.com',
+            sender_name='<SENDER_NAME>',
+            reply_to_email='email@example.com',
+            reply_to_name='<REPLY_TO_NAME>',
+            secure='tls',
+            enabled=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/smtp',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'host': 'example.com',
+                'port': 1,
+                'username': '<USERNAME>',
+                'password': 'password',
+                'senderEmail': 'email@example.com',
+                'senderName': '<SENDER_NAME>',
+                'replyToEmail': 'email@example.com',
+                'replyToName': '<REPLY_TO_NAME>',
+                'secure': 'tls',
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3799,11 +4656,11 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/smtp/tests',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'emails',
+                'emails': [],
             },
         )
         self.assertEqual(response, data)
@@ -3821,15 +4678,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_email_templates()
+        response = self.project.list_email_templates(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/templates/email',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3853,6 +4718,13 @@ class ProjectServiceTest(unittest.TestCase):
         )
         response = self.project.update_email_template(
             'verification',
+            locale='af',
+            subject='<SUBJECT>',
+            message='<MESSAGE>',
+            sender_name='<SENDER_NAME>',
+            sender_email='email@example.com',
+            reply_to_email='email@example.com',
+            reply_to_name='<REPLY_TO_NAME>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3860,11 +4732,18 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/templates/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'templateId',
+                'templateId': 'verification',
+                'locale': 'af',
+                'subject': '<SUBJECT>',
+                'message': '<MESSAGE>',
+                'senderName': '<SENDER_NAME>',
+                'senderEmail': 'email@example.com',
+                'replyToEmail': 'email@example.com',
+                'replyToName': '<REPLY_TO_NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3890,6 +4769,7 @@ class ProjectServiceTest(unittest.TestCase):
         )
         response = self.project.get_email_template(
             'verification',
+            locale='af',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3897,8 +4777,13 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/templates/email/verification',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'locale': ['af'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3914,15 +4799,23 @@ class ProjectServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.project.list_variables()
+        response = self.project.list_variables(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/project/variables',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -3949,6 +4842,8 @@ class ProjectServiceTest(unittest.TestCase):
             '<VARIABLE_ID>',
             '<KEY>',
             '<VALUE>',
+            secret=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3956,13 +4851,15 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/variables',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'variableId',
-                'key',
-                'value',
+                'variableId': '<VARIABLE_ID>',
+                'key': '<KEY>',
+                'value': '<VALUE>',
+                'secret': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -3996,8 +4893,8 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/variables/<VARIABLE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -4022,6 +4919,10 @@ class ProjectServiceTest(unittest.TestCase):
         )
         response = self.project.update_variable(
             '<VARIABLE_ID>',
+            key='<KEY>',
+            value='<VALUE>',
+            secret=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -4029,8 +4930,16 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/variables/<VARIABLE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'key': '<KEY>',
+                'value': '<VALUE>',
+                'secret': False,
+                'description': '<DESCRIPTION>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -4052,6 +4961,6 @@ class ProjectServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/project/variables/<VARIABLE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)

@@ -355,7 +355,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "invoice_id"')
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-        api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
+        api_path = api_path.replace('{invoiceId}', self._encode_path(invoice_id))
         api_params['organizationId'] = self._normalize_value(organization_id)
 
         response = self.client.call(
@@ -531,7 +531,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "invoice_id"')
         if organization_id is None:
             raise AppwriteException('Missing required parameter: "organization_id"')
-        api_path = api_path.replace('{invoiceId}', str(self._normalize_value(invoice_id)))
+        api_path = api_path.replace('{invoiceId}', self._encode_path(invoice_id))
         api_params['organizationId'] = self._normalize_value(organization_id)
 
         response = self.client.call(
@@ -620,7 +620,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -661,7 +661,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'delete',
@@ -707,7 +707,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         if auto_renewal is None:
             raise AppwriteException('Missing required parameter: "auto_renewal"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['autoRenewal'] = self._normalize_value(auto_renewal)
 
         response = self.client.call(
@@ -753,7 +753,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         if nameservers is not None:
             api_params['nameservers'] = self._normalize_value(nameservers)
 
@@ -798,7 +798,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'patch',
@@ -839,7 +839,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -880,7 +880,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'post',
@@ -921,7 +921,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -962,7 +962,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'post',
@@ -1003,7 +1003,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -1044,7 +1044,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'post',
@@ -1085,7 +1085,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -1126,7 +1126,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'post',
@@ -1167,7 +1167,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -1208,7 +1208,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'post',
@@ -1249,7 +1249,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -1290,7 +1290,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'post',
@@ -1338,7 +1338,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -1373,7 +1373,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             IPv4 address for this A record.
         ttl : float
@@ -1401,7 +1401,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1442,7 +1442,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             IPv4 address for this A record.
         ttl : float
@@ -1472,8 +1472,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1510,7 +1510,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             IPv6 address for this AAAA record.
         ttl : float
@@ -1538,7 +1538,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1579,7 +1579,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             IPv6 address for this AAAA record.
         ttl : float
@@ -1609,8 +1609,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1648,7 +1648,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name.
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Target domain for this ALIAS record.
         ttl : float
@@ -1676,7 +1676,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1719,7 +1719,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name.
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Target domain for this ALIAS record.
         ttl : float
@@ -1749,8 +1749,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1787,7 +1787,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name.
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             CAA value (e.g. issuer domain).
         ttl : float
@@ -1815,7 +1815,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1856,7 +1856,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name.
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             CAA value (e.g. issuer domain).
         ttl : float
@@ -1886,8 +1886,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1927,7 +1927,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Canonical target for this CNAME record.
         ttl : float
@@ -1955,7 +1955,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -1994,7 +1994,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Canonical target for this CNAME record.
         ttl : float
@@ -2024,8 +2024,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2062,7 +2062,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Target for the HTTPS record.
         ttl : float
@@ -2090,7 +2090,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2131,7 +2131,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Target for the HTTPS record.
         ttl : float
@@ -2161,8 +2161,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2202,7 +2202,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Mail server domain for this MX record.
         ttl : float
@@ -2234,7 +2234,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2275,7 +2275,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Mail server domain for this MX record.
         ttl : float
@@ -2309,8 +2309,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "ttl"')
         if priority is None:
             raise AppwriteException('Missing required parameter: "priority"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2348,7 +2348,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Nameserver target for this NS record.
         ttl : float
@@ -2376,7 +2376,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2418,7 +2418,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain).
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Nameserver target for this NS record.
         ttl : float
@@ -2448,8 +2448,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2490,7 +2490,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (service name).
+            Record name relative to the domain: the service and protocol, such as `_sip._tcp`. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Target hostname for this SRV record.
         ttl : float
@@ -2530,7 +2530,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "weight"')
         if port is None:
             raise AppwriteException('Missing required parameter: "port"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2588,7 +2588,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (service name).
+            Record name relative to the domain: the service and protocol, such as `_sip._tcp`. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             Target hostname for this SRV record.
         ttl : float
@@ -2630,8 +2630,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "weight"')
         if port is None:
             raise AppwriteException('Missing required parameter: "port"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2672,7 +2672,7 @@ class Domains(Service):
         domain_id : str
             Domain unique ID.
         name : str
-            Record name (subdomain) for the TXT record.
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         ttl : float
             Time to live, in seconds. Must be between 1 and 2147483647.
         value : Optional[str]
@@ -2698,7 +2698,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['name'] = self._normalize_value(name)
         if value is not None:
             api_params['value'] = self._normalize_value(value)
@@ -2741,7 +2741,7 @@ class Domains(Service):
         record_id : str
             DNS record unique ID.
         name : str
-            Record name (subdomain) for the TXT record.
+            Record name relative to the domain, such as `www`, or `@` for the domain itself. A full name ending in the domain is also accepted and stored relative to it.
         value : str
             TXT record value.
         ttl : float
@@ -2771,8 +2771,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "value"')
         if ttl is None:
             raise AppwriteException('Missing required parameter: "ttl"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
         api_params['name'] = self._normalize_value(name)
         api_params['value'] = self._normalize_value(value)
         api_params['ttl'] = self._normalize_value(ttl)
@@ -2827,8 +2827,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
 
         response = self.client.call(
             'get',
@@ -2874,8 +2874,8 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         if record_id is None or record_id == '':
             raise AppwriteException('Missing required parameter: "record_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
-        api_path = api_path.replace('{recordId}', str(self._normalize_value(record_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
+        api_path = api_path.replace('{recordId}', self._encode_path(record_id))
 
         response = self.client.call(
             'delete',
@@ -2925,7 +2925,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['teamId'] = self._normalize_value(team_id)
 
         response = self.client.call(
@@ -2967,7 +2967,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -3008,7 +3008,7 @@ class Domains(Service):
         api_params = {}
         if domain_id is None or domain_id == '':
             raise AppwriteException('Missing required parameter: "domain_id"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
 
         response = self.client.call(
             'get',
@@ -3030,7 +3030,7 @@ class Domains(Service):
     ) -> Domain:
         """
         Update the DNS zone for the given domain using the provided zone file content.
-        All parsed records are imported and then the main domain document is returned.
+        All parsed records the domain does not already have are imported and then the main domain document is returned.
 
         Parameters
         ----------
@@ -3055,7 +3055,7 @@ class Domains(Service):
             raise AppwriteException('Missing required parameter: "domain_id"')
         if content is None:
             raise AppwriteException('Missing required parameter: "content"')
-        api_path = api_path.replace('{domainId}', str(self._normalize_value(domain_id)))
+        api_path = api_path.replace('{domainId}', self._encode_path(domain_id))
         api_params['content'] = self._normalize_value(content)
 
         response = self.client.call(

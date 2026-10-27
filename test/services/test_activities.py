@@ -29,15 +29,23 @@ class ActivitiesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.activities.list_events()
+        response = self.activities.list_events(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/activities/events',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -89,6 +97,6 @@ class ActivitiesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/activities/events/<EVENT_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)

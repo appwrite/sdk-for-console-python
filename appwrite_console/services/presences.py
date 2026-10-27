@@ -128,7 +128,7 @@ class Presences(Service):
         api_params = {}
         if presence_id is None or presence_id == '':
             raise AppwriteException('Missing required parameter: "presence_id"')
-        api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
+        api_path = api_path.replace('{presenceId}', self._encode_path(presence_id))
 
         response = self.client.call(
             'get',
@@ -182,7 +182,7 @@ class Presences(Service):
             raise AppwriteException('Missing required parameter: "presence_id"')
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
-        api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
+        api_path = api_path.replace('{presenceId}', self._encode_path(presence_id))
         api_params['status'] = self._normalize_value(status)
         if permissions is not None:
             api_params['permissions'] = self._normalize_value(permissions)
@@ -245,7 +245,7 @@ class Presences(Service):
         api_params = {}
         if presence_id is None or presence_id == '':
             raise AppwriteException('Missing required parameter: "presence_id"')
-        api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
+        api_path = api_path.replace('{presenceId}', self._encode_path(presence_id))
         if status is not None:
             api_params['status'] = self._normalize_value(status)
         if expires_at is not None:
@@ -296,7 +296,7 @@ class Presences(Service):
         api_params = {}
         if presence_id is None or presence_id == '':
             raise AppwriteException('Missing required parameter: "presence_id"')
-        api_path = api_path.replace('{presenceId}', str(self._normalize_value(presence_id)))
+        api_path = api_path.replace('{presenceId}', self._encode_path(presence_id))
 
         response = self.client.call(
             'delete',

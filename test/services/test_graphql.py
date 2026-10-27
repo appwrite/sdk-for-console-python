@@ -35,11 +35,11 @@ class GraphqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/graphql',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'query',
+                'query': {},
             },
         )
         self.assertEqual(response, data)
@@ -63,11 +63,11 @@ class GraphqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/graphql/mutation',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'query',
+                'query': {},
             },
         )
         self.assertEqual(response, data)

@@ -29,15 +29,23 @@ class WebhooksServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.webhooks.list()
+        response = self.webhooks.list(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/webhooks',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -70,6 +78,12 @@ class WebhooksServiceTest(unittest.TestCase):
             'https://example.com/webhook',
             '<NAME>',
             [],
+            enabled=False,
+            tls=False,
+            auth_username='<AUTH_USERNAME>',
+            auth_password='password',
+            secret='<SECRET>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -77,14 +91,20 @@ class WebhooksServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/webhooks',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'webhookId',
-                'url',
-                'name',
-                'events',
+                'webhookId': '<WEBHOOK_ID>',
+                'url': 'https://example.com/webhook',
+                'name': '<NAME>',
+                'events': [],
+                'enabled': False,
+                'tls': False,
+                'authUsername': '<AUTH_USERNAME>',
+                'authPassword': 'password',
+                'secret': '<SECRET>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -123,8 +143,8 @@ class WebhooksServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/webhooks/<WEBHOOK_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -157,6 +177,11 @@ class WebhooksServiceTest(unittest.TestCase):
             '<NAME>',
             'https://example.com/webhook',
             [],
+            enabled=False,
+            tls=False,
+            auth_username='<AUTH_USERNAME>',
+            auth_password='password',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -164,13 +189,18 @@ class WebhooksServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/webhooks/<WEBHOOK_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'url',
-                'events',
+                'name': '<NAME>',
+                'url': 'https://example.com/webhook',
+                'events': [],
+                'enabled': False,
+                'tls': False,
+                'authUsername': '<AUTH_USERNAME>',
+                'authPassword': 'password',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -194,8 +224,8 @@ class WebhooksServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/webhooks/<WEBHOOK_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -225,6 +255,7 @@ class WebhooksServiceTest(unittest.TestCase):
         )
         response = self.webhooks.update_secret(
             '<WEBHOOK_ID>',
+            secret='<SECRET>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -232,6 +263,11 @@ class WebhooksServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/webhooks/<WEBHOOK_ID>/secret',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'secret': '<SECRET>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)

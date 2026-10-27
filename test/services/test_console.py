@@ -40,8 +40,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/campaigns/<CAMPAIGN_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -72,8 +72,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/coupons/<COUPON_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -89,15 +89,25 @@ class ConsoleServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.console.list_databases()
+        response = self.console.list_databases(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/console/databases',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -113,15 +123,22 @@ class ConsoleServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.console.list_o_auth2_providers()
+        response = self.console.list_o_auth2_providers(
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/console/oauth2-providers',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -137,15 +154,22 @@ class ConsoleServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.console.get_plans()
+        response = self.console.get_plans(
+            platform='appwrite',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/console/plans',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'platform': ['appwrite'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -237,8 +261,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/plans/<PLAN_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -261,8 +285,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/postgres-extensions',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -294,8 +318,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/programs/<PROGRAM_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -403,8 +427,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/programs/<PROGRAM_ID>/memberships',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -427,8 +451,8 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/regions',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -451,12 +475,12 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/resources',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'value',
-                'type',
+                'value': ['<VALUE>'],
+                'type': ['rules'],
             },
         )
         self.assertEqual(response, data)
@@ -474,15 +498,22 @@ class ConsoleServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.console.list_organization_scopes()
+        response = self.console.list_organization_scopes(
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/console/scopes/organization',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -498,15 +529,22 @@ class ConsoleServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.console.list_project_scopes()
+        response = self.console.list_project_scopes(
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/console/scopes/project',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -519,15 +557,58 @@ class ConsoleServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.console.create_source()
+        response = self.console.create_source(
+            ref='<REF>',
+            referrer='https://example.com',
+            utm_source='<UTM_SOURCE>',
+            utm_campaign='<UTM_CAMPAIGN>',
+            utm_medium='<UTM_MEDIUM>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/console/sources',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'ref': '<REF>',
+                'referrer': 'https://example.com',
+                'utmSource': '<UTM_SOURCE>',
+                'utmCampaign': '<UTM_CAMPAIGN>',
+                'utmMedium': '<UTM_MEDIUM>',
+            },
+        )
+        self.assertEqual(response, data)
+
+    @requests_mock.Mocker()
+    def test_update_sources(self, m):
+        data = ''
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.console.update_sources(
+            [],
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/console/sources',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'claims': [],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -546,6 +627,9 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.suggest_columns(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            context='<CONTEXT>',
+            min=1,
+            max=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -553,12 +637,15 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/suggestions/columns',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'databaseId',
-                'tableId',
+                'databaseId': ['<DATABASE_ID>'],
+                'tableId': ['<TABLE_ID>'],
+                'context': ['<CONTEXT>'],
+                'min': ['1'],
+                'max': ['1'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -579,6 +666,8 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.suggest_indexes(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            min=1,
+            max=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -586,12 +675,14 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/suggestions/indexes',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'databaseId',
-                'tableId',
+                'databaseId': ['<DATABASE_ID>'],
+                'tableId': ['<TABLE_ID>'],
+                'min': ['1'],
+                'max': ['1'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -609,6 +700,8 @@ class ConsoleServiceTest(unittest.TestCase):
         response = self.console.suggest_queries(
             'activities',
             '<INPUT>',
+            database_id='<DATABASE_ID>',
+            table_id='<TABLE_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -616,12 +709,14 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/suggestions/queries',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'resource',
-                'input',
+                'resource': ['activities'],
+                'input': ['<INPUT>'],
+                'databaseId': ['<DATABASE_ID>'],
+                'tableId': ['<TABLE_ID>'],
             },
         )
         self.assertEqual(response, data)
@@ -647,6 +742,7 @@ class ConsoleServiceTest(unittest.TestCase):
         )
         response = self.console.get_email_template(
             'verification',
+            locale='af',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -654,8 +750,13 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/templates/email/verification',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'locale': ['af'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -695,6 +796,7 @@ class ConsoleServiceTest(unittest.TestCase):
             "supportForIntegerIds": True,
             "_APP_CONSOLE_EMAIL_VERIFICATION": "true",
             "_APP_DOMAIN_EMAIL": "appwrite.email",
+            "_APP_DOMAIN_TARGET_SMTP": "mail.appwrite.email",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -710,6 +812,6 @@ class ConsoleServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/console/variables',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)

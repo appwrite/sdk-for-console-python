@@ -58,7 +58,7 @@ class Console(Service):
         api_params = {}
         if campaign_id is None or campaign_id == '':
             raise AppwriteException('Missing required parameter: "campaign_id"')
-        api_path = api_path.replace('{campaignId}', str(self._normalize_value(campaign_id)))
+        api_path = api_path.replace('{campaignId}', self._encode_path(campaign_id))
 
         response = self.client.call(
             'get',
@@ -98,7 +98,7 @@ class Console(Service):
         api_params = {}
         if coupon_id is None or coupon_id == '':
             raise AppwriteException('Missing required parameter: "coupon_id"')
-        api_path = api_path.replace('{couponId}', str(self._normalize_value(coupon_id)))
+        api_path = api_path.replace('{couponId}', self._encode_path(coupon_id))
 
         response = self.client.call(
             'get',
@@ -265,7 +265,7 @@ class Console(Service):
         api_params = {}
         if plan_id is None or plan_id == '':
             raise AppwriteException('Missing required parameter: "plan_id"')
-        api_path = api_path.replace('{planId}', str(self._normalize_value(plan_id)))
+        api_path = api_path.replace('{planId}', self._encode_path(plan_id))
 
         response = self.client.call(
             'get',
@@ -336,7 +336,7 @@ class Console(Service):
         api_params = {}
         if program_id is None or program_id == '':
             raise AppwriteException('Missing required parameter: "program_id"')
-        api_path = api_path.replace('{programId}', str(self._normalize_value(program_id)))
+        api_path = api_path.replace('{programId}', self._encode_path(program_id))
 
         response = self.client.call(
             'get',
@@ -380,7 +380,7 @@ class Console(Service):
         api_params = {}
         if program_id is None or program_id == '':
             raise AppwriteException('Missing required parameter: "program_id"')
-        api_path = api_path.replace('{programId}', str(self._normalize_value(program_id)))
+        api_path = api_path.replace('{programId}', self._encode_path(program_id))
 
         response = self.client.call(
             'post',
@@ -610,6 +610,47 @@ class Console(Service):
 
         return response
 
+    def update_sources(
+        self,
+        claims: List[str],
+    ) -> Dict[str, Any]:
+        """
+        Link sources captured before sign-up to the current console user. Pass the `claim` values returned when each source was created; invalid claims, sources older than 30 days and sources already linked to a user are ignored.
+
+        Parameters
+        ----------
+        claims : List[str]
+            Source claims, as returned by create source, to link to the current user.
+        Returns
+        -------
+        Dict[str, Any]
+            API response as a dictionary
+
+        Raises
+        ------
+        AppwriteException
+            If API request fails
+        """
+
+        api_path = '/console/sources'
+        api_params = {}
+        if claims is None:
+            raise AppwriteException('Missing required parameter: "claims"')
+        api_params['claims'] = self._normalize_value(claims)
+
+        response = self.client.call(
+            'patch',
+            api_path,
+            {
+                'X-Appwrite-Project': self.client.get_config('project'),
+                'content-type': 'application/json',
+                'accept': 'application/json',
+            },
+            api_params,
+        )
+
+        return response
+
     def suggest_columns(
         self,
         database_id: str,
@@ -812,7 +853,7 @@ class Console(Service):
         api_params = {}
         if template_id is None:
             raise AppwriteException('Missing required parameter: "template_id"')
-        api_path = api_path.replace('{templateId}', str(self._normalize_value(template_id)))
+        api_path = api_path.replace('{templateId}', self._encode_path(template_id))
         if locale is not None:
             api_params['locale'] = self._normalize_value(locale)
 

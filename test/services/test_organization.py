@@ -119,8 +119,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -228,11 +228,11 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -254,8 +254,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -271,15 +271,23 @@ class OrganizationServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.organization.list_installations()
+        response = self.organization.list_installations(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/organization/installations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -304,6 +312,7 @@ class OrganizationServiceTest(unittest.TestCase):
         )
         response = self.organization.create_installation(
             '<APP_ID>',
+            authorization_details='<AUTHORIZATION_DETAILS>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -311,11 +320,12 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/installations',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'appId',
+                'appId': '<APP_ID>',
+                'authorizationDetails': '<AUTHORIZATION_DETAILS>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -349,8 +359,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/installations/<INSTALLATION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -375,6 +385,7 @@ class OrganizationServiceTest(unittest.TestCase):
         )
         response = self.organization.update_installation(
             '<INSTALLATION_ID>',
+            authorization_details='<AUTHORIZATION_DETAILS>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -382,8 +393,13 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/installations/<INSTALLATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'authorizationDetails': '<AUTHORIZATION_DETAILS>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -405,8 +421,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/installations/<INSTALLATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -422,15 +438,23 @@ class OrganizationServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.organization.list_keys()
+        response = self.organization.list_keys(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/organization/keys',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -458,6 +482,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -465,13 +490,14 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/keys',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'keyId',
-                'name',
-                'scopes',
+                'keyId': '<KEY_ID>',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -506,8 +532,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/keys/<KEY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -535,6 +561,7 @@ class OrganizationServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -542,12 +569,13 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'scopes',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -571,8 +599,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -588,15 +616,25 @@ class OrganizationServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.organization.list_memberships()
+        response = self.organization.list_memberships(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/organization/memberships',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -627,6 +665,11 @@ class OrganizationServiceTest(unittest.TestCase):
         )
         response = self.organization.create_membership(
             [],
+            email='email@example.com',
+            user_id='<USER_ID>',
+            phone='+12065550100',
+            url='https://example.com',
+            name='<NAME>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -634,11 +677,16 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/memberships',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'roles',
+                'email': 'email@example.com',
+                'userId': '<USER_ID>',
+                'phone': '+12065550100',
+                'roles': [],
+                'url': 'https://example.com',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -678,8 +726,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/memberships/<MEMBERSHIP_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -718,11 +766,11 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/memberships/<MEMBERSHIP_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'roles',
+                'roles': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -746,8 +794,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/memberships/<MEMBERSHIP_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -763,15 +811,25 @@ class OrganizationServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.organization.list_projects()
+        response = self.organization.list_projects(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/organization/projects',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -814,6 +872,7 @@ class OrganizationServiceTest(unittest.TestCase):
         response = self.organization.create_project(
             '<PROJECT_ID>',
             '<NAME>',
+            region='fra',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -821,12 +880,13 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'projectId',
-                'name',
+                'projectId': '<PROJECT_ID>',
+                'name': '<NAME>',
+                'region': 'fra',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -877,8 +937,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -928,11 +988,11 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -956,8 +1016,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -975,6 +1035,8 @@ class OrganizationServiceTest(unittest.TestCase):
         )
         response = self.organization.list_project_keys(
             '<PROJECT_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -982,8 +1044,13 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>/keys',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1012,6 +1079,8 @@ class OrganizationServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1019,13 +1088,15 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>/keys',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'keyId',
-                'name',
-                'scopes',
+                'keyId': '<KEY_ID>',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1062,12 +1133,12 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>/keys/ephemeral',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'scopes',
-                'duration',
+                'scopes': [],
+                'duration': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1103,8 +1174,8 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>/keys/<KEY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1133,6 +1204,8 @@ class OrganizationServiceTest(unittest.TestCase):
             '<KEY_ID>',
             '<NAME>',
             [],
+            expire='2020-10-15T06:38:00.000+00:00',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1140,12 +1213,14 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'scopes',
+                'name': '<NAME>',
+                'scopes': [],
+                'expire': '2020-10-15T06:38:00.000+00:00',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1170,6 +1245,6 @@ class OrganizationServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/organization/projects/<PROJECT_ID>/keys/<KEY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)

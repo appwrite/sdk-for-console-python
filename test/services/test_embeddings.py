@@ -31,6 +31,7 @@ class EmbeddingsServiceTest(unittest.TestCase):
         )
         response = self.embeddings.create_text_embeddings(
             [],
+            model='nomic-embed-text',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -38,11 +39,12 @@ class EmbeddingsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/embeddings/text',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'texts',
+                'texts': [],
+                'model': 'nomic-embed-text',
             },
         )
         self.assertEqual(response.to_dict(), data)

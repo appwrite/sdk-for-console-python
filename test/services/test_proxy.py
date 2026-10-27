@@ -34,6 +34,7 @@ class ProxyServiceTest(unittest.TestCase):
         response = self.proxy.create_invalidation(
             'example.com',
             'tag',
+            reference='<REFERENCE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -41,12 +42,13 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/invalidations',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'type',
+                'domain': 'example.com',
+                'type': 'tag',
+                'reference': '<REFERENCE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -64,15 +66,23 @@ class ProxyServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.proxy.list_rules()
+        response = self.proxy.list_rules(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/proxy/rules',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -110,11 +120,11 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/api',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
+                'domain': 'example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -148,6 +158,7 @@ class ProxyServiceTest(unittest.TestCase):
         response = self.proxy.create_function_rule(
             'example.com',
             '<FUNCTION_ID>',
+            branch='<BRANCH>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -155,12 +166,13 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/function',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'functionId',
+                'domain': 'example.com',
+                'functionId': '<FUNCTION_ID>',
+                'branch': '<BRANCH>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -204,15 +216,15 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/redirect',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'url',
-                'statusCode',
-                'resourceId',
-                'resourceType',
+                'domain': 'example.com',
+                'url': 'https://example.com',
+                'statusCode': '301',
+                'resourceId': '<RESOURCE_ID>',
+                'resourceType': 'site',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -246,6 +258,7 @@ class ProxyServiceTest(unittest.TestCase):
         response = self.proxy.create_site_rule(
             'example.com',
             '<SITE_ID>',
+            branch='<BRANCH>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -253,12 +266,13 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/site',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'siteId',
+                'domain': 'example.com',
+                'siteId': '<SITE_ID>',
+                'branch': '<BRANCH>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -292,6 +306,7 @@ class ProxyServiceTest(unittest.TestCase):
         response = self.proxy.create_smtp_rule(
             'example.com',
             '<FUNCTION_ID>',
+            branch='<BRANCH>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -299,12 +314,13 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/smtp',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'functionId',
+                'domain': 'example.com',
+                'functionId': '<FUNCTION_ID>',
+                'branch': '<BRANCH>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -344,8 +360,8 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/<RULE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -367,8 +383,8 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/<RULE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -406,6 +422,6 @@ class ProxyServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/proxy/rules/<RULE_ID>/status',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)

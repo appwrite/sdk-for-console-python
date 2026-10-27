@@ -87,7 +87,7 @@ class Notifications(Service):
             raise AppwriteException('Missing required parameter: "notification_id"')
         if read is None:
             raise AppwriteException('Missing required parameter: "read"')
-        api_path = api_path.replace('{notificationId}', str(self._normalize_value(notification_id)))
+        api_path = api_path.replace('{notificationId}', self._encode_path(notification_id))
         api_params['read'] = self._normalize_value(read)
 
         response = self.client.call(

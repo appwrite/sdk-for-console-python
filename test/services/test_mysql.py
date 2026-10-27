@@ -29,15 +29,23 @@ class MysqlServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.mysql.list()
+        response = self.mysql.list(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/mysql',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -99,6 +107,18 @@ class MysqlServiceTest(unittest.TestCase):
         response = self.mysql.create(
             '<DATABASE_ID>',
             '<NAME>',
+            version='17',
+            specification='<SPECIFICATION>',
+            replicas=1,
+            sync_mode='async',
+            network_idle_timeout_seconds=1,
+            network_ip_allowlist=[],
+            idle_timeout_minutes=1,
+            pitr=False,
+            pitr_retention_days=1,
+            storage_autoscaling=False,
+            storage_autoscaling_threshold_percent=1,
+            storage_autoscaling_max_gb=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -106,12 +126,24 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'databaseId',
-                'name',
+                'databaseId': '<DATABASE_ID>',
+                'name': '<NAME>',
+                'version': '17',
+                'specification': '<SPECIFICATION>',
+                'replicas': 1,
+                'syncMode': 'async',
+                'networkIdleTimeoutSeconds': 1,
+                'networkIPAllowlist': [],
+                'idleTimeoutMinutes': 1,
+                'pitr': False,
+                'pitrRetentionDays': 1,
+                'storageAutoscaling': False,
+                'storageAutoscalingThresholdPercent': 1,
+                'storageAutoscalingMaxGb': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -136,8 +168,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/specifications',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -205,8 +237,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -267,6 +299,26 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.update(
             '<DATABASE_ID>',
+            name='<NAME>',
+            status='ready',
+            specification='<SPECIFICATION>',
+            replicas=1,
+            sync_mode='async',
+            network_idle_timeout_seconds=1,
+            network_ip_allowlist=[],
+            idle_timeout_minutes=1,
+            pitr=False,
+            pitr_retention_days=1,
+            storage_autoscaling=False,
+            storage_autoscaling_threshold_percent=1,
+            storage_autoscaling_max_gb=1,
+            metrics_trace_sample_rate=1.0,
+            metrics_slow_query_log_threshold_ms=1,
+            sql_api_enabled=False,
+            sql_api_allowed_statements=[],
+            sql_api_max_rows=1,
+            sql_api_max_bytes=1,
+            sql_api_timeout_seconds=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -274,8 +326,32 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': '<NAME>',
+                'status': 'ready',
+                'specification': '<SPECIFICATION>',
+                'replicas': 1,
+                'syncMode': 'async',
+                'networkIdleTimeoutSeconds': 1,
+                'networkIPAllowlist': [],
+                'idleTimeoutMinutes': 1,
+                'pitr': False,
+                'pitrRetentionDays': 1,
+                'storageAutoscaling': False,
+                'storageAutoscalingThresholdPercent': 1,
+                'storageAutoscalingMaxGb': 1,
+                'metricsTraceSampleRate': 1.0,
+                'metricsSlowQueryLogThresholdMs': 1,
+                'sqlApiEnabled': False,
+                'sqlApiAllowedStatements': [],
+                'sqlApiMaxRows': 1,
+                'sqlApiMaxBytes': 1,
+                'sqlApiTimeoutSeconds': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -297,8 +373,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -316,6 +392,8 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.list_backups(
             '<DATABASE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -323,8 +401,13 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -352,6 +435,7 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.create_backup(
             '<DATABASE_ID>',
+            type='full',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -359,8 +443,13 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'type': 'full',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -378,6 +467,8 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.list_backup_policies(
             '<DATABASE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -385,8 +476,13 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/policies',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -416,6 +512,8 @@ class MysqlServiceTest(unittest.TestCase):
             '<NAME>',
             'schedule',
             1,
+            type='full',
+            enabled=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -423,14 +521,16 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/policies',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'policyId',
-                'name',
-                'schedule',
-                'retention',
+                'policyId': '<POLICY_ID>',
+                'name': '<NAME>',
+                'schedule': 'schedule',
+                'retention': 1,
+                'type': 'full',
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -466,8 +566,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/policies/<POLICY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -494,6 +594,10 @@ class MysqlServiceTest(unittest.TestCase):
         response = self.mysql.update_backup_policy(
             '<DATABASE_ID>',
             '<POLICY_ID>',
+            name='<NAME>',
+            schedule='schedule',
+            retention=1,
+            enabled=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -501,8 +605,16 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/policies/<POLICY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': '<NAME>',
+                'schedule': 'schedule',
+                'retention': 1,
+                'enabled': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -525,8 +637,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/policies/<POLICY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -551,6 +663,9 @@ class MysqlServiceTest(unittest.TestCase):
             '<BUCKET>',
             '<ACCESS_KEY>',
             '<SECRET_KEY>',
+            region='<REGION>',
+            prefix='<PREFIX>',
+            endpoint='https://example.com',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -558,14 +673,17 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/storage',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'provider',
-                'bucket',
-                'accessKey',
-                'secretKey',
+                'provider': 's3',
+                'bucket': '<BUCKET>',
+                'region': '<REGION>',
+                'prefix': '<PREFIX>',
+                'endpoint': 'https://example.com',
+                'accessKey': '<ACCESS_KEY>',
+                'secretKey': '<SECRET_KEY>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -603,8 +721,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/<BACKUP_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -627,8 +745,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/backups/<BACKUP_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -653,8 +771,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/branches',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -715,6 +833,8 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.create_branch(
             '<DATABASE_ID>',
+            branch_id='<BRANCH_ID>',
+            ttl=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -722,8 +842,14 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/branches',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'branchId': '<BRANCH_ID>',
+                'ttl': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -792,8 +918,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/branches/<BRANCH_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -824,8 +950,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/credentials',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -848,6 +974,8 @@ class MysqlServiceTest(unittest.TestCase):
         response = self.mysql.create_execution(
             '<DATABASE_ID>',
             '<SQL>',
+            bindings={},
+            timeout_seconds=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -855,11 +983,13 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/executions',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'sql',
+                'sql': '<SQL>',
+                'bindings': {},
+                'timeoutSeconds': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -922,6 +1052,7 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.create_failover(
             '<DATABASE_ID>',
+            target_replica_id='<TARGET_REPLICA_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -929,8 +1060,13 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/failovers',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'targetReplicaId': '<TARGET_REPLICA_ID>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1000,12 +1136,12 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/maintenance',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'day',
-                'hourUtc',
+                'day': 'sun',
+                'hourUtc': 1,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1069,6 +1205,7 @@ class MysqlServiceTest(unittest.TestCase):
         response = self.mysql.create_migration(
             '<DATABASE_ID>',
             'shared',
+            specification='<SPECIFICATION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1076,11 +1213,12 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/migrations',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'targetType',
+                'targetType': 'shared',
+                'specification': '<SPECIFICATION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1100,6 +1238,9 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.list_operations(
             '<DATABASE_ID>',
+            status='queued',
+            limit=1,
+            offset=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1107,8 +1248,15 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/operations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'status': ['queued'],
+                'limit': ['1'],
+                'offset': ['1'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1133,8 +1281,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/pitr',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1167,8 +1315,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/pooler',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1194,6 +1342,14 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.update_pooler(
             '<DATABASE_ID>',
+            mode='transaction',
+            max_connections=1,
+            default_pool_size=1,
+            read_write_splitting=False,
+            pooler_cpu_request='<POOLER_CPU_REQUEST>',
+            pooler_cpu_limit='<POOLER_CPU_LIMIT>',
+            pooler_memory_request='<POOLER_MEMORY_REQUEST>',
+            pooler_memory_limit='<POOLER_MEMORY_LIMIT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1201,8 +1357,20 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/pooler',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'mode': 'transaction',
+                'maxConnections': 1,
+                'defaultPoolSize': 1,
+                'readWriteSplitting': False,
+                'poolerCpuRequest': '<POOLER_CPU_REQUEST>',
+                'poolerCpuLimit': '<POOLER_CPU_LIMIT>',
+                'poolerMemoryRequest': '<POOLER_MEMORY_REQUEST>',
+                'poolerMemoryLimit': '<POOLER_MEMORY_LIMIT>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1231,8 +1399,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/replicas',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1250,6 +1418,10 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.list_restorations(
             '<DATABASE_ID>',
+            status='pending',
+            type='backup',
+            limit=1,
+            offset=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1257,8 +1429,16 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/restorations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'status': ['pending'],
+                'type': ['backup'],
+                'limit': ['1'],
+                'offset': ['1'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1282,6 +1462,13 @@ class MysqlServiceTest(unittest.TestCase):
         )
         response = self.mysql.create_restoration(
             '<DATABASE_ID>',
+            type='backup',
+            backup_id='<BACKUP_ID>',
+            target_database_id='<TARGET_DATABASE_ID>',
+            target_time='2020-10-15T06:38:00.000+00:00',
+            restore_mode='in_place',
+            target_name='<TARGET_NAME>',
+            auto_promote=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1289,8 +1476,19 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/restorations',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'type': 'backup',
+                'backupId': '<BACKUP_ID>',
+                'targetDatabaseId': '<TARGET_DATABASE_ID>',
+                'targetTime': '2020-10-15T06:38:00.000+00:00',
+                'restoreMode': 'in_place',
+                'targetName': '<TARGET_NAME>',
+                'autoPromote': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1322,8 +1520,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/restorations/<RESTORATION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1355,8 +1553,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/restorations/<RESTORATION_ID>/promotions',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1390,8 +1588,8 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/status',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1460,11 +1658,11 @@ class MysqlServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/mysql/<DATABASE_ID>/upgrades',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'targetVersion',
+                'targetVersion': '<TARGET_VERSION>',
             },
         )
         self.assertEqual(response.to_dict(), data)

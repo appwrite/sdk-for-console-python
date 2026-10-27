@@ -29,15 +29,25 @@ class TablesDBServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.tables_db.list()
+        response = self.tables_db.list(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/tablesdb',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -61,6 +71,11 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create(
             '<DATABASE_ID>',
             '<NAME>',
+            enabled=False,
+            description='<DESCRIPTION>',
+            specification='serverless',
+            replicas=1,
+            sync_mode='async',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -68,12 +83,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'databaseId',
-                'name',
+                'databaseId': '<DATABASE_ID>',
+                'name': '<NAME>',
+                'enabled': False,
+                'description': '<DESCRIPTION>',
+                'specification': 'serverless',
+                'replicas': 1,
+                'syncMode': 'async',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -98,8 +118,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/specifications',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -115,15 +135,23 @@ class TablesDBServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.tables_db.list_transactions()
+        response = self.tables_db.list_transactions(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/tablesdb/transactions',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -143,15 +171,22 @@ class TablesDBServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.tables_db.create_transaction()
+        response = self.tables_db.create_transaction(
+            ttl=1,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/tablesdb/transactions',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'ttl': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -180,8 +215,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/transactions/<TRANSACTION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -203,6 +238,8 @@ class TablesDBServiceTest(unittest.TestCase):
         )
         response = self.tables_db.update_transaction(
             '<TRANSACTION_ID>',
+            commit=False,
+            rollback=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -210,8 +247,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/transactions/<TRANSACTION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'commit': False,
+                'rollback': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -233,8 +276,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/transactions/<TRANSACTION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -256,6 +299,7 @@ class TablesDBServiceTest(unittest.TestCase):
         )
         response = self.tables_db.create_operations(
             '<TRANSACTION_ID>',
+            operations=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -263,8 +307,13 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/transactions/<TRANSACTION_ID>/operations',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'operations': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -294,8 +343,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -318,6 +367,12 @@ class TablesDBServiceTest(unittest.TestCase):
         )
         response = self.tables_db.update(
             '<DATABASE_ID>',
+            name='<NAME>',
+            enabled=False,
+            description='<DESCRIPTION>',
+            specification='serverless',
+            replicas=1,
+            sync_mode='async',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -325,8 +380,18 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': '<NAME>',
+                'enabled': False,
+                'description': '<DESCRIPTION>',
+                'specification': 'serverless',
+                'replicas': 1,
+                'syncMode': 'async',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -348,8 +413,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -410,6 +475,7 @@ class TablesDBServiceTest(unittest.TestCase):
         )
         response = self.tables_db.create_failover(
             '<DATABASE_ID>',
+            target_replica_id='<TARGET_REPLICA_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -417,8 +483,13 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/failovers',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'targetReplicaId': '<TARGET_REPLICA_ID>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -443,8 +514,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/migrations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -478,6 +549,7 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_migration(
             '<DATABASE_ID>',
             's-1vcpu-1gb',
+            auto_cutover=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -485,11 +557,12 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/migrations',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'specification',
+                'specification': 's-1vcpu-1gb',
+                'autoCutover': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -532,8 +605,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/migrations/<MIGRATION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -556,8 +629,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/migrations/<MIGRATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -598,8 +671,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/migrations/<MIGRATION_ID>/cutovers',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -617,6 +690,9 @@ class TablesDBServiceTest(unittest.TestCase):
         )
         response = self.tables_db.list_operations(
             '<DATABASE_ID>',
+            status='queued',
+            limit=1,
+            offset=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -624,8 +700,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/operations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'status': ['queued'],
+                'limit': ['1'],
+                'offset': ['1'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -654,8 +737,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/replicas',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -689,8 +772,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/status',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -708,6 +791,9 @@ class TablesDBServiceTest(unittest.TestCase):
         )
         response = self.tables_db.list_tables(
             '<DATABASE_ID>',
+            queries=[],
+            search='<SEARCH>',
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -715,8 +801,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -747,6 +839,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<NAME>',
+            permissions=[],
+            row_security=False,
+            enabled=False,
+            columns=[],
+            indexes=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -754,12 +852,18 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'tableId',
-                'name',
+                'tableId': '<TABLE_ID>',
+                'name': '<NAME>',
+                'permissions': [],
+                'rowSecurity': False,
+                'enabled': False,
+                'columns': [],
+                'indexes': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -798,8 +902,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -829,6 +933,12 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_table(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            name='<NAME>',
+            permissions=[],
+            row_security=False,
+            enabled=False,
+            purge=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -836,8 +946,18 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': '<NAME>',
+                'permissions': [],
+                'rowSecurity': False,
+                'enabled': False,
+                'purge': False,
+                'description': '<DESCRIPTION>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -860,8 +980,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -880,6 +1000,8 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_columns(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -887,8 +1009,13 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -914,7 +1041,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            min=1,
+            max=1,
+            default=1,
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -922,12 +1054,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/bigint',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'min': 1,
+                'max': 1,
+                'default': 1,
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -955,8 +1092,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             1,
+            min=1,
+            max=1,
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -964,12 +1105,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/bigint/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'min': 1,
+                'max': 1,
+                'default': 1,
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -997,7 +1142,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=False,
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1005,12 +1153,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/boolean',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': False,
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1038,8 +1189,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
-            True,
+            False,
+            False,
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1047,12 +1200,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/boolean/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': False,
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1081,7 +1236,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='2020-10-15T06:38:00.000+00:00',
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1089,12 +1247,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/datetime',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': '2020-10-15T06:38:00.000+00:00',
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1123,8 +1284,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             '2020-10-15T06:38:00.000+00:00',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1132,12 +1295,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/datetime/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': '2020-10-15T06:38:00.000+00:00',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1166,7 +1331,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='email@example.com',
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1174,12 +1342,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/email',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': 'email@example.com',
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1208,8 +1379,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'email@example.com',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1217,12 +1390,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/email/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'email@example.com',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1253,7 +1428,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<KEY>',
             [],
-            True,
+            False,
+            default='active',
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1261,13 +1439,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/enum',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'elements',
-                'required',
+                'key': '<KEY>',
+                'elements': [],
+                'required': False,
+                'default': 'active',
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1298,8 +1479,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<KEY>',
             [],
-            True,
+            False,
             'active',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1307,13 +1490,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/enum/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'elements',
-                'required',
-                'default',
+                'elements': [],
+                'required': False,
+                'default': 'active',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1341,7 +1526,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            min=1.0,
+            max=1.0,
+            default=1.0,
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1349,12 +1539,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/float',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'min': 1.0,
+                'max': 1.0,
+                'default': 1.0,
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1382,8 +1577,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             1.0,
+            min=1.0,
+            max=1.0,
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1391,12 +1590,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/float/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'min': 1.0,
+                'max': 1.0,
+                'default': 1.0,
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1424,7 +1627,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            min=1,
+            max=1,
+            default=1,
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1432,12 +1640,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/integer',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'min': 1,
+                'max': 1,
+                'default': 1,
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1465,8 +1678,12 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             1,
+            min=1,
+            max=1,
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1474,12 +1691,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/integer/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'min': 1,
+                'max': 1,
+                'default': 1,
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1508,7 +1729,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='192.0.2.0',
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1516,12 +1740,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/ip',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': '192.0.2.0',
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1550,8 +1777,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             '192.0.2.0',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1559,12 +1788,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/ip/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': '192.0.2.0',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1592,7 +1823,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1600,12 +1833,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/line',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1633,7 +1868,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=[],
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1641,11 +1879,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/line/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
+                'required': False,
+                'default': [],
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1673,7 +1914,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='Hello World',
+            array=False,
+            encrypt=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1681,12 +1926,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/longtext',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': 'Hello World',
+                'array': False,
+                'encrypt': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1714,8 +1963,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'Hello World',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1723,12 +1974,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/longtext/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'Hello World',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1756,7 +2009,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='Hello World',
+            array=False,
+            encrypt=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1764,12 +2021,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/mediumtext',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': 'Hello World',
+                'array': False,
+                'encrypt': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1797,8 +2058,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'Hello World',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1806,12 +2069,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/mediumtext/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'Hello World',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1839,7 +2104,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1847,12 +2114,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/point',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1880,7 +2149,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=[],
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1888,11 +2160,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/point/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
+                'required': False,
+                'default': [],
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1920,7 +2195,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1928,12 +2205,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/polygon',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1961,7 +2240,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default=[],
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1969,11 +2251,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/polygon/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
+                'required': False,
+                'default': [],
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2008,6 +2293,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<RELATED_TABLE_ID>',
             'oneToOne',
+            two_way=False,
+            key='<KEY>',
+            two_way_key='<TWO_WAY_KEY>',
+            on_delete='cascade',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2015,12 +2305,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/relationship',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'relatedTableId',
-                'type',
+                'relatedTableId': '<RELATED_TABLE_ID>',
+                'type': 'oneToOne',
+                'twoWay': False,
+                'key': '<KEY>',
+                'twoWayKey': '<TWO_WAY_KEY>',
+                'onDelete': 'cascade',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2054,6 +2349,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
+            on_delete='cascade',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2061,8 +2359,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/relationship/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'onDelete': 'cascade',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2090,7 +2395,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<KEY>',
             1,
-            True,
+            False,
+            default='Hello World',
+            array=False,
+            encrypt=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2098,13 +2407,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/string',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'size',
-                'required',
+                'key': '<KEY>',
+                'size': 1,
+                'required': False,
+                'default': 'Hello World',
+                'array': False,
+                'encrypt': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2133,8 +2446,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'Hello World',
+            size=1,
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2142,12 +2458,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/string/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'Hello World',
+                'size': 1,
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2175,7 +2494,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='Hello World',
+            array=False,
+            encrypt=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2183,12 +2506,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/text',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': 'Hello World',
+                'array': False,
+                'encrypt': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2216,8 +2543,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'Hello World',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2225,12 +2554,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/text/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'Hello World',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2259,7 +2590,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
+            default='https://example.com',
+            array=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2267,12 +2601,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/url',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'required',
+                'key': '<KEY>',
+                'required': False,
+                'default': 'https://example.com',
+                'array': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2301,8 +2638,10 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'https://example.com',
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2310,12 +2649,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/url/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'https://example.com',
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2345,7 +2686,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<KEY>',
             1,
-            True,
+            False,
+            default='Hello World',
+            array=False,
+            encrypt=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2353,13 +2698,17 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/varchar',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'size',
-                'required',
+                'key': '<KEY>',
+                'size': 1,
+                'required': False,
+                'default': 'Hello World',
+                'array': False,
+                'encrypt': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2388,8 +2737,11 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<KEY>',
-            True,
+            False,
             'Hello World',
+            size=1,
+            new_key='<NEW_KEY>',
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2397,12 +2749,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/varchar/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'required',
-                'default',
+                'required': False,
+                'default': 'Hello World',
+                'size': 1,
+                'newKey': '<NEW_KEY>',
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2437,8 +2792,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/<KEY>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2462,8 +2817,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/columns/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2482,6 +2837,8 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_indexes(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2489,8 +2846,13 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/indexes',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2520,6 +2882,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<KEY>',
             'key',
             [],
+            orders=[],
+            lengths=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2527,13 +2892,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/indexes',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'key',
-                'type',
-                'columns',
+                'key': '<KEY>',
+                'type': 'key',
+                'columns': [],
+                'orders': [],
+                'lengths': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2570,8 +2938,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/indexes/<KEY>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2595,8 +2963,8 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/indexes/<KEY>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2615,6 +2983,10 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.list_rows(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            queries=[],
+            transaction_id='<TRANSACTION_ID>',
+            total=False,
+            ttl=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2622,8 +2994,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'transactionId': ['<TRANSACTION_ID>'],
+                'total': ['false'],
+                'ttl': ['1'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2649,6 +3028,8 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<ROW_ID>',
             {},
+            permissions=[],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2656,12 +3037,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'rowId',
-                'data',
+                'rowId': '<ROW_ID>',
+                'data': {},
+                'permissions': [],
+                'transactionId': '<TRANSACTION_ID>',
             },
         )
         data['data'] = {}
@@ -2684,6 +3067,7 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             [],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2691,11 +3075,12 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'rows',
+                'rows': [],
+                'transactionId': '<TRANSACTION_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2717,6 +3102,7 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             [],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2724,11 +3110,12 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'rows',
+                'rows': [],
+                'transactionId': '<TRANSACTION_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -2749,6 +3136,9 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.update_rows(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            data={},
+            queries=[],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2756,8 +3146,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'data': {},
+                'queries': [],
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2776,6 +3173,8 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.delete_rows(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            queries=[],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2783,8 +3182,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'queries': [],
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2803,6 +3208,10 @@ class TablesDBServiceTest(unittest.TestCase):
         response = self.tables_db.create_query(
             '<DATABASE_ID>',
             '<TABLE_ID>',
+            queries=[],
+            transaction_id='<TRANSACTION_ID>',
+            total=False,
+            ttl=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2810,8 +3219,16 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/query',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'queries': [],
+                'transactionId': '<TRANSACTION_ID>',
+                'total': False,
+                'ttl': 1,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -2836,6 +3253,8 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<ROW_ID>',
+            queries=[],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2843,8 +3262,13 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/<ROW_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'transactionId': ['<TRANSACTION_ID>'],
+            },
+        )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
@@ -2870,6 +3294,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<ROW_ID>',
+            data={},
+            permissions=[],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2877,8 +3304,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/<ROW_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'data': {},
+                'permissions': [],
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
@@ -2904,6 +3338,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<ROW_ID>',
+            data={},
+            permissions=[],
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2911,8 +3348,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/<ROW_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'data': {},
+                'permissions': [],
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
@@ -2930,6 +3374,7 @@ class TablesDBServiceTest(unittest.TestCase):
             '<DATABASE_ID>',
             '<TABLE_ID>',
             '<ROW_ID>',
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2937,8 +3382,13 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/<ROW_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2964,6 +3414,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<ROW_ID>',
             '<COLUMN>',
+            value=1.0,
+            min=1.0,
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -2971,8 +3424,15 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/<ROW_ID>/<COLUMN>/decrement',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'value': 1.0,
+                'min': 1.0,
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
 
@@ -2999,6 +3459,9 @@ class TablesDBServiceTest(unittest.TestCase):
             '<TABLE_ID>',
             '<ROW_ID>',
             '<COLUMN>',
+            value=1.0,
+            max=1.0,
+            transaction_id='<TRANSACTION_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -3006,7 +3469,14 @@ class TablesDBServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/tablesdb/<DATABASE_ID>/tables/<TABLE_ID>/rows/<ROW_ID>/<COLUMN>/increment',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'value': 1.0,
+                'max': 1.0,
+                'transactionId': '<TRANSACTION_ID>',
+            },
+        )
         data['data'] = {}
         self.assertEqual(response.to_dict(), data)
