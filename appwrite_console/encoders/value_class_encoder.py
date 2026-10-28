@@ -48,6 +48,7 @@ from ..enums.region import Region
 from ..enums.addon_key import AddonKey
 from ..enums.usage_range import UsageRange
 from ..enums.project_auth_method_id import ProjectAuthMethodId
+from ..enums.environment_resource import EnvironmentResource
 from ..enums.project_o_auth2_auth0_prompt import ProjectOAuth2Auth0Prompt
 from ..enums.project_o_auth2_discord_prompt import ProjectOAuth2DiscordPrompt
 from ..enums.project_o_auth2_git_hub_prompt import ProjectOAuth2GitHubPrompt
@@ -265,6 +266,9 @@ class ValueClassEncoder(json.JSONEncoder):
             return o.value
 
         if isinstance(o, ProjectAuthMethodId):
+            return o.value
+
+        if isinstance(o, EnvironmentResource):
             return o.value
 
         if isinstance(o, ProjectOAuth2Auth0Prompt):

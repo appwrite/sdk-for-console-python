@@ -29,15 +29,23 @@ class NotificationsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.notifications.list()
+        response = self.notifications.list(
+            queries=[],
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/notifications',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -64,7 +72,7 @@ class NotificationsServiceTest(unittest.TestCase):
         )
         response = self.notifications.update(
             '<NOTIFICATION_ID>',
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -72,11 +80,11 @@ class NotificationsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/notifications/<NOTIFICATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'read',
+                'read': False,
             },
         )
         self.assertEqual(response.to_dict(), data)

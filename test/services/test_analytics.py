@@ -29,15 +29,25 @@ class AnalyticsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.analytics.list_properties()
+        response = self.analytics.list_properties(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/analytics/properties',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -63,6 +73,9 @@ class AnalyticsServiceTest(unittest.TestCase):
         response = self.analytics.create_property(
             '<PROPERTY_ID>',
             '<NAME>',
+            domain='<DOMAIN>',
+            enabled=False,
+            allowed_origins=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -70,12 +83,15 @@ class AnalyticsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/analytics/properties',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'propertyId',
-                'name',
+                'propertyId': '<PROPERTY_ID>',
+                'name': '<NAME>',
+                'domain': '<DOMAIN>',
+                'enabled': False,
+                'allowedOrigins': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -109,8 +125,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/analytics/properties/<PROPERTY_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -135,6 +151,10 @@ class AnalyticsServiceTest(unittest.TestCase):
         )
         response = self.analytics.update_property(
             '<PROPERTY_ID>',
+            name='<NAME>',
+            domain='<DOMAIN>',
+            enabled=False,
+            allowed_origins=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -142,8 +162,16 @@ class AnalyticsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/analytics/properties/<PROPERTY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'name': '<NAME>',
+                'domain': '<DOMAIN>',
+                'enabled': False,
+                'allowedOrigins': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -165,8 +193,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/analytics/properties/<PROPERTY_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -183,6 +211,16 @@ class AnalyticsServiceTest(unittest.TestCase):
             '<PROPERTY_ID>',
             '<NAME>',
             'https://example.com',
+            domain='<DOMAIN>',
+            referrer='<REFERRER>',
+            screen_width=1,
+            session_hash='<SESSION_HASH>',
+            scroll_depth=1,
+            engagement_time=1,
+            props=[],
+            user_id='<USER_ID>',
+            ip='<IP>',
+            user_agent='<USER_AGENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -190,12 +228,22 @@ class AnalyticsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/analytics/properties/<PROPERTY_ID>/events',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'url',
+                'name': '<NAME>',
+                'url': 'https://example.com',
+                'domain': '<DOMAIN>',
+                'referrer': '<REFERRER>',
+                'screenWidth': 1,
+                'sessionHash': '<SESSION_HASH>',
+                'scrollDepth': 1,
+                'engagementTime': 1,
+                'props': [],
+                'userId': '<USER_ID>',
+                'ip': '<IP>',
+                'userAgent': '<USER_AGENT>',
             },
         )
         self.assertEqual(response, data)
@@ -215,6 +263,14 @@ class AnalyticsServiceTest(unittest.TestCase):
         )
         response = self.analytics.list_metrics(
             '<PROPERTY_ID>',
+            queries=[],
+            interval='1h',
+            dimensions=[],
+            date_range='<DATE_RANGE>',
+            start_at='2020-10-15T06:38:00.000+00:00',
+            end_at='2020-10-15T06:38:00.000+00:00',
+            limit=1,
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -222,6 +278,16 @@ class AnalyticsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/analytics/properties/<PROPERTY_ID>/metrics',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'interval': ['1h'],
+                'dateRange': ['<DATE_RANGE>'],
+                'startAt': ['2020-10-15T06:38:00.000+00:00'],
+                'endAt': ['2020-10-15T06:38:00.000+00:00'],
+                'limit': ['1'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)

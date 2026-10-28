@@ -152,7 +152,7 @@ class Analytics(Service):
         api_params = {}
         if property_id is None or property_id == '':
             raise AppwriteException('Missing required parameter: "property_id"')
-        api_path = api_path.replace('{propertyId}', str(self._normalize_value(property_id)))
+        api_path = api_path.replace('{propertyId}', self._encode_path(property_id))
 
         response = self.client.call(
             'get',
@@ -204,7 +204,7 @@ class Analytics(Service):
         api_params = {}
         if property_id is None or property_id == '':
             raise AppwriteException('Missing required parameter: "property_id"')
-        api_path = api_path.replace('{propertyId}', str(self._normalize_value(property_id)))
+        api_path = api_path.replace('{propertyId}', self._encode_path(property_id))
         if name is not None:
             api_params['name'] = self._normalize_value(name)
         if domain is not None:
@@ -253,7 +253,7 @@ class Analytics(Service):
         api_params = {}
         if property_id is None or property_id == '':
             raise AppwriteException('Missing required parameter: "property_id"')
-        api_path = api_path.replace('{propertyId}', str(self._normalize_value(property_id)))
+        api_path = api_path.replace('{propertyId}', self._encode_path(property_id))
 
         response = self.client.call(
             'delete',
@@ -292,7 +292,7 @@ class Analytics(Service):
         property_id : str
             Analytics property ID.
         name : str
-            Event name. "pageview" is just a conventional event name; events are not modeled specially.
+            Event name. "pageview" and "screen_view" are counted as views, every other name is a custom event.
         url : str
             Full page URL or screen identifier.
         domain : Optional[str]
@@ -334,7 +334,7 @@ class Analytics(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if url is None:
             raise AppwriteException('Missing required parameter: "url"')
-        api_path = api_path.replace('{propertyId}', str(self._normalize_value(property_id)))
+        api_path = api_path.replace('{propertyId}', self._encode_path(property_id))
         api_params['name'] = self._normalize_value(name)
         api_params['url'] = self._normalize_value(url)
         if domain is not None:
@@ -387,9 +387,11 @@ class Analytics(Service):
         Read analytics metrics (visitors, sessions, pageviews, events, bounceRate, …) for a property over a date range.
 
         **Three response shapes**, chosen by `dimensions[]` and `interval`:
-        - Neither: one row aggregating the whole window, with `value` and `date` null. Only this shape carries `pageviews`, `visits`, `bounceRate`, `visitDuration`, `viewsPerVisit`, `scrollDepth` and `engagementTime`.
+        - Neither: one row aggregating the whole window, with `value` and `date` null. Only this shape carries `visits`, `bounceRate`, `visitDuration`, `viewsPerVisit`, `scrollDepth` and `engagementTime`.
         - `dimensions[]`: one row per dimension value, ranked by visitors, with `value` set and `date` null.
         - `interval`: one row per time bucket in chronological order, with `date` set and `value` null.
+
+        `pageviews` is carried by the flat aggregate and by `interval`, but not by a breakdown.
 
         Combining `dimensions[]` with `interval` is not supported yet. `queries[]` filters the underlying events using standard Utopia query syntax.
 
@@ -398,11 +400,11 @@ class Analytics(Service):
         property_id : str
             Analytics property unique ID.
         queries : Optional[List[str]]
-            Up to 10 filter queries in Utopia syntax. Allowed attributes: country, region, city, browser, operatingSystem, device, screenSize, referrerSource, channel, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, page, hostname, botName, botCategory, eventName. page, eventName are only accepted alongside `interval`, or with a breakdown on a dimension other than entryPage, exitPage. Allowed methods: equal, notEqual, contains, startsWith, endsWith. Example: `queries[]=equal("country", ["US"])`.
+            Up to 10 filter queries in Utopia syntax. Allowed attributes: country, region, city, browser, browserVersion, operatingSystem, operatingSystemVersion, device, screenSize, referrerSource, channel, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, page, hostname, botName, botCategory, eventName. page, eventName are only accepted alongside `interval`, or with a breakdown on a dimension other than entryPage, exitPage. Allowed methods: equal, notEqual, contains, startsWith, endsWith. Example: `queries[]=equal("country", ["US"])`.
         interval : Optional[AnalyticsInterval]
             Time bucket size. Omit (null) for a flat aggregate over the whole window. Allowed: 1h, 1d, 1w, 1m.
         dimensions : Optional[List[AnalyticsDimension]]
-            Dimension to break the metrics down by. One at most for now; the parameter is a list so that cap can be raised without a breaking change. Allowed: country, region, city, browser, operatingSystem, device, screenSize, referrerSource, channel, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, page, hostname, entryPage, exitPage, trafficType, botName, botCategory, eventName.
+            Dimension to break the metrics down by. One at most for now; the parameter is a list so that cap can be raised without a breaking change. Allowed: country, region, city, browser, browserVersion, operatingSystem, operatingSystemVersion, device, screenSize, referrerSource, channel, utmSource, utmMedium, utmCampaign, utmContent, utmTerm, page, hostname, entryPage, exitPage, trafficType, botName, botCategory, eventName.
         date_range : Optional[str]
             Date range shorthand (e.g. 7d, 30d). Ignored for any bound you supply explicitly via startAt/endAt.
         start_at : Optional[str]
@@ -428,7 +430,7 @@ class Analytics(Service):
         api_params = {}
         if property_id is None or property_id == '':
             raise AppwriteException('Missing required parameter: "property_id"')
-        api_path = api_path.replace('{propertyId}', str(self._normalize_value(property_id)))
+        api_path = api_path.replace('{propertyId}', self._encode_path(property_id))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if interval is not None:

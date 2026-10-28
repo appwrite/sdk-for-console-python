@@ -46,7 +46,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
 
         response = self.client.call(
             'get',
@@ -86,7 +86,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
 
         response = self.client.call(
             'post',
@@ -132,8 +132,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if addon_id is None or addon_id == '':
             raise AppwriteException('Missing required parameter: "addon_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
+        api_path = api_path.replace('{addonId}', self._encode_path(addon_id))
 
         response = self.client.call(
             'get',
@@ -178,8 +178,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if addon_id is None or addon_id == '':
             raise AppwriteException('Missing required parameter: "addon_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
+        api_path = api_path.replace('{addonId}', self._encode_path(addon_id))
 
         response = self.client.call(
             'delete',
@@ -225,8 +225,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if addon_id is None or addon_id == '':
             raise AppwriteException('Missing required parameter: "addon_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{addonId}', str(self._normalize_value(addon_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
+        api_path = api_path.replace('{addonId}', self._encode_path(addon_id))
 
         response = self.client.call(
             'post',
@@ -272,8 +272,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if addon is None or addon == '':
             raise AppwriteException('Missing required parameter: "addon"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{addon}', str(self._normalize_value(addon)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
+        api_path = api_path.replace('{addon}', self._encode_path(addon))
 
         response = self.client.call(
             'get',
@@ -313,7 +313,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
 
         response = self.client.call(
             'patch',
@@ -360,7 +360,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -426,7 +426,7 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "resource_type"')
         if resource_id is None:
             raise AppwriteException('Missing required parameter: "resource_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
         api_params['resourceType'] = self._normalize_value(resource_type)
         api_params['resourceId'] = self._normalize_value(resource_id)
         if schedule is not None:
@@ -482,8 +482,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if schedule_id is None or schedule_id == '':
             raise AppwriteException('Missing required parameter: "schedule_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{scheduleId}', str(self._normalize_value(schedule_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
+        api_path = api_path.replace('{scheduleId}', self._encode_path(schedule_id))
 
         response = self.client.call(
             'get',
@@ -523,7 +523,7 @@ class Projects(Service):
         api_params = {}
         if project_id is None or project_id == '':
             raise AppwriteException('Missing required parameter: "project_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
 
         response = self.client.call(
             'get',
@@ -571,8 +571,8 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if stage_id is None or stage_id == '':
             raise AppwriteException('Missing required parameter: "stage_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
-        api_path = api_path.replace('{stageId}', str(self._normalize_value(stage_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
+        api_path = api_path.replace('{stageId}', self._encode_path(stage_id))
         if skip is not None:
             api_params['skip'] = self._normalize_value(skip)
 
@@ -620,7 +620,7 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if status is None:
             raise AppwriteException('Missing required parameter: "status"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
         api_params['status'] = self._normalize_value(status)
 
         response = self.client.call(
@@ -667,7 +667,7 @@ class Projects(Service):
             raise AppwriteException('Missing required parameter: "project_id"')
         if team_id is None:
             raise AppwriteException('Missing required parameter: "team_id"')
-        api_path = api_path.replace('{projectId}', str(self._normalize_value(project_id)))
+        api_path = api_path.replace('{projectId}', self._encode_path(project_id))
         api_params['teamId'] = self._normalize_value(team_id)
 
         response = self.client.call(

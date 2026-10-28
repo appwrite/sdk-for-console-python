@@ -29,15 +29,25 @@ class TeamsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.teams.list()
+        response = self.teams.list(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/teams',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -60,6 +70,7 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.create(
             '<TEAM_ID>',
             '<NAME>',
+            roles=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -67,12 +78,13 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'teamId',
-                'name',
+                'teamId': '<TEAM_ID>',
+                'name': '<NAME>',
+                'roles': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -103,8 +115,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -134,11 +146,11 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
+                'name': '<NAME>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -162,8 +174,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -181,6 +193,8 @@ class TeamsServiceTest(unittest.TestCase):
         )
         response = self.teams.list_installations(
             '<TEAM_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -188,8 +202,13 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/installations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -215,6 +234,7 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.create_installation(
             '<TEAM_ID>',
             '<APP_ID>',
+            authorization_details='<AUTHORIZATION_DETAILS>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -222,11 +242,12 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/installations',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'appId',
+                'appId': '<APP_ID>',
+                'authorizationDetails': '<AUTHORIZATION_DETAILS>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -261,8 +282,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/installations/<INSTALLATION_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -288,6 +309,7 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.update_installation(
             '<TEAM_ID>',
             '<INSTALLATION_ID>',
+            authorization_details='<AUTHORIZATION_DETAILS>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -295,8 +317,13 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/installations/<INSTALLATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'authorizationDetails': '<AUTHORIZATION_DETAILS>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -319,8 +346,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/installations/<INSTALLATION_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -338,6 +365,9 @@ class TeamsServiceTest(unittest.TestCase):
         )
         response = self.teams.list_memberships(
             '<TEAM_ID>',
+            queries=[],
+            search='<SEARCH>',
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -345,8 +375,14 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/memberships',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -378,6 +414,12 @@ class TeamsServiceTest(unittest.TestCase):
         response = self.teams.create_membership(
             '<TEAM_ID>',
             [],
+            email='email@example.com',
+            user_id='<USER_ID>',
+            phone='+12065550100',
+            url='https://example.com',
+            name='<NAME>',
+            membership_id='<MEMBERSHIP_ID>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -385,11 +427,17 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/memberships',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'roles',
+                'email': 'email@example.com',
+                'userId': '<USER_ID>',
+                'phone': '+12065550100',
+                'roles': [],
+                'url': 'https://example.com',
+                'name': '<NAME>',
+                'membershipId': '<MEMBERSHIP_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -430,8 +478,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/memberships/<MEMBERSHIP_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -471,11 +519,11 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/memberships/<MEMBERSHIP_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'roles',
+                'roles': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -500,8 +548,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/memberships/<MEMBERSHIP_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -542,12 +590,12 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/memberships/<MEMBERSHIP_ID>/status',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'userId',
-                'secret',
+                'userId': '<USER_ID>',
+                'secret': '<SECRET>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -571,8 +619,8 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/prefs',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -595,11 +643,11 @@ class TeamsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/teams/<TEAM_ID>/prefs',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'prefs',
+                'prefs': {},
             },
         )
         self.assertEqual(response.to_dict(), data)

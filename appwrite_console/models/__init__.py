@@ -226,6 +226,7 @@ from .policy_deny_aliased_email import PolicyDenyAliasedEmail
 from .policy_deny_disposable_email import PolicyDenyDisposableEmail
 from .policy_deny_free_email import PolicyDenyFreeEmail
 from .policy_deny_corporate_email import PolicyDenyCorporateEmail
+from .policy_deny_realtime_guests import PolicyDenyRealtimeGuests
 from .platform_web import PlatformWeb
 from .platform_apple import PlatformApple
 from .platform_android import PlatformAndroid
@@ -647,6 +648,7 @@ __all__ = [
     'PolicyDenyDisposableEmail',
     'PolicyDenyFreeEmail',
     'PolicyDenyCorporateEmail',
+    'PolicyDenyRealtimeGuests',
     'PlatformWeb',
     'PlatformApple',
     'PlatformAndroid',

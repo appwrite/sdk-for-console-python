@@ -30,6 +30,8 @@ class Oauth2ServiceTest(unittest.TestCase):
         )
         response = self.oauth2.approve(
             '<GRANT_ID>',
+            authorization_details='<AUTHORIZATION_DETAILS>',
+            scope='<SCOPE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -37,11 +39,13 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//approve',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'grant_id',
+                'grant_id': '<GRANT_ID>',
+                'authorization_details': '<AUTHORIZATION_DETAILS>',
+                'scope': '<SCOPE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -59,15 +63,47 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.authorize()
+        response = self.oauth2.authorize(
+            client_id='<CLIENT_ID>',
+            redirect_uri='https://example.com',
+            response_type='response_type',
+            scope='<SCOPE>',
+            state='<STATE>',
+            nonce='<NONCE>',
+            code_challenge='<CODE_CHALLENGE>',
+            code_challenge_method='s256',
+            prompt='<PROMPT>',
+            max_age=1,
+            authorization_details='<AUTHORIZATION_DETAILS>',
+            resource=[],
+            audience='<AUDIENCE>',
+            request_uri='<REQUEST_URI>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//authorize',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'client_id': ['<CLIENT_ID>'],
+                'redirect_uri': ['https://example.com'],
+                'response_type': ['response_type'],
+                'scope': ['<SCOPE>'],
+                'state': ['<STATE>'],
+                'nonce': ['<NONCE>'],
+                'code_challenge': ['<CODE_CHALLENGE>'],
+                'code_challenge_method': ['s256'],
+                'prompt': ['<PROMPT>'],
+                'max_age': ['1'],
+                'authorization_details': ['<AUTHORIZATION_DETAILS>'],
+                'audience': ['<AUDIENCE>'],
+                'request_uri': ['<REQUEST_URI>'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -83,15 +119,48 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.authorize_post()
+        response = self.oauth2.authorize_post(
+            client_id='<CLIENT_ID>',
+            redirect_uri='https://example.com',
+            response_type='response_type',
+            scope='<SCOPE>',
+            state='<STATE>',
+            nonce='<NONCE>',
+            code_challenge='<CODE_CHALLENGE>',
+            code_challenge_method='s256',
+            prompt='<PROMPT>',
+            max_age=1,
+            authorization_details='<AUTHORIZATION_DETAILS>',
+            resource=[],
+            audience='<AUDIENCE>',
+            request_uri='<REQUEST_URI>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//authorize',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'client_id': '<CLIENT_ID>',
+                'redirect_uri': 'https://example.com',
+                'response_type': 'response_type',
+                'scope': '<SCOPE>',
+                'state': '<STATE>',
+                'nonce': '<NONCE>',
+                'code_challenge': '<CODE_CHALLENGE>',
+                'code_challenge_method': 's256',
+                'prompt': '<PROMPT>',
+                'max_age': 1,
+                'authorization_details': '<AUTHORIZATION_DETAILS>',
+                'resource': [],
+                'audience': '<AUDIENCE>',
+                'request_uri': '<REQUEST_URI>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -111,15 +180,30 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.create_device_authorization()
+        response = self.oauth2.create_device_authorization(
+            client_id='<CLIENT_ID>',
+            scope='<SCOPE>',
+            authorization_details='<AUTHORIZATION_DETAILS>',
+            resource=[],
+            audience='<AUDIENCE>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//device_authorization',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'client_id': '<CLIENT_ID>',
+                'scope': '<SCOPE>',
+                'authorization_details': '<AUTHORIZATION_DETAILS>',
+                'resource': [],
+                'audience': '<AUDIENCE>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -154,11 +238,11 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//grants',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'user_code',
+                'user_code': '<USER_CODE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -195,8 +279,8 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//grants/<GRANT_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -209,15 +293,32 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.logout()
+        response = self.oauth2.logout(
+            id_token_hint='<ID_TOKEN_HINT>',
+            logout_hint='<LOGOUT_HINT>',
+            client_id='<CLIENT_ID>',
+            post_logout_redirect_uri='https://example.com',
+            state='<STATE>',
+            ui_locales='<UI_LOCALES>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//logout',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'id_token_hint': ['<ID_TOKEN_HINT>'],
+                'logout_hint': ['<LOGOUT_HINT>'],
+                'client_id': ['<CLIENT_ID>'],
+                'post_logout_redirect_uri': ['https://example.com'],
+                'state': ['<STATE>'],
+                'ui_locales': ['<UI_LOCALES>'],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -230,15 +331,32 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.logout_post()
+        response = self.oauth2.logout_post(
+            id_token_hint='<ID_TOKEN_HINT>',
+            logout_hint='<LOGOUT_HINT>',
+            client_id='<CLIENT_ID>',
+            post_logout_redirect_uri='https://example.com',
+            state='<STATE>',
+            ui_locales='<UI_LOCALES>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//logout',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'id_token_hint': '<ID_TOKEN_HINT>',
+                'logout_hint': '<LOGOUT_HINT>',
+                'client_id': '<CLIENT_ID>',
+                'post_logout_redirect_uri': 'https://example.com',
+                'state': '<STATE>',
+                'ui_locales': '<UI_LOCALES>',
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -254,15 +372,26 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.list_organizations()
+        response = self.oauth2.list_organizations(
+            limit=1,
+            offset=1,
+            search='<SEARCH>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//organizations',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'limit': ['1'],
+                'offset': ['1'],
+                'search': ['<SEARCH>'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -282,6 +411,16 @@ class Oauth2ServiceTest(unittest.TestCase):
             '<CLIENT_ID>',
             'https://example.com',
             'code',
+            scope='<SCOPE>',
+            state='<STATE>',
+            nonce='<NONCE>',
+            code_challenge='<CODE_CHALLENGE>',
+            code_challenge_method='s256',
+            prompt='<PROMPT>',
+            max_age=1,
+            authorization_details='<AUTHORIZATION_DETAILS>',
+            resource=[],
+            audience='<AUDIENCE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -289,13 +428,23 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//par',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'client_id',
-                'redirect_uri',
-                'response_type',
+                'client_id': '<CLIENT_ID>',
+                'redirect_uri': 'https://example.com',
+                'response_type': 'code',
+                'scope': '<SCOPE>',
+                'state': '<STATE>',
+                'nonce': '<NONCE>',
+                'code_challenge': '<CODE_CHALLENGE>',
+                'code_challenge_method': 's256',
+                'prompt': '<PROMPT>',
+                'max_age': 1,
+                'authorization_details': '<AUTHORIZATION_DETAILS>',
+                'resource': [],
+                'audience': '<AUDIENCE>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -313,15 +462,26 @@ class Oauth2ServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.oauth2.list_projects()
+        response = self.oauth2.list_projects(
+            limit=1,
+            offset=1,
+            search='<SEARCH>',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/oauth2//projects',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'limit': ['1'],
+                'offset': ['1'],
+                'search': ['<SEARCH>'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -345,11 +505,11 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//reject',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'grant_id',
+                'grant_id': '<GRANT_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -366,6 +526,9 @@ class Oauth2ServiceTest(unittest.TestCase):
         )
         response = self.oauth2.revoke(
             '<TOKEN>',
+            token_type_hint='access_token',
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -373,11 +536,14 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//revoke',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'token',
+                'token': '<TOKEN>',
+                'token_type_hint': 'access_token',
+                'client_id': '<CLIENT_ID>',
+                'client_secret': '<CLIENT_SECRET>',
             },
         )
         self.assertEqual(response, data)
@@ -400,6 +566,15 @@ class Oauth2ServiceTest(unittest.TestCase):
         )
         response = self.oauth2.create_token(
             '<GRANT_TYPE>',
+            code='<CODE>',
+            refresh_token='<REFRESH_TOKEN>',
+            device_code='<DEVICE_CODE>',
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            code_verifier='<CODE_VERIFIER>',
+            redirect_uri='https://example.com',
+            resource=[],
+            audience='<AUDIENCE>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -407,11 +582,20 @@ class Oauth2ServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/oauth2//token',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'grant_type',
+                'grant_type': '<GRANT_TYPE>',
+                'code': '<CODE>',
+                'refresh_token': '<REFRESH_TOKEN>',
+                'device_code': '<DEVICE_CODE>',
+                'client_id': '<CLIENT_ID>',
+                'client_secret': '<CLIENT_SECRET>',
+                'code_verifier': '<CODE_VERIFIER>',
+                'redirect_uri': 'https://example.com',
+                'resource': [],
+                'audience': '<AUDIENCE>',
             },
         )
         self.assertEqual(response.to_dict(), data)

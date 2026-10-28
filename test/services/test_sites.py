@@ -29,15 +29,25 @@ class SitesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.sites.list()
+        response = self.sites.list(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/sites',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -92,6 +102,27 @@ class SitesServiceTest(unittest.TestCase):
             '<NAME>',
             'analog',
             'node-14.5',
+            enabled=False,
+            logging=False,
+            timeout=1,
+            install_command='<INSTALL_COMMAND>',
+            build_command='<BUILD_COMMAND>',
+            start_command='<START_COMMAND>',
+            output_directory='<OUTPUT_DIRECTORY>',
+            adapter='static',
+            installation_id='<INSTALLATION_ID>',
+            fallback_file='<FALLBACK_FILE>',
+            provider_repository_id='<PROVIDER_REPOSITORY_ID>',
+            provider_branch='<PROVIDER_BRANCH>',
+            provider_silent_mode=False,
+            provider_root_directory='<PROVIDER_ROOT_DIRECTORY>',
+            provider_branches=[],
+            provider_paths=[],
+            build_specification='s-1vcpu-512mb',
+            runtime_specification='s-1vcpu-512mb',
+            deployment_retention=1,
+            scopes=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -99,14 +130,35 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'siteId',
-                'name',
-                'framework',
-                'buildRuntime',
+                'siteId': '<SITE_ID>',
+                'name': '<NAME>',
+                'framework': 'analog',
+                'enabled': False,
+                'logging': False,
+                'timeout': 1,
+                'installCommand': '<INSTALL_COMMAND>',
+                'buildCommand': '<BUILD_COMMAND>',
+                'startCommand': '<START_COMMAND>',
+                'outputDirectory': '<OUTPUT_DIRECTORY>',
+                'buildRuntime': 'node-14.5',
+                'adapter': 'static',
+                'installationId': '<INSTALLATION_ID>',
+                'fallbackFile': '<FALLBACK_FILE>',
+                'providerRepositoryId': '<PROVIDER_REPOSITORY_ID>',
+                'providerBranch': '<PROVIDER_BRANCH>',
+                'providerSilentMode': False,
+                'providerRootDirectory': '<PROVIDER_ROOT_DIRECTORY>',
+                'providerBranches': [],
+                'providerPaths': [],
+                'buildSpecification': 's-1vcpu-512mb',
+                'runtimeSpecification': 's-1vcpu-512mb',
+                'deploymentRetention': 1,
+                'scopes': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -124,15 +176,22 @@ class SitesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.sites.list_frameworks()
+        response = self.sites.list_frameworks(
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/sites/frameworks',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -148,15 +207,24 @@ class SitesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.sites.list_specifications()
+        response = self.sites.list_specifications(
+            type='runtimes',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/sites/specifications',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'type': ['runtimes'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -172,15 +240,28 @@ class SitesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.sites.list_templates()
+        response = self.sites.list_templates(
+            frameworks=[],
+            use_cases=[],
+            limit=1,
+            offset=1,
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/sites/templates',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'limit': ['1'],
+                'offset': ['1'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -215,8 +296,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/templates/<TEMPLATE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -275,8 +356,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -330,6 +411,28 @@ class SitesServiceTest(unittest.TestCase):
             '<SITE_ID>',
             '<NAME>',
             'analog',
+            enabled=False,
+            logging=False,
+            timeout=1,
+            install_command='<INSTALL_COMMAND>',
+            build_command='<BUILD_COMMAND>',
+            start_command='<START_COMMAND>',
+            output_directory='<OUTPUT_DIRECTORY>',
+            build_runtime='node-14.5',
+            adapter='static',
+            fallback_file='<FALLBACK_FILE>',
+            installation_id='<INSTALLATION_ID>',
+            provider_repository_id='<PROVIDER_REPOSITORY_ID>',
+            provider_branch='<PROVIDER_BRANCH>',
+            provider_silent_mode=False,
+            provider_root_directory='<PROVIDER_ROOT_DIRECTORY>',
+            provider_branches=[],
+            provider_paths=[],
+            build_specification='s-1vcpu-512mb',
+            runtime_specification='s-1vcpu-512mb',
+            deployment_retention=1,
+            scopes=[],
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -337,12 +440,34 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'framework',
+                'name': '<NAME>',
+                'framework': 'analog',
+                'enabled': False,
+                'logging': False,
+                'timeout': 1,
+                'installCommand': '<INSTALL_COMMAND>',
+                'buildCommand': '<BUILD_COMMAND>',
+                'startCommand': '<START_COMMAND>',
+                'outputDirectory': '<OUTPUT_DIRECTORY>',
+                'buildRuntime': 'node-14.5',
+                'adapter': 'static',
+                'fallbackFile': '<FALLBACK_FILE>',
+                'installationId': '<INSTALLATION_ID>',
+                'providerRepositoryId': '<PROVIDER_REPOSITORY_ID>',
+                'providerBranch': '<PROVIDER_BRANCH>',
+                'providerSilentMode': False,
+                'providerRootDirectory': '<PROVIDER_ROOT_DIRECTORY>',
+                'providerBranches': [],
+                'providerPaths': [],
+                'buildSpecification': 's-1vcpu-512mb',
+                'runtimeSpecification': 's-1vcpu-512mb',
+                'deploymentRetention': 1,
+                'scopes': [],
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -366,8 +491,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -427,11 +552,11 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployment',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'deploymentId',
+                'deploymentId': '<DEPLOYMENT_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -451,6 +576,9 @@ class SitesServiceTest(unittest.TestCase):
         )
         response = self.sites.list_deployments(
             '<SITE_ID>',
+            queries=[],
+            search='<SEARCH>',
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -458,8 +586,14 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -503,6 +637,10 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.create_deployment(
             '<SITE_ID>',
             InputFile.from_bytes(bytearray(), "example.file"),
+            install_command='<INSTALL_COMMAND>',
+            build_command='<BUILD_COMMAND>',
+            output_directory='<OUTPUT_DIRECTORY>',
+            activate=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -510,11 +648,21 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments',
         )
-        sent = set(re.findall(r'form-data; name="([^"\[]+)', request.body.decode('latin-1')))
+        sent = dict(
+            re.findall(
+                r'form-data; name="([^"\[]+)[^\r\n]*\r\n(?:[^\r\n]+\r\n)*\r\n(.*?)\r\n--',
+                request.body.decode('latin-1'),
+                re.S,
+            )
+        )
         self.assertEqual(
             sent,
             {
-                'code',
+                'installCommand': '<INSTALL_COMMAND>',
+                'buildCommand': '<BUILD_COMMAND>',
+                'outputDirectory': '<OUTPUT_DIRECTORY>',
+                'code': '',
+                'activate': 'false',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -567,11 +715,11 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/duplicate',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'deploymentId',
+                'deploymentId': '<DEPLOYMENT_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -621,6 +769,7 @@ class SitesServiceTest(unittest.TestCase):
             '<ROOT_DIRECTORY>',
             'branch',
             '<REFERENCE>',
+            activate=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -628,15 +777,16 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/template',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'repository',
-                'owner',
-                'rootDirectory',
-                'type',
-                'reference',
+                'repository': '<REPOSITORY>',
+                'owner': '<OWNER>',
+                'rootDirectory': '<ROOT_DIRECTORY>',
+                'type': 'branch',
+                'reference': '<REFERENCE>',
+                'activate': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -683,6 +833,7 @@ class SitesServiceTest(unittest.TestCase):
             '<SITE_ID>',
             'branch',
             '<REFERENCE>',
+            activate=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -690,12 +841,13 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/vcs',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'type',
-                'reference',
+                'type': 'branch',
+                'reference': '<REFERENCE>',
+                'activate': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -748,8 +900,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/<DEPLOYMENT_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -772,8 +924,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/<DEPLOYMENT_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -789,6 +941,8 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.get_deployment_download(
             '<SITE_ID>',
             '<DEPLOYMENT_ID>',
+            type='source',
+            token='<TOKEN>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -796,8 +950,14 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/<DEPLOYMENT_ID>/download',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'type': ['source'],
+                'token': ['<TOKEN>'],
+            },
+        )
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -848,8 +1008,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/deployments/<DEPLOYMENT_ID>/status',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -867,6 +1027,8 @@ class SitesServiceTest(unittest.TestCase):
         )
         response = self.sites.list_logs(
             '<SITE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -874,8 +1036,13 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/logs',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -917,8 +1084,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/logs/<LOG_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -941,8 +1108,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/logs/<LOG_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -960,6 +1127,8 @@ class SitesServiceTest(unittest.TestCase):
         )
         response = self.sites.list_variables(
             '<SITE_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -967,8 +1136,13 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/variables',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -996,6 +1170,8 @@ class SitesServiceTest(unittest.TestCase):
             '<VARIABLE_ID>',
             '<KEY>',
             '<VALUE>',
+            secret=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1003,13 +1179,15 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/variables',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'variableId',
-                'key',
-                'value',
+                'variableId': '<VARIABLE_ID>',
+                'key': '<KEY>',
+                'value': '<VALUE>',
+                'secret': False,
+                'description': '<DESCRIPTION>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1044,8 +1222,8 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/variables/<VARIABLE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1071,6 +1249,10 @@ class SitesServiceTest(unittest.TestCase):
         response = self.sites.update_variable(
             '<SITE_ID>',
             '<VARIABLE_ID>',
+            key='<KEY>',
+            value='<VALUE>',
+            secret=False,
+            description='<DESCRIPTION>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1078,8 +1260,16 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/variables/<VARIABLE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'key': '<KEY>',
+                'value': '<VALUE>',
+                'secret': False,
+                'description': '<DESCRIPTION>',
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1102,6 +1292,6 @@ class SitesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/sites/<SITE_ID>/variables/<VARIABLE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)

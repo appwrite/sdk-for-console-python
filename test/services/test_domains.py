@@ -29,15 +29,25 @@ class DomainsServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.domains.list()
+        response = self.domains.list(
+            queries=[],
+            search='<SEARCH>',
+            total=False,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/domains',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'search': ['<SEARCH>'],
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -73,12 +83,12 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'teamId',
-                'domain',
+                'teamId': '<TEAM_ID>',
+                'domain': 'example.com',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -102,6 +112,8 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.get_price(
             'example.com',
+            period_years=1,
+            registration_type='new',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -109,11 +121,13 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/price',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'domain',
+                'domain': ['example.com'],
+                'periodYears': ['1'],
+                'registrationType': ['new'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -133,6 +147,8 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.list_prices(
             [],
+            period_years=1,
+            registration_type='new',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -140,8 +156,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/prices',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'periodYears': ['1'],
+                'registrationType': ['new'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -174,6 +196,10 @@ class DomainsServiceTest(unittest.TestCase):
             '+12065550100',
             '<BILLING_ADDRESS_ID>',
             '<PAYMENT_METHOD_ID>',
+            address_line3='<ADDRESS_LINE3>',
+            company_name='<COMPANY_NAME>',
+            period_years=1,
+            auto_renewal=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -181,18 +207,22 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/purchases',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'organizationId',
-                'firstName',
-                'lastName',
-                'email',
-                'phone',
-                'billingAddressId',
-                'paymentMethodId',
+                'domain': 'example.com',
+                'organizationId': '<ORGANIZATION_ID>',
+                'firstName': '<FIRST_NAME>',
+                'lastName': '<LAST_NAME>',
+                'email': 'email@example.com',
+                'phone': '+12065550100',
+                'billingAddressId': '<BILLING_ADDRESS_ID>',
+                'addressLine3': '<ADDRESS_LINE3>',
+                'companyName': '<COMPANY_NAME>',
+                'periodYears': 1,
+                'autoRenewal': False,
+                'paymentMethodId': '<PAYMENT_METHOD_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -228,11 +258,11 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/purchases/<INVOICE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'organizationId',
+                'organizationId': '<ORGANIZATION_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -252,6 +282,11 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.list_suggestions(
             '<QUERY>',
+            tlds=[],
+            limit=1,
+            filter_type='premium',
+            price_max=1,
+            price_min=1,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -259,11 +294,15 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/suggestions',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
+        sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(
             sent,
             {
-                'query',
+                'query': ['<QUERY>'],
+                'limit': ['1'],
+                'filterType': ['premium'],
+                'priceMax': ['1'],
+                'priceMin': ['1'],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -294,6 +333,7 @@ class DomainsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             '<AUTH_CODE>',
             '<PAYMENT_METHOD_ID>',
+            auto_renewal=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -301,14 +341,15 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/transfers/in',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domain',
-                'organizationId',
-                'authCode',
-                'paymentMethodId',
+                'domain': 'example.com',
+                'organizationId': '<ORGANIZATION_ID>',
+                'authCode': '<AUTH_CODE>',
+                'autoRenewal': False,
+                'paymentMethodId': '<PAYMENT_METHOD_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -344,11 +385,11 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/transfers/in/<INVOICE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'organizationId',
+                'organizationId': '<ORGANIZATION_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -375,12 +416,12 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/transfers/out',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'domainId',
-                'organizationId',
+                'domainId': '<DOMAIN_ID>',
+                'organizationId': '<ORGANIZATION_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -417,8 +458,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -440,8 +481,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -469,7 +510,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.update_auto_renewal(
             '<DOMAIN_ID>',
-            True,
+            False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -477,11 +518,11 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/auto-renewal',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'autoRenewal',
+                'autoRenewal': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -511,6 +552,7 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.update_nameservers(
             '<DOMAIN_ID>',
+            nameservers=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -518,8 +560,13 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/nameservers',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'nameservers': [],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -554,8 +601,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/nameservers/verification',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -580,8 +627,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/google-workspace',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -606,8 +653,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/google-workspace',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -632,8 +679,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/icloud',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -658,8 +705,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/icloud',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -684,8 +731,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/mailgun',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -710,8 +757,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/mailgun',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -736,8 +783,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/outlook',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -762,8 +809,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/outlook',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -788,8 +835,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/proton-mail',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -814,8 +861,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/proton-mail',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -840,8 +887,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/zoho',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -866,8 +913,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/presets/zoho',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -885,6 +932,8 @@ class DomainsServiceTest(unittest.TestCase):
         )
         response = self.domains.list_records(
             '<DOMAIN_ID>',
+            queries=[],
+            total=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -892,8 +941,13 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -924,6 +978,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             'value',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -931,13 +986,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/a',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': 'value',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -971,6 +1027,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             'value',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -978,13 +1035,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/a/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': 'value',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1017,6 +1075,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             'value',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1024,13 +1083,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/aaaa',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': 'value',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1064,6 +1124,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             'value',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1071,13 +1132,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/aaaa/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': 'value',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1110,6 +1172,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1117,13 +1180,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/alias',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1157,6 +1221,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1164,13 +1229,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/alias/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1203,6 +1269,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             'value',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1210,13 +1277,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/caa',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': 'value',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1250,6 +1318,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             'value',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1257,13 +1326,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/caa/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': 'value',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1296,6 +1366,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1303,13 +1374,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/cname',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1343,6 +1415,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1350,13 +1423,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/cname/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1389,6 +1463,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1396,13 +1471,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/https',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1436,6 +1512,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1443,13 +1520,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/https/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1483,6 +1561,7 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1490,14 +1569,15 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/mx',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
-                'priority',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'priority': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1532,6 +1612,7 @@ class DomainsServiceTest(unittest.TestCase):
             '<VALUE>',
             1,
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1539,14 +1620,15 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/mx/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
-                'priority',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'priority': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1579,6 +1661,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1586,13 +1669,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/ns',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1626,6 +1710,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1633,13 +1718,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/ns/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1675,6 +1761,7 @@ class DomainsServiceTest(unittest.TestCase):
             1,
             1,
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1682,16 +1769,17 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/srv',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
-                'priority',
-                'weight',
-                'port',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'priority': 1,
+                'weight': 1,
+                'port': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1728,6 +1816,7 @@ class DomainsServiceTest(unittest.TestCase):
             1,
             1,
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1735,16 +1824,17 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/srv/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
-                'priority',
-                'weight',
-                'port',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'priority': 1,
+                'weight': 1,
+                'port': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1776,6 +1866,8 @@ class DomainsServiceTest(unittest.TestCase):
             '<DOMAIN_ID>',
             'name',
             1,
+            value='<VALUE>',
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1783,12 +1875,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/txt',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1822,6 +1916,7 @@ class DomainsServiceTest(unittest.TestCase):
             'name',
             '<VALUE>',
             1,
+            comment='<COMMENT>',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -1829,13 +1924,14 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/txt/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'name',
-                'value',
-                'ttl',
+                'name': 'name',
+                'value': '<VALUE>',
+                'ttl': 1,
+                'comment': '<COMMENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1873,8 +1969,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/<RECORD_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1897,8 +1993,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/records/<RECORD_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -1934,11 +2030,11 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/team',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'teamId',
+                'teamId': '<TEAM_ID>',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1966,8 +2062,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/transfers/status',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -1989,8 +2085,8 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/zone',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)
 
     @requests_mock.Mocker()
@@ -2026,11 +2122,11 @@ class DomainsServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/domains/<DOMAIN_ID>/zone',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'content',
+                'content': '<CONTENT>',
             },
         )
         self.assertEqual(response.to_dict(), data)

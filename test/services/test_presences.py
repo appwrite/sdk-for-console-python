@@ -29,15 +29,25 @@ class PresencesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.presences.list()
+        response = self.presences.list(
+            queries=[],
+            total=False,
+            ttl=1,
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/presences',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+                'ttl': ['1'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -54,15 +64,22 @@ class PresencesServiceTest(unittest.TestCase):
             text=json.dumps(data),
             headers=headers,
         )
-        response = self.presences.get_usage()
+        response = self.presences.get_usage(
+            range='24h',
+        )
         request = m.last_request
         url = urlsplit(request.url)
         self.assertEqual(
             unquote(url.path),
             '/v1/presences/usage',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'range': ['24h'],
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -91,8 +108,8 @@ class PresencesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/presences/<PRESENCE_ID>',
         )
-        sent = {re.sub(r'\[.*', '', key) for key in parse_qs(url.query, keep_blank_values=True)}
-        self.assertEqual(sent, set())
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -115,6 +132,9 @@ class PresencesServiceTest(unittest.TestCase):
         response = self.presences.upsert(
             '<PRESENCE_ID>',
             '<STATUS>',
+            permissions=[],
+            expires_at='2020-10-15T06:38:00.000+00:00',
+            metadata={},
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -122,11 +142,14 @@ class PresencesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/presences/<PRESENCE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
+        sent = json.loads(request.body or '{}')
         self.assertEqual(
             sent,
             {
-                'status',
+                'status': '<STATUS>',
+                'permissions': [],
+                'expiresAt': '2020-10-15T06:38:00.000+00:00',
+                'metadata': {},
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -150,6 +173,11 @@ class PresencesServiceTest(unittest.TestCase):
         )
         response = self.presences.update(
             '<PRESENCE_ID>',
+            status='<STATUS>',
+            expires_at='2020-10-15T06:38:00.000+00:00',
+            metadata={},
+            permissions=[],
+            purge=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -157,8 +185,17 @@ class PresencesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/presences/<PRESENCE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'status': '<STATUS>',
+                'expiresAt': '2020-10-15T06:38:00.000+00:00',
+                'metadata': {},
+                'permissions': [],
+                'purge': False,
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
@@ -180,6 +217,6 @@ class PresencesServiceTest(unittest.TestCase):
             unquote(url.path),
             '/v1/presences/<PRESENCE_ID>',
         )
-        sent = set(json.loads(request.body or '{}'))
-        self.assertEqual(sent, set())
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
         self.assertEqual(response, data)

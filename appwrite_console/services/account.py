@@ -315,7 +315,7 @@ class Account(Service):
         api_params = {}
         if billing_address_id is None or billing_address_id == '':
             raise AppwriteException('Missing required parameter: "billing_address_id"')
-        api_path = api_path.replace('{billingAddressId}', str(self._normalize_value(billing_address_id)))
+        api_path = api_path.replace('{billingAddressId}', self._encode_path(billing_address_id))
 
         response = self.client.call(
             'get',
@@ -379,7 +379,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "city"')
         if street_address is None:
             raise AppwriteException('Missing required parameter: "street_address"')
-        api_path = api_path.replace('{billingAddressId}', str(self._normalize_value(billing_address_id)))
+        api_path = api_path.replace('{billingAddressId}', self._encode_path(billing_address_id))
         api_params['country'] = self._normalize_value(country)
         api_params['city'] = self._normalize_value(city)
         api_params['streetAddress'] = self._normalize_value(street_address)
@@ -429,7 +429,7 @@ class Account(Service):
         api_params = {}
         if billing_address_id is None or billing_address_id == '':
             raise AppwriteException('Missing required parameter: "billing_address_id"')
-        api_path = api_path.replace('{billingAddressId}', str(self._normalize_value(billing_address_id)))
+        api_path = api_path.replace('{billingAddressId}', self._encode_path(billing_address_id))
 
         response = self.client.call(
             'delete',
@@ -514,7 +514,7 @@ class Account(Service):
         api_params = {}
         if consent_id is None or consent_id == '':
             raise AppwriteException('Missing required parameter: "consent_id"')
-        api_path = api_path.replace('{consentId}', str(self._normalize_value(consent_id)))
+        api_path = api_path.replace('{consentId}', self._encode_path(consent_id))
 
         response = self.client.call(
             'get',
@@ -554,7 +554,7 @@ class Account(Service):
         api_params = {}
         if consent_id is None or consent_id == '':
             raise AppwriteException('Missing required parameter: "consent_id"')
-        api_path = api_path.replace('{consentId}', str(self._normalize_value(consent_id)))
+        api_path = api_path.replace('{consentId}', self._encode_path(consent_id))
 
         response = self.client.call(
             'delete',
@@ -601,7 +601,7 @@ class Account(Service):
         api_params = {}
         if consent_id is None or consent_id == '':
             raise AppwriteException('Missing required parameter: "consent_id"')
-        api_path = api_path.replace('{consentId}', str(self._normalize_value(consent_id)))
+        api_path = api_path.replace('{consentId}', self._encode_path(consent_id))
         if queries is not None:
             api_params['queries'] = self._normalize_value(queries)
         if total is not None:
@@ -650,8 +650,8 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "consent_id"')
         if token_id is None or token_id == '':
             raise AppwriteException('Missing required parameter: "token_id"')
-        api_path = api_path.replace('{consentId}', str(self._normalize_value(consent_id)))
-        api_path = api_path.replace('{tokenId}', str(self._normalize_value(token_id)))
+        api_path = api_path.replace('{consentId}', self._encode_path(consent_id))
+        api_path = api_path.replace('{tokenId}', self._encode_path(token_id))
 
         response = self.client.call(
             'get',
@@ -696,8 +696,8 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "consent_id"')
         if token_id is None or token_id == '':
             raise AppwriteException('Missing required parameter: "token_id"')
-        api_path = api_path.replace('{consentId}', str(self._normalize_value(consent_id)))
-        api_path = api_path.replace('{tokenId}', str(self._normalize_value(token_id)))
+        api_path = api_path.replace('{consentId}', self._encode_path(consent_id))
+        api_path = api_path.replace('{tokenId}', self._encode_path(token_id))
 
         response = self.client.call(
             'delete',
@@ -738,7 +738,7 @@ class Account(Service):
         api_params = {}
         if coupon_id is None or coupon_id == '':
             raise AppwriteException('Missing required parameter: "coupon_id"')
-        api_path = api_path.replace('{couponId}', str(self._normalize_value(coupon_id)))
+        api_path = api_path.replace('{couponId}', self._encode_path(coupon_id))
 
         response = self.client.call(
             'get',
@@ -874,7 +874,7 @@ class Account(Service):
         api_params = {}
         if identity_id is None or identity_id == '':
             raise AppwriteException('Missing required parameter: "identity_id"')
-        api_path = api_path.replace('{identityId}', str(self._normalize_value(identity_id)))
+        api_path = api_path.replace('{identityId}', self._encode_path(identity_id))
 
         response = self.client.call(
             'delete',
@@ -1090,7 +1090,7 @@ class Account(Service):
         api_params = {}
         if key_id is None or key_id == '':
             raise AppwriteException('Missing required parameter: "key_id"')
-        api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
+        api_path = api_path.replace('{keyId}', self._encode_path(key_id))
 
         response = self.client.call(
             'get',
@@ -1143,7 +1143,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "name"')
         if scopes is None:
             raise AppwriteException('Missing required parameter: "scopes"')
-        api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
+        api_path = api_path.replace('{keyId}', self._encode_path(key_id))
         api_params['name'] = self._normalize_value(name)
         api_params['scopes'] = self._normalize_value(scopes)
         if expire is not None:
@@ -1188,7 +1188,7 @@ class Account(Service):
         api_params = {}
         if key_id is None or key_id == '':
             raise AppwriteException('Missing required parameter: "key_id"')
-        api_path = api_path.replace('{keyId}', str(self._normalize_value(key_id)))
+        api_path = api_path.replace('{keyId}', self._encode_path(key_id))
 
         response = self.client.call(
             'delete',
@@ -1274,7 +1274,7 @@ class Account(Service):
         api_params = {}
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
-        api_path = api_path.replace('{type}', str(self._normalize_value(type)))
+        api_path = api_path.replace('{type}', self._encode_path(type))
 
         response = self.client.call(
             'post',
@@ -1324,7 +1324,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "type"')
         if otp is None:
             raise AppwriteException('Missing required parameter: "otp"')
-        api_path = api_path.replace('{type}', str(self._normalize_value(type)))
+        api_path = api_path.replace('{type}', self._encode_path(type))
         api_params['otp'] = self._normalize_value(otp)
 
         response = self.client.call(
@@ -1366,7 +1366,7 @@ class Account(Service):
         api_params = {}
         if type is None:
             raise AppwriteException('Missing required parameter: "type"')
-        api_path = api_path.replace('{type}', str(self._normalize_value(type)))
+        api_path = api_path.replace('{type}', self._encode_path(type))
 
         response = self.client.call(
             'delete',
@@ -1755,7 +1755,7 @@ class Account(Service):
         api_params = {}
         if passkey_id is None or passkey_id == '':
             raise AppwriteException('Missing required parameter: "passkey_id"')
-        api_path = api_path.replace('{passkeyId}', str(self._normalize_value(passkey_id)))
+        api_path = api_path.replace('{passkeyId}', self._encode_path(passkey_id))
 
         response = self.client.call(
             'get',
@@ -1800,7 +1800,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "passkey_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_path = api_path.replace('{passkeyId}', str(self._normalize_value(passkey_id)))
+        api_path = api_path.replace('{passkeyId}', self._encode_path(passkey_id))
         api_params['name'] = self._normalize_value(name)
 
         response = self.client.call(
@@ -1842,7 +1842,7 @@ class Account(Service):
         api_params = {}
         if passkey_id is None or passkey_id == '':
             raise AppwriteException('Missing required parameter: "passkey_id"')
-        api_path = api_path.replace('{passkeyId}', str(self._normalize_value(passkey_id)))
+        api_path = api_path.replace('{passkeyId}', self._encode_path(passkey_id))
 
         response = self.client.call(
             'delete',
@@ -1888,7 +1888,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "passkey_id"')
         if credential is None:
             raise AppwriteException('Missing required parameter: "credential"')
-        api_path = api_path.replace('{passkeyId}', str(self._normalize_value(passkey_id)))
+        api_path = api_path.replace('{passkeyId}', self._encode_path(passkey_id))
         api_params['credential'] = self._normalize_value(credential)
 
         response = self.client.call(
@@ -2056,7 +2056,7 @@ class Account(Service):
         api_params = {}
         if payment_method_id is None or payment_method_id == '':
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-        api_path = api_path.replace('{paymentMethodId}', str(self._normalize_value(payment_method_id)))
+        api_path = api_path.replace('{paymentMethodId}', self._encode_path(payment_method_id))
 
         response = self.client.call(
             'get',
@@ -2109,7 +2109,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "expiry_month"')
         if expiry_year is None:
             raise AppwriteException('Missing required parameter: "expiry_year"')
-        api_path = api_path.replace('{paymentMethodId}', str(self._normalize_value(payment_method_id)))
+        api_path = api_path.replace('{paymentMethodId}', self._encode_path(payment_method_id))
         api_params['expiryMonth'] = self._normalize_value(expiry_month)
         api_params['expiryYear'] = self._normalize_value(expiry_year)
         if state is not None:
@@ -2154,7 +2154,7 @@ class Account(Service):
         api_params = {}
         if payment_method_id is None or payment_method_id == '':
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-        api_path = api_path.replace('{paymentMethodId}', str(self._normalize_value(payment_method_id)))
+        api_path = api_path.replace('{paymentMethodId}', self._encode_path(payment_method_id))
 
         response = self.client.call(
             'delete',
@@ -2208,7 +2208,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "provider_method_id"')
         if name is None:
             raise AppwriteException('Missing required parameter: "name"')
-        api_path = api_path.replace('{paymentMethodId}', str(self._normalize_value(payment_method_id)))
+        api_path = api_path.replace('{paymentMethodId}', self._encode_path(payment_method_id))
         api_params['providerMethodId'] = self._normalize_value(provider_method_id)
         api_params['name'] = self._normalize_value(name)
         if state is not None:
@@ -2253,7 +2253,7 @@ class Account(Service):
         api_params = {}
         if payment_method_id is None or payment_method_id == '':
             raise AppwriteException('Missing required parameter: "payment_method_id"')
-        api_path = api_path.replace('{paymentMethodId}', str(self._normalize_value(payment_method_id)))
+        api_path = api_path.replace('{paymentMethodId}', self._encode_path(payment_method_id))
 
         response = self.client.call(
             'patch',
@@ -2943,7 +2943,7 @@ class Account(Service):
         api_params = {}
         if provider is None:
             raise AppwriteException('Missing required parameter: "provider"')
-        api_path = api_path.replace('{provider}', str(self._normalize_value(provider)))
+        api_path = api_path.replace('{provider}', self._encode_path(provider))
         if success is not None:
             api_params['success'] = self._normalize_value(success)
         if failure is not None:
@@ -3089,7 +3089,7 @@ class Account(Service):
         api_params = {}
         if session_id is None or session_id == '':
             raise AppwriteException('Missing required parameter: "session_id"')
-        api_path = api_path.replace('{sessionId}', str(self._normalize_value(session_id)))
+        api_path = api_path.replace('{sessionId}', self._encode_path(session_id))
 
         response = self.client.call(
             'get',
@@ -3129,7 +3129,7 @@ class Account(Service):
         api_params = {}
         if session_id is None or session_id == '':
             raise AppwriteException('Missing required parameter: "session_id"')
-        api_path = api_path.replace('{sessionId}', str(self._normalize_value(session_id)))
+        api_path = api_path.replace('{sessionId}', self._encode_path(session_id))
 
         response = self.client.call(
             'patch',
@@ -3170,7 +3170,7 @@ class Account(Service):
         api_params = {}
         if session_id is None or session_id == '':
             raise AppwriteException('Missing required parameter: "session_id"')
-        api_path = api_path.replace('{sessionId}', str(self._normalize_value(session_id)))
+        api_path = api_path.replace('{sessionId}', self._encode_path(session_id))
 
         response = self.client.call(
             'delete',
@@ -3323,7 +3323,7 @@ class Account(Service):
             raise AppwriteException('Missing required parameter: "target_id"')
         if identifier is None:
             raise AppwriteException('Missing required parameter: "identifier"')
-        api_path = api_path.replace('{targetId}', str(self._normalize_value(target_id)))
+        api_path = api_path.replace('{targetId}', self._encode_path(target_id))
         api_params['identifier'] = self._normalize_value(identifier)
         if bundle_id is not None:
             api_params['bundleId'] = self._normalize_value(bundle_id)
@@ -3369,7 +3369,7 @@ class Account(Service):
         api_params = {}
         if target_id is None or target_id == '':
             raise AppwriteException('Missing required parameter: "target_id"')
-        api_path = api_path.replace('{targetId}', str(self._normalize_value(target_id)))
+        api_path = api_path.replace('{targetId}', self._encode_path(target_id))
 
         response = self.client.call(
             'delete',
@@ -3541,7 +3541,7 @@ class Account(Service):
         api_params = {}
         if provider is None:
             raise AppwriteException('Missing required parameter: "provider"')
-        api_path = api_path.replace('{provider}', str(self._normalize_value(provider)))
+        api_path = api_path.replace('{provider}', self._encode_path(provider))
         if success is not None:
             api_params['success'] = self._normalize_value(success)
         if failure is not None:
