@@ -60,6 +60,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             "domain": "example.com",
             "enabled": True,
             "allowedOrigins": [],
+            "type": "web",
+            "identifyUsers": True,
             "accessedAt": "2020-10-15T06:38:00.000+00:00",
             "firstAccessedAt": "2020-10-15T06:38:00.000+00:00",
         }
@@ -76,6 +78,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             domain='<DOMAIN>',
             enabled=False,
             allowed_origins=[],
+            identify_users=False,
+            type='web',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -92,6 +96,8 @@ class AnalyticsServiceTest(unittest.TestCase):
                 'domain': '<DOMAIN>',
                 'enabled': False,
                 'allowedOrigins': [],
+                'identifyUsers': False,
+                'type': 'web',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -106,6 +112,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             "domain": "example.com",
             "enabled": True,
             "allowedOrigins": [],
+            "type": "web",
+            "identifyUsers": True,
             "accessedAt": "2020-10-15T06:38:00.000+00:00",
             "firstAccessedAt": "2020-10-15T06:38:00.000+00:00",
         }
@@ -139,6 +147,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             "domain": "example.com",
             "enabled": True,
             "allowedOrigins": [],
+            "type": "web",
+            "identifyUsers": True,
             "accessedAt": "2020-10-15T06:38:00.000+00:00",
             "firstAccessedAt": "2020-10-15T06:38:00.000+00:00",
         }
@@ -155,6 +165,8 @@ class AnalyticsServiceTest(unittest.TestCase):
             domain='<DOMAIN>',
             enabled=False,
             allowed_origins=[],
+            identify_users=False,
+            type='web',
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -170,6 +182,8 @@ class AnalyticsServiceTest(unittest.TestCase):
                 'domain': '<DOMAIN>',
                 'enabled': False,
                 'allowedOrigins': [],
+                'identifyUsers': False,
+                'type': 'web',
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -221,6 +235,7 @@ class AnalyticsServiceTest(unittest.TestCase):
             user_id='<USER_ID>',
             ip='<IP>',
             user_agent='<USER_AGENT>',
+            interactive=False,
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -244,6 +259,7 @@ class AnalyticsServiceTest(unittest.TestCase):
                 'userId': '<USER_ID>',
                 'ip': '<IP>',
                 'userAgent': '<USER_AGENT>',
+                'interactive': False,
             },
         )
         self.assertEqual(response, data)
@@ -266,6 +282,7 @@ class AnalyticsServiceTest(unittest.TestCase):
             queries=[],
             interval='1h',
             dimensions=[],
+            prop_key='<PROP_KEY>',
             date_range='<DATE_RANGE>',
             start_at='2020-10-15T06:38:00.000+00:00',
             end_at='2020-10-15T06:38:00.000+00:00',
@@ -283,6 +300,7 @@ class AnalyticsServiceTest(unittest.TestCase):
             sent,
             {
                 'interval': ['1h'],
+                'propKey': ['<PROP_KEY>'],
                 'dateRange': ['<DATE_RANGE>'],
                 'startAt': ['2020-10-15T06:38:00.000+00:00'],
                 'endAt': ['2020-10-15T06:38:00.000+00:00'],

@@ -16,6 +16,7 @@ result: AnalyticsMetricList = analytics.list_metrics(
     queries = [], # optional
     interval = AnalyticsInterval.ONE_HOUR, # optional
     dimensions = [AnalyticsDimension.COUNTRY], # optional
+    prop_key = '<PROP_KEY>', # optional
     date_range = '<DATE_RANGE>', # optional
     start_at = '2020-10-15T06:38:00.000+00:00', # optional
     end_at = '2020-10-15T06:38:00.000+00:00', # optional

@@ -145,7 +145,7 @@ class ProjectServiceTest(unittest.TestCase):
     def test_list_environments(self, m):
         data = {
             "total": 5.0,
-            "projects": [],
+            "environments": [],
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -176,32 +176,11 @@ class ProjectServiceTest(unittest.TestCase):
     @requests_mock.Mocker()
     def test_create_environment(self, m):
         data = {
-            "$id": "5e5ea5c16897e",
+            "$id": "staging",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "name": "New Project",
-            "teamId": "1592981250",
-            "region": "fra",
-            "smtpEnabled": True,
-            "smtpSenderName": "John Appwrite",
-            "smtpSenderEmail": "john@appwrite.io",
-            "smtpReplyToName": "Support Team",
-            "smtpReplyToEmail": "support@appwrite.io",
-            "smtpHost": "mail.appwrite.io",
-            "smtpPort": 25.0,
-            "smtpUsername": "emailuser",
-            "smtpPassword": "smtp-password",
-            "smtpSecure": "tls",
-            "pingCount": 1.0,
-            "pingedAt": "2020-10-15T06:38:00.000+00:00",
-            "labels": [],
-            "status": "active",
-            "onboarding": {},
-            "authMethods": [],
-            "services": [],
-            "protocols": [],
-            "blocks": [],
-            "consoleAccessedAt": "2020-10-15T06:38:00.000+00:00",
+            "projectId": "5e5ea5c16897e",
+            "name": "Staging",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -235,32 +214,11 @@ class ProjectServiceTest(unittest.TestCase):
     @requests_mock.Mocker()
     def test_get_environment(self, m):
         data = {
-            "$id": "5e5ea5c16897e",
+            "$id": "staging",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "name": "New Project",
-            "teamId": "1592981250",
-            "region": "fra",
-            "smtpEnabled": True,
-            "smtpSenderName": "John Appwrite",
-            "smtpSenderEmail": "john@appwrite.io",
-            "smtpReplyToName": "Support Team",
-            "smtpReplyToEmail": "support@appwrite.io",
-            "smtpHost": "mail.appwrite.io",
-            "smtpPort": 25.0,
-            "smtpUsername": "emailuser",
-            "smtpPassword": "smtp-password",
-            "smtpSecure": "tls",
-            "pingCount": 1.0,
-            "pingedAt": "2020-10-15T06:38:00.000+00:00",
-            "labels": [],
-            "status": "active",
-            "onboarding": {},
-            "authMethods": [],
-            "services": [],
-            "protocols": [],
-            "blocks": [],
-            "consoleAccessedAt": "2020-10-15T06:38:00.000+00:00",
+            "projectId": "5e5ea5c16897e",
+            "name": "Staging",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -285,32 +243,11 @@ class ProjectServiceTest(unittest.TestCase):
     @requests_mock.Mocker()
     def test_update_environment(self, m):
         data = {
-            "$id": "5e5ea5c16897e",
+            "$id": "staging",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
-            "name": "New Project",
-            "teamId": "1592981250",
-            "region": "fra",
-            "smtpEnabled": True,
-            "smtpSenderName": "John Appwrite",
-            "smtpSenderEmail": "john@appwrite.io",
-            "smtpReplyToName": "Support Team",
-            "smtpReplyToEmail": "support@appwrite.io",
-            "smtpHost": "mail.appwrite.io",
-            "smtpPort": 25.0,
-            "smtpUsername": "emailuser",
-            "smtpPassword": "smtp-password",
-            "smtpSecure": "tls",
-            "pingCount": 1.0,
-            "pingedAt": "2020-10-15T06:38:00.000+00:00",
-            "labels": [],
-            "status": "active",
-            "onboarding": {},
-            "authMethods": [],
-            "services": [],
-            "protocols": [],
-            "blocks": [],
-            "consoleAccessedAt": "2020-10-15T06:38:00.000+00:00",
+            "projectId": "5e5ea5c16897e",
+            "name": "Staging",
         }
         headers = {'Content-Type': 'application/json'}
         m.request(
@@ -1965,6 +1902,43 @@ class ProjectServiceTest(unittest.TestCase):
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
+    def test_update_o_auth2_naver(self, m):
+        data = {
+            "$id": "github",
+            "enabled": True,
+            "clientId": "jK8pQ0000000000000Zv",
+            "clientSecret": "9f42A0000000000c1dEb",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.update_o_auth2_naver(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/oauth2/naver',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
     def test_update_o_auth2_notion(self, m):
         data = {
             "$id": "github",
@@ -2549,6 +2523,80 @@ class ProjectServiceTest(unittest.TestCase):
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
+    def test_update_o_auth2_vipps(self, m):
+        data = {
+            "$id": "github",
+            "enabled": True,
+            "clientId": "9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e",
+            "clientSecret": "Ay1jb000000000000000000000000000000Vx3k",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.update_o_auth2_vipps(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/oauth2/vipps',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_update_o_auth2_vipps_sandbox(self, m):
+        data = {
+            "$id": "github",
+            "enabled": True,
+            "clientId": "9a3a4b3e-0000-0000-0000-0f1a6d1c3b2e",
+            "clientSecret": "Ay1jb000000000000000000000000000000Vx3k",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.update_o_auth2_vipps_sandbox(
+            client_id='<CLIENT_ID>',
+            client_secret='<CLIENT_SECRET>',
+            enabled=False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/oauth2/vippsSandbox',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'clientId': '<CLIENT_ID>',
+                'clientSecret': '<CLIENT_SECRET>',
+                'enabled': False,
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
     def test_update_o_auth2_webflow(self, m):
         data = {
             "$id": "github",
@@ -2838,6 +2886,27 @@ class ProjectServiceTest(unittest.TestCase):
         sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(sent, {})
         self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_delete_passwords(self, m):
+        data = ''
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'DELETE',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.delete_passwords()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/passwords',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
+        self.assertEqual(response, data)
 
     @requests_mock.Mocker()
     def test_list_platforms(self, m):
@@ -3343,6 +3412,61 @@ class ProjectServiceTest(unittest.TestCase):
             sent,
             {
                 'total': ['false'],
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_update_account_devices_policy(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "name": "New Project",
+            "teamId": "1592981250",
+            "region": "fra",
+            "smtpEnabled": True,
+            "smtpSenderName": "John Appwrite",
+            "smtpSenderEmail": "john@appwrite.io",
+            "smtpReplyToName": "Support Team",
+            "smtpReplyToEmail": "support@appwrite.io",
+            "smtpHost": "mail.appwrite.io",
+            "smtpPort": 25.0,
+            "smtpUsername": "emailuser",
+            "smtpPassword": "smtp-password",
+            "smtpSecure": "tls",
+            "pingCount": 1.0,
+            "pingedAt": "2020-10-15T06:38:00.000+00:00",
+            "labels": [],
+            "status": "active",
+            "onboarding": {},
+            "authMethods": [],
+            "services": [],
+            "protocols": [],
+            "blocks": [],
+            "consoleAccessedAt": "2020-10-15T06:38:00.000+00:00",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.update_account_devices_policy(
+            False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/policies/account-devices',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'enabled': False,
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -4431,6 +4555,55 @@ class ProjectServiceTest(unittest.TestCase):
         )
         sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(sent, {})
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_get_prefs(self, m):
+        data = {}
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.get_prefs()
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/prefs',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_update_prefs(self, m):
+        data = {}
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PUT',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.project.update_prefs(
+            {},
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/project/prefs',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'prefs': {},
+            },
+        )
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
