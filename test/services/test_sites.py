@@ -279,6 +279,7 @@ class SitesServiceTest(unittest.TestCase):
             "providerOwner": "appwrite",
             "providerVersion": "main",
             "variables": [],
+            "scopes": [],
         }
         headers = {'Content-Type': 'application/json'}
         m.request(

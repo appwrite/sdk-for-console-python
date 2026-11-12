@@ -4,9 +4,9 @@ from pydantic import Field, PrivateAttr, model_validator
 from .base_model import AppwriteModel
 
 
-class Review(AppwriteModel):
+class CampaignReview(AppwriteModel):
     """
-    Review
+    Campaign Review
 
     Attributes
     ----------

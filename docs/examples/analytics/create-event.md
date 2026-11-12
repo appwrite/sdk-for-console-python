@@ -21,6 +21,7 @@ result = analytics.create_event(
     props = [], # optional
     user_id = '<USER_ID>', # optional
     ip = '<IP>', # optional
-    user_agent = '<USER_AGENT>' # optional
+    user_agent = '<USER_AGENT>', # optional
+    interactive = False # optional
 )
 ```

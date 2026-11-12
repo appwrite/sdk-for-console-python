@@ -332,6 +332,8 @@ class ConsoleServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -775,6 +777,7 @@ class ConsoleServiceTest(unittest.TestCase):
             "_APP_VCS_PROVIDERS_WITH_REPOSITORY_CREATION": [],
             "_APP_VCS_PROVIDERS_WITH_PUBLIC_REPOSITORIES": [],
             "_APP_DOMAIN_ENABLED": True,
+            "_APP_REVIEWS_ENABLED": True,
             "_APP_DOMAIN_SITES": "sites.localhost,sites.example.com",
             "_APP_DOMAIN_FUNCTIONS": "functions.localhost",
             "_APP_OPTIONS_FORCE_HTTPS": "enabled",

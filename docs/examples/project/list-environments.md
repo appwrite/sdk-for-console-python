@@ -1,7 +1,7 @@
 ```python
 from appwrite_console.client import Client
 from appwrite_console.services.project import Project
-from appwrite_console.models import ProjectList
+from appwrite_console.models import EnvironmentList
 
 client = Client()
 client.set_endpoint('https://<REGION>.cloud.appwrite.io/v1') # Your API Endpoint
@@ -9,7 +9,7 @@ client.set_project('<YOUR_PROJECT_ID>') # Your project ID
 
 project = Project(client)
 
-result: ProjectList = project.list_environments(
+result: EnvironmentList = project.list_environments(
     queries = [], # optional
     total = False # optional
 )

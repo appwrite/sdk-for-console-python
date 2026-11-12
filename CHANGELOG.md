@@ -1,5 +1,25 @@
 # Change Log
 
+## 0.16.0
+
+* Breaking: `Review` model renamed to `CampaignReview`; `Campaign.reviews` is now `List[CampaignReview]`
+* Added: response fields that hold secrets (API key and token secrets, password hashes, OAuth client secrets, MFA recovery codes, database passwords and connection strings, and more) carry `format: password` on the field, readable from `Model.model_fields[name].json_schema_extra` and `Model.model_json_schema()`, so callers can keep them out of logs and output
+* Updated: requests send `X-Appwrite-Response-Format: 2.7.1`
+* Added: `client.set_environment` to act in a project environment
+* Added: project transfers: `organization.create_project_transfer`, `get_project_transfer`, `list_project_transfers`, `update_project_transfer_status` and `delete_project_transfer`, with the `Transfer` and `TransferList` models
+* Added: account devices: `account.create_device`, `get_device`, `delete_device` and `update_device_session`, the `Device` model, `project.update_account_devices_policy`, `PolicyAccountDevices` and `ProjectPolicyId.ACCOUNT_DEVICES`
+* Added: project preferences: `project.get_prefs` and `project.update_prefs`, `prefs` on `Project`, and `model_type` on project methods to type them; `AppwriteMigrationResource.PROJECT_PREFERENCES` and `project_preferences` on `MigrationReport`
+* Added: `project.delete_passwords`
+* Added: Naver and Vipps OAuth2 providers: `project.update_o_auth2_naver`, `update_o_auth2_vipps`, `update_o_auth2_vipps_sandbox`, the `OAuth2Naver` and `OAuth2Vipps` models, and the matching `OAuthProvider` and `ProjectOAuthProviderId` values
+* Added: `proxy.update_function_rule`, `update_redirect_rule` and `update_site_rule`; `certificatestatus` and `expireat` on `ProxyRule`
+* Added: `schedule` on WAF rules and their create and update methods
+* Added: organization alerts: `organizations.update_alert`, the `Alert` model and the `AlertStatus`, `AlertMetric` and `AlertComparator` enums; `critical` and `notify` on `organizations.update_budget`
+* Added: `MonitorType` and `MonitorResourceType` enums, and `alerts`, `monitors` and `reviews` read and write scopes on `ProjectKeyScopes`
+* Added: analytics: `type` and `identify_users` on `analytics.create_property` and `update_property` (`type` and `identifyusers` on `AnalyticsProperty`), `interactive` on `analytics.create_event`, `prop_key` on `analytics.list_metrics`, `AnalyticsPropertyType`, `users` on `AnalyticsMetric` and `AnalyticsDimension.PROPS` and `USERID`
+* Added: `items` on `Invoice` and the `InvoiceItem` model; `budgetcritical`, `budgetnotify` and `educationexpiresat` on `Organization`
+* Added: `Environment` and `EnvironmentList` models, `environmentid` on `Project`, `username` on `Session`, `reason` on `ActivityEvent`, `membership` on `MigrationReport`, `scopes` on `TemplateSite` and `app_reviews_enabled` on `ConsoleVariables`
+* Added: `ImageFormat.AUTO` and new `QuerySuggestionResource` values for devices, monitors, reviews and transfers
+
 ## 0.15.0
 
 * Breaking: Python 3.9 is no longer supported; requires Python 3.10 or later

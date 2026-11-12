@@ -113,6 +113,7 @@ class MigrationsServiceTest(unittest.TestCase):
         data = {
             "user": 20.0,
             "team": 20.0,
+            "membership": 20.0,
             "database": 20.0,
             "row": 20.0,
             "file": 20.0,
@@ -125,6 +126,7 @@ class MigrationsServiceTest(unittest.TestCase):
             "auth-methods": 1.0,
             "project-protocols": 1.0,
             "project-labels": 1.0,
+            "project-preferences": 1.0,
             "project-services": 1.0,
             "policies": 1.0,
             "smtp": 1.0,
@@ -356,6 +358,7 @@ class MigrationsServiceTest(unittest.TestCase):
         data = {
             "user": 20.0,
             "team": 20.0,
+            "membership": 20.0,
             "database": 20.0,
             "row": 20.0,
             "file": 20.0,
@@ -368,6 +371,7 @@ class MigrationsServiceTest(unittest.TestCase):
             "auth-methods": 1.0,
             "project-protocols": 1.0,
             "project-labels": 1.0,
+            "project-preferences": 1.0,
             "project-services": 1.0,
             "policies": 1.0,
             "smtp": 1.0,
@@ -599,6 +603,7 @@ class MigrationsServiceTest(unittest.TestCase):
         data = {
             "user": 20.0,
             "team": 20.0,
+            "membership": 20.0,
             "database": 20.0,
             "row": 20.0,
             "file": 20.0,
@@ -611,6 +616,7 @@ class MigrationsServiceTest(unittest.TestCase):
             "auth-methods": 1.0,
             "project-protocols": 1.0,
             "project-labels": 1.0,
+            "project-preferences": 1.0,
             "project-services": 1.0,
             "policies": 1.0,
             "smtp": 1.0,
@@ -732,6 +738,7 @@ class MigrationsServiceTest(unittest.TestCase):
         data = {
             "user": 20.0,
             "team": 20.0,
+            "membership": 20.0,
             "database": 20.0,
             "row": 20.0,
             "file": 20.0,
@@ -744,6 +751,7 @@ class MigrationsServiceTest(unittest.TestCase):
             "auth-methods": 1.0,
             "project-protocols": 1.0,
             "project-labels": 1.0,
+            "project-preferences": 1.0,
             "project-services": 1.0,
             "policies": 1.0,
             "smtp": 1.0,

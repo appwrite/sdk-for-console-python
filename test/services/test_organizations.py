@@ -60,6 +60,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -563,6 +565,56 @@ class OrganizationsServiceTest(unittest.TestCase):
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
+    def test_update_alert(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "monitorId": "5e5ea5c16897e",
+            "name": "Bandwidth spike",
+            "status": "firing",
+            "acknowledgedBy": "5e5ea5c16897e",
+            "acknowledgedByName": "Jane Doe",
+            "rules": [],
+            "critical": True,
+            "metric": "network.outbound",
+            "comparator": "greaterThan",
+            "threshold": 5000000,
+            "value": 7250000,
+            "peak": 9100000,
+            "type": "usage",
+            "resourceType": "database",
+            "resourceId": "5e5ea5c16897e",
+            "notifications": 1.0,
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organizations.update_alert(
+            '<ORGANIZATION_ID>',
+            '<ALERT_ID>',
+            False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organizations/<ORGANIZATION_ID>/alerts/<ALERT_ID>',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'acknowledged': False,
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
     def test_set_billing_address(self, m):
         data = {
             "$id": "5e5ea5c16897e",
@@ -572,6 +624,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -740,6 +794,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -855,6 +911,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -945,6 +1003,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             '<ORGANIZATION_ID>',
             1,
             alerts=[],
+            notify=[],
+            critical=[],
         )
         request = m.last_request
         url = urlsplit(request.url)
@@ -958,6 +1018,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             {
                 'budget': 1,
                 'alerts': [],
+                'notify': [],
+                'critical': [],
             },
         )
         self.assertEqual(response.to_dict(), data)
@@ -1253,6 +1315,7 @@ class OrganizationsServiceTest(unittest.TestCase):
             "teamId": "5e5ea5c16897e",
             "aggregationId": "5e5ea5c16897e",
             "plan": "tier-1",
+            "items": [],
             "usage": [],
             "amount": 50,
             "tax": 17,
@@ -1323,6 +1386,7 @@ class OrganizationsServiceTest(unittest.TestCase):
             "teamId": "5e5ea5c16897e",
             "aggregationId": "5e5ea5c16897e",
             "plan": "tier-1",
+            "items": [],
             "usage": [],
             "amount": 50,
             "tax": 17,
@@ -1375,6 +1439,7 @@ class OrganizationsServiceTest(unittest.TestCase):
             "teamId": "5e5ea5c16897e",
             "aggregationId": "5e5ea5c16897e",
             "plan": "tier-1",
+            "items": [],
             "usage": [],
             "amount": 50,
             "tax": 17,
@@ -1445,6 +1510,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -1560,6 +1627,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -1669,6 +1738,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -1784,6 +1855,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -2022,6 +2095,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -2285,6 +2360,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -2463,6 +2540,8 @@ class OrganizationsServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {

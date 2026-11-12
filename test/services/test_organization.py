@@ -26,6 +26,8 @@ class OrganizationServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -133,6 +135,8 @@ class OrganizationServiceTest(unittest.TestCase):
             "total": 7.0,
             "prefs": {},
             "budgetAlerts": [],
+            "budgetNotify": [],
+            "budgetCritical": [],
             "billingPlan": "tier-1",
             "billingPlanId": "tier-1",
             "billingPlanDetails": {
@@ -1248,3 +1252,207 @@ class OrganizationServiceTest(unittest.TestCase):
         sent = json.loads(request.body or '{}')
         self.assertEqual(sent, {})
         self.assertEqual(response, data)
+
+    @requests_mock.Mocker()
+    def test_list_project_transfers(self, m):
+        data = {
+            "total": 5.0,
+            "transfers": [],
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organization.list_project_transfers(
+            project_id='<PROJECT_ID>',
+            queries=[],
+            total=False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organization/transfers',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'projectId': ['<PROJECT_ID>'],
+                'total': ['false'],
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_create_project_transfer(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "resourceType": "projects",
+            "resourceId": "5e5ea5c16897e",
+            "resourceName": "My Project",
+            "senderType": "teams",
+            "senderId": "5e5ea5c16897e",
+            "senderName": "My Organization",
+            "recipientType": "teams",
+            "recipientId": "5e5ea5c16897e",
+            "recipientName": "Their Organization",
+            "expire": "2020-10-15T06:38:00.000+00:00",
+            "secret": "919c2d18fb5d4...a2ae413da83346ad2",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'POST',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organization.create_project_transfer(
+            '<PROJECT_ID>',
+            recipient_id='<RECIPIENT_ID>',
+            expire='2020-10-15T06:38:00.000+00:00',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organization/transfers',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'projectId': '<PROJECT_ID>',
+                'recipientId': '<RECIPIENT_ID>',
+                'expire': '2020-10-15T06:38:00.000+00:00',
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_get_project_transfer(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "resourceType": "projects",
+            "resourceId": "5e5ea5c16897e",
+            "resourceName": "My Project",
+            "senderType": "teams",
+            "senderId": "5e5ea5c16897e",
+            "senderName": "My Organization",
+            "recipientType": "teams",
+            "recipientId": "5e5ea5c16897e",
+            "recipientName": "Their Organization",
+            "expire": "2020-10-15T06:38:00.000+00:00",
+            "secret": "919c2d18fb5d4...a2ae413da83346ad2",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organization.get_project_transfer(
+            '<TRANSFER_ID>',
+            secret='<SECRET>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organization/transfers/<TRANSFER_ID>',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'secret': ['<SECRET>'],
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_delete_project_transfer(self, m):
+        data = ''
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'DELETE',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organization.delete_project_transfer(
+            '<TRANSFER_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organization/transfers/<TRANSFER_ID>',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(sent, {})
+        self.assertEqual(response, data)
+
+    @requests_mock.Mocker()
+    def test_update_project_transfer_status(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "name": "New Project",
+            "teamId": "1592981250",
+            "region": "fra",
+            "smtpEnabled": True,
+            "smtpSenderName": "John Appwrite",
+            "smtpSenderEmail": "john@appwrite.io",
+            "smtpReplyToName": "Support Team",
+            "smtpReplyToEmail": "support@appwrite.io",
+            "smtpHost": "mail.appwrite.io",
+            "smtpPort": 25.0,
+            "smtpUsername": "emailuser",
+            "smtpPassword": "smtp-password",
+            "smtpSecure": "tls",
+            "pingCount": 1.0,
+            "pingedAt": "2020-10-15T06:38:00.000+00:00",
+            "labels": [],
+            "status": "active",
+            "onboarding": {},
+            "authMethods": [],
+            "services": [],
+            "protocols": [],
+            "blocks": [],
+            "consoleAccessedAt": "2020-10-15T06:38:00.000+00:00",
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'PATCH',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organization.update_project_transfer_status(
+            '<TRANSFER_ID>',
+            '<SECRET>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organization/transfers/<TRANSFER_ID>/status',
+        )
+        sent = json.loads(request.body or '{}')
+        self.assertEqual(
+            sent,
+            {
+                'secret': '<SECRET>',
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
