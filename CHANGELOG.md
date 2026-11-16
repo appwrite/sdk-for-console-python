@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.17.0
+
+* Added: `account.create_ldap_session` for LDAP sign-in
+* Added: `project.update_ldap` and `project.create_ldap_test`, the `ProjectLDAPEncryption` enum and `ldap*` fields on `Project`
+* Added: `sites.update_analytics` and `analyticsenabled` and `analyticspropertyid` on `Site`
+* Added: `severity` on `Alert` and the `AlertSeverity` enum; `critical` is deprecated
+* Added: `reason` on `DomainPrice`, set when a domain was not priced for the requested registration type
+* Updated: requests send `X-Appwrite-Response-Format: 2.7.2`
+
 ## 0.16.0
 
 * Breaking: `Review` model renamed to `CampaignReview`; `Campaign.reviews` is now `List[CampaignReview]`
