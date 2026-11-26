@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.18.0
+
+* Breaking: `AlertSeverity` removed; `Alert.severity` is now a `MonitorSeverity`
+* Breaking: `critical` removed from `Alert`; `metric` and `comparator` are `None` on an uptime alert
+* Added: `monitors` service to create, list, get, update and delete HTTP, DNS, TCP, SMTP and usage monitors
+* Added: `alerts` service to list and get alerts, and acknowledge them with `alerts.update`
+* Added: `organization.list_escalations`, `create_escalation`, `get_escalation`, `update_escalation` and `delete_escalation`
+* Added: `organizations.list_alerts`, `get_alert`, `list_monitors` and `get_monitor` for an organization's alerts and monitors
+* Added: `Monitor`, `Escalation` and `EscalationStep` models, their list models, `AlertList`, the `Monitor*` enums, and `projectId`, `escalation*`, `latency` and `result` on `Alert`
+
 ## 0.17.0
 
 * Added: `account.create_ldap_session` for LDAP sign-in
