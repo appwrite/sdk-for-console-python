@@ -565,21 +565,101 @@ class OrganizationsServiceTest(unittest.TestCase):
         self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
+    def test_list_alerts(self, m):
+        data = {
+            "total": 5.0,
+            "alerts": [],
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organizations.list_alerts(
+            '<ORGANIZATION_ID>',
+            queries=[],
+            total=False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organizations/<ORGANIZATION_ID>/alerts',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_get_alert(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "monitorId": "5e5ea5c16897e",
+            "projectId": "5e5ea5c16897e",
+            "name": "Bandwidth spike",
+            "status": "firing",
+            "acknowledgedBy": "5e5ea5c16897e",
+            "acknowledgedByName": "Jane Doe",
+            "escalationId": "5e5ea5c16897e",
+            "escalationStep": 1.0,
+            "escalationRound": 0.0,
+            "rules": [],
+            "severity": "warning",
+            "threshold": 5000000,
+            "value": 7250000,
+            "peak": 9100000,
+            "type": "usage",
+            "resourceType": "database",
+            "resourceId": "5e5ea5c16897e",
+            "notifications": 1.0,
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organizations.get_alert(
+            '<ORGANIZATION_ID>',
+            '<ALERT_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organizations/<ORGANIZATION_ID>/alerts/<ALERT_ID>',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(sent, {})
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
     def test_update_alert(self, m):
         data = {
             "$id": "5e5ea5c16897e",
             "$createdAt": "2020-10-15T06:38:00.000+00:00",
             "$updatedAt": "2020-10-15T06:38:00.000+00:00",
             "monitorId": "5e5ea5c16897e",
+            "projectId": "5e5ea5c16897e",
             "name": "Bandwidth spike",
             "status": "firing",
             "acknowledgedBy": "5e5ea5c16897e",
             "acknowledgedByName": "Jane Doe",
+            "escalationId": "5e5ea5c16897e",
+            "escalationStep": 1.0,
+            "escalationRound": 0.0,
             "rules": [],
             "severity": "warning",
-            "critical": True,
-            "metric": "network.outbound",
-            "comparator": "greaterThan",
             "threshold": 5000000,
             "value": 7250000,
             "peak": 9100000,
@@ -1500,6 +1580,95 @@ class OrganizationsServiceTest(unittest.TestCase):
         sent = parse_qs(url.query, keep_blank_values=True)
         self.assertEqual(sent, {})
         self.assertEqual(response, data)
+
+    @requests_mock.Mocker()
+    def test_list_monitors(self, m):
+        data = {
+            "total": 5.0,
+            "monitors": [],
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organizations.list_monitors(
+            '<ORGANIZATION_ID>',
+            queries=[],
+            total=False,
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organizations/<ORGANIZATION_ID>/monitors',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'total': ['false'],
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
+
+    @requests_mock.Mocker()
+    def test_get_monitor(self, m):
+        data = {
+            "$id": "5e5ea5c16897e",
+            "$createdAt": "2020-10-15T06:38:00.000+00:00",
+            "$updatedAt": "2020-10-15T06:38:00.000+00:00",
+            "name": "Bandwidth spike",
+            "projectId": "5e5ea5c16897e",
+            "rules": [],
+            "type": "usage",
+            "resourceType": "database",
+            "resourceId": "main",
+            "window": 3600.0,
+            "cooldown": 3600.0,
+            "enabled": True,
+            "notify": [],
+            "escalationId": "5e5ea5c16897e",
+            "severity": "warning",
+            "status": "ok",
+            "alertId": "5e5ea5c16897e",
+            "interval": 60.0,
+            "timeout": 10.0,
+            "url": "https://example.com/health",
+            "body": "",
+            "domain": "example.com",
+            "resolver": "1.1.1.1",
+            "host": "mail.example.com",
+            "port": 587.0,
+        }
+        headers = {'Content-Type': 'application/json'}
+        m.request(
+            'GET',
+            requests_mock.ANY,
+            text=json.dumps(data),
+            headers=headers,
+        )
+        response = self.organizations.get_monitor(
+            '<ORGANIZATION_ID>',
+            '<MONITOR_ID>',
+            project_id='<PROJECT_ID>',
+        )
+        request = m.last_request
+        url = urlsplit(request.url)
+        self.assertEqual(
+            unquote(url.path),
+            '/v1/organizations/<ORGANIZATION_ID>/monitors/<MONITOR_ID>',
+        )
+        sent = parse_qs(url.query, keep_blank_values=True)
+        self.assertEqual(
+            sent,
+            {
+                'projectId': ['<PROJECT_ID>'],
+            },
+        )
+        self.assertEqual(response.to_dict(), data)
 
     @requests_mock.Mocker()
     def test_set_default_payment_method(self, m):
