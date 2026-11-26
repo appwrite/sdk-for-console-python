@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.19.0
+
+* Added: `videos` service to create, list, get, update and delete videos from files in Storage
+* Added: `videos.create_rendition`, `list_renditions`, `get_rendition` and `delete_rendition` to transcode a video into HLS, DASH or CMAF
+* Added: `videos.create_caption`, `list_captions`, `update_caption` and `delete_caption` for subtitle tracks
+* Added: `get_hls_manifest`, `get_dash_manifest`, `get_cmaf_hls_manifest`, `get_cmaf_dash_manifest`, `get_caption_manifest`, `get_thumbnail` and `get_timeline` playback URLs, and `list_codecs`
+* Added: `project.list_video_profiles`, `create_video_profile`, `get_video_profile`, `update_video_profile` and `delete_video_profile`
+* Added: `Video`, `VideoCodec`, `VideoProfile`, `VideoRendition` and `VideoCaption` models, their list models, and the `VideoCodecId`, `VideoOutput`, `VideoRenditionStatus`, `VideoCaptionStatus` and `VideoTimelineStatus` enums
+
 ## 0.18.0
 
 * Breaking: `AlertSeverity` removed; `Alert.severity` is now a `MonitorSeverity`
